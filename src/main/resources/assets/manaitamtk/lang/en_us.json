@@ -1,0 +1,20 @@
+{
+  "itemGroup.mtk_main" : "ManaitaMTK",
+
+  "item.manaitamtk.item_mtk" : "MTK",
+
+  "item.manaitamtk.manaita_pickaxe" : "Manaita Pickaxe",
+  "item.manaitamtk.manaita_axe" : "Manaita Axe",
+  "item.manaitamtk.manaita_shovel" : "Mnaita Shovel",
+  "item.manaitamtk.manaita_sword" : "Manaita Sword",
+  "item.manaitamtk.manaita_paxel" : "Manaita Paxel",
+  "block.manaitamtk.block_manaita": "Manaita",
+
+  "item.manaitamtk.helmet_manaita": "Manaita Helmet",
+  "item.manaitamtk.chestplate_manaita": "Manaita Chestplate",
+  "item.manaitamtk.legins_manaita": "Manaita Leggins",
+  "item.manaitamtk.boots_manaita": "Manaita Boots",
+
+  "key.categories.manaitamtk": "ManaitaMTK",
+  "key.manaitamtk.speedboost": "Boost Key"
+}

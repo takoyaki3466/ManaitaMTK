@@ -1,0 +1,20 @@
+{
+  "itemGroup.mtk_main" : "まな板MTK",
+
+  "item.manaitamtk.item_mtk" : "MTK",
+
+  "item.manaitamtk.manaita_pickaxe" : "まな板のツルハシ",
+  "item.manaitamtk.manaita_axe" : "まな板の斧",
+  "item.manaitamtk.manaita_shovel" : "まな板のシャベル",
+  "item.manaitamtk.manaita_sword" : "まな板の剣",
+  "item.manaitamtk.manaita_paxel" : "まな板のパクセル",
+  "block.manaitamtk.block_manaita": "まな板",
+
+  "item.manaitamtk.helmet_manaita": "まな板のヘルメット",
+  "item.manaitamtk.chestplate_manaita": "まな板のチェストプレート",
+  "item.manaitamtk.legins_manaita": "まな板のレギンス",
+  "item.manaitamtk.boots_manaita": "まな板のブーツ",
+
+  "key.categories.manaitamtk": "まな板MTK",
+  "key.manaitamtk.speedboost": "ブーストキー"
+}

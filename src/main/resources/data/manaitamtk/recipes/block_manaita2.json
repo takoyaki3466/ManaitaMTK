@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shape",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "manaitamtk:item_mtk"
+    }
+  },
+  "result": {
+    "item": "manaitamtk:block_manaita",
+    "count": 1
+  }
+}
