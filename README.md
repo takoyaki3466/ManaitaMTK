@@ -1,3 +1,6 @@
+# modrinth:
+https://modrinth.com/mod/manaitamtk
+
 # 今後の計画<br>
 1:倍化ブロックを分割☓<br>
 2:倍化クラフト☓<br>
