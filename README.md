@@ -1,4 +1,4 @@
-modrinth↓↓↓↓<br>
+Modrinth↓↓↓↓<br>
 https://modrinth.com/mod/manaitamtk
 
 # 今後の計画<br>
