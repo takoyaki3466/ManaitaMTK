@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "ABC",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "manaitamtk:item_mtk"
+    },
+    "A": {
+      "item": "manaitamtk:portable_diamond_crafting_table"
+    },
+    "B": {
+      "item": "manaitamtk:portable_mtk_crafting_table"
+    },
+    "C": {
+      "item": "manaitamtk:portable_godmtk_crafting_table"
+    }
+  },
+  "result": {
+    "item": "manaitamtk:changeable_portable_dct",
+    "count": 1
+  }
+}

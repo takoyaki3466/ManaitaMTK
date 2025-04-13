@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#C#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:dirt"
+    },
+    "C": {
+      "item": "manaitamtk:block_manaita"
+    }
+  },
+  "result": {
+    "item": "manaitamtk:block_manaita_dirt",
+    "count": 1
+  }
+}

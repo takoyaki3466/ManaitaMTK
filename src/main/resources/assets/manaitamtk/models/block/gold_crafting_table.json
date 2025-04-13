@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "manaitamtk:block/gold_crafting_table_top",
+    "up": "manaitamtk:block/gold_crafting_table_top",
+    "north": "manaitamtk:block/gold_crafting_table",
+    "east": "manaitamtk:block/gold_crafting_table",
+    "south": "manaitamtk:block/gold_crafting_table",
+    "west": "manaitamtk:block/gold_crafting_table",
+    "particle": "manaitamtk:block/gold_crafting_table_top"
+  }
+}

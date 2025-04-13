@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "CCC",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:cobblestone"
+    },
+    "C": {
+      "item": "manaitamtk:wood_crafting_table"
+    }
+  },
+  "result": {
+    "item": "manaitamtk:stone_crafting_table",
+    "count": 1
+  }
+}

@@ -1,0 +1,64 @@
+package com.takoy3466.ManaitaMTK.armor;
+
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
+
+public abstract class armorManaitaCore extends ArmorItem {
+    public armorManaitaCore(ArmorItem.Type type, Item.Properties properties) {
+        super(new ArmorMaterial() {
+
+            //耐久力
+            @Override
+            public int getDurabilityForType(ArmorItem.Type type) {
+                return new int[]{13, 15, 16, 11}[type.getSlot().getIndex()] * 15;
+            }
+
+            //防御
+            @Override
+            public int getDefenseForType(ArmorItem.Type type) {
+                return new int[]{210000000, 210000000, 210000000, 210000000}[type.getSlot().getIndex()];
+            }
+
+            //エンチャントの付きやすさ
+            @Override
+            public int getEnchantmentValue() {
+                return 210000000;
+            }
+
+            //装備した時の音
+            @Override
+            public SoundEvent getEquipSound() {
+                return SoundEvents.EMPTY;
+            }
+
+            //修理に使える素材の設定
+            @Override
+            public Ingredient getRepairIngredient() {
+                return null;
+            }
+
+            //アーマーたちの基本の名前
+            @Override
+            public String getName() {
+                return "armor_manaita";
+            }
+
+            //強靭さ
+            @Override
+            public float getToughness() {
+                return 210000000f;
+            }
+
+            //耐性
+            @Override
+            public float getKnockbackResistance() {
+                return 210000000f;
+            }
+        }, type, properties
+                .durability(0)
+                .fireResistant()
+        );
+    }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "manaitamtk:block/block_manaita_dirt_top",
+    "up": "manaitamtk:block/block_manaita_dirt_top",
+    "north": "manaitamtk:block/block_manaita_dirt_side2",
+    "east": "manaitamtk:block/block_manaita_dirt_side1",
+    "south": "manaitamtk:block/block_manaita_dirt_side1",
+    "west": "manaitamtk:block/block_manaita_dirt_side1",
+    "particle": "manaitamtk:block/block_manaita_dirt_top"
+  }
+}

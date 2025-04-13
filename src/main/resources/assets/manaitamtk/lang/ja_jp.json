@@ -1,0 +1,64 @@
+{
+  "itemGroup.mtk_main" : "まな板MTK",
+
+  "item.manaitamtk.item_mtk" : "MTK",
+
+  "item.manaitamtk.portable_wood_crafting_table": "ポータブル木の2倍作業台",
+  "item.manaitamtk.portable_stone_crafting_table": "ポータブル石の4倍作業台",
+  "item.manaitamtk.portable_iron_crafting_table": "ポータブル鉄の8倍作業台",
+  "item.manaitamtk.portable_gold_crafting_table": "ポータブル金の16倍作業台",
+  "item.manaitamtk.portable_diamond_crafting_table": "ポータブルダイヤの32倍作業台",
+  "item.manaitamtk.portable_mtk_crafting_table": "ポータブルMTKの64倍作業台",
+  "item.manaitamtk.portable_godmtk_crafting_table": "ポータブルGOD神々の512倍作業台",
+
+  "item.manaitamtk.wood_double_block_mtk" : "木の2倍MTK",
+  "item.manaitamtk.stone_double_block_mtk" : "石の4倍MTK",
+  "item.manaitamtk.iron_double_block_mtk" : "鉄の8倍MTK",
+  "item.manaitamtk.gold_double_block_mtk" : "金の16倍MTK",
+  "item.manaitamtk.diamond_double_block_mtk" : "ダイヤの32倍MTK",
+  "item.manaitamtk.mtk_double_block_mtk" : "MTKの64倍MTK",
+  "item.manaitamtk.godmtk_double_block_mtk" : "GOD神々の512倍MTK",
+
+  "item.manaitamtk.changeable_portable_dct" : "可変式ポータブル倍化作業台",
+
+  "item.manaitamtk.manaita_pickaxe" : "まな板のツルハシ",
+  "item.manaitamtk.manaita_axe" : "まな板の斧",
+  "item.manaitamtk.manaita_shovel" : "まな板のシャベル",
+  "item.manaitamtk.manaita_sword" : "まな板の剣",
+  "item.manaitamtk.manaita_paxel" : "まな板のパクセル",
+  "item.manaitamtk.manaita_bow": "まな板の弓",
+
+  "block.manaitamtk.block_manaita": "まな板",
+  "block.manaitamtk.block_manaita_diamond": "まな板のダイヤモンド",
+  "block.manaitamtk.block_manaita_dirt": "まな板土",
+  "block.manaitamtk.block_manaita_glass": "まな板のガラス",
+  "block.manaitamtk.wood_crafting_table": "木の2倍作業台",
+  "block.manaitamtk.stone_crafting_table": "石の4倍作業台",
+  "block.manaitamtk.iron_crafting_table": "鉄の8倍作業台",
+  "block.manaitamtk.gold_crafting_table": "金の16倍作業台",
+  "block.manaitamtk.diamond_crafting_table": "ダイヤの32倍作業台",
+  "block.manaitamtk.mtk_crafting_table": "MTKの64倍作業台",
+  "block.manaitamtk.godmtk_crafting_table": "GOD神々の512倍作業台",
+
+  "item.manaitamtk.helmet_manaita": "まな板のヘルメット",
+  "item.manaitamtk.chestplate_manaita": "まな板のチェストプレート",
+  "item.manaitamtk.legins_manaita": "まな板のレギンス",
+  "item.manaitamtk.boots_manaita": "まな板のブーツ",
+
+  "key.manaitamtk.categories": "まな板MTK",
+  "key.manaitamtk.helmetsetting": "ヘルメットキー",
+  "key.manaitamtk.flyspeedsetting": "飛行速度変更キー",
+
+  "advancements.placed_block_manaita.title": "可変式のまな板！！",
+  "advancements.placed_block_manaita.description": "まな板ブロックを作ろう！",
+  "advancements.make_mtk.title": "まな板の始まり！",
+  "advancements.make_mtk.description": "設置できないじゃんこれ！！",
+  "advancements.make_paxel.title": "パクセルこそ至高！！！",
+  "advancements.make_paxel.description": "パクセルを作ろう！",
+  "advancements.placed_block_manaita_diamond.title": "ダイヤなのに木の音がするまな板！",
+  "advancements.placed_block_manaita_diamond.description": "まな板ダイヤブロックを作ろう！",
+  "advancements.placed_block_manaita_dirt.title": "土土してるまな板だな！",
+  "advancements.placed_block_manaita_dirt.description": "まな板土を作ろう！",
+  "advancements.placed_block_manaita_glass.title": "ガラスなのにやっぱり木の音がする！！",
+  "advancements.placed_block_manaita_glass.description": "まな板ガラスブロックを作ろう！"
+}

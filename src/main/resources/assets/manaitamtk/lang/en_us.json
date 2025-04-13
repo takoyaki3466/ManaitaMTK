@@ -1,0 +1,64 @@
+{
+  "itemGroup.mtk_main" : "ManaitaMTK",
+
+  "item.manaitamtk.item_mtk" : "MTK",
+
+  "item.manaitamtk.portable_wood_crafting_table": "Portable Wood 2x Crafting Table",
+  "item.manaitamtk.portable_stone_crafting_table": "Portable Stone 4x Crafting Table",
+  "item.manaitamtk.portable_iron_crafting_table": "Portable Iron 8x Crafting Table",
+  "item.manaitamtk.portable_gold_crafting_table": "Portable gold 16x Crafting Table",
+  "item.manaitamtk.portable_diamond_crafting_table": "Portable diamond 32x Crafting Table",
+  "item.manaitamtk.portable_mtk_crafting_table": "Portable MTK 32x Crafting Table",
+  "item.manaitamtk.portable_godmtk_crafting_table": "Portable GOD 512x Crafting Table",
+
+  "item.manaitamtk.wood_double_block_mtk" : "Wood 2x MTK",
+  "item.manaitamtk.stone_double_block_mtk" : "Stone 4x MTK",
+  "item.manaitamtk.iron_double_block_mtk" : "Iron 8x MTK",
+  "item.manaitamtk.gold_double_block_mtk" : "Gold 16x MTK",
+  "item.manaitamtk.diamond_double_block_mtk" : "Diamond 32x MTK",
+  "item.manaitamtk.mtk_double_block_mtk" : "MTK 64x MTK",
+  "item.manaitamtk.godmtk_double_block_mtk" : "GOD 512x MTK",
+
+  "item.manaitamtk.changeable_portable_dct" : "Changeable Portable Nx Crafting Table",
+
+  "item.manaitamtk.manaita_pickaxe" : "Manaita Pickaxe",
+  "item.manaitamtk.manaita_axe" : "Manaita Axe",
+  "item.manaitamtk.manaita_shovel" : "Mnaita Shovel",
+  "item.manaitamtk.manaita_sword" : "Manaita Sword",
+  "item.manaitamtk.manaita_paxel" : "Manaita Paxel",
+  "item.manaitamtk.manaita_bow": "Manaita Bow",
+
+  "block.manaitamtk.block_manaita": "Manaita",
+  "block.manaitamtk.block_manaita_diamond": "Manaita Diamond",
+  "block.manaitamtk.block_manaita_dirt": "Manaita DIRT",
+  "block.manaitamtk.block_manaita_glass": "Manaita Glass",
+  "block.manaitamtk.wood_crafting_table": "Wood 2x Crafting Table",
+  "block.manaitamtk.stone_crafting_table": "Stone 4x Crafting Table",
+  "block.manaitamtk.iron_crafting_table": "Iron 8x Crafting Table",
+  "block.manaitamtk.gold_crafting_table": "gold 16x Crafting Table",
+  "block.manaitamtk.diamond_crafting_table": "diamond 32x Crafting Table",
+  "block.manaitamtk.mtk_crafting_table": "MTK 32x Crafting Table",
+  "block.manaitamtk.godmtk_crafting_table": "GOD 512x Crafting Table",
+
+  "item.manaitamtk.helmet_manaita": "Manaita Helmet",
+  "item.manaitamtk.chestplate_manaita": "Manaita Chestplate",
+  "item.manaitamtk.legins_manaita": "Manaita Leggins",
+  "item.manaitamtk.boots_manaita": "Manaita Boots",
+
+  "key.manaitamtk.categories": "ManaitaMTK",
+  "key.manaitamtk.helmetsetting": "Helmet Key",
+  "key.manaitamtk.flyspeedsetting": "FlySpeed Key",
+
+  "advancements.placed_block_manaita.title": "A variable Manaita!",
+  "advancements.placed_block_manaita.description": "Let's make a Manaita block!",
+  "advancements.make_mtk.title": "The Beginning of the Manaita!",
+  "advancements.make_mtk.description": "You can't make this Manaita!!!",
+  "advancements.make_paxel.title": "Paxel is the supreme!",
+  "advancements.make_paxel.description": "Let's make Paxel!",
+  "advancements.placed_block_manaita_diamond.title": "A Manaita that sounds like wood even though it's diamond!",
+  "advancements.placed_block_manaita_diamond.description": "Let's make a Manaita diamond block!",
+  "advancements.placed_block_manaita_dirt.title": "DIRT IS GOD!!!!!!!!!!!!!!!!!!!!!!!!!!",
+  "advancements.placed_block_manaita_dirt.description": "Let's make a Manaita DIRT block!",
+  "advancements.placed_block_manaita_glass.title": "It's glass, but why sounds like wood?",
+  "advancements.placed_block_manaita_glass.description": "Let's make a Manaita glass block!"
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "manaitamtk:stone_crafting_table"
+    }
+  },
+  "result": {
+    "item": "manaitamtk:portable_stone_crafting_table",
+    "count": 1
+  }
+}

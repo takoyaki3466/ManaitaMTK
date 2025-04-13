@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "manaitamtk:item_mtk"
+    },
+    {
+      "item": "manaitamtk:portable_wood_crafting_table"
+    }
+  ],
+  "result": {
+    "item": "manaitamtk:wood_double_block_mtk",
+    "count": 1
+  }
+}

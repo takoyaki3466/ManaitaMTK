@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#C#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "manaitamtk:mtk_crafting_table"
+    },
+    "C": {
+      "item": "minecraft:dirt"
+    }
+  },
+  "result": {
+    "item": "manaitamtk:godmtk_crafting_table",
+    "count": 1
+  }
+}

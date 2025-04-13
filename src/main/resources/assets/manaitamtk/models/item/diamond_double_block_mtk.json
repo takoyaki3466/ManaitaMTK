@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "manaitamtk:item/diamond_double_block_mtk"
+  }
+}

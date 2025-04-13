@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#C#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:diamond"
+    },
+    "C": {
+      "item": "manaitamtk:block_manaita"
+    }
+  },
+  "result": {
+    "item": "manaitamtk:block_manaita_diamond",
+    "count": 1
+  }
+}

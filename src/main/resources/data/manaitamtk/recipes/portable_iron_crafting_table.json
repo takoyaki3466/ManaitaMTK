@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "manaitamtk:iron_crafting_table"
+    }
+  },
+  "result": {
+    "item": "manaitamtk:portable_iron_crafting_table",
+    "count": 1
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "CCC",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:planks"
+    },
+    "C": {
+      "item": "manaitamtk:item_mtk"
+    }
+  },
+  "result": {
+    "item": "manaitamtk:wood_crafting_table",
+    "count": 1
+  }
+}

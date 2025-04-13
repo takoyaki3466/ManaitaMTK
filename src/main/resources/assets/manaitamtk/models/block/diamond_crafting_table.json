@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "manaitamtk:block/diamond_crafting_table_top",
+    "up": "manaitamtk:block/diamond_crafting_table_top",
+    "north": "manaitamtk:block/diamond_crafting_table",
+    "east": "manaitamtk:block/diamond_crafting_table",
+    "south": "manaitamtk:block/diamond_crafting_table",
+    "west": "manaitamtk:block/diamond_crafting_table",
+    "particle": "manaitamtk:block/diamond_crafting_table_top"
+  }
+}
