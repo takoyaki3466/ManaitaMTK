@@ -32,18 +32,22 @@ public class HelmetManaita extends armorManaitaCore {
     @Override
     public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slot, boolean selected) {
         super.inventoryTick(itemstack, world, entity, slot, selected);
-        Player player = (Player) entity;
+        if (!(entity instanceof Player player)) return;
         FlyAndInvulnerable.FAI(entity, player);
 
-        if (MTKKeyMapping.HelmetKey.consumeClick()){
-            modeChange();
-            player.displayClientMessage(Component.literal("MODE :" + modeName()),true);
-        }
 
-        if (modeNumber == 0){
-            player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 20*20, 0));
-            player.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 20*20, 0));
-            player.onUpdateAbilities();
+        if (world.isClientSide){ // クライアント限定処理 : キー入力のチェック
+            if (MTKKeyMapping.HelmetKey.consumeClick()){
+                modeChange();
+                player.displayClientMessage(Component.literal("MODE :" + modeName()),true);
+            }
+        }
+        else { // サーバー限定処理 : エフェクトの付与など
+            if (modeNumber == 0){
+                player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 20*20, 0));
+                player.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 20*20, 0));
+                player.onUpdateAbilities();
+            }
         }
     }
 

@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ChangeableMagnificationPortableDCT extends Item {
+    private int magnification = 1;
 
     public ChangeableMagnificationPortableDCT() {
         super(new Properties()
@@ -45,7 +46,7 @@ public class ChangeableMagnificationPortableDCT extends Item {
 
                     @Override
                     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-                        return new DoubleCraftingTableMenu(id, playerInventory, ContainerLevelAccess.create(level, player.blockPosition()), modeMagnification(stack));
+                        return new DoubleCraftingTableMenu(id, playerInventory, ContainerLevelAccess.create(level, player.blockPosition()), magnification);
                     }
                 });
             }
@@ -54,20 +55,29 @@ public class ChangeableMagnificationPortableDCT extends Item {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-        Player player = (Player) entity;
+    public void inventoryTick(@NotNull ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
+        if (!(entity instanceof Player player)) return;
         InteractionHand hand = player.getUsedItemHand();
 
-        if (MTKKeyMapping.MagnificationKey.consumeClick()) {
-            player.startUsingItem(hand);
-            modeChange(stack);
-            player.displayClientMessage(Component.literal("MODE :" + modeName(stack)), true);
+        if (world.isClientSide){
+            if (MTKKeyMapping.MagnificationKey.consumeClick()) {
+                player.startUsingItem(hand);
+                modeChange(stack);
+                switch (modeName(stack)){
+                    case "1x" -> magnification = 1;
+                    case "2x" -> magnification = 2;
+                    case "8x" -> magnification = 8;
+                    case "64x" -> magnification = 64;
+                    default -> magnification = 1;
+                }
+                player.displayClientMessage(Component.literal("MODE :" + modeName(stack)), true);
+            }
         }
     }
 
 
     @Override
-    public boolean isFoil(ItemStack stack) {
+    public boolean isFoil(@NotNull ItemStack stack) {
         if (modeNumber(stack) != 0){
             return true;
         }else return false;
@@ -80,7 +90,7 @@ public class ChangeableMagnificationPortableDCT extends Item {
         }
         stack.getTag().putInt("mode",modeNumber(stack) < 3 ? modeNumber(stack) + 1 : 0);
     }
-    
+
     public int modeNumber (ItemStack stack) {
 
         if(stack.getTag() == null){
@@ -96,16 +106,6 @@ public class ChangeableMagnificationPortableDCT extends Item {
             case 2 -> "8x";
             case 3 -> "64x";
             default -> "nothing";
-        };
-    }
-    
-    private int modeMagnification(ItemStack stack){
-        return switch (modeNumber(stack)){
-            case 0 -> 1;
-            case 1 -> 2;
-            case 2 -> 8;
-            case 3 -> 64;
-            default -> 1;
         };
     }
 

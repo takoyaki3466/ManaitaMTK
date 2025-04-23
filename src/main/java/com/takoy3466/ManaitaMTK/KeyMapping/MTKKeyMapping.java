@@ -1,8 +1,12 @@
 package com.takoy3466.ManaitaMTK.KeyMapping;
 
 import net.minecraft.client.KeyMapping;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
 import java.awt.event.KeyEvent;
 
+@OnlyIn(Dist.CLIENT)
 public class MTKKeyMapping {
 
     public static KeyMapping HelmetKey = keyMappingCreate("helmetsetting",KeyEvent.VK_Z);

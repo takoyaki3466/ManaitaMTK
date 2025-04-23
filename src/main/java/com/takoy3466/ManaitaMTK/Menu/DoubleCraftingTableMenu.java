@@ -1,6 +1,5 @@
 package com.takoy3466.ManaitaMTK.Menu;
 
-import com.takoy3466.ManaitaMTK.block.craftingmanaita.DoubleCraftingTableBlock;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

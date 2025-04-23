@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABC",
+    "DED",
+    "GHI"
+  ],
+  "key": {
+    "A": {
+      "item": "manaitamtk:portable_wood_crafting_table"
+    },
+    "B": {
+      "item": "manaitamtk:portable_stone_crafting_table"
+    },
+    "C": {
+      "item": "manaitamtk:portable_iron_crafting_table"
+    },
+    "D": {
+      "item": "manaitamtk:portable_godmtk_crafting_table"
+    },
+    "E": {
+      "item": "manaitamtk:item_mtk"
+    },
+    "G": {
+      "item": "manaitamtk:portable_gold_crafting_table"
+    },
+    "H": {
+      "item": "manaitamtk:portable_diamond_crafting_table"
+    },
+    "I": {
+      "item": "manaitamtk:portable_mtk_crafting_table"
+    }
+  },
+  "result": {
+    "item": "manaitamtk:zikokenziyoku",
+    "count": 1
+  }
+}

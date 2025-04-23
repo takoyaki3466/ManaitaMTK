@@ -16,6 +16,7 @@ public class ManaitaMTKItems {
 
     //items
     public static final RegistryObject<Item> ITEM_MTK = ITEMS.register("item_mtk", ItemMTK::new);
+    public static final RegistryObject<Item> ZIKOKENZIYOKU = ITEMS.register("zikokenziyoku", ZIKOKENZIYOKU::new);
     // public static final RegistryObject<Item> CRUSHED_MTK = ITEMS.register("crushed_mtk", CrushedMTK::new);
 
     public static final RegistryObject<Item> PORTABLE_WOOD_CRAFTING_TABLE = PortableDCTRegister(DoubleCraftingTableEnum.WOOD);

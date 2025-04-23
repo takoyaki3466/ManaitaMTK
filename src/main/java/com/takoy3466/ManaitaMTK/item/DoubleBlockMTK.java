@@ -1,6 +1,5 @@
 package com.takoy3466.ManaitaMTK.item;
 
-import net.minecraft.commands.arguments.NbtTagArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -20,20 +19,20 @@ public class DoubleBlockMTK extends Item {
     }
 
     @Override
-    public InteractionResult useOn(@NotNull UseOnContext context) {
+    public @NotNull InteractionResult useOn(@NotNull UseOnContext context) {
 
         Player player = context.getPlayer();
+        if (player == null) {
+            return InteractionResult.SUCCESS;
+        }
         BlockPos pos = context.getClickedPos();
         Level level = context.getLevel();
         Item item = level.getBlockState(pos).getBlock().asItem();
         ItemStack result = new ItemStack(item, magnification);
 
-        if (player != null){
-            if (context.getPlayer().getInventory().getFreeSlot() >= 1){
-                player.getInventory().add(result);
-            }
-            else Block.popResource(level, pos, result);
-        }
+        if (context.getPlayer().getInventory().getFreeSlot() >= 1) {
+            player.getInventory().add(result);
+        } else Block.popResource(level, pos, result);
         return InteractionResult.SUCCESS;
     }
 }

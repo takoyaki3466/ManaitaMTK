@@ -2,6 +2,7 @@
   "itemGroup.mtk_main" : "ManaitaMTK",
 
   "item.manaitamtk.item_mtk" : "MTK",
+  "item.manaitamtk.zikokenziyoku": "ZIKOKENZIYOKU",
 
   "item.manaitamtk.portable_wood_crafting_table": "Portable Wood 2x Crafting Table",
   "item.manaitamtk.portable_stone_crafting_table": "Portable Stone 4x Crafting Table",
@@ -48,6 +49,7 @@
   "key.manaitamtk.categories": "ManaitaMTK",
   "key.manaitamtk.helmetsetting": "Helmet Key",
   "key.manaitamtk.flyspeedsetting": "FlySpeed Key",
+  "key.manaitamtk.magnification_key": "Magnification Key",
 
   "advancements.placed_block_manaita.title": "A variable Manaita!",
   "advancements.placed_block_manaita.description": "Let's make a Manaita block!",
@@ -60,5 +62,9 @@
   "advancements.placed_block_manaita_dirt.title": "DIRT IS GOD!!!!!!!!!!!!!!!!!!!!!!!!!!",
   "advancements.placed_block_manaita_dirt.description": "Let's make a Manaita DIRT block!",
   "advancements.placed_block_manaita_glass.title": "It's glass, but why sounds like wood?",
-  "advancements.placed_block_manaita_glass.description": "Let's make a Manaita glass block!"
+  "advancements.placed_block_manaita_glass.description": "Let's make a Manaita glass block!",
+
+  "item.manaitamtk.zikokenziyoku.display_massage": "defeat!",
+
+  "item.manaitamtk.zikokenziyoku.hover_text": "Note! Right-click to die instantly!"
 }

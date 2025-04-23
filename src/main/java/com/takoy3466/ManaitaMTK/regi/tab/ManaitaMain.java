@@ -24,6 +24,7 @@ public class ManaitaMain {
             ManaitaMTKCraftingTables.BlockItems.GODMTK_CRAFTING_TABLE.get(),
 
             ManaitaMTKItems.ITEM_MTK.get(),
+            //ManaitaMTKItems.ZIKOKENZIYOKU.get(),
             //ManaitaMTKItems.CRUSHED_MTK.get(),
 
             ManaitaMTKItems.MANAITA_PICKAXE.get(),

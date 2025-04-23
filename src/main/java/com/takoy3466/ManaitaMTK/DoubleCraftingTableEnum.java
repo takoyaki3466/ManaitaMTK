@@ -7,7 +7,10 @@ public enum DoubleCraftingTableEnum {
     GOLD(16, "gold", "16x"),
     DIAMOND(32, "diamond", "32x"),
     MTK(64, "mtk", "64x"),
-    GODMTK(512, "godmtk", "512x");
+    GODMTK(512, "godmtk", "512x"),
+
+    GLASS(256, "glass", "x256"),
+    DIRT(1024, "dirt", "x1024");
 
     private final int mag;
     private final String blockname;

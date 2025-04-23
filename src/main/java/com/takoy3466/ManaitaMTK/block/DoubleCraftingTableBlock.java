@@ -1,4 +1,4 @@
-package com.takoy3466.ManaitaMTK.block.craftingmanaita;
+package com.takoy3466.ManaitaMTK.block;
 
 import com.takoy3466.ManaitaMTK.Menu.DoubleCraftingTableMenu;
 import net.minecraft.ChatFormatting;

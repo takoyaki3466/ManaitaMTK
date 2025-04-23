@@ -2,6 +2,7 @@
   "itemGroup.mtk_main" : "まな板MTK",
 
   "item.manaitamtk.item_mtk" : "MTK",
+  "item.manaitamtk.zikokenziyoku": "自己顕示欲",
 
   "item.manaitamtk.portable_wood_crafting_table": "ポータブル木の2倍作業台",
   "item.manaitamtk.portable_stone_crafting_table": "ポータブル石の4倍作業台",
@@ -48,6 +49,7 @@
   "key.manaitamtk.categories": "まな板MTK",
   "key.manaitamtk.helmetsetting": "ヘルメットキー",
   "key.manaitamtk.flyspeedsetting": "飛行速度変更キー",
+  "key.manaitamtk.magnification_key": "倍率変更キー",
 
   "advancements.placed_block_manaita.title": "可変式のまな板！！",
   "advancements.placed_block_manaita.description": "まな板ブロックを作ろう！",
@@ -60,5 +62,9 @@
   "advancements.placed_block_manaita_dirt.title": "土土してるまな板だな！",
   "advancements.placed_block_manaita_dirt.description": "まな板土を作ろう！",
   "advancements.placed_block_manaita_glass.title": "ガラスなのにやっぱり木の音がする！！",
-  "advancements.placed_block_manaita_glass.description": "まな板ガラスブロックを作ろう！"
+  "advancements.placed_block_manaita_glass.description": "まな板ガラスブロックを作ろう！",
+
+  "item.manaitamtk.zikokenziyoku.display_massage": "敗北！",
+
+  "item.manaitamtk.zikokenziyoku.hover_text": "注意！　右クリックすると即死します！"
 }

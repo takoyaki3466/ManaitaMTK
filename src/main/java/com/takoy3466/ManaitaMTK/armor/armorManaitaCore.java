@@ -4,6 +4,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundEvent;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class armorManaitaCore extends ArmorItem {
     public armorManaitaCore(ArmorItem.Type type, Item.Properties properties) {
@@ -11,13 +12,13 @@ public abstract class armorManaitaCore extends ArmorItem {
 
             //耐久力
             @Override
-            public int getDurabilityForType(ArmorItem.Type type) {
+            public int getDurabilityForType(ArmorItem.@NotNull Type type) {
                 return new int[]{13, 15, 16, 11}[type.getSlot().getIndex()] * 15;
             }
 
             //防御
             @Override
-            public int getDefenseForType(ArmorItem.Type type) {
+            public int getDefenseForType(ArmorItem.@NotNull Type type) {
                 return new int[]{210000000, 210000000, 210000000, 210000000}[type.getSlot().getIndex()];
             }
 
@@ -29,19 +30,19 @@ public abstract class armorManaitaCore extends ArmorItem {
 
             //装備した時の音
             @Override
-            public SoundEvent getEquipSound() {
+            public @NotNull SoundEvent getEquipSound() {
                 return SoundEvents.EMPTY;
             }
 
             //修理に使える素材の設定
             @Override
-            public Ingredient getRepairIngredient() {
+            public @NotNull Ingredient getRepairIngredient() {
                 return null;
             }
 
             //アーマーたちの基本の名前
             @Override
-            public String getName() {
+            public @NotNull String getName() {
                 return "armor_manaita";
             }
 

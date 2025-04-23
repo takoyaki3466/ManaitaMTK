@@ -19,12 +19,16 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class BlockManaitaDiamond extends Block {
+public class BlockManaitaBase extends Block{
+    private final int magnification;
+    private final String componentName;
 
-    public BlockManaitaDiamond() {
+    public BlockManaitaBase(int magnification, String componentName) {
         super(BlockBehaviour.Properties.of()
                 .strength(0.5F,210000)
                 .sound(SoundType.WOOD)); //音の追加
+        this.magnification = magnification;
+        this.componentName = componentName;
     }
 
     static int Size;
@@ -32,7 +36,7 @@ public class BlockManaitaDiamond extends Block {
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         Size = 0;
-        while (Size < 64){
+        while (Size < magnification){
             // 手に持ってるアイテムをコピー
             ItemStack copyItem = player.getMainHandItem().copy();
             // コピーアイテムの数を決める(１個)
@@ -53,7 +57,7 @@ public class BlockManaitaDiamond extends Block {
     //ホバーテキストをツールに表示する
     @Override
     public void appendHoverText(ItemStack stack, @Nullable BlockGetter getter, List<Component> list, TooltipFlag flag) {
-        list.add(Component.literal("x64 only!!")
+        list.add(Component.literal(componentName + " only!!")
                 .withStyle(ChatFormatting.WHITE)
         );
     }

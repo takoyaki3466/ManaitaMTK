@@ -2,7 +2,6 @@ package com.takoy3466.ManaitaMTK.regi;
 
 import com.takoy3466.ManaitaMTK.DoubleCraftingTableEnum;
 import com.takoy3466.ManaitaMTK.block.*;
-import com.takoy3466.ManaitaMTK.block.craftingmanaita.DoubleCraftingTableBlock;
 import com.takoy3466.ManaitaMTK.main.ManaitaMTK;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -21,9 +20,17 @@ public class ManaitaMTKBlocks {
 
 
         public static final RegistryObject<Block> BLOCK_MANAITA = BLOCKS.register("block_manaita", BlockManaita::new);
-        public static final RegistryObject<Block> BLOCK_MANAITA_DIAMOND = BLOCKS.register("block_manaita_diamond", BlockManaitaDiamond::new);
-        public static final RegistryObject<Block> BLOCK_MANAITA_DIRT = BLOCKS.register("block_manaita_dirt", BlockManaitaDITR::new);
-        public static final RegistryObject<Block> BLOCK_MANAITA_GLASS = BLOCKS.register("block_manaita_glass", BlockManaitaGLASS::new);
+
+        public static final RegistryObject<Block> BLOCK_MANAITA_DIAMOND = BlockManaitaRegister(DoubleCraftingTableEnum.DIAMOND);
+        public static final RegistryObject<Block> BLOCK_MANAITA_DIRT = BlockManaitaRegister(DoubleCraftingTableEnum.DIRT);
+        public static final RegistryObject<Block> BLOCK_MANAITA_GLASS = BlockManaitaRegister(DoubleCraftingTableEnum.GLASS);
+
+        //型の作成
+        public static RegistryObject<Block> BlockManaitaRegister(DoubleCraftingTableEnum tableEnum){
+            return BLOCKS.register("block_manaita_" + tableEnum.getBlockname(),
+                    () -> new BlockManaitaBase(tableEnum.getMag(), tableEnum.getComponentName())
+            );
+        }
     }
 
     public static class BlockItems{
