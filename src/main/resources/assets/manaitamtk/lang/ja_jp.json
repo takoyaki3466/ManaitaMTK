@@ -41,6 +41,8 @@
   "block.manaitamtk.mtk_crafting_table": "MTKの64倍作業台",
   "block.manaitamtk.godmtk_crafting_table": "GOD神々の512倍作業台",
 
+  "block.manaitamtk.auto_crafting_table": "自動作業台",
+
   "item.manaitamtk.helmet_manaita": "まな板のヘルメット",
   "item.manaitamtk.chestplate_manaita": "まな板のチェストプレート",
   "item.manaitamtk.legins_manaita": "まな板のレギンス",

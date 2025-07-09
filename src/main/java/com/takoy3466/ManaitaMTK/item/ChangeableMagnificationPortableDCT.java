@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ChangeableMagnificationPortableDCT extends Item {
+    static int modeNum = 0;
     private int magnification = 1;
 
     public ChangeableMagnificationPortableDCT() {
@@ -41,7 +42,7 @@ public class ChangeableMagnificationPortableDCT extends Item {
                 serverPlayer.openMenu(new MenuProvider() {
                     @Override
                     public @NotNull Component getDisplayName() {
-                        return Component.literal("craft " + modeName(stack));
+                        return Component.literal("craft " + magnification + "x");
                     }
 
                     @Override
@@ -57,20 +58,29 @@ public class ChangeableMagnificationPortableDCT extends Item {
     @Override
     public void inventoryTick(@NotNull ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
         if (!(entity instanceof Player player)) return;
-        InteractionHand hand = player.getUsedItemHand();
 
         if (world.isClientSide){
-            if (MTKKeyMapping.MagnificationKey.consumeClick()) {
-                player.startUsingItem(hand);
-                modeChange(stack);
-                switch (modeName(stack)){
-                    case "1x" -> magnification = 1;
-                    case "2x" -> magnification = 2;
-                    case "8x" -> magnification = 8;
-                    case "64x" -> magnification = 64;
-                    default -> magnification = 1;
+            if(MTKKeyMapping.MagnificationKey.consumeClick()){
+                modeNum = modeNum < 4 ? modeNum + 1 : 0;
+                switch (modeNum){
+                    case 1:
+                        magnification = 4;
+                        break;
+                    case 2:
+                        magnification = 8;
+                        break;
+                    case 3:
+                        magnification = 16;
+                        break;
+                    case 4:
+                        magnification = 64;
+                        break;
+                    case 0:
+                    default:
+                        magnification = 1;
+                        break;
                 }
-                player.displayClientMessage(Component.literal("MODE :" + modeName(stack)), true);
+                player.displayClientMessage(Component.literal("MODE : " + magnification + "x"), true);
             }
         }
     }
@@ -78,41 +88,15 @@ public class ChangeableMagnificationPortableDCT extends Item {
 
     @Override
     public boolean isFoil(@NotNull ItemStack stack) {
-        if (modeNumber(stack) != 0){
+        if (modeNum > 1){
             return true;
         }else return false;
-    }
-    
-    private void modeChange(ItemStack stack) {
-
-        if (stack.getTag() == null) {
-            stack.setTag(new CompoundTag());
-        }
-        stack.getTag().putInt("mode",modeNumber(stack) < 3 ? modeNumber(stack) + 1 : 0);
-    }
-
-    public int modeNumber (ItemStack stack) {
-
-        if(stack.getTag() == null){
-            return 0;
-        }
-        return stack.getTag().getInt("mode");
-    }
-    
-    private String modeName(ItemStack stack){
-        return switch (modeNumber(stack)){
-            case 0 -> "1x";
-            case 1 -> "2x";
-            case 2 -> "8x";
-            case 3 -> "64x";
-            default -> "nothing";
-        };
     }
 
     //ホバーテキストをツールに表示する
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
-        list.add(Component.literal("MODE : " + modeName(stack))
+        list.add(Component.literal("MODE : " + magnification + "x")
                 .withStyle(ChatFormatting.WHITE)
         );
     }

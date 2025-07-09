@@ -17,9 +17,9 @@ import net.minecraft.resources.ResourceLocation;
 public class ClientEventBusSubscriber {
 
     @SubscribeEvent
-    public static void Clientsetup(FMLClientSetupEvent event) {
+    public static void ClientSetup(FMLClientSetupEvent event) {
 
-        Arrowmoving();
+        ArrowMoving();
     }
 
     //矢のレンダー
@@ -38,7 +38,7 @@ public class ClientEventBusSubscriber {
     }
 
     //弓の動き方
-    private static void Arrowmoving(){
+    private static void ArrowMoving(){
         ItemProperties.register(ManaitaMTKItems.MANAITA_BOW.get(), new ResourceLocation("pull"), (itemstack, clientLevel, livingEntity, i) -> {
             if (livingEntity == null) {
                 return 0.0F;

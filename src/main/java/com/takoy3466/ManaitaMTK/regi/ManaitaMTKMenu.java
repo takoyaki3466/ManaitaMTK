@@ -9,8 +9,17 @@ public class ManaitaMTKMenu {
 
     public static final DeferredRegister<MenuType<?>> MENU_TYPE = DeferredRegister.create(ForgeRegistries.MENU_TYPES, ManaitaMTK.MOD_ID);
 
-    //public static final RegistryObject<MenuType<DoubleCraftingTableMenu>> MAGNIFICATION_CRAFTING_MENU =
-    //      MENU_TYPE.register(DoubleCraftingTableEnum.WOOD.getBlockname() + "_crafting_table",
-    //              () -> new MenuType<>((id, inv) -> new DoubleCraftingTableMenu(id, inv, ContainerLevelAccess.NULL, DoubleCraftingTableEnum.PLANE.getMag()),
-    //                      FeatureFlagSet.of(FeatureFlags.VANILLA)));
+    /*
+    public static final RegistryObject<MenuType<AutoCraftingTableMenu>> AUTO_CRAFTING_MENU =
+            MENU_TYPE.register("auto_crafting_menu", () ->
+                            IForgeMenuType.create((id, inv, data) -> {
+                                BlockPos pos = data.readBlockPos();
+                                Level level = inv.player.level();
+                                if (!(level.getBlockEntity(pos) instanceof AutoCraftingTableBlockEntity be)) {
+                                    throw new IllegalStateException("Invalid BlockEntity at " + pos);
+                                }
+                                return new AutoCraftingTableMenu(id, inv, ContainerLevelAccess.create(level, pos), be);
+                            })
+                    );
+     */
 }

@@ -7,6 +7,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -24,6 +25,10 @@ public class ManaitaMTKBlocks {
         public static final RegistryObject<Block> BLOCK_MANAITA_DIAMOND = BlockManaitaRegister(DoubleCraftingTableEnum.DIAMOND);
         public static final RegistryObject<Block> BLOCK_MANAITA_DIRT = BlockManaitaRegister(DoubleCraftingTableEnum.DIRT);
         public static final RegistryObject<Block> BLOCK_MANAITA_GLASS = BlockManaitaRegister(DoubleCraftingTableEnum.GLASS);
+
+
+
+
 
         //型の作成
         public static RegistryObject<Block> BlockManaitaRegister(DoubleCraftingTableEnum tableEnum){
@@ -65,5 +70,9 @@ public class ManaitaMTKBlocks {
     public static class BlockEntities{
         //block_entityの追加
         public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, ManaitaMTK.MOD_ID);
+
+        private static <T extends BlockEntity> BlockEntityType<T> set (BlockEntityType.BlockEntitySupplier<T> entity, Block block){
+            return BlockEntityType.Builder.of(entity, block).build(null);
+        }
     }
 }

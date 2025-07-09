@@ -4,6 +4,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.enchantment.Enchantment;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class armorManaitaCore extends ArmorItem {
@@ -25,7 +26,7 @@ public abstract class armorManaitaCore extends ArmorItem {
             //エンチャントの付きやすさ
             @Override
             public int getEnchantmentValue() {
-                return 210000000;
+                return 30;
             }
 
             //装備した時の音
@@ -37,7 +38,7 @@ public abstract class armorManaitaCore extends ArmorItem {
             //修理に使える素材の設定
             @Override
             public @NotNull Ingredient getRepairIngredient() {
-                return null;
+                return Ingredient.EMPTY;
             }
 
             //アーマーたちの基本の名前
@@ -61,5 +62,25 @@ public abstract class armorManaitaCore extends ArmorItem {
                 .durability(0)
                 .fireResistant()
         );
+    }
+
+    @Override
+    public boolean isEnchantable(@NotNull ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+        return true;
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        return true;
+    }
+
+    @Override
+    public boolean isDamageable(ItemStack stack) {
+        return false;
     }
 }

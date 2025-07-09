@@ -36,7 +36,7 @@ public class BowMTK extends BowItem {
             float f = getPowerForTime(i);
             if (!((double) f < 0.1)) {
                 if (!world.isClientSide) {
-                    AbstractArrow abstractarrow = new EntityArrowMTK(world, entity, itemstack);
+                    AbstractArrow abstractarrow = new EntityArrowMTK(world, entity);
                     abstractarrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, f * 30.0F, 0.0F);//射角,弾速,ブレ度
                     if (f == 1.0F) {
                         abstractarrow.setCritArrow(true);

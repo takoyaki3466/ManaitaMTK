@@ -1,7 +1,9 @@
 package com.takoy3466.ManaitaMTK.main;
 
+import com.takoy3466.ManaitaMTK.armor.FlyAndInvincible;
 import com.takoy3466.ManaitaMTK.regi.*;
 import com.takoy3466.ManaitaMTK.regi.tab.ManaitaMTKTabs;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -25,7 +27,10 @@ public class ManaitaMTK {
         ManaitaMTKCraftingTables.BlockItems.BLOCK_ITEMS.register(bus);
 
         ManaitaMTKEntities.ENTITY.register(bus);
+        ManaitaMTKBlocks.BlockEntities.BLOCK_ENTITIES.register(bus);
 
         ManaitaMTKMenu.MENU_TYPE.register(bus);
+
+        MinecraftForge.EVENT_BUS.register(FlyAndInvincible.class);
     }
 }

@@ -41,6 +41,8 @@
   "block.manaitamtk.mtk_crafting_table": "MTK 32x Crafting Table",
   "block.manaitamtk.godmtk_crafting_table": "GOD 512x Crafting Table",
 
+  "block.manaitamtk.auto_crafting_table": "Auto Crafting Table",
+
   "item.manaitamtk.helmet_manaita": "Manaita Helmet",
   "item.manaitamtk.chestplate_manaita": "Manaita Chestplate",
   "item.manaitamtk.legins_manaita": "Manaita Leggins",
