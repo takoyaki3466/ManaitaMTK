@@ -1,5 +1,4 @@
-# 1.4.0に更新
-Gitの使い方がわからず新しくプロジェクトを作りました
+# 1.4.2に更新
 
 ## ModrinthURL↓↓↓<br>
 ### https://modrinth.com/mod/manaitamtk
