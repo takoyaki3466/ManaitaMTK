@@ -1,11 +1,11 @@
 package com.takoy3466.ManaitaMTK.regi;
 
-import com.takoy3466.ManaitaMTK.main.ManaitaMTK;
+import com.takoy3466.ManaitaMTK.ManaitaMTK;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ManaitaMTKMenu {
+public class ManaitaMTKMenus {
 
     public static final DeferredRegister<MenuType<?>> MENU_TYPE = DeferredRegister.create(ForgeRegistries.MENU_TYPES, ManaitaMTK.MOD_ID);
 

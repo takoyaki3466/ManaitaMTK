@@ -1,6 +1,6 @@
 package com.takoy3466.ManaitaMTK.plugin;
 
-import com.takoy3466.ManaitaMTK.main.ManaitaMTK;
+import com.takoy3466.ManaitaMTK.ManaitaMTK;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IAdvancedRegistration;

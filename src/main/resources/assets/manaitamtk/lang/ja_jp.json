@@ -2,7 +2,10 @@
   "itemGroup.mtk_main" : "まな板MTK",
 
   "item.manaitamtk.item_mtk" : "MTK",
+  "item.manaitamtk.crushed_mtk": "MTKの粉",
   "item.manaitamtk.zikokenziyoku": "自己顕示欲",
+
+  "enchantment.manaitamtk.fortune_mtk": "幸運MTK",
 
   "item.manaitamtk.portable_wood_crafting_table": "ポータブル木の2倍作業台",
   "item.manaitamtk.portable_stone_crafting_table": "ポータブル石の4倍作業台",

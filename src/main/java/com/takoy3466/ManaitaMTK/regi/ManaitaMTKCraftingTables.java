@@ -2,7 +2,7 @@ package com.takoy3466.ManaitaMTK.regi;
 
 import com.takoy3466.ManaitaMTK.DoubleCraftingTableEnum;
 import com.takoy3466.ManaitaMTK.block.DoubleCraftingTableBlock;
-import com.takoy3466.ManaitaMTK.main.ManaitaMTK;
+import com.takoy3466.ManaitaMTK.ManaitaMTK;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;

@@ -12,7 +12,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
@@ -24,7 +23,7 @@ public class BlockManaitaBase extends Block{
     private final String componentName;
 
     public BlockManaitaBase(int magnification, String componentName) {
-        super(BlockBehaviour.Properties.of()
+        super(Properties.of()
                 .strength(0.5F,210000)
                 .sound(SoundType.WOOD)); //音の追加
         this.magnification = magnification;

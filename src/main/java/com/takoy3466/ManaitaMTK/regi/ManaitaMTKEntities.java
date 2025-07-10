@@ -1,7 +1,7 @@
 package com.takoy3466.ManaitaMTK.regi;
 
 import com.takoy3466.ManaitaMTK.entity.EntityArrowMTK;
-import com.takoy3466.ManaitaMTK.main.ManaitaMTK;
+import com.takoy3466.ManaitaMTK.ManaitaMTK;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.registries.RegistryObject;

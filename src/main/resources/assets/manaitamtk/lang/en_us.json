@@ -2,7 +2,10 @@
   "itemGroup.mtk_main" : "ManaitaMTK",
 
   "item.manaitamtk.item_mtk" : "MTK",
+  "item.manaitamtk.crushed_mtk": "MTK Powder",
   "item.manaitamtk.zikokenziyoku": "ZIKOKENZIYOKU",
+
+  "enchantment.manaitamtk.fortune_mtk": "Fortune MTK",
 
   "item.manaitamtk.portable_wood_crafting_table": "Portable Wood 2x Crafting Table",
   "item.manaitamtk.portable_stone_crafting_table": "Portable Stone 4x Crafting Table",

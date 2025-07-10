@@ -2,9 +2,12 @@ package com.takoy3466.ManaitaMTK.regi.tab;
 
 import com.takoy3466.ManaitaMTK.regi.ManaitaMTKBlocks;
 import com.takoy3466.ManaitaMTK.regi.ManaitaMTKCraftingTables;
+import com.takoy3466.ManaitaMTK.regi.ManaitaMTKEnchantments;
 import com.takoy3466.ManaitaMTK.regi.ManaitaMTKItems;
+import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 
 public class ManaitaMain {
 
@@ -24,8 +27,8 @@ public class ManaitaMain {
             ManaitaMTKCraftingTables.BlockItems.GODMTK_CRAFTING_TABLE.get(),
 
             ManaitaMTKItems.ITEM_MTK.get(),
-            //ManaitaMTKItems.ZIKOKENZIYOKU.get(),
-            //ManaitaMTKItems.CRUSHED_MTK.get(),
+            ManaitaMTKItems.ZIKOKENZIYOKU.get(),
+            ManaitaMTKItems.CRUSHED_MTK.get(),
 
             ManaitaMTKItems.MANAITA_PICKAXE.get(),
             ManaitaMTKItems.MANAITA_AXE.get(),
@@ -55,6 +58,8 @@ public class ManaitaMain {
             ManaitaMTKItems.HELMET_MANAITA.get(),
             ManaitaMTKItems.CHESTPLATE_MANAITA.get(),
             ManaitaMTKItems.LEGINS_MANAITA.get(),
-            ManaitaMTKItems.BOOTS_MANAITA.get()
+            ManaitaMTKItems.BOOTS_MANAITA.get(),
+
+            EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ManaitaMTKEnchantments.FORTUNE_MTK.get(), 10)).getItem()
     };
 }

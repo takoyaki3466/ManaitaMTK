@@ -1,6 +1,6 @@
 package com.takoy3466.ManaitaMTK.item.tool;
 
-import com.takoy3466.ManaitaMTK.rangebreak.RangeBreakControl;
+import com.takoy3466.ManaitaMTK.item.tool.rangebreak.RangeBreakControl;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -12,6 +12,8 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -57,6 +59,16 @@ public class ToolManaitaPaxel extends TieredItem {
         }, new Item.Properties().fireResistant().rarity(Rarity.EPIC));
     }
 
+    @Override
+    public boolean isEnchantable(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        return enchantment.category == EnchantmentCategory.DIGGER || super.canApplyAtEnchantingTable(stack, enchantment);
+    }
+
     //適正ツールの設定
     @Override
     public boolean isCorrectToolForDrops(BlockState blockstate) {
@@ -89,11 +101,11 @@ public class ToolManaitaPaxel extends TieredItem {
     //範囲破壊呼び出し
     @Override
     public boolean mineBlock(ItemStack stack, Level world, BlockState blockstate, BlockPos pos, LivingEntity entity) {
-        boolean retval = super.mineBlock(stack, world, blockstate, pos, entity);
+        boolean retrieval = super.mineBlock(stack, world, blockstate, pos, entity);
 
             RangeBreakControl.control(world, pos.getX(), pos.getY(), pos.getZ(), entity, modeNumber(stack));
 
-        return retval;
+        return retrieval;
     }
 
     //トリガー(変え方)の設定

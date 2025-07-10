@@ -1,7 +1,7 @@
 package com.takoy3466.ManaitaMTK.renderer;
 
 import com.takoy3466.ManaitaMTK.entity.EntityArrowMTK;
-import com.takoy3466.ManaitaMTK.main.ManaitaMTK;
+import com.takoy3466.ManaitaMTK.ManaitaMTK;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;

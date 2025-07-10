@@ -1,4 +1,4 @@
-package com.takoy3466.ManaitaMTK.rangebreak;
+package com.takoy3466.ManaitaMTK.item.tool.rangebreak;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -38,9 +38,9 @@ public class RangeBreakPLANEOperate {
         else if ((entity.getDirection()) == Direction.EAST || (entity.getDirection()) == Direction.WEST) {
             numy = numRange;
             numz = numRange;
-            while (numy < whileRange){
-                while(numz < whileRange){
-                    world.destroyBlock(BlockPos.containing(x,y+numy,z+numz),true,entity);
+            while (numy < whileRange) {
+                while (numz < whileRange) {
+                    world.destroyBlock(BlockPos.containing(x, y + numy, z + numz), true, entity);
                     numz++;
                 }
                 numy++;

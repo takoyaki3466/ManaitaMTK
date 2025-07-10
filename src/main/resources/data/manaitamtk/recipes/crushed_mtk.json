@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "manaitamtk:item_mtk"
+  },
+  "result": "manaitamtk:crushed_mtk",
+  "experience": 0,
+  "cookingtime": 1
+}

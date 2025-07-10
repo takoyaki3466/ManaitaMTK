@@ -4,7 +4,7 @@ import com.takoy3466.ManaitaMTK.DoubleCraftingTableEnum;
 import com.takoy3466.ManaitaMTK.armor.*;
 import com.takoy3466.ManaitaMTK.item.*;
 import com.takoy3466.ManaitaMTK.item.tool.*;
-import com.takoy3466.ManaitaMTK.main.ManaitaMTK;
+import com.takoy3466.ManaitaMTK.ManaitaMTK;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -17,7 +17,7 @@ public class ManaitaMTKItems {
     //items
     public static final RegistryObject<Item> ITEM_MTK = ITEMS.register("item_mtk", ItemMTK::new);
     public static final RegistryObject<Item> ZIKOKENZIYOKU = ITEMS.register("zikokenziyoku", ZIKOKENZIYOKU::new);
-    // public static final RegistryObject<Item> CRUSHED_MTK = ITEMS.register("crushed_mtk", CrushedMTK::new);
+    public static final RegistryObject<Item> CRUSHED_MTK = ITEMS.register("crushed_mtk", CrushedMTK::new);
 
     public static final RegistryObject<Item> PORTABLE_WOOD_CRAFTING_TABLE = PortableDCTRegister(DoubleCraftingTableEnum.WOOD);
     public static final RegistryObject<Item> PORTABLE_STONE_CRAFTING_TABLE = PortableDCTRegister(DoubleCraftingTableEnum.STONE);

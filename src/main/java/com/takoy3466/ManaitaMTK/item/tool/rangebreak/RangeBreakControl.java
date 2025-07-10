@@ -1,4 +1,4 @@
-package com.takoy3466.ManaitaMTK.rangebreak;
+package com.takoy3466.ManaitaMTK.item.tool.rangebreak;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LevelAccessor;

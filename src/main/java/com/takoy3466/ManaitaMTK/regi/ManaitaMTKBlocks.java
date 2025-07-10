@@ -2,7 +2,7 @@ package com.takoy3466.ManaitaMTK.regi;
 
 import com.takoy3466.ManaitaMTK.DoubleCraftingTableEnum;
 import com.takoy3466.ManaitaMTK.block.*;
-import com.takoy3466.ManaitaMTK.main.ManaitaMTK;
+import com.takoy3466.ManaitaMTK.ManaitaMTK;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -25,10 +25,6 @@ public class ManaitaMTKBlocks {
         public static final RegistryObject<Block> BLOCK_MANAITA_DIAMOND = BlockManaitaRegister(DoubleCraftingTableEnum.DIAMOND);
         public static final RegistryObject<Block> BLOCK_MANAITA_DIRT = BlockManaitaRegister(DoubleCraftingTableEnum.DIRT);
         public static final RegistryObject<Block> BLOCK_MANAITA_GLASS = BlockManaitaRegister(DoubleCraftingTableEnum.GLASS);
-
-
-
-
 
         //型の作成
         public static RegistryObject<Block> BlockManaitaRegister(DoubleCraftingTableEnum tableEnum){
