@@ -1,15 +1,9 @@
 package com.takoy3466.ManaitaMTK.regi.tab;
 
-import com.takoy3466.ManaitaMTK.regi.ManaitaMTKBlocks;
-import com.takoy3466.ManaitaMTK.regi.ManaitaMTKCraftingTables;
-import com.takoy3466.ManaitaMTK.regi.ManaitaMTKEnchantments;
-import com.takoy3466.ManaitaMTK.regi.ManaitaMTKItems;
-import net.minecraft.world.item.EnchantedBookItem;
+import com.takoy3466.ManaitaMTK.regi.*;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.EnchantmentInstance;
 
-public class ManaitaMain {
+public class ManaitaTabItems {
 
     public static final Item[] items = {
             //上から順番にタブに追加される
@@ -18,16 +12,17 @@ public class ManaitaMain {
             ManaitaMTKBlocks.BlockItems.BLOCK_MANAITA_DIRT.get(),
             ManaitaMTKBlocks.BlockItems.BLOCK_MANAITA_GLASS.get(),
 
-            ManaitaMTKCraftingTables.BlockItems.WOOD_CRAFTING_TABLE.get(),
-            ManaitaMTKCraftingTables.BlockItems.STONE_CRAFTING_TABLE.get(),
-            ManaitaMTKCraftingTables.BlockItems.IRON_CRAFTING_TABLE.get(),
-            ManaitaMTKCraftingTables.BlockItems.GOLD_CRAFTING_TABLE.get(),
-            ManaitaMTKCraftingTables.BlockItems.DIAMOND_CRAFTING_TABLE.get(),
-            ManaitaMTKCraftingTables.BlockItems.MTK_CRAFTING_TABLE.get(),
-            ManaitaMTKCraftingTables.BlockItems.GODMTK_CRAFTING_TABLE.get(),
+            ManaitaMTKBlocks.BlockItems.WOOD_CRAFTING_TABLE.get(),
+            ManaitaMTKBlocks.BlockItems.STONE_CRAFTING_TABLE.get(),
+            ManaitaMTKBlocks.BlockItems.IRON_CRAFTING_TABLE.get(),
+            ManaitaMTKBlocks.BlockItems.GOLD_CRAFTING_TABLE.get(),
+            ManaitaMTKBlocks.BlockItems.DIAMOND_CRAFTING_TABLE.get(),
+            ManaitaMTKBlocks.BlockItems.MTK_CRAFTING_TABLE.get(),
+            ManaitaMTKBlocks.BlockItems.GODMTK_CRAFTING_TABLE.get(),
+            ManaitaMTKBlocks.BlockItems.BREAK_CRAFTING_TABLE.get(),
 
             ManaitaMTKItems.ITEM_MTK.get(),
-            ManaitaMTKItems.ZIKOKENZIYOKU.get(),
+            //ManaitaMTKItems.ZIKOKENZIYOKU.get(),
             ManaitaMTKItems.CRUSHED_MTK.get(),
 
             ManaitaMTKItems.MANAITA_PICKAXE.get(),
@@ -36,6 +31,7 @@ public class ManaitaMain {
             ManaitaMTKItems.MANAITA_SWORD.get(),
             ManaitaMTKItems.MANAITA_PAXEL.get(),
             ManaitaMTKItems.MANAITA_BOW.get(),
+            ManaitaMTKItems.MANAITA_HOE.get(),
 
             ManaitaMTKItems.PORTABLE_WOOD_CRAFTING_TABLE.get(),
             ManaitaMTKItems.PORTABLE_STONE_CRAFTING_TABLE.get(),
@@ -44,6 +40,7 @@ public class ManaitaMain {
             ManaitaMTKItems.PORTABLE_DIAMOND_CRAFTING_TABLE.get(),
             ManaitaMTKItems.PORTABLE_MTK_CRAFTING_TABLE.get(),
             ManaitaMTKItems.PORTABLE_GODMTK_CRAFTING_TABLE.get(),
+            ManaitaMTKItems.PORTABLE_BREAK_CRAFTING_TABLE.get(),
 
             ManaitaMTKItems.CHANGEABLE_PORTABLE_DCT.get(),
 
@@ -59,7 +56,5 @@ public class ManaitaMain {
             ManaitaMTKItems.CHESTPLATE_MANAITA.get(),
             ManaitaMTKItems.LEGINS_MANAITA.get(),
             ManaitaMTKItems.BOOTS_MANAITA.get(),
-
-            EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ManaitaMTKEnchantments.FORTUNE_MTK.get(), 10)).getItem()
     };
 }

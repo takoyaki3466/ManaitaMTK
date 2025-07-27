@@ -1,4 +1,4 @@
-package com.takoy3466.ManaitaMTK.armor;
+package com.takoy3466.ManaitaMTK.item.armor;
 
 import com.takoy3466.ManaitaMTK.KeyMapping.MTKKeyMapping;
 import net.minecraft.ChatFormatting;
@@ -18,6 +18,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class HelmetManaita extends armorManaitaCore {
+    private final Component hoverText = Component.translatable("item.manaitamtk.helmet_manaita.hover_text");
+
     public HelmetManaita() {
         super(ArmorItem.Type.HELMET, new Item.Properties());
     }
@@ -36,13 +38,13 @@ public class HelmetManaita extends armorManaitaCore {
         FlyAndInvincible.FAI(entity, player);
 
 
-        if (world.isClientSide){ // クライアント限定処理 : キー入力のチェック
+        if (world.isClientSide){ // クライアント限定処理 (キー入力のチェック)
             if (MTKKeyMapping.HelmetKey.consumeClick()){
                 modeChange();
                 player.displayClientMessage(Component.literal("MODE :" + modeName()),true);
             }
         }
-        else { // サーバー限定処理 : エフェクトの付与など
+        else { // サーバー限定処理 (エフェクトの付与など)
             if (modeNumber == 0){
                 player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 20*20, 0));
                 player.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 20*20, 0));
@@ -71,8 +73,8 @@ public class HelmetManaita extends armorManaitaCore {
     //ホバーテキストをツールに表示する
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
-        list.add(Component.literal("~Default value is 0.05~")
-                .withStyle(ChatFormatting.WHITE)
+        list.add(Component.literal(hoverText.getString() + FlyAndInvincible.modeF)
+                .withStyle(ChatFormatting.GRAY)
         );
     }
 }

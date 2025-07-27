@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "manaitamtk:manaita_paxel"
+    },
+    "title": {
+      "translate": "advancement.mtk_screen_open.title"
+    },
+    "description": {
+      "translate": "advancement.mtk_screen_open.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "mtk_screen_open": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "manaitamtk:advancements_5"
+}

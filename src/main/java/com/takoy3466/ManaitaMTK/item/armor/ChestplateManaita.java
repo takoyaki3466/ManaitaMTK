@@ -1,4 +1,4 @@
-package com.takoy3466.ManaitaMTK.armor;
+package com.takoy3466.ManaitaMTK.item.armor;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;

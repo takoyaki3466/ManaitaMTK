@@ -1,6 +1,8 @@
 package com.takoy3466.ManaitaMTK.item;
 
 import com.takoy3466.ManaitaMTK.entity.EntityArrowMTK;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -13,6 +15,9 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class BowMTK extends BowItem {
 
@@ -26,7 +31,6 @@ public class BowMTK extends BowItem {
 
     public void releaseUsing(ItemStack stack, Level world, LivingEntity entity, int timeLeft) {
         if (entity instanceof Player player) {
-            ItemStack itemstack = Items.AIR.getDefaultInstance();
 
             int i = this.getUseDuration(stack) - timeLeft;
             if (i < 0) {
@@ -52,8 +56,8 @@ public class BowMTK extends BowItem {
                     if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FLAMING_ARROWS, stack) > 0) {
                         abstractarrow.setSecondsOnFire(100);
                     }
-                    stack.hurtAndBreak(1, player, (p_289501_) -> {
-                        p_289501_.broadcastBreakEvent(player.getUsedItemHand());
+                    stack.hurtAndBreak(1, player, (player1) -> {
+                        player1.broadcastBreakEvent(player.getUsedItemHand());
                     });
                     world.addFreshEntity(abstractarrow);
                 }
@@ -88,6 +92,11 @@ public class BowMTK extends BowItem {
     }
     
     public int getDefaultProjectileRange() {
-        return 15;
+        return 256;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
+        list.add(Component.translatable("item.manaitamtk.bow_mtk.hover_text").withStyle(ChatFormatting.GRAY));
     }
 }

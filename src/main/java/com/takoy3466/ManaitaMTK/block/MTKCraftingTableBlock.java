@@ -1,6 +1,7 @@
 package com.takoy3466.ManaitaMTK.block;
 
-import com.takoy3466.ManaitaMTK.Menu.DoubleCraftingTableMenu;
+import com.takoy3466.ManaitaMTK.MTKEnum;
+import com.takoy3466.ManaitaMTK.block.menu.MTKCraftingTableMenu;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -24,16 +25,14 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 // クラフト結果が2倍になる作業台ブロック
-public class DoubleCraftingTableBlock extends Block {
+public class MTKCraftingTableBlock extends Block {
     private final int magnification;
-    private final String componentName;
 
-    public DoubleCraftingTableBlock(Properties properties, int mag, String componentName) {
+    public MTKCraftingTableBlock(int mag) {
         super(Properties.of()
                 .strength(0.5F,210000)
                 .sound(SoundType.WOOD));
         this.magnification = mag;
-        this.componentName = componentName;
     }
 
     @Override
@@ -44,12 +43,12 @@ public class DoubleCraftingTableBlock extends Block {
                 serverPlayer.openMenu(new MenuProvider() {
                     @Override
                     public @NotNull Component getDisplayName() {
-                        return Component.translatable("craft " + componentName);
+                        return Component.translatable("craft x" + magnification);
                     }
 
                     @Override
                     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-                        return new DoubleCraftingTableMenu(id, playerInventory, ContainerLevelAccess.create(world, pos), magnification);
+                        return new MTKCraftingTableMenu(id, playerInventory, ContainerLevelAccess.create(world, pos), magnification);
                     }
                 });
             }
@@ -59,8 +58,12 @@ public class DoubleCraftingTableBlock extends Block {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable BlockGetter getter, List<Component> list, TooltipFlag flag) {
-        list.add(Component.literal(componentName)
-                .withStyle(ChatFormatting.WHITE)
-        );
+        if (magnification == MTKEnum.BREAK.getMag()) {
+            list.add(Component.literal(" x33554431 !!")
+                    .withStyle(ChatFormatting.RED));
+        }else {
+            list.add(Component.literal("x" + magnification)
+                    .withStyle(ChatFormatting.WHITE));
+        }
     }
 }

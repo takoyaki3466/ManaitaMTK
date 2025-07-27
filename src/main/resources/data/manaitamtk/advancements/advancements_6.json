@@ -1,27 +1,27 @@
 {
   "display": {
     "icon": {
-      "item": "manaitamtk:item_mtk"
+      "item": "manaitamtk:crushed_mtk"
     },
     "title": {
-      "translate": "advancements.make_mtk.title"
+      "translate": "advancements.make_crushed_mtk.title"
     },
     "description": {
-      "translate": "advancements.make_mtk.description"
+      "translate": "advancements.make_crushed_mtk.description"
     },
-    "frame": "task",
+    "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
   "criteria": {
-    "advancements_0": {
+    "advancements_5": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "manaitamtk:block_manaita"
+              "manaitamtk:crushed_mtk"
             ],
             "count": {
               "min": 1,
@@ -32,5 +32,5 @@
       }
     }
   },
-  "parent": "manaitamtk:advancements_0base"
+  "parent": "manaitamtk:advancements_0"
 }

@@ -1,14 +1,12 @@
-package com.takoy3466.ManaitaMTK.armor;
+package com.takoy3466.ManaitaMTK.item.armor;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class LeggingsManaita extends armorManaitaCore {
-    public LeggingsManaita() {
-        super(ArmorItem.Type.LEGGINGS, new Item.Properties());
+public class BootsManaita extends armorManaitaCore {
+    public BootsManaita() {
+        super(Type.BOOTS, new Properties());
     }
 
     @Override

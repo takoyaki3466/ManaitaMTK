@@ -19,7 +19,7 @@ public class ManaitaMTKTabs {
                     .icon(()->new ItemStack(ManaitaMTKItems.ITEM_MTK.get()))
                     .title(Component.translatable("itemGroup.mtk_main"))
                     .displayItems((pram,output)->{
-                        for(Item item:ManaitaMain.items){
+                        for(Item item: ManaitaTabItems.items){
                             output.accept(item);
                         }
                     })

@@ -20,14 +20,12 @@ import java.util.List;
 
 public class BlockManaitaBase extends Block{
     private final int magnification;
-    private final String componentName;
 
-    public BlockManaitaBase(int magnification, String componentName) {
+    public BlockManaitaBase(int magnification) {
         super(Properties.of()
                 .strength(0.5F,210000)
                 .sound(SoundType.WOOD)); //音の追加
         this.magnification = magnification;
-        this.componentName = componentName;
     }
 
     static int Size;
@@ -56,7 +54,7 @@ public class BlockManaitaBase extends Block{
     //ホバーテキストをツールに表示する
     @Override
     public void appendHoverText(ItemStack stack, @Nullable BlockGetter getter, List<Component> list, TooltipFlag flag) {
-        list.add(Component.literal(componentName + " only!!")
+        list.add(Component.literal("x" + magnification + " only!!")
                 .withStyle(ChatFormatting.WHITE)
         );
     }

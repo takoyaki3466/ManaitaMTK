@@ -4,49 +4,21 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import net.minecraft.world.item.Item;
 
 import java.util.List;
 
-public class ToolManaitaPaxel extends TieredItem {
+
+public class ToolManaitaPickaxe extends PickaxeItem {
     public static int range;
-    public ToolManaitaPaxel() {
-        super(MTKTierList.MTK_TIER, new Item.Properties().fireResistant().rarity(Rarity.EPIC));
+    public ToolManaitaPickaxe() {
+        super(MTKTierList.MTK_TIER, 2147483647, 2147483647f, new Item.Properties().fireResistant());
     }
 
-    @Override
-    public boolean isEnchantable(ItemStack stack) {
-        return true;
-    }
-
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return enchantment.category == EnchantmentCategory.DIGGER;
-    }
-
-    //適正ツールの設定
-    @Override
-    public boolean isCorrectToolForDrops(BlockState blockstate) {
-        return true;
-    }
-
-    //採掘速度の設定
-    @Override
-    public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {
-        return 2147483647f;
-    }
-
-    //範囲破壊呼び出し
     @Override
     public boolean mineBlock(ItemStack stack, Level world, BlockState blockstate, BlockPos pos, LivingEntity entity) {
         if (range == 1 || range == 0) {

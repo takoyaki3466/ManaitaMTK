@@ -14,6 +14,7 @@
   "item.manaitamtk.portable_diamond_crafting_table": "Portable diamond 32x Crafting Table",
   "item.manaitamtk.portable_mtk_crafting_table": "Portable MTK 32x Crafting Table",
   "item.manaitamtk.portable_godmtk_crafting_table": "Portable GOD 512x Crafting Table",
+  "item.manaitamtk.portable_break_crafting_table": "Portable Break Crafting Table",
 
   "item.manaitamtk.wood_double_block_mtk" : "Wood 2x MTK",
   "item.manaitamtk.stone_double_block_mtk" : "Stone 4x MTK",
@@ -27,10 +28,11 @@
 
   "item.manaitamtk.manaita_pickaxe" : "Manaita Pickaxe",
   "item.manaitamtk.manaita_axe" : "Manaita Axe",
-  "item.manaitamtk.manaita_shovel" : "Mnaita Shovel",
+  "item.manaitamtk.manaita_shovel" : "Manaita Shovel",
   "item.manaitamtk.manaita_sword" : "Manaita Sword",
   "item.manaitamtk.manaita_paxel" : "Manaita Paxel",
   "item.manaitamtk.manaita_bow": "Manaita Bow",
+  "item.manaitamtk.manaita_hoe": "Manaita Hoe",
 
   "block.manaitamtk.block_manaita": "Manaita",
   "block.manaitamtk.block_manaita_diamond": "Manaita Diamond",
@@ -43,6 +45,7 @@
   "block.manaitamtk.diamond_crafting_table": "diamond 32x Crafting Table",
   "block.manaitamtk.mtk_crafting_table": "MTK 32x Crafting Table",
   "block.manaitamtk.godmtk_crafting_table": "GOD 512x Crafting Table",
+  "block.manaitamtk.break_crafting_table": "Break Crafting Table",
 
   "block.manaitamtk.auto_crafting_table": "Auto Crafting Table",
 
@@ -55,21 +58,38 @@
   "key.manaitamtk.helmetsetting": "Helmet Key",
   "key.manaitamtk.flyspeedsetting": "FlySpeed Key",
   "key.manaitamtk.magnification_key": "Magnification Key",
+  "key.manaitamtk.mtk_switcher_open_key": "Open the switcher",
+  "key.manaitamtk.mtk_switcher_select_key": "Move the selection in the switcher",
 
-  "advancements.placed_block_manaita.title": "A variable Manaita!",
+  "advancements.start.title": "Manaita MTK",
+  "advancements.start.description": "Manaita MTK",
+  "advancements.placed_block_manaita.title": "The texture seems flat...",
   "advancements.placed_block_manaita.description": "Let's make a Manaita block!",
-  "advancements.make_mtk.title": "The Beginning of the Manaita!",
-  "advancements.make_mtk.description": "You can't make this Manaita!!!",
+  "advancements.make_mtk.title": "I can't place this Manaita!!",
+  "advancements.make_mtk.description": "Let's make an MTK",
   "advancements.make_paxel.title": "Paxel is the supreme!",
   "advancements.make_paxel.description": "Let's make Paxel!",
-  "advancements.placed_block_manaita_diamond.title": "A Manaita that sounds like wood even though it's diamond!",
+  "advancements.placed_block_manaita_diamond.title": "A Manaita Diamond that sounds like wood!",
   "advancements.placed_block_manaita_diamond.description": "Let's make a Manaita diamond block!",
-  "advancements.placed_block_manaita_dirt.title": "DIRT IS GOD!!!!!!!!!!!!!!!!!!!!!!!!!!",
+  "advancements.placed_block_manaita_dirt.title": "A clay cutting \"board\"...?",
   "advancements.placed_block_manaita_dirt.description": "Let's make a Manaita DIRT block!",
-  "advancements.placed_block_manaita_glass.title": "It's glass, but why sounds like wood?",
+  "advancements.placed_block_manaita_glass.title": "It's glass but it sounds like wood...",
   "advancements.placed_block_manaita_glass.description": "Let's make a Manaita glass block!",
+  "advancements.make_crushed_mtk.title": "Don't you have a grinder?",
+  "advancements.make_crushed_mtk.description": "Let's bake an MTK!",
+  "advancements.make_break_crafting_table.title": "The numbers aren't so sharp...?",
+  "advancements.make_break_crafting_table.description": "Let's build a break workbench!",
+  "advancement.mtk_screen_open.title": "This screen looks familiar...",
+  "advancement.mtk_screen_open.description": "It's the one that appears when you press F3 and F4!",
 
   "item.manaitamtk.zikokenziyoku.display_massage": "defeat!",
 
-  "item.manaitamtk.zikokenziyoku.hover_text": "Note! Right-click to die instantly!"
+  "item.manaitamtk.zikokenziyoku.hover_text": "Note! Right-click to die instantly!",
+  "item.manaitamtk.manaita_axe.hover_text": "You can restore stripped trees by right-clicking while holding down the Shift key!",
+  "item.manaitamtk.helmet_manaita.hover_text": "Speed: ",
+  "item.manaitamtk.manaita_hoe.hover_text": "Area that can be cultivated by right-clicking while holding down the Shift key: ",
+  "item.manaitamtk.bow_mtk.hover_text": "Arrows fired will disappear after 30 seconds!",
+
+  "gui.mtk_switcher_screen.first_title": "Move with ",
+  "gui.mtk_switcher_screen.second_title": " or the wheel"
 }

@@ -1,9 +1,8 @@
 package com.takoy3466.ManaitaMTK.item;
 
 import com.takoy3466.ManaitaMTK.KeyMapping.MTKKeyMapping;
-import com.takoy3466.ManaitaMTK.Menu.DoubleCraftingTableMenu;
+import com.takoy3466.ManaitaMTK.block.menu.MTKCraftingTableMenu;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
@@ -47,7 +46,7 @@ public class ChangeableMagnificationPortableDCT extends Item {
 
                     @Override
                     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-                        return new DoubleCraftingTableMenu(id, playerInventory, ContainerLevelAccess.create(level, player.blockPosition()), magnification);
+                        return new MTKCraftingTableMenu(id, playerInventory, ContainerLevelAccess.create(level, player.blockPosition()), magnification);
                     }
                 });
             }

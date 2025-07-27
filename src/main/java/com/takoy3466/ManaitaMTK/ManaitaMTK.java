@@ -1,6 +1,6 @@
 package com.takoy3466.ManaitaMTK;
 
-import com.takoy3466.ManaitaMTK.armor.FlyAndInvincible;
+import com.takoy3466.ManaitaMTK.item.armor.FlyAndInvincible;
 import com.takoy3466.ManaitaMTK.config.MTKConfig;
 import com.takoy3466.ManaitaMTK.enchant.FortuneMTK;
 import com.takoy3466.ManaitaMTK.regi.*;
@@ -20,18 +20,16 @@ public class ManaitaMTK {
     public ManaitaMTK(){
         //最初に読み込む所
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        ManaitaMTKTabs.MOD_TABS.register(bus);
 
         ManaitaMTKItems.ITEMS.register(bus);
 
         ManaitaMTKBlocks.Blocks.BLOCKS.register(bus);
-        ManaitaMTKCraftingTables.BLOCKS.register(bus);
 
         ManaitaMTKBlocks.BlockItems.BLOCK_ITEMS.register(bus);
-        ManaitaMTKCraftingTables.BlockItems.BLOCK_ITEMS.register(bus);
 
-        ManaitaMTKEntities.ENTITY.register(bus);
         ManaitaMTKBlocks.BlockEntities.BLOCK_ENTITIES.register(bus);
+        ManaitaMTKEntities.ENTITY.register(bus);
+
 
         ManaitaMTKMenus.MENU_TYPE.register(bus);
 
@@ -39,8 +37,10 @@ public class ManaitaMTK {
 
         ManaitaMTKEnchantments.ENCHANTMENTS.register(bus);
 
+        ManaitaMTKTabs.MOD_TABS.register(bus);
+
         MinecraftForge.EVENT_BUS.register(FlyAndInvincible.class);
-        MinecraftForge.EVENT_BUS.register(FortuneMTK.class);
+        MinecraftForge.EVENT_BUS.register(MTKSubscribeEvent.class);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MTKConfig.SPEC, "manaitamtk.toml");
     }

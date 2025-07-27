@@ -14,6 +14,7 @@
   "item.manaitamtk.portable_diamond_crafting_table": "ポータブルダイヤの32倍作業台",
   "item.manaitamtk.portable_mtk_crafting_table": "ポータブルMTKの64倍作業台",
   "item.manaitamtk.portable_godmtk_crafting_table": "ポータブルGOD神々の512倍作業台",
+  "item.manaitamtk.portable_break_crafting_table": "ポータブルブレイク作業台",
 
   "item.manaitamtk.wood_double_block_mtk" : "木の2倍MTK",
   "item.manaitamtk.stone_double_block_mtk" : "石の4倍MTK",
@@ -31,6 +32,7 @@
   "item.manaitamtk.manaita_sword" : "まな板の剣",
   "item.manaitamtk.manaita_paxel" : "まな板のパクセル",
   "item.manaitamtk.manaita_bow": "まな板の弓",
+  "item.manaitamtk.manaita_hoe": "まな板のクワ",
 
   "block.manaitamtk.block_manaita": "まな板",
   "block.manaitamtk.block_manaita_diamond": "まな板のダイヤモンド",
@@ -43,6 +45,7 @@
   "block.manaitamtk.diamond_crafting_table": "ダイヤの32倍作業台",
   "block.manaitamtk.mtk_crafting_table": "MTKの64倍作業台",
   "block.manaitamtk.godmtk_crafting_table": "GOD神々の512倍作業台",
+  "block.manaitamtk.break_crafting_table": "ブレイク作業台",
 
   "block.manaitamtk.auto_crafting_table": "自動作業台",
 
@@ -55,21 +58,39 @@
   "key.manaitamtk.helmetsetting": "ヘルメットキー",
   "key.manaitamtk.flyspeedsetting": "飛行速度変更キー",
   "key.manaitamtk.magnification_key": "倍率変更キー",
+  "key.manaitamtk.mtk_switcher_open_key": "スイッチャーを開く",
+  "key.manaitamtk.mtk_switcher_select_key": "スイッチャーでの選択の移動",
 
-  "advancements.placed_block_manaita.title": "可変式のまな板！！",
+  "advancements.start.title": "Manaita MTK",
+  "advancements.start.description": "Manaita MTK",
+  "advancements.placed_block_manaita.title": "テクスチャがのっぺりしてるような気がする...",
   "advancements.placed_block_manaita.description": "まな板ブロックを作ろう！",
-  "advancements.make_mtk.title": "まな板の始まり！",
-  "advancements.make_mtk.description": "設置できないじゃんこれ！！",
+  "advancements.make_mtk.title": "このまな板設置できないんだけど！！",
+  "advancements.make_mtk.description": "MTKを作ろう",
   "advancements.make_paxel.title": "パクセルこそ至高！！！",
-  "advancements.make_paxel.description": "パクセルを作ろう！",
+  "advancements.make_paxel.description": "まな板のパクセルを作ろう！",
   "advancements.placed_block_manaita_diamond.title": "ダイヤなのに木の音がするまな板！",
   "advancements.placed_block_manaita_diamond.description": "まな板ダイヤブロックを作ろう！",
-  "advancements.placed_block_manaita_dirt.title": "土土してるまな板だな！",
+  "advancements.placed_block_manaita_dirt.title": "土なのにまな「板」...?",
   "advancements.placed_block_manaita_dirt.description": "まな板土を作ろう！",
-  "advancements.placed_block_manaita_glass.title": "ガラスなのにやっぱり木の音がする！！",
+  "advancements.placed_block_manaita_glass.title": "ガラスなのに木の音がする...",
   "advancements.placed_block_manaita_glass.description": "まな板ガラスブロックを作ろう！",
+  "advancements.make_crushed_mtk.title": "粉砕機はないのか？",
+  "advancements.make_crushed_mtk.description": "MTKを焼いてみよう！",
+  "advancements.make_break_crafting_table.title": "なんか数字のキリ悪くない...?",
+  "advancements.make_break_crafting_table.description": "ブレイク作業台を作ろう！",
+  "advancement.mtk_screen_open.title": "なんか見覚えあるスクリーンだな...",
+  "advancement.mtk_screen_open.description": "F3とF4押したときに出てくるやつやないか！",
 
   "item.manaitamtk.zikokenziyoku.display_massage": "敗北！",
 
-  "item.manaitamtk.zikokenziyoku.hover_text": "注意！　右クリックすると即死します！"
+  "item.manaitamtk.zikokenziyoku.hover_text": "注意！　右クリックすると即死します！",
+  "item.manaitamtk.manaita_axe.hover_text": "シフト右クリックで剥いだ木を戻せる！",
+  "item.manaitamtk.helmet_manaita.hover_text": "速さ : ",
+  "item.manaitamtk.manaita_hoe.hover_text": "シフト右クリックで耕せる範囲 : ",
+  "item.manaitamtk.bow_mtk.hover_text": "発射した矢は30秒で消えるよ！",
+
+
+  "gui.mtk_switcher_screen.first_title": "",
+  "gui.mtk_switcher_screen.second_title": "またはホイールで移動"
 }

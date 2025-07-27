@@ -1,8 +1,8 @@
-package com.takoy3466.ManaitaMTK.Menu;
+package com.takoy3466.ManaitaMTK.block.menu;
 
+import com.takoy3466.ManaitaMTK.block.MTKResultContainer;
 import com.takoy3466.ManaitaMTK.config.MTKConfig;
 import com.takoy3466.ManaitaMTK.regi.ManaitaMTKItems;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -11,23 +11,21 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class DoubleCraftingTableMenu extends CraftingMenu {
+public class MTKCraftingTableMenu extends CraftingMenu {
     private final ContainerLevelAccess access;
     private final CraftingContainer craftingContainer;
     private final ResultContainer resultContainer;
     private final int magnification;
 
-    public DoubleCraftingTableMenu(int id, Inventory playerInventory, ContainerLevelAccess access, int mag) {
+    public MTKCraftingTableMenu(int id, Inventory playerInventory, ContainerLevelAccess access, int mag) {
         super(id, playerInventory, access);
-
         this.access = access;
         this.craftingContainer = new TransientCraftingContainer(this, 3, 3);
-        this.resultContainer = new ResultContainer();
+        this.resultContainer = new MTKResultContainer();
         magnification = mag;
     }
 
@@ -39,8 +37,6 @@ public class DoubleCraftingTableMenu extends CraftingMenu {
             }
             // レシピマネージャーの取得
             RecipeManager recipeManager = level.getRecipeManager();
-            // this.craftingContainer.setChanged();
-
             // クラフトレシピの検索
             Optional<CraftingRecipe> recipe = recipeManager.getRecipeFor(RecipeType.CRAFTING, (CraftingContainer) container, level);
 
@@ -51,25 +47,17 @@ public class DoubleCraftingTableMenu extends CraftingMenu {
             }
             else if (recipe.isPresent()) {
                 ItemStack result = recipe.get().assemble(this.craftingContainer, level.registryAccess());
-
-                if (!result.isEmpty()) {
-                    result.setCount(result.getCount() * magnification);// クラフト結果をn倍にする
-                    this.resultContainer.setItem(0, result);
-                    setItem(0,1, result);
-                    this.resultContainer.setChanged();
-
-                } else {
-                    this.resultContainer.setItem(0, ItemStack.EMPTY);
-                    setItem(0, 0, ItemStack.EMPTY);
-                    this.resultContainer.setChanged();
-                }
-
+                result.setCount(result.getCount() * magnification);// クラフト結果をn倍にする
+                //this.resultContainer.setItem(0, result);
+                setItem(0,1, result);
+                //this.resultContainer.setChanged();
             } else {
-                this.resultContainer.setItem(0, ItemStack.EMPTY);
+                //this.resultContainer.setItem(0, ItemStack.EMPTY);
                 setItem(0, 0, ItemStack.EMPTY);
-                this.resultContainer.setChanged();
+                //this.resultContainer.setChanged();
             }
             this.broadcastChanges();
+            container.setChanged();
         });
     }
 

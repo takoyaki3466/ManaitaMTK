@@ -10,16 +10,18 @@ public class ManaitaMTKMenus {
     public static final DeferredRegister<MenuType<?>> MENU_TYPE = DeferredRegister.create(ForgeRegistries.MENU_TYPES, ManaitaMTK.MOD_ID);
 
     /*
-    public static final RegistryObject<MenuType<AutoCraftingTableMenu>> AUTO_CRAFTING_MENU =
-            MENU_TYPE.register("auto_crafting_menu", () ->
-                            IForgeMenuType.create((id, inv, data) -> {
+    public static final RegistryObject<MenuType<FurnaceMTKMenu>> MTK_FURNACE_MENU =
+            MENU_TYPE.register("mtk_furnace_menu", () ->
+                            IForgeMenuType.create((id, inventory, data) -> {
                                 BlockPos pos = data.readBlockPos();
-                                Level level = inv.player.level();
-                                if (!(level.getBlockEntity(pos) instanceof AutoCraftingTableBlockEntity be)) {
+                                Level level = inventory.player.level();
+                                if (!(level.getBlockEntity(pos) instanceof FurnaceMTKEntity entity)) {
                                     throw new IllegalStateException("Invalid BlockEntity at " + pos);
                                 }
-                                return new AutoCraftingTableMenu(id, inv, ContainerLevelAccess.create(level, pos), be);
+                                return new FurnaceMTKMenu();
                             })
                     );
+
      */
+
 }

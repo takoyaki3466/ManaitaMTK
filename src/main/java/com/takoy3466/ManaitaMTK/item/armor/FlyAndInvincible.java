@@ -1,4 +1,4 @@
-package com.takoy3466.ManaitaMTK.armor;
+package com.takoy3466.ManaitaMTK.item.armor;
 
 import com.takoy3466.ManaitaMTK.KeyMapping.MTKKeyMapping;
 import com.takoy3466.ManaitaMTK.regi.ManaitaMTKItems;
@@ -8,7 +8,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.GameType;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class FlyAndInvincible {
@@ -17,6 +17,7 @@ public class FlyAndInvincible {
     static boolean canFAI;
 
     public static void FAI(Entity entity, Player player) {
+        canFly(player);
         if (player == null || entity == null) return;
         if (player instanceof ServerPlayer sPlayer){
             if (sPlayer.gameMode.getGameModeForPlayer() == GameType.CREATIVE
@@ -25,8 +26,6 @@ public class FlyAndInvincible {
                 canFAI = true;
             } else canFAI = false;
         }
-
-        canFly(player);
     }
 
     public static void canFly(Player player){
@@ -51,19 +50,16 @@ public class FlyAndInvincible {
                 player.displayClientMessage(Component.literal("value = " + modeF),true);
             }
         }
-        player.fallDistance = 0.0F;
-        player.getAbilities().mayfly = canFAI;
-        player.getAbilities().setFlyingSpeed(modeF);
-        player.onUpdateAbilities();
     }
 
     @SubscribeEvent
-    public static void onPlayerDamaged(LivingDamageEvent event) {
-        if ((event.getEntity() instanceof Player)){
-            if (canFAI) {
-                event.setAmount(0.0F);
-                event.setCanceled(true);
-            }
+    public static void onLivingTickEvent(LivingEvent.LivingTickEvent event){
+        if ((event.getEntity() instanceof  Player player)) {
+            if (canFAI && player.getAbilities().mayfly) return;
+            player.fallDistance = 0.0F;
+            player.getAbilities().mayfly = canFAI;
+            player.getAbilities().setFlyingSpeed(modeF);
+            player.onUpdateAbilities();
         }
     }
 }

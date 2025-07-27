@@ -1,9 +1,8 @@
 package com.takoy3466.ManaitaMTK.item;
 
-import com.takoy3466.ManaitaMTK.DoubleCraftingTableEnum;
-import com.takoy3466.ManaitaMTK.Menu.DoubleCraftingTableMenu;
+import com.takoy3466.ManaitaMTK.MTKEnum;
+import com.takoy3466.ManaitaMTK.block.menu.MTKCraftingTableMenu;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
@@ -22,12 +21,10 @@ import java.util.List;
 
 public class PortableDoubleCraftingTable extends Item {
     private final int magnification;
-    private final String componentName;
 
-    public PortableDoubleCraftingTable(Properties properties, int magnification, String componentName) {
+    public PortableDoubleCraftingTable(Properties properties, int magnification) {
         super(properties);
         this.magnification = magnification;
-        this.componentName = componentName;
     }
 
     @Override
@@ -39,12 +36,12 @@ public class PortableDoubleCraftingTable extends Item {
                 serverPlayer.openMenu(new MenuProvider() {
                     @Override
                     public @NotNull Component getDisplayName() {
-                        return Component.literal("craft " + componentName);
+                        return Component.literal("craft x" + magnification);
                     }
 
                     @Override
                     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-                        return new DoubleCraftingTableMenu(id, playerInventory, ContainerLevelAccess.create(level, player.blockPosition()), magnification);
+                        return new MTKCraftingTableMenu(id, playerInventory, ContainerLevelAccess.create(level, player.blockPosition()), magnification);
                     }
                 });
             }
@@ -54,8 +51,12 @@ public class PortableDoubleCraftingTable extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
-        list.add(Component.literal(componentName)
-                .withStyle(ChatFormatting.WHITE)
-        );
+        if (magnification == MTKEnum.BREAK.getMag()) {
+            list.add(Component.literal(" x33554431 !!")
+                    .withStyle(ChatFormatting.RED));
+        }else {
+            list.add(Component.literal("x" + magnification)
+                    .withStyle(ChatFormatting.WHITE));
+        }
     }
 }
