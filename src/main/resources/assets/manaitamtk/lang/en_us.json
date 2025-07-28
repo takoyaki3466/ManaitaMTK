@@ -89,6 +89,10 @@
   "item.manaitamtk.helmet_manaita.hover_text": "Speed: ",
   "item.manaitamtk.manaita_hoe.hover_text": "Area that can be cultivated by right-clicking while holding down the Shift key: ",
   "item.manaitamtk.bow_mtk.hover_text": "Arrows fired will disappear after 30 seconds!",
+  "item.manaitamtk.manaita_sword_hover_text": "Instant death with either left or right click!",
+
+  "item.manaitamtk.fwai.first_text": "Flying speed : ",
+  "item.manaitamtk.fwai.second_text": " | Walking speed : ",
 
   "gui.mtk_switcher_screen.first_title": "Move with ",
   "gui.mtk_switcher_screen.second_title": " or the wheel"

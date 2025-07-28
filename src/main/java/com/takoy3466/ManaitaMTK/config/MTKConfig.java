@@ -8,6 +8,7 @@ public class MTKConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> CRUSHED_MTK_MAGNIFICATION;
     public static final ForgeConfigSpec.ConfigValue<Integer> CROP_GROWTH_RADIUS;
+    public static final ForgeConfigSpec.ConfigValue<Integer> SWORD_KILL_RADIUS;
 
     static {
         BUILDER.push("Config for ManaitaMTK");
@@ -17,6 +18,9 @@ public class MTKConfig {
 
         CROP_GROWTH_RADIUS = BUILDER.comment("Manaita Hoe Growth Radius \n 1 < radius < 2147483647")
                         .define("radius",10);
+
+        SWORD_KILL_RADIUS = BUILDER.comment("Manaita Sword \"kill\" radius")
+                        .define("radius", 100);
 
 
         BUILDER.pop();

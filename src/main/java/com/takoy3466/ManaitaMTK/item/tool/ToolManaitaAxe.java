@@ -46,6 +46,8 @@ public class ToolManaitaAxe extends AxeItem {
 
         if (player != null && player.isSteppingCarefully()) {
             Block strippedBlock = REVERSE_STRIPPABLES.get(block);
+            if (strippedBlock == null) return InteractionResult.PASS;
+
             BlockState strippedState = strippedBlock.defaultBlockState();
 
             // 向きを保持（RotatedPillarBlock だけ）

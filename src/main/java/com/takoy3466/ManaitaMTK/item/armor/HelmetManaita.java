@@ -35,16 +35,16 @@ public class HelmetManaita extends armorManaitaCore {
     public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slot, boolean selected) {
         super.inventoryTick(itemstack, world, entity, slot, selected);
         if (!(entity instanceof Player player)) return;
-        FlyAndInvincible.FAI(entity, player);
+        FlyWalkAndInvincible.FWAI(entity, player);
 
 
-        if (world.isClientSide){ // クライアント限定処理 (キー入力のチェック)
+        if (world.isClientSide){ // クライアントだけの処理 (キー入力のチェック)
             if (MTKKeyMapping.HelmetKey.consumeClick()){
                 modeChange();
                 player.displayClientMessage(Component.literal("MODE :" + modeName()),true);
             }
         }
-        else { // サーバー限定処理 (エフェクトの付与など)
+        else { // サーバーだけの処理 (エフェクトの付与など)
             if (modeNumber == 0){
                 player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 20*20, 0));
                 player.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 20*20, 0));
@@ -73,7 +73,7 @@ public class HelmetManaita extends armorManaitaCore {
     //ホバーテキストをツールに表示する
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
-        list.add(Component.literal(hoverText.getString() + FlyAndInvincible.modeF)
+        list.add(Component.literal(hoverText.getString() + FlyWalkAndInvincible.modeF)
                 .withStyle(ChatFormatting.GRAY)
         );
     }

@@ -8,15 +8,18 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.GameType;
-import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class FlyAndInvincible {
-    static int modeNum = 0;
-    static float modeF = 0.05F;
-    static boolean canFAI;
+public class FlyWalkAndInvincible {
+    private static final Component FIRST_TEXT = Component.translatable("item.manaitamtk.fwai.first_text");
+    private static final Component SECOND_TEXT = Component.translatable("item.manaitamtk.fwai.second_text");
+    public static int modeNum = 0;
+    public static float modeF = 0.05F;
+    public static float modeW = 0.1F;
+    public static boolean canFAI;
 
-    public static void FAI(Entity entity, Player player) {
+    public static void FWAI(Entity entity, Player player) {
         canFly(player);
         if (player == null || entity == null) return;
         if (player instanceof ServerPlayer sPlayer){
@@ -47,7 +50,7 @@ public class FlyAndInvincible {
                         modeF = 0.05F;
                         break;
                 }
-                player.displayClientMessage(Component.literal("value = " + modeF),true);
+                player.displayClientMessage(Component.literal(FIRST_TEXT.getString() + modeF),true);
             }
         }
     }
@@ -55,10 +58,10 @@ public class FlyAndInvincible {
     @SubscribeEvent
     public static void onLivingTickEvent(LivingEvent.LivingTickEvent event){
         if ((event.getEntity() instanceof  Player player)) {
-            if (canFAI && player.getAbilities().mayfly) return;
+            if (!FlyWalkAndInvincible.canFAI) return;
             player.fallDistance = 0.0F;
-            player.getAbilities().mayfly = canFAI;
-            player.getAbilities().setFlyingSpeed(modeF);
+            player.getAbilities().mayfly = FlyWalkAndInvincible.canFAI;
+            player.getAbilities().setFlyingSpeed(FlyWalkAndInvincible.modeF);
             player.onUpdateAbilities();
         }
     }

@@ -1,8 +1,7 @@
 package com.takoy3466.ManaitaMTK;
 
-import com.takoy3466.ManaitaMTK.item.armor.FlyAndInvincible;
+import com.takoy3466.ManaitaMTK.item.armor.FlyWalkAndInvincible;
 import com.takoy3466.ManaitaMTK.config.MTKConfig;
-import com.takoy3466.ManaitaMTK.enchant.FortuneMTK;
 import com.takoy3466.ManaitaMTK.regi.*;
 import com.takoy3466.ManaitaMTK.regi.tab.ManaitaMTKTabs;
 import net.minecraftforge.common.MinecraftForge;
@@ -39,7 +38,7 @@ public class ManaitaMTK {
 
         ManaitaMTKTabs.MOD_TABS.register(bus);
 
-        MinecraftForge.EVENT_BUS.register(FlyAndInvincible.class);
+        MinecraftForge.EVENT_BUS.register(FlyWalkAndInvincible.class);
         MinecraftForge.EVENT_BUS.register(MTKSubscribeEvent.class);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MTKConfig.SPEC, "manaitamtk.toml");

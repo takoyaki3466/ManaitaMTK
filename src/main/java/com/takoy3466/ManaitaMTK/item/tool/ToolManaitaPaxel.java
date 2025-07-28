@@ -76,6 +76,6 @@ public class ToolManaitaPaxel extends TieredItem {
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
         getRangeTag(stack);
         list.add(Component.literal("MODE : " + range + " x " + range)
-                .withStyle(ChatFormatting.WHITE));
+                .withStyle(ChatFormatting.GRAY));
     }
 }

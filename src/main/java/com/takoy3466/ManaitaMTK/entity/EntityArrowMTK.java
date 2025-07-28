@@ -8,16 +8,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class EntityArrowMTK extends AbstractArrow {
-    int tick = 0;
+    private int tick = 0;
+    private final double baseDamage = 2147483647d;
 
     public EntityArrowMTK(EntityType type, Level level) {
         super(type, level);
-        this.setBaseDamage(this.getBaseDamage() + 2.0d);
+        this.setBaseDamage(baseDamage);
     }
 
     public EntityArrowMTK(Level level, LivingEntity entity) {
         super((EntityType) ManaitaMTKEntities.MTK_ARROW.get(), entity, level);
-        this.setBaseDamage(this.getBaseDamage() + 210000000d);
+        this.setBaseDamage(baseDamage);
         this.pickup = Pickup.DISALLOWED;
     }
 
@@ -30,7 +31,7 @@ public class EntityArrowMTK extends AbstractArrow {
     public void tick() {
         super.tick();
         this.tick++;
-        if (!level().isClientSide && this.tick > 20 * 30) {
+        if (!level().isClientSide && this.tick > 20 * 10) {
             this.discard();
         }
     }

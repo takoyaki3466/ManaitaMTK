@@ -89,6 +89,10 @@
   "item.manaitamtk.helmet_manaita.hover_text": "速さ : ",
   "item.manaitamtk.manaita_hoe.hover_text": "シフト右クリックで耕せる範囲 : ",
   "item.manaitamtk.bow_mtk.hover_text": "発射した矢は30秒で消えるよ！",
+  "item.manaitamtk.manaita_sword_hover_text": "左クリックでも右クリックでも即死！",
+
+  "item.manaitamtk.fwai.first_text": "飛行速度 : ",
+  "item.manaitamtk.fwai.second_text": " | 歩く速度 : ",
 
 
   "gui.mtk_switcher_screen.first_title": "",
