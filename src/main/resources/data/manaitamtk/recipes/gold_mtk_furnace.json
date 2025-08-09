@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#C#"
+  ],
+  "key": {
+    "C": {
+      "item": "manaitamtk:iron_mtk_furnace"
+    },
+    "#": {
+      "item": "manaitamtk:item_mtk"
+    }
+  },
+  "result": {
+    "item": "manaitamtk:gold_mtk_furnace",
+    "count": 1
+  }
+}

@@ -1,6 +1,8 @@
 package com.takoy3466.ManaitaMTK;
 
 public enum MTKEnum {
+    DEFAULT(1, "default"),
+
     WOOD(2, "wood"),
     STONE(4, "stone"),
     IRON(8, "iron"),
@@ -29,4 +31,5 @@ public enum MTKEnum {
     public String getBlockname(){
         return blockname;
     }
+    public static final MTKEnum[] VALUES = MTKEnum.values();
 }

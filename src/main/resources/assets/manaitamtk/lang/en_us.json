@@ -41,17 +41,26 @@
   "block.manaitamtk.wood_crafting_table": "Wood 2x Crafting Table",
   "block.manaitamtk.stone_crafting_table": "Stone 4x Crafting Table",
   "block.manaitamtk.iron_crafting_table": "Iron 8x Crafting Table",
-  "block.manaitamtk.gold_crafting_table": "gold 16x Crafting Table",
-  "block.manaitamtk.diamond_crafting_table": "diamond 32x Crafting Table",
+  "block.manaitamtk.gold_crafting_table": "Gold 16x Crafting Table",
+  "block.manaitamtk.diamond_crafting_table": "Diamond 32x Crafting Table",
   "block.manaitamtk.mtk_crafting_table": "MTK 32x Crafting Table",
   "block.manaitamtk.godmtk_crafting_table": "GOD 512x Crafting Table",
   "block.manaitamtk.break_crafting_table": "Break Crafting Table",
+
+  "block.manaitamtk.wood_mtk_furnace": "Wood 2x Furnace",
+  "block.manaitamtk.stone_mtk_furnace": "Stone 4x Furnace",
+  "block.manaitamtk.iron_mtk_furnace": "Iron 8x Furnace",
+  "block.manaitamtk.gold_mtk_furnace": "Gold 16x Furnace",
+  "block.manaitamtk.diamond_mtk_furnace": "Diamond 32x Furnace",
+  "block.manaitamtk.mtk_mtk_furnace": "MTK 64x Furnace",
+  "block.manaitamtk.godmtk_mtk_furnace": "GOD 512x Furnace",
+  "block.manaitamtk.break_mtk_furnace": "Break Furnace",
 
   "block.manaitamtk.auto_crafting_table": "Auto Crafting Table",
 
   "item.manaitamtk.helmet_manaita": "Manaita Helmet",
   "item.manaitamtk.chestplate_manaita": "Manaita Chestplate",
-  "item.manaitamtk.legins_manaita": "Manaita Leggins",
+  "item.manaitamtk.legins_manaita": "Manaita Leggings",
   "item.manaitamtk.boots_manaita": "Manaita Boots",
 
   "key.manaitamtk.categories": "ManaitaMTK",
@@ -81,6 +90,12 @@
   "advancements.make_break_crafting_table.description": "Let's build a break workbench!",
   "advancement.mtk_screen_open.title": "This screen looks familiar...",
   "advancement.mtk_screen_open.description": "It's the one that appears when you press F3 and F4!",
+  "advancements.make_break_mtk_furnace.title": "Oh... you reuse the texture...?",
+  "advancements.make_break_mtk_furnace.description": "Let's make a break furnace!",
+  "advancements.make_wood_mtk_furnace.title": "Wait, wait! If you bake it on wood, it will burn!",
+  "advancements.make_wood_mtk_furnace.description": "Let's make a wooden furnace!",
+  "advancements.make_mtk_mtk_furnace.title": "Isn't MTK_MTK_FURNACE too redundant...?",
+  "advancements.make_mtk_mtk_furnace.description": "Let's make an MTK furnace!",
 
   "item.manaitamtk.zikokenziyoku.display_massage": "defeat!",
 
@@ -91,9 +106,16 @@
   "item.manaitamtk.bow_mtk.hover_text": "Arrows fired will disappear after 30 seconds!",
   "item.manaitamtk.manaita_sword_hover_text": "Instant death with either left or right click!",
 
+  "block.manaitamtk.mtk_furnace_iron.hover_text": "Isn't this just right?",
+  "block.manaitamtk.mtk_furnace_mtk.hover_text": "One refining process brings a lot of content!",
+  "block.manaitamtk.mtk_furnace_break.hover_text": "I don't need this much! (x33554431)",
+
   "item.manaitamtk.fwai.first_text": "Flying speed : ",
   "item.manaitamtk.fwai.second_text": " | Walking speed : ",
 
   "gui.mtk_switcher_screen.first_title": "Move with ",
-  "gui.mtk_switcher_screen.second_title": " or the wheel"
+  "gui.mtk_switcher_screen.second_title": " or the wheel",
+
+  "block.manaitamtk.mtk_crafting_table.title": "MTK Crafting Table",
+  "block.manaitamtk.mtk_furnace.title": "MTK Furnace"
 }

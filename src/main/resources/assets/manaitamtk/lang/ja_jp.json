@@ -38,6 +38,7 @@
   "block.manaitamtk.block_manaita_diamond": "まな板のダイヤモンド",
   "block.manaitamtk.block_manaita_dirt": "まな板土",
   "block.manaitamtk.block_manaita_glass": "まな板のガラス",
+
   "block.manaitamtk.wood_crafting_table": "木の2倍作業台",
   "block.manaitamtk.stone_crafting_table": "石の4倍作業台",
   "block.manaitamtk.iron_crafting_table": "鉄の8倍作業台",
@@ -46,6 +47,15 @@
   "block.manaitamtk.mtk_crafting_table": "MTKの64倍作業台",
   "block.manaitamtk.godmtk_crafting_table": "GOD神々の512倍作業台",
   "block.manaitamtk.break_crafting_table": "ブレイク作業台",
+
+  "block.manaitamtk.wood_mtk_furnace": "木の2倍かまど",
+  "block.manaitamtk.stone_mtk_furnace": "石の4倍かまど",
+  "block.manaitamtk.iron_mtk_furnace": "鉄の8倍かまど",
+  "block.manaitamtk.gold_mtk_furnace": "金の16倍かまど",
+  "block.manaitamtk.diamond_mtk_furnace": "ダイヤの32倍かまど",
+  "block.manaitamtk.mtk_mtk_furnace": "MTKの64倍かまど",
+  "block.manaitamtk.godmtk_mtk_furnace": "GOD神々の512倍かまど",
+  "block.manaitamtk.break_mtk_furnace": "ブレイクかまど",
 
   "block.manaitamtk.auto_crafting_table": "自動作業台",
 
@@ -81,6 +91,12 @@
   "advancements.make_break_crafting_table.description": "ブレイク作業台を作ろう！",
   "advancement.mtk_screen_open.title": "なんか見覚えあるスクリーンだな...",
   "advancement.mtk_screen_open.description": "F3とF4押したときに出てくるやつやないか！",
+  "advancements.make_break_mtk_furnace.title": "あれ...テクスチャの使いまわし...?",
+  "advancements.make_break_mtk_furnace.description": "ブレイクかまどを作ろう！",
+  "advancements.make_wood_mtk_furnace.title": "待て待て！木で焼いたら燃えちゃうって！",
+  "advancements.make_wood_mtk_furnace.description": "木のかまどを作ろう！",
+  "advancements.make_mtk_mtk_furnace.title": "MTK_MTK_FURNACEって冗長すぎないか...?",
+  "advancements.make_mtk_mtk_furnace.description": "MTKかまどを作ろう！",
 
   "item.manaitamtk.zikokenziyoku.display_massage": "敗北！",
 
@@ -91,10 +107,17 @@
   "item.manaitamtk.bow_mtk.hover_text": "発射した矢は30秒で消えるよ！",
   "item.manaitamtk.manaita_sword_hover_text": "左クリックでも右クリックでも即死！",
 
+  "block.manaitamtk.mtk_furnace_iron.hover_text": "これくらいがちょうどよくない？",
+  "block.manaitamtk.mtk_furnace_mtk.hover_text": "一回の精錬で中身がいっぱい！",
+  "block.manaitamtk.mtk_furnace_break.hover_text": "こんなにいらない！ (33554431倍)",
+
   "item.manaitamtk.fwai.first_text": "飛行速度 : ",
   "item.manaitamtk.fwai.second_text": " | 歩く速度 : ",
 
 
   "gui.mtk_switcher_screen.first_title": "",
-  "gui.mtk_switcher_screen.second_title": "またはホイールで移動"
+  "gui.mtk_switcher_screen.second_title": "またはホイールで移動",
+
+  "block.manaitamtk.mtk_crafting_table.title": "MTK作業台",
+  "block.manaitamtk.mtk_furnace.title": "MTKかまど"
 }

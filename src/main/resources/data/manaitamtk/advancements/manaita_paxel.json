@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "manaitamtk:manaita_paxel"
+    },
+    "title": {
+      "translate": "advancements.make_paxel.title"
+    },
+    "description": {
+      "translate": "advancements.make_paxel.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "advancements_5": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "manaitamtk:manaita_paxel"
+            ],
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "manaitamtk:item_mtk"
+}

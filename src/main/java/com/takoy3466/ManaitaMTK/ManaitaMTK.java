@@ -20,9 +20,9 @@ public class ManaitaMTK {
         //最初に読み込む所
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ManaitaMTKItems.ITEMS.register(bus);
-
         ManaitaMTKBlocks.Blocks.BLOCKS.register(bus);
+
+        ManaitaMTKItems.ITEMS.register(bus);
 
         ManaitaMTKBlocks.BlockItems.BLOCK_ITEMS.register(bus);
 
@@ -30,7 +30,7 @@ public class ManaitaMTK {
         ManaitaMTKEntities.ENTITY.register(bus);
 
 
-        ManaitaMTKMenus.MENU_TYPE.register(bus);
+        ManaitaMTKMenus.MENU_TYPES.register(bus);
 
         ManaitaMTKSerializers.SERIALIZERS.register(bus);
 

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "manaitamtk:block/break_mtk_furnace_front",
+    "side": "manaitamtk:block/break_mtk_furnace_side",
+    "top": "manaitamtk:block/break_mtk_furnace_top"
+  }
+}

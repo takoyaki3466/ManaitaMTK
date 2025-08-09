@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "manaitamtk:item_mtk"
+    },
+    "title": {
+      "translate": "advancements.make_mtk.title"
+    },
+    "description": {
+      "translate": "advancements.make_mtk.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "advancements_0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "manaitamtk:block_manaita"
+            ],
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "manaitamtk:manaita_mtk_start"
+}

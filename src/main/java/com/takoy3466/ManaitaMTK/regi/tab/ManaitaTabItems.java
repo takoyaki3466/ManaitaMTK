@@ -21,6 +21,15 @@ public class ManaitaTabItems {
             ManaitaMTKBlocks.BlockItems.GODMTK_CRAFTING_TABLE.get(),
             ManaitaMTKBlocks.BlockItems.BREAK_CRAFTING_TABLE.get(),
 
+            ManaitaMTKBlocks.BlockItems.WOOD_MTK_FURNACE.get(),
+            ManaitaMTKBlocks.BlockItems.STONE_MTK_FURNACE.get(),
+            ManaitaMTKBlocks.BlockItems.IRON_MTK_FURNACE.get(),
+            ManaitaMTKBlocks.BlockItems.GOLD_MTK_FURNACE.get(),
+            ManaitaMTKBlocks.BlockItems.DIAMOND_MTK_FURNACE.get(),
+            ManaitaMTKBlocks.BlockItems.MTK_MTK_FURNACE.get(),
+            ManaitaMTKBlocks.BlockItems.GODMTK_MTK_FURNACE.get(),
+            ManaitaMTKBlocks.BlockItems.BREAK_MTK_FURNACE.get(),
+
             ManaitaMTKItems.ITEM_MTK.get(),
             //ManaitaMTKItems.ZIKOKENZIYOKU.get(),
             ManaitaMTKItems.CRUSHED_MTK.get(),
@@ -56,5 +65,7 @@ public class ManaitaTabItems {
             ManaitaMTKItems.CHESTPLATE_MANAITA.get(),
             ManaitaMTKItems.LEGINS_MANAITA.get(),
             ManaitaMTKItems.BOOTS_MANAITA.get(),
+
+            ManaitaMTKBlocks.BlockItems.MTK_CHEST.get()
     };
 }

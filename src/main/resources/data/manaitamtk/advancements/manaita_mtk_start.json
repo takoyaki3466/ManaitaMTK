@@ -1,0 +1,23 @@
+{
+  "display": {
+    "background": "minecraft:textures/block/stone.png",
+    "icon": {
+      "item": "manaitamtk:item_mtk"
+    },
+    "title": {
+      "translate": "advancements.start.title"
+    },
+    "description": {
+      "translate": "advancements.start.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "impossible": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "manaitamtk:mtk_mtk_furnace"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "manaitamtk:blocks/mtk_mtk_furnace"
+}
