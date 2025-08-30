@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#C#"
+  ],
+  "key": {
+    "C": {
+      "item": "manaitamtk:mtk_chest"
+    },
+    "#": {
+      "item": "manaitamtk:item_mtk"
+    }
+  },
+  "result": {
+    "item": "manaitamtk:mtk_backpack",
+    "count": 1
+  }
+}

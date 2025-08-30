@@ -57,12 +57,15 @@
   "block.manaitamtk.godmtk_mtk_furnace": "GOD神々の512倍かまど",
   "block.manaitamtk.break_mtk_furnace": "ブレイクかまど",
 
+  "block.manaitamtk.mtk_chest": "まな板チェスト",
   "block.manaitamtk.auto_crafting_table": "自動作業台",
 
   "item.manaitamtk.helmet_manaita": "まな板のヘルメット",
   "item.manaitamtk.chestplate_manaita": "まな板のチェストプレート",
   "item.manaitamtk.legins_manaita": "まな板のレギンス",
   "item.manaitamtk.boots_manaita": "まな板のブーツ",
+
+  "item.manaitamtk.mtk_backpack": "MTKバックパック",
 
   "key.manaitamtk.categories": "まな板MTK",
   "key.manaitamtk.helmetsetting": "ヘルメットキー",
@@ -97,6 +100,10 @@
   "advancements.make_wood_mtk_furnace.description": "木のかまどを作ろう！",
   "advancements.make_mtk_mtk_furnace.title": "MTK_MTK_FURNACEって冗長すぎないか...?",
   "advancements.make_mtk_mtk_furnace.description": "MTKかまどを作ろう！",
+  "advancements.placed_mtk_chest.title":"「板」のチェストに物は入らなくないか?",
+  "advancements.placed_mtk_chest.description": "まな板チェストを作ろう！",
+  "advancements.mtk_backpack.title": "このバック...ペラペラじゃない?",
+  "advancements.mtk_backpack.description": "MTKバックパックを作ってみよう！",
 
   "item.manaitamtk.zikokenziyoku.display_massage": "敗北！",
 
@@ -106,10 +113,13 @@
   "item.manaitamtk.manaita_hoe.hover_text": "シフト右クリックで耕せる範囲 : ",
   "item.manaitamtk.bow_mtk.hover_text": "発射した矢は30秒で消えるよ！",
   "item.manaitamtk.manaita_sword_hover_text": "左クリックでも右クリックでも即死！",
+  "item.manaitamtk.mtk_backpack.hover_text": "空っぽだね",
+  "item.manaitamtk.manaita_sword.hover_text_mode": "モード: ",
 
   "block.manaitamtk.mtk_furnace_iron.hover_text": "これくらいがちょうどよくない？",
   "block.manaitamtk.mtk_furnace_mtk.hover_text": "一回の精錬で中身がいっぱい！",
   "block.manaitamtk.mtk_furnace_break.hover_text": "こんなにいらない！ (33554431倍)",
+  "block.manaitamtk.mtk_chest.hover_text": "21億 × 54...?",
 
   "item.manaitamtk.fwai.first_text": "飛行速度 : ",
   "item.manaitamtk.fwai.second_text": " | 歩く速度 : ",
@@ -119,5 +129,10 @@
   "gui.mtk_switcher_screen.second_title": "またはホイールで移動",
 
   "block.manaitamtk.mtk_crafting_table.title": "MTK作業台",
-  "block.manaitamtk.mtk_furnace.title": "MTKかまど"
+  "block.manaitamtk.mtk_furnace.title": "MTKかまど",
+
+  "tooltip.amount": "個数: ",
+
+  "gui.overlay.sword.enemy_die": "敵殲滅モード",
+  "gui.overlay.sword.all_die": "全エンティティ殲滅モード"
 }

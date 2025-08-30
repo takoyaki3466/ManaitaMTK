@@ -14,7 +14,7 @@
     "announce_to_chat": true
   },
   "criteria": {
-    "mtk_screen_open": {
+    "open_switcher": {
       "trigger": "minecraft:impossible"
     }
   },

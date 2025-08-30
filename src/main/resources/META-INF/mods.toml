@@ -4,16 +4,21 @@ license="${mod_license}"
 #issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
 [[mods]]
 modId="manaitamtk"
-version="1.6.0"
-displayName="ManaitaMTK"
+version="${mod_version}"
+displayName="${mod_name}"
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
 logoFile="manaitaMTK_logo.png"
 #credits="" #optional
-authors="takoy3466"
+authors="${mod_authors}"
+
+mixins = [
+    "manaitamtk.mixins.json"
+]
 #displayTest="MATCH_VERSION" # MATCH_VERSION is the default if nothing is specified (#optional)
 # The description text for the mod (multi line!) (#mandatory)
 description='''知識ゼロから頑張って作ったから大目に見てね!!!'''
+
 [[dependencies.manaitamtk]]
     modId="forge"
     mandatory=true

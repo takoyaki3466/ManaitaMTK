@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "manaitamtk:mtk_chest"
+    },
+    "title": {
+      "translate": "advancements.placed_mtk_chest.title"
+    },
+    "description": {
+      "translate": "advancements.placed_mtk_chest.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "advancements_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "manaitamtk:mtk_chest"
+            ],
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "manaitamtk:item_mtk"
+}
