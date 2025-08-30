@@ -107,9 +107,9 @@ public class MTKBackPack extends Item {
                         this.nonNullList.set(i, slotStack);
                     }
                 }
+                MTKBackPackTooltip.updateNonNullList(this.nonNullList);
             }
         }
-        MTKBackPackTooltip.updateNonNullList(this.nonNullList);
     }
 
     @Override
