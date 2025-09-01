@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.mixin;
 
-import com.takoy3466.manaitamtk.regi.ManaitaMTKItems;
+import com.takoy3466.manaitamtk.init.ManaitaMTKItems;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;

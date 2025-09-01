@@ -15,11 +15,11 @@ public class MTKSlotItemHandler extends SlotItemHandler {
 
     @Override
     public int getMaxStackSize() {
-        return 2147483647;
+        return 2100000000;
     }
     @Override
     public int getMaxStackSize(@NotNull ItemStack stack) {
-        return 2147483647;
+        return 2100000000;
     }
 
     public void setIndex(int index) {

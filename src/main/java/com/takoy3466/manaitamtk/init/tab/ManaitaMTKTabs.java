@@ -1,7 +1,7 @@
-package com.takoy3466.manaitamtk.regi.tab;
+package com.takoy3466.manaitamtk.init.tab;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.regi.ManaitaMTKItems;
+import com.takoy3466.manaitamtk.init.ManaitaMTKItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;

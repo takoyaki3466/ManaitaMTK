@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.block.blockEntity;
 
 import com.takoy3466.manaitamtk.MTKEnum;
-import com.takoy3466.manaitamtk.regi.ManaitaMTKBlocks;
+import com.takoy3466.manaitamtk.init.ManaitaMTKBlocks;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;

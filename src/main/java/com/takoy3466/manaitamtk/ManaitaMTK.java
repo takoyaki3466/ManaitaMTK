@@ -1,8 +1,8 @@
 package com.takoy3466.manaitamtk;
 
 import com.takoy3466.manaitamtk.config.MTKConfig;
-import com.takoy3466.manaitamtk.regi.*;
-import com.takoy3466.manaitamtk.regi.tab.ManaitaMTKTabs;
+import com.takoy3466.manaitamtk.init.*;
+import com.takoy3466.manaitamtk.init.tab.ManaitaMTKTabs;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;

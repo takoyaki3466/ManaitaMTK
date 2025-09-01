@@ -1,6 +1,6 @@
-package com.takoy3466.manaitamtk.regi.tab;
+package com.takoy3466.manaitamtk.init.tab;
 
-import com.takoy3466.manaitamtk.regi.*;
+import com.takoy3466.manaitamtk.init.*;
 import net.minecraft.world.item.Item;
 
 public class ManaitaTabItems {

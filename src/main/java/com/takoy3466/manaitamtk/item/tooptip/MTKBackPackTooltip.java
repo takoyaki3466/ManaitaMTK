@@ -20,4 +20,8 @@ public class MTKBackPackTooltip implements TooltipComponent {
     public NonNullList<ItemStack> getNonNullList() {
         return nonNullList;
     }
+
+    public static NonNullList<ItemStack> getNonNullListStatic() {
+        return nonNullList;
+    }
 }

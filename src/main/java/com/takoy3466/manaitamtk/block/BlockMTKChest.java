@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.block;
 
 import com.takoy3466.manaitamtk.block.blockEntity.MTKChestBlockEntity;
-import com.takoy3466.manaitamtk.regi.ManaitaMTKBlocks;
+import com.takoy3466.manaitamtk.init.ManaitaMTKBlocks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;

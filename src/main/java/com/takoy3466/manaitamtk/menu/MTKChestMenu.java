@@ -3,8 +3,8 @@ package com.takoy3466.manaitamtk.menu;
 import com.takoy3466.manaitamtk.block.Slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.block.Slot.MTKSlotItemHandler;
 import com.takoy3466.manaitamtk.block.blockEntity.MTKChestBlockEntity;
-import com.takoy3466.manaitamtk.regi.ManaitaMTKBlocks;
-import com.takoy3466.manaitamtk.regi.ManaitaMTKMenus;
+import com.takoy3466.manaitamtk.init.ManaitaMTKBlocks;
+import com.takoy3466.manaitamtk.init.ManaitaMTKMenus;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -61,97 +61,42 @@ public class MTKChestMenu extends AbstractContainerMenu {
 
     @Override
     public ItemStack quickMoveStack(Player player, int i) {
-        ItemStack stack = ItemStack.EMPTY;
+        ItemStack stack1 = ItemStack.EMPTY;
         Slot slot = this.slots.get(i);
         if (slot.hasItem()) {
-            ItemStack stack1 = slot.getItem();
-            stack = stack1.copy();
+            ItemStack stack2 = slot.getItem();
+            stack1 = stack2.copy();
             if (i < this.containerRows * 9) {
-                if (!this.moveItemStackTo(stack1, this.containerRows * 9, this.slots.size(), true)) {
+                if (!this.moveItemStackTo(stack2, this.containerRows * 9, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(stack1, 0, this.containerRows * 9, false)) {
+            } else if (!this.moveItemStackTo(stack2, 0, this.containerRows * 9, false)) {
                 return ItemStack.EMPTY;
             }
 
-            if (stack1.isEmpty()) {
+            if (stack2.isEmpty()) {
                 slot.setByPlayer(ItemStack.EMPTY);
             } else {
                 slot.setChanged();
             }
         }
 
-        return stack;
+        return stack1;
     }
 
     @Override
-    protected boolean moveItemStackTo(ItemStack stack, int i1, int i2, boolean bool) {
-        final int MAX_VALUE = 2100000000;
-        // 移動元のアイテム, スロットはじめ, スロット終わり, true->後ろから前|false->前から後ろ
-        boolean flag = false; // 動いたかどうか
-        int i = i1; // 開始スロット
-        if (bool) {
+    protected boolean moveItemStackTo(ItemStack stack, int i1, int i2, boolean b) {
+        boolean flag = false;
+        int i = i1;
+        if (b) {
             i = i2 - 1;
         }
 
         Slot slot1;
         ItemStack itemstack;
-        // スタック可能なアイテムを重ねられるだけ重ねるコーナー
         if (stack.isStackable()) {
             while(!stack.isEmpty()) {
-                if (bool) {
-                    if (i < i1) {
-                        break;
-                    }
-                } else if (i >= i2) {
-                    break;// 範囲外になったら break。
-                }
-
-                slot1 = this.slots.get(i);
-                itemstack = slot1.getItem();// 対象スロットの中身をゲット
-                if (!itemstack.isEmpty() && ItemStack.isSameItemSameTags(stack, itemstack)) {// 同じアイテム & 同じ NBT 等のときのみ結合
-                    long sum = (long) itemstack.getCount() + (long) stack.getCount();
-
-                    int j = (int) sum;
-                    int maxSize = MAX_VALUE;
-                    if (j <= maxSize) {
-                        // 全部入れる
-                        stack.setCount(0);
-                        itemstack.setCount(j);
-                        slot1.setChanged();
-                        flag = true;
-                    } else if (sum > MAX_VALUE) {
-                        int shrink = MAX_VALUE - itemstack.getCount();
-                        if (shrink > 0) {
-                            // 入れられるだけ入れる
-                            stack.shrink(shrink);
-                            itemstack.setCount(maxSize);
-                            slot1.setChanged();
-                            flag = true;
-                        }
-                    }
-                }
-
-                // 次スロットへ行く
-                if (bool) {
-                    --i;
-                } else {
-                    ++i;
-                }
-            }
-        }
-
-        // 数が余っていれば隣の空きスロットへ入れるコーナー
-        if (!stack.isEmpty()) {
-            if (bool) {
-                i = i2 - 1;
-            } else {
-                i = i1;
-            }
-
-            while(true) {
-                if (bool) {
-                    // スロットの範囲外ならおわり
+                if (b) {
                     if (i < i1) {
                         break;
                     }
@@ -161,7 +106,48 @@ public class MTKChestMenu extends AbstractContainerMenu {
 
                 slot1 = this.slots.get(i);
                 itemstack = slot1.getItem();
-                // スロットが空 & スロットにアイテムを置けるか
+                if (!itemstack.isEmpty() && ItemStack.isSameItemSameTags(stack, itemstack)) {
+                    long j = itemstack.getCount() + stack.getCount();
+                    int maxSize = 2100000000;
+                    if (j <= maxSize) {
+                        stack.setCount(0);
+                        itemstack.setCount((int) j);
+                        slot1.setChanged();
+                        flag = true;
+                    } else if (itemstack.getCount() < maxSize) {
+                        stack.shrink(maxSize - itemstack.getCount());
+                        itemstack.setCount(maxSize);
+                        slot1.setChanged();
+                        flag = true;
+                    }
+                }
+
+                if (b) {
+                    --i;
+                } else {
+                    ++i;
+                }
+            }
+        }
+
+        if (!stack.isEmpty()) {
+            if (b) {
+                i = i2 - 1;
+            } else {
+                i = i1;
+            }
+
+            while(true) {
+                if (b) {
+                    if (i < i1) {
+                        break;
+                    }
+                } else if (i >= i2) {
+                    break;
+                }
+
+                slot1 = this.slots.get(i);
+                itemstack = slot1.getItem();
                 if (itemstack.isEmpty() && slot1.mayPlace(stack)) {
                     if (stack.getCount() > slot1.getMaxStackSize()) {
                         slot1.setByPlayer(stack.split(slot1.getMaxStackSize()));
@@ -171,11 +157,10 @@ public class MTKChestMenu extends AbstractContainerMenu {
 
                     slot1.setChanged();
                     flag = true;
-                    break;// // 1スロットだけで終了
+                    break;
                 }
 
-                // 次スロットへ行く
-                if (bool) {
+                if (b) {
                     --i;
                 } else {
                     ++i;
@@ -183,7 +168,6 @@ public class MTKChestMenu extends AbstractContainerMenu {
             }
         }
 
-        // 変更のありなしを返す
         return flag;
     }
 

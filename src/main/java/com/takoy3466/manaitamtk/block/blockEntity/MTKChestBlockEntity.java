@@ -3,7 +3,7 @@ package com.takoy3466.manaitamtk.block.blockEntity;
 import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.block.Slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.menu.MTKChestMenu;
-import com.takoy3466.manaitamtk.regi.ManaitaMTKBlocks;
+import com.takoy3466.manaitamtk.init.ManaitaMTKBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.*;

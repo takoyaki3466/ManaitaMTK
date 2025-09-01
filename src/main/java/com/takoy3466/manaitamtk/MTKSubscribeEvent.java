@@ -1,8 +1,9 @@
 package com.takoy3466.manaitamtk;
 
-import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
 import com.takoy3466.manaitamtk.item.armor.HelmetManaita;
+import com.takoy3466.manaitamtk.item.tooptip.MTKBackPackTooltip;
 import com.takoy3466.manaitamtk.screen.MTKBackPackScreen;
 import com.takoy3466.manaitamtk.screen.MTKChestScreen;
 import com.takoy3466.manaitamtk.config.MTKConfig;
@@ -10,13 +11,14 @@ import com.takoy3466.manaitamtk.item.ChangeableMagnificationPortableDCT;
 import com.takoy3466.manaitamtk.item.tool.MTKSwitcherScreen;
 import com.takoy3466.manaitamtk.item.tool.ToolManaitaPaxel;
 import com.takoy3466.manaitamtk.item.tool.ToolManaitaPickaxe;
-import com.takoy3466.manaitamtk.regi.ManaitaMTKEnchantments;
-import com.takoy3466.manaitamtk.regi.ManaitaMTKItems;
+import com.takoy3466.manaitamtk.init.ManaitaMTKEnchantments;
+import com.takoy3466.manaitamtk.init.ManaitaMTKItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -44,6 +46,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -53,8 +56,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MTKSubscribeEvent {
 
@@ -135,6 +139,8 @@ public class MTKSubscribeEvent {
         // 道具の耐久を減らす
         tool.hurtAndBreak(1, player, player1 -> player1.broadcastBreakEvent(InteractionHand.MAIN_HAND));
     }
+
+    public static boolean shiftPressed;
 
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key event) {
@@ -245,6 +251,34 @@ public class MTKSubscribeEvent {
         }
     }
 
+
+    public static boolean bool;
+
+    @SubscribeEvent
+    public static void onPlayerTickSword(TickEvent.PlayerTickEvent event) {
+        if (event.phase != TickEvent.Phase.END) return;
+        Player player = event.player;
+
+        if (!player.level().isClientSide) {
+            if (player.getMainHandItem().getItem() == ManaitaMTKItems.MANAITA_SWORD.get()) {
+                if (player.isSteppingCarefully() && MTKKeyMapping.SwitchExtermination.consumeClick()) {
+                    bool = !bool;
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingKnockBackEvent(LivingKnockBackEvent event) {
+        if ((event.getEntity() instanceof Player player)) {
+            if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() == ManaitaMTKItems.HELMET_MANAITA.get()) {
+                event.setRatioX(0);
+                event.setRatioZ(0);
+                event.setCanceled(true);
+            }
+        }
+    }
+
     @SubscribeEvent
     public static void onRenderGuiOverlayEvent(RenderGuiOverlayEvent event) {
         ResourceLocation FLAME_TEXTURE = new ResourceLocation(ManaitaMTK.MOD_ID, "textures/gui/switch_flame.png");
@@ -275,12 +309,14 @@ public class MTKSubscribeEvent {
             graphics.blit(FLAME_TEXTURE , FLAME_X, FLAME_Y , 0, 0 , 24, 24 , 24, 24);
             graphics.renderItem(mtkIcon.getRenderStack(), FLAME_X + 4, FLAME_Y + 4);
 
-        } else if (item == ManaitaMTKItems.MANAITA_PAXEL.get()) {
+        }
+        else if (item == ManaitaMTKItems.MANAITA_PAXEL.get()) {
             MTKSwitcherScreen.MTKIcon mtkIcon = MTKSwitcherScreen.MTKIcon.getFromRange(ToolManaitaPaxel.range);
             graphics.blit(FLAME_TEXTURE , FLAME_X, FLAME_Y , 0, 0 , 24, 24 , 24, 24);
             graphics.renderItem(mtkIcon.getRenderStack(), FLAME_X + 4, FLAME_Y + 4);
 
-        } else if (item == ManaitaMTKItems.CHANGEABLE_PORTABLE_DCT.get()) {
+        }
+        else if (item == ManaitaMTKItems.CHANGEABLE_PORTABLE_DCT.get()) {
             graphics.blit(FLAME_TEXTURE , FLAME_X, FLAME_Y , 0, 0 , 24, 24 , 24, 24);
             ItemStack stack;
             switch (ChangeableMagnificationPortableDCT.magnification) {
@@ -293,37 +329,11 @@ public class MTKSubscribeEvent {
             }
             graphics.renderItem(stack, FLAME_X + 4, FLAME_Y + 4);
 
-        } else if (item == ManaitaMTKItems.MANAITA_SWORD.get()) {
+        }
+        else if (item == ManaitaMTKItems.MANAITA_SWORD.get()) {
             int xSword = minecraft.getWindow().getGuiScaledWidth() / 2 - minecraft.font.width(bool? SWORD_TEXT_ALL.getString() : SWORD_TEXT_ENEMY.getString()) / 2;
             int ySword = minecraft.getWindow().getGuiScaledHeight() - 49 - minecraft.font.lineHeight;
             graphics.drawString(minecraft.font, bool? SWORD_TEXT_ALL : SWORD_TEXT_ENEMY, xSword, ySword, bool? Color.RED.getRGB() : Color.GRAY.getRGB());
-        }
-    }
-
-    public static boolean bool;
-
-    @SubscribeEvent
-    public static void onPlayerTickSword(TickEvent.PlayerTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) return;
-        Player player = event.player;
-
-        if (!player.level().isClientSide) {
-            if (player.getMainHandItem().getItem() == ManaitaMTKItems.MANAITA_SWORD.get()) {
-                if (player.isSteppingCarefully() && MTKKeyMapping.SwitchExtermination.consumeClick()) {
-                    bool = !bool;
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onLivingKnockBackEvent(LivingKnockBackEvent event) {
-        if ((event.getEntity() instanceof Player player)) {
-            if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() == ManaitaMTKItems.HELMET_MANAITA.get()) {
-                event.setRatioX(0);
-                event.setRatioZ(0);
-                event.setCanceled(true);
-            }
         }
     }
 }

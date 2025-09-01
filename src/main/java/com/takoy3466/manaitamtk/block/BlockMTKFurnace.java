@@ -3,7 +3,7 @@ package com.takoy3466.manaitamtk.block;
 import com.takoy3466.manaitamtk.MTKEnum;
 import com.takoy3466.manaitamtk.block.blockEntity.MTKFurnaceBlockEntity;
 import com.takoy3466.manaitamtk.block.blockEntity.MTKFurnaceBlockEntityBase;
-import com.takoy3466.manaitamtk.regi.ManaitaMTKBlocks;
+import com.takoy3466.manaitamtk.init.ManaitaMTKBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;

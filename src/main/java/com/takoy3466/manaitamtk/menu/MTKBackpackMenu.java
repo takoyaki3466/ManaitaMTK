@@ -3,11 +3,13 @@ package com.takoy3466.manaitamtk.menu;
 import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.block.Slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.block.Slot.MTKSlotItemHandler;
-import com.takoy3466.manaitamtk.regi.ManaitaMTKMenus;
+import com.takoy3466.manaitamtk.init.ManaitaMTKItems;
+import com.takoy3466.manaitamtk.init.ManaitaMTKMenus;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -42,11 +44,33 @@ public class MTKBackpackMenu extends AbstractContainerMenu {
         }
         for(int j = 0; j < 3; ++j) {
             for(int k = 0; k < 9; ++k) {
-                this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 8 + k * 18, 103 + j * 18 + i));
+                this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 8 + k * 18, 103 + j * 18 + i){
+                    @Override
+                    public boolean mayPickup(Player player) {
+                        ItemStack stack = this.getItem();
+                        return !(stack.getItem() == ManaitaMTKItems.MTK_BACKPACK.get());
+                    }
+
+                    @Override
+                    public boolean mayPlace(ItemStack stack) {
+                        return !(stack.getItem() == ManaitaMTKItems.MTK_BACKPACK.get());
+                    }
+                });
             }
         }
         for(int j = 0; j < 9; ++j) {
-            this.addSlot(new Slot(playerInventory, j, 8 + j * 18, 161 + i));
+            this.addSlot(new Slot(playerInventory, j, 8 + j * 18, 161 + i){
+                @Override
+                public boolean mayPickup(Player player) {
+                    ItemStack stack = this.getItem();
+                    return !(stack.getItem() == ManaitaMTKItems.MTK_BACKPACK.get());
+                }
+
+                @Override
+                public boolean mayPlace(ItemStack stack) {
+                    return !(stack.getItem() == ManaitaMTKItems.MTK_BACKPACK.get());
+                }
+            });
         }
     }
 
@@ -58,34 +82,34 @@ public class MTKBackpackMenu extends AbstractContainerMenu {
 
     @Override
     public ItemStack quickMoveStack(Player player, int i) {
-        ItemStack stack = ItemStack.EMPTY;
+        ItemStack stack1 = ItemStack.EMPTY;
         Slot slot = this.slots.get(i);
         if (slot.hasItem()) {
-            ItemStack stack1 = slot.getItem();
-            stack = stack1.copy();
+            ItemStack stack2 = slot.getItem();
+            stack1 = stack2.copy();
             if (i < this.containerRows * 9) {
-                if (!this.moveItemStackTo(stack1, this.containerRows * 9, this.slots.size(), true)) {
+                if (!this.moveItemStackTo(stack2, this.containerRows * 9, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(stack1, 0, this.containerRows * 9, false)) {
+            } else if (!this.moveItemStackTo(stack2, 0, this.containerRows * 9, false)) {
                 return ItemStack.EMPTY;
             }
 
-            if (stack1.isEmpty()) {
+            if (stack2.isEmpty()) {
                 slot.setByPlayer(ItemStack.EMPTY);
             } else {
                 slot.setChanged();
             }
         }
 
-        return stack;
+        return stack1;
     }
 
     @Override
-    protected boolean moveItemStackTo(ItemStack stack, int i1, int i2, boolean bool) {
+    protected boolean moveItemStackTo(ItemStack stack, int i1, int i2, boolean b) {
         boolean flag = false;
         int i = i1;
-        if (bool) {
+        if (b) {
             i = i2 - 1;
         }
 
@@ -93,7 +117,7 @@ public class MTKBackpackMenu extends AbstractContainerMenu {
         ItemStack itemstack;
         if (stack.isStackable()) {
             while(!stack.isEmpty()) {
-                if (bool) {
+                if (b) {
                     if (i < i1) {
                         break;
                     }
@@ -104,11 +128,11 @@ public class MTKBackpackMenu extends AbstractContainerMenu {
                 slot1 = this.slots.get(i);
                 itemstack = slot1.getItem();
                 if (!itemstack.isEmpty() && ItemStack.isSameItemSameTags(stack, itemstack)) {
-                    int j = itemstack.getCount() + stack.getCount();
+                    long j = itemstack.getCount() + stack.getCount();
                     int maxSize = 2100000000;
-                    if (j < maxSize) {
+                    if (j <= maxSize) {
                         stack.setCount(0);
-                        itemstack.setCount(j);
+                        itemstack.setCount((int) j);
                         slot1.setChanged();
                         flag = true;
                     } else if (itemstack.getCount() < maxSize) {
@@ -119,7 +143,7 @@ public class MTKBackpackMenu extends AbstractContainerMenu {
                     }
                 }
 
-                if (bool) {
+                if (b) {
                     --i;
                 } else {
                     ++i;
@@ -128,14 +152,14 @@ public class MTKBackpackMenu extends AbstractContainerMenu {
         }
 
         if (!stack.isEmpty()) {
-            if (bool) {
+            if (b) {
                 i = i2 - 1;
             } else {
                 i = i1;
             }
 
             while(true) {
-                if (bool) {
+                if (b) {
                     if (i < i1) {
                         break;
                     }
@@ -157,7 +181,7 @@ public class MTKBackpackMenu extends AbstractContainerMenu {
                     break;
                 }
 
-                if (bool) {
+                if (b) {
                     --i;
                 } else {
                     ++i;

@@ -19,7 +19,7 @@ public class MTKFurnaceFuelSlot extends Slot {
     }
 
     public int getMaxStackSize(ItemStack stack) {
-        return isBucket(stack) ? 1 : super.getMaxStackSize(stack);
+        return isBucket(stack) ? 1 : 2100000000;
     }
 
     public static boolean isBucket(ItemStack stack) {

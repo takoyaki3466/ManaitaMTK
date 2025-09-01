@@ -11,6 +11,6 @@ public class MTKItemStackHandler extends ItemStackHandler {
 
     @Override
     protected int getStackLimit(int slot, @NotNull ItemStack stack) {
-        return 2147483647;
+        return 2100000000;
     }
 }

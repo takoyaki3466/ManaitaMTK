@@ -1,8 +1,8 @@
 package com.takoy3466.manaitamtk.recipe;
 
 import com.takoy3466.manaitamtk.config.MTKConfig;
-import com.takoy3466.manaitamtk.regi.ManaitaMTKItems;
-import com.takoy3466.manaitamtk.regi.ManaitaMTKSerializers;
+import com.takoy3466.manaitamtk.init.ManaitaMTKItems;
+import com.takoy3466.manaitamtk.init.ManaitaMTKSerializers;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;

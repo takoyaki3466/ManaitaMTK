@@ -85,61 +85,56 @@ public class MTKBackPack extends Item {
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int i1, boolean b) {
         if (MTKBackPackTooltip.nonNullList == null) return;
         CompoundTag tag = stack.getOrCreateTag();
-        if (tag.contains(ManaitaMTK.MOD_ID)) {
+        if (!tag.contains(ManaitaMTK.MOD_ID)) return;
 
-            CompoundTag MTKTag = tag.getCompound(ManaitaMTK.MOD_ID);
+        CompoundTag MTKTag = tag.getCompound(ManaitaMTK.MOD_ID);
+        if (!MTKTag.contains("MTKContainer") || !tag.contains("itemCount")) return;
 
-            if (MTKTag.contains("MTKContainer") && tag.contains("itemCount")) {
+        ListTag listTagCount = tag.getList("itemCount", Tag.TAG_INT); // 3
+        this.handler.deserializeNBT(MTKTag.getCompound("MTKContainer"));
 
-                ListTag listTagCount = tag.getList("itemCount", Tag.TAG_INT); // 3
-                this.handler.deserializeNBT(MTKTag.getCompound("MTKContainer"));
-
-                for (int i = 0; i < this.handler.getSlots(); i++) {
-                    int countInt = listTagCount.getInt(i);
-                    ItemStack stack1 = this.handler.getStackInSlot(i);
-                    stack1.setCount(countInt);
-                    this.handler.setStackInSlot(i, stack1);
-                }
-
-                for (int i = 0; i < this.handler.getSlots(); i++) {
-                    ItemStack slotStack = this.handler.getStackInSlot(i);
-                    if (!slotStack.isEmpty()) {
-                        this.nonNullList.set(i, slotStack);
-                    }
-                }
-                MTKBackPackTooltip.updateNonNullList(this.nonNullList);
-            }
+        for (int i = 0; i < this.handler.getSlots(); i++) {
+            int countInt = listTagCount.getInt(i);
+            ItemStack stack1 = this.handler.getStackInSlot(i);
+            stack1.setCount(countInt);
+            this.handler.setStackInSlot(i, stack1);
         }
+
+        for (int i = 0; i < this.handler.getSlots(); i++) {
+            ItemStack slotStack = this.handler.getStackInSlot(i);
+            if (!slotStack.isEmpty()) {
+                this.nonNullList.set(i, slotStack);
+            }else this.nonNullList.set(i, ItemStack.EMPTY);
+        }
+
+        MTKBackPackTooltip.updateNonNullList(this.nonNullList);
     }
 
     @Override
     public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
         CompoundTag tag = stack.getOrCreateTag();
-        if (tag.contains(ManaitaMTK.MOD_ID)) {
+        if (!tag.contains(ManaitaMTK.MOD_ID)) return Optional.empty();
 
-            CompoundTag MTKTag = tag.getCompound(ManaitaMTK.MOD_ID);
+        CompoundTag MTKTag = tag.getCompound(ManaitaMTK.MOD_ID);
 
-            if (MTKTag.contains("MTKContainer") && tag.contains("itemCount")) {
+        if (!MTKTag.contains("MTKContainer") || !tag.contains("itemCount")) return Optional.empty();
 
-                ListTag listTagCount = tag.getList("itemCount", Tag.TAG_INT); // 3
-                this.handler.deserializeNBT(MTKTag.getCompound("MTKContainer"));
+        ListTag listTagCount = tag.getList("itemCount", Tag.TAG_INT); // 3
+        this.handler.deserializeNBT(MTKTag.getCompound("MTKContainer"));
 
-                for (int i = 0; i < this.handler.getSlots(); i++) {
-                    int countInt = listTagCount.getInt(i);
-                    ItemStack stack1 = this.handler.getStackInSlot(i);
-                    stack1.setCount(countInt); this.handler.setStackInSlot(i, stack1);
-                }
-
-                for (int i = 0; i < this.handler.getSlots(); i++) {
-                    ItemStack slotStack = this.handler.getStackInSlot(i);
-                    if (!slotStack.isEmpty()) {
-                        this.nonNullList.set(i, slotStack);
-                    }
-                }
-
-                return Optional.of(new MTKBackPackTooltip(this.nonNullList));
-            }
+        for (int i = 0; i < this.handler.getSlots(); i++) {
+            int countInt = listTagCount.getInt(i);
+            ItemStack stack1 = this.handler.getStackInSlot(i);
+            stack1.setCount(countInt); this.handler.setStackInSlot(i, stack1);
         }
-        return Optional.empty();
+
+        for (int i = 0; i < this.handler.getSlots(); i++) {
+            ItemStack slotStack = this.handler.getStackInSlot(i);
+            if (!slotStack.isEmpty()) {
+                this.nonNullList.set(i, slotStack);
+            }else this.nonNullList.set(i, ItemStack.EMPTY);
+        }
+
+        return Optional.of(new MTKBackPackTooltip(this.nonNullList));
     }
 }

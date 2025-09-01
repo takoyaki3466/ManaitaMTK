@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.regi.ManaitaMTKItems;
+import com.takoy3466.manaitamtk.init.ManaitaMTKItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.GameNarrator;
 import net.minecraft.client.Minecraft;

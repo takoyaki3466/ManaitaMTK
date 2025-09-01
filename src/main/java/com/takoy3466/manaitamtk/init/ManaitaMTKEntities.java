@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk.regi;
+package com.takoy3466.manaitamtk.init;
 
 import com.takoy3466.manaitamtk.entity.EntityArrowMTK;
 import com.takoy3466.manaitamtk.ManaitaMTK;

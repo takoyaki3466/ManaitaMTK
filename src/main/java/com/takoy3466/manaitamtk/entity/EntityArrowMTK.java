@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.entity;
 
-import com.takoy3466.manaitamtk.regi.ManaitaMTKEntities;
+import com.takoy3466.manaitamtk.init.ManaitaMTKEntities;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;

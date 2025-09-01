@@ -5,7 +5,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.NonNullList;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.awt.*;
@@ -45,15 +44,28 @@ public class ClientMTKBackPackTooltip implements ClientTooltipComponent {
         }
         if (!hasStack) return;
 
-        int colCount = 9; // 横列の数
+        Map<ItemStack, Long> stackLongMap = new LinkedHashMap<>();
+        for (ItemStack stack: nonNullList) {
+            if (stack.isEmpty()) continue;
+            boolean merge = false;
+            for (ItemStack key: stackLongMap.keySet()) {
+                if (ItemStack.isSameItemSameTags(key, stack)) {
+                    stackLongMap.put(key, stackLongMap.get(key) + stack.getCount());
+                    merge = true;
+                    break;
+                }
+            }if (!merge) stackLongMap.put(stack.copy(), (long) stack.getCount());
+        }
+
+        int colCount = 9;
         int row = 0;
         int col = 0;
 
         float textScale = 0.666f;
 
-        for (ItemStack stack : nonNullList) {
+        for (Map.Entry<ItemStack, Long> map : stackLongMap.entrySet()) {
+            ItemStack stack = map.getKey();
             if (stack.isEmpty()) continue;
-            int itemCount = stack.getCount();
 
             int slotX = x + col * 18;
             int slotY = y + row * 18;
@@ -64,7 +76,7 @@ public class ClientMTKBackPackTooltip implements ClientTooltipComponent {
             pose.translate(0, 0, 0);
             graphics.renderItem(stack, slotX, slotY);
             // スタック数の描画
-            String text = setCountDisplay(itemCount);
+            String text = setCountDisplay(map.getValue());
             pose.translate(0, 0, 200);
             pose.scale(textScale, textScale, 1f);
             int textX = (int)((slotX + 16 - font.width(text) * textScale) / textScale);
@@ -80,7 +92,7 @@ public class ClientMTKBackPackTooltip implements ClientTooltipComponent {
         }
     }
 
-    private String setCountDisplay(long count) {
+    public static String setCountDisplay(long count) {
         double tera = Math.pow(10, 12);
         double giga = Math.pow(10, 9);
         double mega = Math.pow(10, 6);

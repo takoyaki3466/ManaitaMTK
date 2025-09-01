@@ -3,7 +3,7 @@ package com.takoy3466.manaitamtk.menu;
 import com.takoy3466.manaitamtk.MTKEnum;
 import com.takoy3466.manaitamtk.block.Slot.MTKFurnaceFuelSlot;
 import com.takoy3466.manaitamtk.block.blockEntity.MTKFurnaceBlockEntityBase;
-import com.takoy3466.manaitamtk.regi.ManaitaMTKMenus;
+import com.takoy3466.manaitamtk.init.ManaitaMTKMenus;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;

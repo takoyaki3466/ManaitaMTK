@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.menu;
 
 import com.takoy3466.manaitamtk.config.MTKConfig;
-import com.takoy3466.manaitamtk.regi.ManaitaMTKItems;
+import com.takoy3466.manaitamtk.init.ManaitaMTKItems;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
