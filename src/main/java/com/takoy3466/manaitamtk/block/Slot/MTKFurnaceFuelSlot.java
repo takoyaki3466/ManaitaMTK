@@ -7,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 public class MTKFurnaceFuelSlot extends Slot {
+    private final int MAX_VALUE = 2147483647;
     private final MTKFurnaceMenuBase menu;
 
     public MTKFurnaceFuelSlot(MTKFurnaceMenuBase menu, Container container, int slotId, int x, int y) {
@@ -19,7 +20,7 @@ public class MTKFurnaceFuelSlot extends Slot {
     }
 
     public int getMaxStackSize(ItemStack stack) {
-        return isBucket(stack) ? 1 : 2100000000;
+        return isBucket(stack) ? 1 : this.MAX_VALUE;
     }
 
     public static boolean isBucket(ItemStack stack) {

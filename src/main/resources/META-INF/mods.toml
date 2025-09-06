@@ -17,7 +17,13 @@ mixins = [
 ]
 #displayTest="MATCH_VERSION" # MATCH_VERSION is the default if nothing is specified (#optional)
 # The description text for the mod (multi line!) (#mandatory)
-description='''知識ゼロから頑張って作ったから大目に見てね!!!'''
+description='''
+知識ゼロから頑張って作ったから大目に見てね!!!
+
+
+
+Thank you to hori hori for helping with the translation!
+'''
 
 [[dependencies.manaitamtk]]
     modId="forge"

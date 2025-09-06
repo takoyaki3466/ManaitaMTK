@@ -67,6 +67,8 @@ public class ManaitaTabItems {
             ManaitaMTKItems.BOOTS_MANAITA.get(),
 
             ManaitaMTKBlocks.BlockItems.MTK_CHEST.get(),
-            ManaitaMTKItems.MTK_BACKPACK.get()
+            ManaitaMTKItems.MTK_BACKPACK.get(),
+
+            ManaitaMTKItems.DEBUG_MTK.get()
     };
 }

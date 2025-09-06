@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "manaitamtk.refmap.json",
   "client": [
+    "ItemRenderMixin",
     "LivingEntityMixin"
   ],
   "server": [],

@@ -9,7 +9,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -17,6 +16,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public class MTKBackpackMenu extends AbstractContainerMenu {
+    private final int MAX_VALUE = 2147483647;
     private final int containerRows = 6;
     private final MTKItemStackHandler stackHandler;
     private final ItemStack stack;
@@ -128,8 +128,11 @@ public class MTKBackpackMenu extends AbstractContainerMenu {
                 slot1 = this.slots.get(i);
                 itemstack = slot1.getItem();
                 if (!itemstack.isEmpty() && ItemStack.isSameItemSameTags(stack, itemstack)) {
-                    long j = itemstack.getCount() + stack.getCount();
-                    int maxSize = 2100000000;
+                    long itemStackCount = itemstack.getCount();
+                    long stackCount = stack.getCount();
+
+                    long j = itemStackCount + stackCount;
+                    int maxSize = this.MAX_VALUE;
                     if (j <= maxSize) {
                         stack.setCount(0);
                         itemstack.setCount((int) j);
@@ -191,6 +194,7 @@ public class MTKBackpackMenu extends AbstractContainerMenu {
 
         return flag;
     }
+
 
     @Override
     public boolean stillValid(Player player) {

@@ -1,9 +1,7 @@
 package com.takoy3466.manaitamtk;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
 import com.takoy3466.manaitamtk.item.armor.HelmetManaita;
-import com.takoy3466.manaitamtk.item.tooptip.MTKBackPackTooltip;
 import com.takoy3466.manaitamtk.screen.MTKBackPackScreen;
 import com.takoy3466.manaitamtk.screen.MTKChestScreen;
 import com.takoy3466.manaitamtk.config.MTKConfig;
@@ -18,7 +16,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -46,7 +43,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -56,9 +52,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MTKSubscribeEvent {
 
@@ -334,6 +328,24 @@ public class MTKSubscribeEvent {
             int xSword = minecraft.getWindow().getGuiScaledWidth() / 2 - minecraft.font.width(bool? SWORD_TEXT_ALL.getString() : SWORD_TEXT_ENEMY.getString()) / 2;
             int ySword = minecraft.getWindow().getGuiScaledHeight() - 49 - minecraft.font.lineHeight;
             graphics.drawString(minecraft.font, bool? SWORD_TEXT_ALL : SWORD_TEXT_ENEMY, xSword, ySword, bool? Color.RED.getRGB() : Color.GRAY.getRGB());
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingDrops(LivingDropsEvent event) {
+        if (event.getEntity() instanceof Player player) {
+            if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() == ManaitaMTKItems.HELMET_MANAITA.get()) {
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onExperienceDrop(LivingExperienceDropEvent event) {
+        if (event.getEntity() instanceof Player player) {
+            if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() == ManaitaMTKItems.HELMET_MANAITA.get()) {
+                event.setCanceled(true);
+            }
         }
     }
 }

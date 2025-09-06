@@ -21,6 +21,7 @@ public class ManaitaMTKItems {
     public static final RegistryObject<Item> ITEM_MTK = ITEMS.register("item_mtk", ItemMTK::new);
     public static final RegistryObject<Item> ZIKOKENZIYOKU = ITEMS.register("zikokenziyoku", ZIKOKENZIYOKU::new);
     public static final RegistryObject<Item> CRUSHED_MTK = ITEMS.register("crushed_mtk", CrushedMTK::new);
+    public static final RegistryObject<Item> DEBUG_MTK = ITEMS.register("debug_mtk", DebugMTK::new);
 
     public static final RegistryObject<Item> PORTABLE_WOOD_CRAFTING_TABLE = PortableMCTRegister(MTKEnum.WOOD);
     public static final RegistryObject<Item> PORTABLE_STONE_CRAFTING_TABLE = PortableMCTRegister(MTKEnum.STONE);

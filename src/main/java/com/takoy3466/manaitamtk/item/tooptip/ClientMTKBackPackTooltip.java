@@ -99,7 +99,7 @@ public class ClientMTKBackPackTooltip implements ClientTooltipComponent {
         double kiro = Math.pow(10, 3);
 
         if (count >= tera) return String.format("%.1fT", count / tera);
-        else if (count >= giga) return String.format("%.1fG", count / giga);
+        else if (count >= giga) return String.format("%.0fG", count / giga);
         else if (count >= mega) return String.format("%.0fM", count / mega);
         else if (count >= kiro) return String.format("%.0fK", count / kiro);
         else return String.valueOf(count);

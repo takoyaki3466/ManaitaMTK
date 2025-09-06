@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class MTKChestMenu extends AbstractContainerMenu {
+    private final int MAX_VALUE = 2147483647;
     private final MTKChestBlockEntity blockEntity;
     private final ContainerLevelAccess levelAccess;
     private final MTKItemStackHandler handler;
@@ -107,8 +108,11 @@ public class MTKChestMenu extends AbstractContainerMenu {
                 slot1 = this.slots.get(i);
                 itemstack = slot1.getItem();
                 if (!itemstack.isEmpty() && ItemStack.isSameItemSameTags(stack, itemstack)) {
-                    long j = itemstack.getCount() + stack.getCount();
-                    int maxSize = 2100000000;
+                    long itemStackCount = itemstack.getCount();
+                    long stackCount = stack.getCount();
+
+                    long j = itemStackCount + stackCount;
+                    int maxSize = this.MAX_VALUE;
                     if (j <= maxSize) {
                         stack.setCount(0);
                         itemstack.setCount((int) j);
@@ -170,6 +174,7 @@ public class MTKChestMenu extends AbstractContainerMenu {
 
         return flag;
     }
+
 
     @Override
     public boolean stillValid(Player player) {

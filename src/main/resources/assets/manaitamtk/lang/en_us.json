@@ -119,7 +119,8 @@
   "block.manaitamtk.mtk_furnace_iron.hover_text": "Isn't this just right?",
   "block.manaitamtk.mtk_furnace_mtk.hover_text": "One refining process brings a lot of content!",
   "block.manaitamtk.mtk_furnace_break.hover_text": "I don't need this much! (x33554431)",
-  "block.manaitamtk.mtk_chest.hover_text": "2.1 billion × 54...?",
+  "block.manaitamtk.mtk_chest.hover_text_1": "2.1 billion × 54...?",
+  "block.manaitamtk.mtk_chest.hover_text_2": "The texture of the item...not flat...?",
 
   "item.manaitamtk.fwai.first_text": "Flying speed : ",
   "item.manaitamtk.fwai.second_text": " | Walking speed : ",

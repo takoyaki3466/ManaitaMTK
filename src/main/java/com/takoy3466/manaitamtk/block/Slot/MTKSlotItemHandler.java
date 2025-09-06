@@ -6,6 +6,7 @@ import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 public class MTKSlotItemHandler extends SlotItemHandler {
+    private final int MAX_VALUE = 2147483647;
     public int index;
 
     public MTKSlotItemHandler(ItemStackHandler container, int index, int x, int y) {
@@ -15,11 +16,11 @@ public class MTKSlotItemHandler extends SlotItemHandler {
 
     @Override
     public int getMaxStackSize() {
-        return 2100000000;
+        return this.MAX_VALUE;
     }
     @Override
     public int getMaxStackSize(@NotNull ItemStack stack) {
-        return 2100000000;
+        return this.MAX_VALUE;
     }
 
     public void setIndex(int index) {

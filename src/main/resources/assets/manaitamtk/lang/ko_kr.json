@@ -1,0 +1,143 @@
+
+{
+  "itemGroup.mtk_main" : "ManaitaMTK",
+
+  "item.manaitamtk.item_mtk" : "MTK",
+  "item.manaitamtk.crushed_mtk": "MTK가루",
+  "item.manaitamtk.zikokenziyoku": "인정욕구",
+
+  "enchantment.manaitamtk.fortune_mtk": "행운MTK",
+
+  "item.manaitamtk.portable_wood_crafting_table": "휴대용 목제 2배 작업대",
+  "item.manaitamtk.portable_stone_crafting_table": "휴대용 석제 4배 작업대",
+  "item.manaitamtk.portable_iron_crafting_table": "휴대용 철제 8배 작업대",
+  "item.manaitamtk.portable_gold_crafting_table": "휴대용 황금 16배 작업대",
+  "item.manaitamtk.portable_diamond_crafting_table": "휴대용 다이아몬드 32배 작업대",
+  "item.manaitamtk.portable_mtk_crafting_table": "휴대용 MTK제 64배 작업대",
+  "item.manaitamtk.portable_godmtk_crafting_table": "휴대용 GOD 천지신명 512배 작업대",
+  "item.manaitamtk.portable_break_crafting_table": "휴대용 돌파 작업대",
+
+  "item.manaitamtk.wood_double_block_mtk" : "목제 2배 MTK",
+  "item.manaitamtk.stone_double_block_mtk" : "석제 4배 MTK",
+  "item.manaitamtk.iron_double_block_mtk" : "철제 8배 MTK",
+  "item.manaitamtk.gold_double_block_mtk" : "황금 16배 MTK",
+  "item.manaitamtk.diamond_double_block_mtk" : "다이아몬드 32배 MTK",
+  "item.manaitamtk.mtk_double_block_mtk" : "MTK제 64배 MTK",
+  "item.manaitamtk.godmtk_double_block_mtk" : "GOD 천지신명 512배 MTK",
+
+  "item.manaitamtk.changeable_portable_dct" : "조절 가능 휴대용 증가 작업대",
+
+  "item.manaitamtk.manaita_pickaxe" : "Manaita 곡괭이",
+  "item.manaitamtk.manaita_axe" : "Manaita 도끼",
+  "item.manaitamtk.manaita_shovel" : "Manaita 삽",
+  "item.manaitamtk.manaita_sword" : "Manaita 검",
+  "item.manaitamtk.manaita_paxel" : "Manaita 팍셀",
+  "item.manaitamtk.manaita_bow": "Manaita 활",
+  "item.manaitamtk.manaita_hoe": "Manaita 괭이",
+
+  "block.manaitamtk.block_manaita": "Manaita",
+  "block.manaitamtk.block_manaita_diamond": "Manaita 다이아몬드",
+  "block.manaitamtk.block_manaita_dirt": "Manaita 흙",
+  "block.manaitamtk.block_manaita_glass": "Manaita 유리",
+
+  "block.manaitamtk.wood_crafting_table": "목제 2배 작업대",
+  "block.manaitamtk.stone_crafting_table": "석제 4배 작업대",
+  "block.manaitamtk.iron_crafting_table": "철제 8배 작업대",
+  "block.manaitamtk.gold_crafting_table": "황금 16배 작업대",
+  "block.manaitamtk.diamond_crafting_table": "다이아몬드 32배 작업대",
+  "block.manaitamtk.mtk_crafting_table": "MTK제 64배 작업대",
+  "block.manaitamtk.godmtk_crafting_table": "GOD 천지신명 512배 작업대",
+  "block.manaitamtk.break_crafting_table": "돌파 작업대",
+
+  "block.manaitamtk.wood_mtk_furnace": "목제 2배 화로",
+  "block.manaitamtk.stone_mtk_furnace": "석제 4배  화로",
+  "block.manaitamtk.iron_mtk_furnace": "철제 8배 화로",
+  "block.manaitamtk.gold_mtk_furnace": "황금 16배 화로",
+  "block.manaitamtk.diamond_mtk_furnace": "다이아몬드 32배 화로",
+  "block.manaitamtk.mtk_mtk_furnace": "MTK제 64배 화로",
+  "block.manaitamtk.godmtk_mtk_furnace": "GOD 천지신명 512배 화로",
+  "block.manaitamtk.break_mtk_furnace": "돌파 화로",
+
+  "block.manaitamtk.mtk_chest": "Manaita 상자",
+  "block.manaitamtk.auto_crafting_table": "자동 작업대",
+
+  "item.manaitamtk.helmet_manaita": "Manaita 투구",
+  "item.manaitamtk.chestplate_manaita": "Manaita 흉갑",
+  "item.manaitamtk.legins_manaita": "Manaita 레깅스",
+  "item.manaitamtk.boots_manaita": "Manaita 부츠",
+
+  "item.manaitamtk.mtk_backpack": "MTK백팩",
+
+  "key.manaitamtk.categories": "ManaitaMTK",
+  "key.manaitamtk.helmetsetting": "투구키",
+  "key.manaitamtk.flyspeedsetting": "비행속도변경키",
+  "key.manaitamtk.magnification_key": "배율변경키",
+  "key.manaitamtk.mtk_switcher_open_key": "변경화면 열기",
+  "key.manaitamtk.mtk_switcher_select_key": "변경화면에서의 선택 항목의 이동",
+
+  "advancements.start.title": "Manaita MTK",
+  "advancements.start.description": "Manaita MTK",
+  "advancements.placed_block_manaita.title": "텍스처가 밋밋한 것 같은데...",
+  "advancements.placed_block_manaita.description": "Manaita블록을 만들자！",
+  "advancements.make_mtk.title": "이 Manaita 놓을 수가 없어！！",
+  "advancements.make_mtk.description": "MTK를 만들자",
+  "advancements.make_paxel.title": "역시 팍셀이 최고지！！！",
+  "advancements.make_paxel.description": "Manaita의 팍셀을 만들자！",
+  "advancements.placed_block_manaita_diamond.title": "다이아몬드인데 나무 소리가 나는 Manaita！",
+  "advancements.placed_block_manaita_diamond.description": "Manaita 다이아몬드 블록을 만들자！",
+  "advancements.placed_block_manaita_dirt.title": "흙인데 Manaita 도마...?",
+  "advancements.placed_block_manaita_dirt.description": "Manaita 흙을 만들자！",
+  "advancements.placed_block_manaita_glass.title": "유리인데 나무 소리가 나...",
+  "advancements.placed_block_manaita_glass.description": "Manaita 유리 블록을 만들자！",
+  "advancements.make_crushed_mtk.title": "분쇄기는 없나？",
+  "advancements.make_crushed_mtk.description": "MTK를 구워보자！",
+  "advancements.make_break_crafting_table.title": "뭔가 숫자가 이상한데...?",
+  "advancements.make_break_crafting_table.description": "돌파 작업대를 만들자！",
+  "advancement.mtk_screen_open.title": "뭔가 본적이 있는 화면인데...",
+  "advancement.mtk_screen_open.description": "F3이나 F4를 누르면 나오는 거잖아！",
+  "advancements.make_break_mtk_furnace.title": "헉...텍스처의 재사용...?",
+  "advancements.make_break_mtk_furnace.description": "돌파 화로를 만들자！",
+  "advancements.make_wood_mtk_furnace.title": "잠깐！나무로 구우면 타버린다고!！",
+  "advancements.make_wood_mtk_furnace.description": "목제 화로를 만들자！",
+  "advancements.make_mtk_mtk_furnace.title": "MTK_MTK_FURNACE라니... 불필요하게 긴거 아니야?",
+  "advancements.make_mtk_mtk_furnace.description": "MTK 화로를 만들자！",
+  "advancements.placed_mtk_chest.title":"Manaita 도마 상자에는 물건은 안 들어가지 않나?",
+  "advancements.placed_mtk_chest.description": "Manaita 상자를 만들자！",
+  "advancements.mtk_backpack.title": "이 백팩...너무 얇지 않나?",
+  "advancements.mtk_backpack.description": "MTK백팩을 만들어보자！",
+
+  "item.manaitamtk.zikokenziyoku.display_massage": "패배！",
+
+  "item.manaitamtk.zikokenziyoku.hover_text": "주의！　오른쪽 클릭하면 바로 죽습니다！",
+  "item.manaitamtk.manaita_axe.hover_text": "Shift키를 누르면서 오른쪽 클릭하면 벗긴 나무를 되돌릴 수 있어！",
+  "item.manaitamtk.helmet_manaita.hover_text": "빠르기 : ",
+  "item.manaitamtk.manaita_hoe.hover_text": "Shift키를 누르면서 오른쪽 클릭으로 갈 수 있는 범위 : ",
+  "item.manaitamtk.bow_mtk.hover_text": "발사한 활은 30초후에 없어져！",
+  "item.manaitamtk.manaita_sword_hover_text": "왼쪽 클릭이든 오른쪽 클릭이든 바로 죽음！",
+  "item.manaitamtk.mtk_backpack.hover_text": "비었어",
+  "item.manaitamtk.manaita_sword.hover_text_mode": "모드: ",
+
+  "block.manaitamtk.mtk_furnace_iron.hover_text": "이 정도가 딱 좋지 않아？",
+  "block.manaitamtk.mtk_furnace_mtk.hover_text": "한번 굽기만 해도 꽉 채워져！",
+  "block.manaitamtk.mtk_furnace_break.hover_text": "너무 많은 것 같은데 (33554431배 )",
+  "block.manaitamtk.mtk_chest.hover_text_1": "21억 × 54...?",
+  "block.manaitamtk.mtk_chest.hover_text_2": "항목의 질감 ... 평평하지 않습니다 ...?",
+
+  "item.manaitamtk.fwai.first_text": "비행속도 : ",
+  "item.manaitamtk.fwai.second_text": " | 보행 속도 : ",
+
+
+  "gui.mtk_switcher_screen.first_title": "",
+  "gui.mtk_switcher_screen.second_title": "또는 휠로 이동",
+
+  "block.manaitamtk.mtk_crafting_table.title": "MTK 작업대",
+  "block.manaitamtk.mtk_furnace.title": "MTK 화로",
+
+  "tooltip.amount": "개수: ",
+
+  "gui.overlay.sword.enemy_die": "적전멸 모드",
+  "gui.overlay.sword.all_die": "전엔티티 전멸 모드",
+
+
+  "Thank_you_to_hori_hori_for_helping_with_the_translation": "번역을 도와 주신 Hori Hori에게 감사합니다"
+}

@@ -72,6 +72,7 @@ public class BlockMTKChest extends Block implements EntityBlock {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable BlockGetter getter, List<Component> list, TooltipFlag flag) {
-        list.add(Component.translatable("block.manaitamtk.mtk_chest.hover_text").withStyle(ChatFormatting.GRAY));
+        list.add(Component.translatable("block.manaitamtk.mtk_chest.hover_text_1").withStyle(ChatFormatting.GRAY));
+        list.add(Component.translatable("block.manaitamtk.mtk_chest.hover_text_2").withStyle(ChatFormatting.GRAY));
     }
 }
