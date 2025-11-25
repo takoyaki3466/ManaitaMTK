@@ -1,9 +1,8 @@
 package com.takoy3466.manaitamtk.block;
 
 import com.takoy3466.manaitamtk.MTKEnum;
+import com.takoy3466.manaitamtk.apiMTK.ITickableBlockEntity;
 import com.takoy3466.manaitamtk.block.blockEntity.MTKFurnaceBlockEntity;
-import com.takoy3466.manaitamtk.block.blockEntity.MTKFurnaceBlockEntityBase;
-import com.takoy3466.manaitamtk.init.ManaitaMTKBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -126,50 +125,12 @@ public class BlockMTKFurnace extends AbstractFurnaceBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         if (level.isClientSide()) return null;
-        BlockEntityType<? extends MTKFurnaceBlockEntityBase> blockEntityType = getBlockEntityType();
         switch (mtkEnum) {
-            case WOOD -> {
-                return createTickerHelper(type, blockEntityType, MTKFurnaceBlockEntity.FurnaceEntityWood::serverTick);
-            }
-            case STONE -> {
-                return createTickerHelper(type, blockEntityType, MTKFurnaceBlockEntity.FurnaceEntityStone::serverTick);
-            }
-            case IRON -> {
-                return createTickerHelper(type, blockEntityType, MTKFurnaceBlockEntity.FurnaceEntityIron::serverTick);
-            }
-            case GOLD -> {
-                return createTickerHelper(type, blockEntityType, MTKFurnaceBlockEntity.FurnaceEntityGold::serverTick);
-            }
-            case DIAMOND -> {
-                return createTickerHelper(type, blockEntityType, MTKFurnaceBlockEntity.FurnaceEntityDiamond::serverTick);
-            }
-            case MTK -> {
-                return createTickerHelper(type, blockEntityType, MTKFurnaceBlockEntity.FurnaceEntityMTK::serverTick);
-            }
-            case GODMTK -> {
-                return createTickerHelper(type, blockEntityType, MTKFurnaceBlockEntity.FurnaceEntityGODMTK::serverTick);
-            }
-            case BREAK -> {
-                return createTickerHelper(type, blockEntityType, MTKFurnaceBlockEntity.FurnaceEntityBreak::serverTick);
+            case WOOD,STONE,IRON,GOLD,DIAMOND,MTK,GODMTK,BREAK -> {
+                return ITickableBlockEntity.getTickerHelper(level);
             }
             default -> throw new IllegalStateException("Unexpected value: " + mtkEnum);
         }
-    }
-
-    private BlockEntityType<? extends MTKFurnaceBlockEntityBase> getBlockEntityType() {
-        BlockEntityType<? extends MTKFurnaceBlockEntityBase> blockEntityType;
-        switch (mtkEnum) {
-            case WOOD -> blockEntityType = ManaitaMTKBlocks.BlockEntities.MTK_FURNACE_WOOD.get();
-            case STONE -> blockEntityType = ManaitaMTKBlocks.BlockEntities.MTK_FURNACE_STONE.get();
-            case IRON -> blockEntityType = ManaitaMTKBlocks.BlockEntities.MTK_FURNACE_IRON.get();
-            case GOLD -> blockEntityType = ManaitaMTKBlocks.BlockEntities.MTK_FURNACE_GOLD.get();
-            case DIAMOND -> blockEntityType = ManaitaMTKBlocks.BlockEntities.MTK_FURNACE_DIAMOND.get();
-            case MTK -> blockEntityType = ManaitaMTKBlocks.BlockEntities.MTK_FURNACE_MTK.get();
-            case GODMTK ->blockEntityType = ManaitaMTKBlocks.BlockEntities.MTK_FURNACE_GODMTK.get();
-            case BREAK ->blockEntityType = ManaitaMTKBlocks.BlockEntities.MTK_FURNACE_BREAK.get();
-            default -> blockEntityType = null;
-        }
-        return blockEntityType;
     }
 
     @Override

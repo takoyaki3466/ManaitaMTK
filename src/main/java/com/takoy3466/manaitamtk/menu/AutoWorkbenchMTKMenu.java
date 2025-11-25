@@ -1,7 +1,8 @@
 package com.takoy3466.manaitamtk.menu;
 
-import com.takoy3466.manaitamtk.config.MTKConfig;
-import com.takoy3466.manaitamtk.init.ItemsInit;
+import com.takoy3466.manaitamtk.block.blockEntity.AutoWorkbenchMTKBlockEntity;
+import com.takoy3466.manaitamtk.init.BlocksInit;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -14,25 +15,40 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> {
+public class AutoWorkbenchMTKMenu extends RecipeBookMenu<Container> {
     private final CraftingContainer craftSlots;
+    private final AutoWorkbenchMTKBlockEntity blockEntity;
     private final ResultContainer resultSlots;
     private final ContainerLevelAccess access;
     private final Player player;
-    private final int magnification;
+    private CraftingRecipe recipe;
 
-    public MTKCraftingTableMenu(int id, Inventory playerInventory, ContainerLevelAccess access, int mag) {
+    public AutoWorkbenchMTKMenu(int id, Inventory playerInventory, BlockPos pos) {
         super(MenuType.CRAFTING, id);
-        this.craftSlots = new TransientCraftingContainer(this, 3, 3);
-        this.resultSlots = new ResultContainer();
-        this.access = access;
+        BlockEntity be = playerInventory.player.level().getBlockEntity(pos);
+        if (be instanceof AutoWorkbenchMTKBlockEntity autoCraftingMTKBlockEntity){
+            this.blockEntity = autoCraftingMTKBlockEntity;
+        } else {
+            throw new IllegalStateException(be.getClass().getCanonicalName() + "と AutoWorkbenchMTKBlockEntity クラスは違うよ！");
+        }
         this.player = playerInventory.player;
-        this.magnification = mag;
-        this.addSlot(new ResultSlot(playerInventory.player, this.craftSlots, this.resultSlots, 0, 124, 35));
+        this.access = ContainerLevelAccess.create(this.blockEntity.getLevel(), this.blockEntity.getBlockPos());
+
+        this.craftSlots = new TransientCraftingContainer(this, 3, 3, this.blockEntity.getItems());
+        this.resultSlots = new ResultContainer();
+        this.addSlot(new ResultSlot(playerInventory.player, this.craftSlots, this.resultSlots, 0, 124, 35){
+            @Override
+            public boolean mayPickup(Player player) {
+                return false;
+            }
+        });
+
+        this.slotsChanged(this.resultSlots);
 
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 3; ++j) {
@@ -49,7 +65,6 @@ public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> {
         for(int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }
-
     }
 
     protected void slotChangedCraftingGrid(AbstractContainerMenu menu, Level level, Player player, CraftingContainer craftingContainer, ResultContainer resultContainer) {
@@ -59,11 +74,14 @@ public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> {
             Optional<CraftingRecipe> optionalRecipe = level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, craftingContainer, level);
             if (optionalRecipe.isPresent()) {
                 CraftingRecipe recipe = optionalRecipe.get();
+                this.blockEntity.setRecipe(recipe);
+                this.recipe = recipe;
+                this.blockEntity.setContainer(craftingContainer);
                 if (resultContainer.setRecipeUsed(level, sPlayer, recipe)) {
                     ItemStack result = recipe.assemble(craftingContainer, level.registryAccess());
                     if (result.isItemEnabled(level.enabledFeatures())) {
                         stack = result;
-                        stack.setCount(stack.getCount() * this.magnification);
+                        stack.setCount(stack.getCount());
                     }
                 }
             }
@@ -76,41 +94,18 @@ public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> {
 
     @Override
     public void slotsChanged(@NotNull Container container) {
-        this.access.execute((level, pos) -> {
-            // CrushedMTKの処理を持ってきた
-            if (matchesD((CraftingContainer) container)){
-                setItem(0,1, assembleD((CraftingContainer) container));
-                this.resultSlots.setChanged();
-            } else {
-                slotChangedCraftingGrid(this, level, this.player, this.craftSlots, this.resultSlots);
-            }
-        });
-    }
-
-    @Override
-    public boolean stillValid(@NotNull Player player) {
-        return true;
-    }
-
-    @Override
-    public void removed(@NotNull Player player) {
-        super.removed(player);
-        this.access.execute((level, pos) -> {
-            for (int i = 0; i < this.craftSlots.getContainerSize(); i++) {
-                ItemStack stack = this.craftSlots.removeItemNoUpdate(i);
-                if (!stack.isEmpty()) {
-                    player.getInventory().placeItemBackInInventory(stack);
-                }
-            }
-        });
+        this.access.execute((level, pos) -> slotChangedCraftingGrid(this, level, this.player, this.craftSlots, this.resultSlots));
+        if (recipe != null) {
+            this.resultSlots.setItem(0, this.recipe.getResultItem(this.player.level().registryAccess()));
+        }
     }
 
     @Override
     public ItemStack quickMoveStack(Player player, int i) {
         ItemStack stack = ItemStack.EMPTY;
-        Slot $$3 = this.slots.get(i);
-        if ($$3.hasItem()) {
-            ItemStack stack1 = $$3.getItem();
+        Slot slot = this.slots.get(i);
+        if (slot.hasItem()) {
+            ItemStack stack1 = slot.getItem();
             stack = stack1.copy();
             if (i == 0) {
                 this.access.execute((level, pos) -> stack1.getItem().onCraftedBy(stack1, level, player));
@@ -118,7 +113,7 @@ public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> {
                     return ItemStack.EMPTY;
                 }
 
-                $$3.onQuickCraft(stack1, stack);
+                slot.onQuickCraft(stack1, stack);
             } else if (i >= 10 && i < 46) {
                 if (!this.moveItemStackTo(stack1, 1, 10, false)) {
                     if (i < 37) {
@@ -134,16 +129,16 @@ public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> {
             }
 
             if (stack1.isEmpty()) {
-                $$3.setByPlayer(ItemStack.EMPTY);
+                slot.setByPlayer(ItemStack.EMPTY);
             } else {
-                $$3.setChanged();
+                slot.setChanged();
             }
 
             if (stack1.getCount() == stack.getCount()) {
                 return ItemStack.EMPTY;
             }
 
-            $$3.onTake(player, stack1);
+            slot.onTake(player, stack1);
             if (i == 0) {
                 player.drop(stack1, false);
             }
@@ -152,63 +147,16 @@ public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> {
         return stack;
     }
 
-    public boolean matchesD(CraftingContainer container) {
-        boolean source = false;
-        boolean item = false;
-
-        for(int i = 0; i < container.getContainerSize(); ++i) {
-            ItemStack itemStack = container.getItem(i);
-            if (!itemStack.isEmpty()) {
-                if (itemStack.getItem() == ItemsInit.CRUSHED_MTK.get()) {
-                    if (!source) {source = true;}
-                    else {
-                        if (item) {return false;}
-                        item = true;
-                    }
-                } else {
-                    if (item) {return false;}
-                    item = true;
-                }
-            }
-        }
-        return source && item;
-    }
-
-    // * magnificationを追加してちょっと変えてる
-    public ItemStack assembleD(CraftingContainer container) {
-        ItemStack itemStack = ItemStack.EMPTY;
-        int source = 0;
-
-        for(int i = 0; i < container.getContainerSize(); ++i) {
-            ItemStack itemStackInSlot = container.getItem(i);
-            if (!itemStackInSlot.isEmpty() && itemStackInSlot.getItem() != ItemsInit.CRUSHED_MTK.get()) {
-                itemStack = itemStackInSlot;
-            }
-
-            if (!itemStackInSlot.isEmpty() && itemStackInSlot.getItem() == ItemsInit.CRUSHED_MTK.get()) {
-                ++source;
-            }
-        }
-
-        ItemStack result;
-        if (source == 2) {
-            result = new ItemStack(ItemsInit.CRUSHED_MTK.get());
-            //result.setCount(64);
-            result.setCount(MTKConfig.CRUSHED_MTK_MAGNIFICATION.get() * magnification);
-            return result;
-        } else if (itemStack.isEmpty()) {
-            return ItemStack.EMPTY;
-        } else {
-            result = itemStack.copy();
-            //result.setCount(64);
-            result.setCount(MTKConfig.CRUSHED_MTK_MAGNIFICATION.get() * magnification);
-            return result;
-        }
+    @Override
+    public boolean stillValid(Player player) {
+        return stillValid(this.access, player, BlocksInit.Blocks.AUTO_WORKBENCH_MTK.get());
     }
 
     @Override
-    public void fillCraftSlotsStackedContents(StackedContents itemHelper) {
-        this.craftSlots.fillStackedContents(itemHelper);
+    public void fillCraftSlotsStackedContents(StackedContents stackedContents) {
+        if (this.blockEntity instanceof StackedContentsCompatible) {
+            ((StackedContentsCompatible)this.blockEntity).fillStackedContents(stackedContents);
+        }
     }
 
     @Override
@@ -218,7 +166,7 @@ public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> {
     }
 
     @Override
-    public boolean recipeMatches(Recipe<? super CraftingContainer> recipe) {
+    public boolean recipeMatches(Recipe<? super Container> recipe) {
         return recipe.matches(this.craftSlots, this.player.level());
     }
 
@@ -250,5 +198,9 @@ public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> {
     @Override
     public boolean shouldMoveToInventory(int index) {
         return index != getResultSlotIndex();
+    }
+
+    public AutoWorkbenchMTKBlockEntity getBlockEntity() {
+        return this.blockEntity;
     }
 }

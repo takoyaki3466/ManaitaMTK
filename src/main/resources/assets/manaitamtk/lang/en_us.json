@@ -57,7 +57,7 @@
   "block.manaitamtk.break_mtk_furnace": "Break Furnace",
 
   "block.manaitamtk.mtk_chest": "MTK Chest",
-  "block.manaitamtk.auto_crafting_table": "Auto Crafting Table",
+  "block.manaitamtk.auto_workbench_mtk": "Auto Workbench",
 
   "item.manaitamtk.helmet_manaita": "Manaita Helmet",
   "item.manaitamtk.chestplate_manaita": "Manaita Chestplate",
@@ -72,6 +72,7 @@
   "key.manaitamtk.magnification_key": "Magnification Key",
   "key.manaitamtk.mtk_switcher_open_key": "Open the switcher",
   "key.manaitamtk.mtk_switcher_select_key": "Move the selection in the switcher",
+  "key.manaitamtk.mtk_switch_extermination": "Cutting board sword mode switching",
   "mtk_cant_move_key": "Cant Move Key",
 
   "advancements.start.title": "Manaita MTK",
@@ -104,6 +105,8 @@
   "advancements.placed_mtk_chest.description": "Let's make a cutting board chest!",
   "advancements.mtk_backpack.title": "This back... isn't it fluent?",
   "advancements.mtk_backpack.description": "Let's make an MTK backpack!",
+  "advancements.auto_workbench_mtk.title": "BuildCraft is GOD",
+  "advancements.auto_workbench_mtk.description": "Let's build an automatic workbench!",
 
   "item.manaitamtk.zikokenziyoku.display_massage": "defeat!",
 

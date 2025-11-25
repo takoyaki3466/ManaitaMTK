@@ -1,7 +1,6 @@
 package com.takoy3466.manaitamtk.item;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -19,8 +18,6 @@ public class ItemMTK extends Item {
 
         );
     }
-
-
     
     // hori horiさんありがとう！
     @SuppressWarnings("NoTranslation")

@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.item;
 
-import com.takoy3466.manaitamtk.init.ManaitaMTKItems;
+import com.takoy3466.manaitamtk.init.ItemsInit;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -23,7 +23,7 @@ public class DebugMTK extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        ItemStack mtk = new ItemStack(ManaitaMTKItems.ITEM_MTK::get);
+        ItemStack mtk = new ItemStack(ItemsInit.ITEM_MTK::get);
         mtk.setCount(this.MAX_VALUE);
 
         if (player.isSteppingCarefully()) {

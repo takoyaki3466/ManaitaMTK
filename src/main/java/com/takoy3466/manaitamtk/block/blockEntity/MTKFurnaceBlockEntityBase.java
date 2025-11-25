@@ -1,7 +1,8 @@
 package com.takoy3466.manaitamtk.block.blockEntity;
 
 import com.takoy3466.manaitamtk.MTKEnum;
-import com.takoy3466.manaitamtk.init.ManaitaMTKBlocks;
+import com.takoy3466.manaitamtk.apiMTK.ITickableBlockEntity;
+import com.takoy3466.manaitamtk.init.BlocksInit;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
@@ -24,7 +25,6 @@ import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
@@ -35,13 +35,12 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 import java.util.List;
 
-public class MTKFurnaceBlockEntityBase extends BaseContainerBlockEntity implements WorldlyContainer, RecipeHolder, StackedContentsCompatible {
+public class MTKFurnaceBlockEntityBase extends BaseContainerBlockEntity implements WorldlyContainer, RecipeHolder, StackedContentsCompatible, ITickableBlockEntity {
     private static final int[] SLOTS_FOR_UP = new int[]{0};
     private static final int[] SLOTS_FOR_DOWN = new int[]{2, 1};
     private static final int[] SLOTS_FOR_SIDES = new int[]{1};
@@ -62,14 +61,14 @@ public class MTKFurnaceBlockEntityBase extends BaseContainerBlockEntity implemen
     @SuppressWarnings("unchecked")
     public MTKFurnaceBlockEntityBase(BlockPos pos, BlockState state, MTKEnum mtkEnum) {
         super(switch (mtkEnum) {
-            case WOOD -> ManaitaMTKBlocks.BlockEntities.MTK_FURNACE_WOOD.get();
-            case STONE -> ManaitaMTKBlocks.BlockEntities.MTK_FURNACE_STONE.get();
-            case IRON -> ManaitaMTKBlocks.BlockEntities.MTK_FURNACE_IRON.get();
-            case GOLD -> ManaitaMTKBlocks.BlockEntities.MTK_FURNACE_GOLD.get();
-            case DIAMOND -> ManaitaMTKBlocks.BlockEntities.MTK_FURNACE_DIAMOND.get();
-            case MTK -> ManaitaMTKBlocks.BlockEntities.MTK_FURNACE_MTK.get();
-            case GODMTK -> ManaitaMTKBlocks.BlockEntities.MTK_FURNACE_GODMTK.get();
-            case BREAK -> ManaitaMTKBlocks.BlockEntities.MTK_FURNACE_BREAK.get();
+            case WOOD -> BlocksInit.BlockEntities.MTK_FURNACE_WOOD.get();
+            case STONE -> BlocksInit.BlockEntities.MTK_FURNACE_STONE.get();
+            case IRON -> BlocksInit.BlockEntities.MTK_FURNACE_IRON.get();
+            case GOLD -> BlocksInit.BlockEntities.MTK_FURNACE_GOLD.get();
+            case DIAMOND -> BlocksInit.BlockEntities.MTK_FURNACE_DIAMOND.get();
+            case MTK -> BlocksInit.BlockEntities.MTK_FURNACE_MTK.get();
+            case GODMTK -> BlocksInit.BlockEntities.MTK_FURNACE_GODMTK.get();
+            case BREAK -> BlocksInit.BlockEntities.MTK_FURNACE_BREAK.get();
             default -> null;
         }, pos, state);
 
@@ -120,8 +119,7 @@ public class MTKFurnaceBlockEntityBase extends BaseContainerBlockEntity implemen
     }
 
     // 加工時間の設定
-    private static int  getTotalCookTime(/* Level level, @NotNull MTKFurnaceBlockEntityBase blockEntity */) {
-        //return blockEntity.quickCheck.getRecipeFor(blockEntity, level).map(AbstractCookingRecipe::getCookingTime).orElse(200);
+    private static int  getTotalCookTime() {
         return 1;
     }
 
@@ -191,67 +189,70 @@ public class MTKFurnaceBlockEntityBase extends BaseContainerBlockEntity implemen
     }
 
     // ServerでのTick処理 (焼き時間を開いてなくても残り時間を減らすように書いている(と思う))
-    public static void serverTick(Level level, BlockPos pos, BlockState state, @NotNull MTKFurnaceBlockEntityBase blockEntity) {
-        boolean flag = blockEntity.isLit();
+    @Override
+    public void serverTick() {
+        BlockPos pos = this.getBlockPos();
+        BlockState state = this.getBlockState();
+        boolean flag = this.isLit();
         boolean flag1 = false;
 
-        if (blockEntity.isLit()) {
-            --blockEntity.litTime;
+        if (this.isLit()) {
+            --this.litTime;
         }
 
-        ItemStack itemstack = blockEntity.items.get(1);
-        boolean flag2 = !blockEntity.items.get(0).isEmpty();
+        ItemStack itemstack = this.items.get(1);
+        boolean flag2 = !this.items.get(0).isEmpty();
         boolean flag3 = !itemstack.isEmpty();
-        if (!blockEntity.isLit() && (!flag3 || !flag2)) {
-            if (!blockEntity.isLit() && blockEntity.cookingProgress > 0) {
-                blockEntity.cookingProgress = Mth.clamp(blockEntity.cookingProgress - 2, 0, blockEntity.cookingTotalTime);
+        if (!this.isLit() && (!flag3 || !flag2)) {
+            if (!this.isLit() && this.cookingProgress > 0) {
+                this.cookingProgress = Mth.clamp(this.cookingProgress - 2, 0, this.cookingTotalTime);
             }
         } else {
             Recipe<Container> recipe;
             if (flag2) {
 
                 // レシピ取得
-                recipe = blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null);
+                recipe = this.quickCheck.getRecipeFor(this, level).orElse(null);
             } else {
                 recipe = null;
             }
 
-            int i = blockEntity.getMaxStackSize();
-            if (!blockEntity.isLit() && blockEntity.canBurn(level.registryAccess(), recipe, blockEntity.items, i)) {
-                blockEntity.litTime = blockEntity.getBurnDuration(itemstack);
-                blockEntity.litDuration = blockEntity.litTime;
-                if (blockEntity.isLit()) {
+            int i = this.getMaxStackSize();
+            if (!this.isLit() && this.canBurn(level.registryAccess(), recipe, this.items, i)) {
+                this.litTime = this.getBurnDuration(itemstack);
+                this.litDuration = this.litTime;
+                if (this.isLit()) {
                     flag1 = true;
                     if (itemstack.hasCraftingRemainingItem()) {
-                        blockEntity.items.set(1, itemstack.getCraftingRemainingItem());
+                        this.items.set(1, itemstack.getCraftingRemainingItem());
                     } else if (flag3) {
                         itemstack.shrink(1);
                         if (itemstack.isEmpty()) {
-                            blockEntity.items.set(1, itemstack.getCraftingRemainingItem());
+                            this.items.set(1, itemstack.getCraftingRemainingItem());
                         }
                     }
                 }
             }
 
-            if (blockEntity.isLit() && blockEntity.canBurn(level.registryAccess(), recipe, blockEntity.items, i)) {
-                ++blockEntity.cookingProgress;
-                if (blockEntity.cookingProgress == blockEntity.cookingTotalTime) {
-                    blockEntity.cookingProgress = 0;
-                    blockEntity.cookingTotalTime = getTotalCookTime();
-                    if (blockEntity.burn(level.registryAccess(), recipe, blockEntity.items, i)) {
-                        blockEntity.setRecipeUsed(recipe);
+            if (this.isLit() && this.canBurn(level.registryAccess(), recipe, this.items, i)) {
+                ++this.cookingProgress;
+                if (this.cookingProgress == this.cookingTotalTime) {
+                    this.cookingProgress = 0;
+                    this.cookingTotalTime = getTotalCookTime();
+                    if (this.burn(level.registryAccess(), recipe, this.items, i)) {
+                        this.setRecipeUsed(recipe);
                     }
 
                     flag1 = true;
                 }
             } else {
-                blockEntity.cookingProgress = 0;
+                this.cookingProgress = 0;
             }
         }
 
-        if (flag != blockEntity.isLit()) {
+        if (flag != this.isLit()) {
             flag1 = true;
-            state = state.setValue(AbstractFurnaceBlock.LIT, blockEntity.isLit());
+            state = state.setValue(AbstractFurnaceBlock.LIT, this.isLit());
             level.setBlock(pos, state, 3);
         }
 

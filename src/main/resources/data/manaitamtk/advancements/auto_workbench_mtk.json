@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "manaitamtk:auto_workbench_mtk"
+    },
+    "title": {
+      "translate": "advancements.auto_workbench_mtk.title"
+    },
+    "description": {
+      "translate": "advancements.auto_workbench_mtk.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "advancements_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "manaitamtk:auto_workbench_mtk"
+            ],
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "manaitamtk:item_mtk"
+}

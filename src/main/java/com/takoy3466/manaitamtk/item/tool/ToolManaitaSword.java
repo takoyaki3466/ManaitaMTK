@@ -1,7 +1,6 @@
 package com.takoy3466.manaitamtk.item.tool;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
-import com.takoy3466.manaitamtk.MTKSubscribeEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -69,7 +68,7 @@ public class ToolManaitaSword extends SwordItem {
                 .withStyle(ChatFormatting.GRAY));
         list.add(Component.literal(this.KEY.getString() + MTKKeyMapping.SwitchExtermination.getKey().getDisplayName().getString()));
 
-        if (MTKSubscribeEvent.bool) {
+        if (stack.getOrCreateTag().getBoolean("Bool")) {
             list.add(Component.literal(this.MODE.getString() + this.SWORD_TEXT_ALL.getString()));
         } else list.add(Component.literal(this.MODE.getString() + this.SWORD_TEXT_ENEMY.getString()));
     }

@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.entity;
 
-import com.takoy3466.manaitamtk.init.ManaitaMTKEntities;
+import com.takoy3466.manaitamtk.init.EntitiesInit;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -19,7 +19,7 @@ public class EntityArrowMTK extends AbstractArrow {
 
     @SuppressWarnings("unchecked")
     public EntityArrowMTK(Level level, LivingEntity entity) {
-        super((EntityType) ManaitaMTKEntities.MTK_ARROW.get(), entity, level);
+        super((EntityType) EntitiesInit.MTK_ARROW.get(), entity, level);
         this.setBaseDamage(baseDamage);
         this.pickup = Pickup.DISALLOWED;
     }

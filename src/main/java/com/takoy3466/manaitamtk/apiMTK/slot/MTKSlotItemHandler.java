@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk.block.Slot;
+package com.takoy3466.manaitamtk.apiMTK.slot;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;

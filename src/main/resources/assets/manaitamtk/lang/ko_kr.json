@@ -59,7 +59,7 @@
   "block.manaitamtk.break_mtk_furnace": "돌파 화로",
 
   "block.manaitamtk.mtk_chest": "Manaita 상자",
-  "block.manaitamtk.auto_crafting_table": "자동 작업대",
+  "block.manaitamtk.auto_workbench_mtk": "자동 작업대",
 
   "item.manaitamtk.helmet_manaita": "Manaita 투구",
   "item.manaitamtk.chestplate_manaita": "Manaita 흉갑",
@@ -74,6 +74,7 @@
   "key.manaitamtk.magnification_key": "배율변경키",
   "key.manaitamtk.mtk_switcher_open_key": "변경화면 열기",
   "key.manaitamtk.mtk_switcher_select_key": "변경화면에서의 선택 항목의 이동",
+  "key.manaitamtk.mtk_switch_extermination": "도마 칼 모드 전환",
 
   "advancements.start.title": "Manaita MTK",
   "advancements.start.description": "Manaita MTK",
@@ -105,6 +106,8 @@
   "advancements.placed_mtk_chest.description": "Manaita 상자를 만들자！",
   "advancements.mtk_backpack.title": "이 백팩...너무 얇지 않나?",
   "advancements.mtk_backpack.description": "MTK백팩을 만들어보자！",
+  "advancements.auto_workbench_mtk.title": "BuildCraft 는 신입니다",
+  "advancements.auto_workbench_mtk.description": "자동 워크 벤치를 구축합시다！",
 
   "item.manaitamtk.zikokenziyoku.display_massage": "패배！",
 

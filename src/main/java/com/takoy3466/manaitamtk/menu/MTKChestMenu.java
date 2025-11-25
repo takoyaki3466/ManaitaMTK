@@ -1,10 +1,10 @@
 package com.takoy3466.manaitamtk.menu;
 
-import com.takoy3466.manaitamtk.block.Slot.MTKItemStackHandler;
-import com.takoy3466.manaitamtk.block.Slot.MTKSlotItemHandler;
+import com.takoy3466.manaitamtk.apiMTK.slot.MTKItemStackHandler;
+import com.takoy3466.manaitamtk.apiMTK.slot.MTKSlotItemHandler;
 import com.takoy3466.manaitamtk.block.blockEntity.MTKChestBlockEntity;
-import com.takoy3466.manaitamtk.init.ManaitaMTKBlocks;
-import com.takoy3466.manaitamtk.init.ManaitaMTKMenus;
+import com.takoy3466.manaitamtk.init.BlocksInit;
+import com.takoy3466.manaitamtk.init.MenusInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -27,7 +27,7 @@ public class MTKChestMenu extends AbstractContainerMenu {
     }
 
     public MTKChestMenu(int id, Inventory playerInventory, BlockPos pos) {
-        super(ManaitaMTKMenus.MTK_CHEST.get(), id);
+        super(MenusInit.MTK_CHEST.get(), id);
         BlockEntity be = playerInventory.player.level().getBlockEntity(pos);
         if (be instanceof MTKChestBlockEntity chestEntity){
             this.blockEntity = chestEntity;
@@ -178,7 +178,7 @@ public class MTKChestMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(this.levelAccess, player, ManaitaMTKBlocks.Blocks.MTK_CHEST.get());
+        return stillValid(this.levelAccess, player, BlocksInit.Blocks.MTK_CHEST.get());
     }
 
     public MTKChestBlockEntity getBlockEntity() {

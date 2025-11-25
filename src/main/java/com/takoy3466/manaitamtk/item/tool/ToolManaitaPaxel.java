@@ -1,18 +1,10 @@
 package com.takoy3466.manaitamtk.item.tool;
 
-import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
-import com.takoy3466.manaitamtk.ManaitaMTK;
 import net.minecraft.ChatFormatting;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
@@ -24,10 +16,6 @@ import net.minecraft.world.item.Item;
 import java.util.List;
 
 public class ToolManaitaPaxel extends TieredItem {
-    private final ResourceLocation ID = new ResourceLocation(ManaitaMTK.MOD_ID, "manaita_paxel_open_screen");
-    public static int range;
-    private boolean isDone = false;
-    private boolean isDown;
 
     public ToolManaitaPaxel() {
         super(MTKTierList.MTK_TIER, new Item.Properties().fireResistant().rarity(Rarity.EPIC));
@@ -58,6 +46,11 @@ public class ToolManaitaPaxel extends TieredItem {
     //範囲破壊呼び出し
     @Override
     public boolean mineBlock(ItemStack stack, Level world, BlockState blockstate, BlockPos pos, LivingEntity entity) {
+        int range = this.getRangeTag(stack);
+        if (world.isClientSide()) {
+            return super.mineBlock(stack, world, blockstate, pos, entity);
+        }
+
         if (range == 1 || range == 0) {
             return super.mineBlock(stack, world, blockstate, pos, entity);
         }else {
@@ -66,51 +59,23 @@ public class ToolManaitaPaxel extends TieredItem {
         }
     }
 
-    @Override
-    public void onInventoryTick(ItemStack stack, Level level, Player player, int slotIndex, int selectedIndex) {
-        if (this.isDone) return;
-        if (!this.isDown) {
-            if (MTKKeyMapping.MTKSwitcherOpenKey.isDown()) {
-                this.isDown = true;
-            }
-        }
-        if (this.isDown) {
-            if (!player.level().isClientSide) {
-                ServerPlayer serverPlayer = (ServerPlayer) player;
-                Advancement advancement = serverPlayer.server.getAdvancements().getAdvancement(this.ID);
-                if (advancement != null) {
-                    AdvancementProgress progress = serverPlayer.getAdvancements().getOrStartProgress(advancement);
-                    if (!progress.isDone()) {
-                        for (String criteria : progress.getRemainingCriteria()) {
-                            serverPlayer.getAdvancements().award(advancement, criteria);
-                            this.isDone = true;
-                        }
-                    }else if (!this.isDown) {
-                        this.isDown = true;
-                    }
-                }
-            }
-        }
-    }
-
-    public void getRangeTag(ItemStack stack) {
+    public int getRangeTag(ItemStack stack) {
         // NBTから "Range" を読み取る (なければ1を読み込む)
         CompoundTag tag = stack.getOrCreateTag();
-        range = tag.getInt("Range");
-        if (range <= 0) range = 1;
+        int range = tag.getInt("Range");
+        return Math.max(range, 1);
     }
 
     //ピカピカさせる
     @Override
     public boolean isFoil(ItemStack stack) {
-        getRangeTag(stack);
-        return range != 1;
+        return this.getRangeTag(stack) != 1;
     }
 
     //ホバーテキストをツールに表示する
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
-        getRangeTag(stack);
+        int range = this.getRangeTag(stack);
         list.add(Component.literal("MODE : " + range + " x " + range)
                 .withStyle(ChatFormatting.GRAY));
     }

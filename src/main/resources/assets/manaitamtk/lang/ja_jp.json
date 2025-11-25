@@ -58,7 +58,7 @@
   "block.manaitamtk.break_mtk_furnace": "ブレイクかまど",
 
   "block.manaitamtk.mtk_chest": "まな板チェスト",
-  "block.manaitamtk.auto_crafting_table": "自動作業台",
+  "block.manaitamtk.auto_workbench_mtk": "自動作業台",
 
   "item.manaitamtk.helmet_manaita": "まな板のヘルメット",
   "item.manaitamtk.chestplate_manaita": "まな板のチェストプレート",
@@ -73,6 +73,7 @@
   "key.manaitamtk.magnification_key": "倍率変更キー",
   "key.manaitamtk.mtk_switcher_open_key": "スイッチャーを開く",
   "key.manaitamtk.mtk_switcher_select_key": "スイッチャーでの選択の移動",
+  "key.manaitamtk.mtk_switch_extermination": "まな板剣モード切替",
 
   "advancements.start.title": "Manaita MTK",
   "advancements.start.description": "Manaita MTK",
@@ -104,6 +105,8 @@
   "advancements.placed_mtk_chest.description": "まな板チェストを作ろう！",
   "advancements.mtk_backpack.title": "このバック...ペラペラじゃない?",
   "advancements.mtk_backpack.description": "MTKバックパックを作ってみよう！",
+  "advancements.auto_workbench_mtk.title": "BuildCraft is GOD",
+  "advancements.auto_workbench_mtk.description": "自動作業台を作ろう！",
 
   "item.manaitamtk.zikokenziyoku.display_massage": "敗北！",
 

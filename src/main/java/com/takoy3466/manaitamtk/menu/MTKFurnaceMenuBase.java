@@ -1,9 +1,9 @@
 package com.takoy3466.manaitamtk.menu;
 
 import com.takoy3466.manaitamtk.MTKEnum;
-import com.takoy3466.manaitamtk.block.Slot.MTKFurnaceFuelSlot;
+import com.takoy3466.manaitamtk.apiMTK.slot.MTKFurnaceFuelSlot;
 import com.takoy3466.manaitamtk.block.blockEntity.MTKFurnaceBlockEntityBase;
-import com.takoy3466.manaitamtk.init.ManaitaMTKMenus;
+import com.takoy3466.manaitamtk.init.MenusInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -34,14 +34,14 @@ public class MTKFurnaceMenuBase extends RecipeBookMenu<Container> {
 
     public MTKFurnaceMenuBase(int id, Inventory playerInventory, BlockPos pos, MTKEnum mtkEnum) {
         super(switch (mtkEnum) {
-            case WOOD -> ManaitaMTKMenus.MTK_FURNACE_WOOD.get();
-            case STONE -> ManaitaMTKMenus.MTK_FURNACE_STONE.get();
-            case IRON -> ManaitaMTKMenus.MTK_FURNACE_IRON.get();
-            case GOLD -> ManaitaMTKMenus.MTK_FURNACE_GOLD.get();
-            case DIAMOND -> ManaitaMTKMenus.MTK_FURNACE_DIAMOND.get();
-            case MTK -> ManaitaMTKMenus.MTK_FURNACE_MTK.get();
-            case GODMTK -> ManaitaMTKMenus.MTK_FURNACE_GODMTK.get();
-            case BREAK -> ManaitaMTKMenus.MTK_FURNACE_BREAK.get();
+            case WOOD -> MenusInit.MTK_FURNACE_WOOD.get();
+            case STONE -> MenusInit.MTK_FURNACE_STONE.get();
+            case IRON -> MenusInit.MTK_FURNACE_IRON.get();
+            case GOLD -> MenusInit.MTK_FURNACE_GOLD.get();
+            case DIAMOND -> MenusInit.MTK_FURNACE_DIAMOND.get();
+            case MTK -> MenusInit.MTK_FURNACE_MTK.get();
+            case GODMTK -> MenusInit.MTK_FURNACE_GODMTK.get();
+            case BREAK -> MenusInit.MTK_FURNACE_BREAK.get();
             default -> null;
         }, id);
         this.recipeType = RecipeType.SMELTING;

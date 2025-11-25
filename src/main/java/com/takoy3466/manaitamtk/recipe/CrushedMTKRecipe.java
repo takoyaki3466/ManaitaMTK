@@ -1,8 +1,8 @@
 package com.takoy3466.manaitamtk.recipe;
 
 import com.takoy3466.manaitamtk.config.MTKConfig;
-import com.takoy3466.manaitamtk.init.ManaitaMTKItems;
-import com.takoy3466.manaitamtk.init.ManaitaMTKSerializers;
+import com.takoy3466.manaitamtk.init.ItemsInit;
+import com.takoy3466.manaitamtk.init.SerializersInit;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -26,7 +26,7 @@ public class CrushedMTKRecipe implements CraftingRecipe {
         for(int i = 0; i < container.getContainerSize(); ++i) {
             ItemStack itemStack = container.getItem(i);
             if (!itemStack.isEmpty()) {
-                if (itemStack.getItem() == ManaitaMTKItems.CRUSHED_MTK.get()) {
+                if (itemStack.getItem() == ItemsInit.CRUSHED_MTK.get()) {
                     if (!source) {source = true;}
                     else {
                         if (item) {return false;}
@@ -48,18 +48,18 @@ public class CrushedMTKRecipe implements CraftingRecipe {
 
         for(int i = 0; i < container.getContainerSize(); ++i) {
             ItemStack itemStackInSlot = container.getItem(i);
-            if (!itemStackInSlot.isEmpty() && itemStackInSlot.getItem() != ManaitaMTKItems.CRUSHED_MTK.get()) {
+            if (!itemStackInSlot.isEmpty() && itemStackInSlot.getItem() != ItemsInit.CRUSHED_MTK.get()) {
                 itemStack = itemStackInSlot;
             }
 
-            if (!itemStackInSlot.isEmpty() && itemStackInSlot.getItem() == ManaitaMTKItems.CRUSHED_MTK.get()) {
+            if (!itemStackInSlot.isEmpty() && itemStackInSlot.getItem() == ItemsInit.CRUSHED_MTK.get()) {
                 ++source;
             }
         }
 
         ItemStack result;
         if (source == 2) {
-            result = new ItemStack(ManaitaMTKItems.CRUSHED_MTK.get());
+            result = new ItemStack(ItemsInit.CRUSHED_MTK.get());
             //result.setCount(64);
             result.setCount(MTKConfig.CRUSHED_MTK_MAGNIFICATION.get());
             return result;
@@ -80,7 +80,7 @@ public class CrushedMTKRecipe implements CraftingRecipe {
 
     @Override
     public ItemStack getResultItem(RegistryAccess registryAccess) {
-        return ManaitaMTKItems.CRUSHED_MTK.get().asItem().getDefaultInstance();
+        return ItemsInit.CRUSHED_MTK.get().asItem().getDefaultInstance();
     }
 
     @Override
@@ -90,7 +90,7 @@ public class CrushedMTKRecipe implements CraftingRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ManaitaMTKSerializers.CRUSHED_MTK_SERIALIZER.get();
+        return SerializersInit.CRUSHED_MTK_SERIALIZER.get();
     }
 
     @Override

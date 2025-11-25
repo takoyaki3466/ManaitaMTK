@@ -2,7 +2,8 @@ package com.takoy3466.manaitamtk;
 
 import com.takoy3466.manaitamtk.config.MTKConfig;
 import com.takoy3466.manaitamtk.init.*;
-import com.takoy3466.manaitamtk.init.tab.ManaitaMTKTabs;
+import com.takoy3466.manaitamtk.init.tab.Tabsinit;
+import com.takoy3466.manaitamtk.network.MTKNetwork;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -19,24 +20,26 @@ public class ManaitaMTK {
         //最初に読み込む所
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ManaitaMTKBlocks.Blocks.BLOCKS.register(bus);
+        BlocksInit.Blocks.BLOCKS.register(bus);
 
-        ManaitaMTKItems.ITEMS.register(bus);
+        ItemsInit.ITEMS.register(bus);
 
-        ManaitaMTKBlocks.BlockItems.BLOCK_ITEMS.register(bus);
+        BlocksInit.BlockItems.BLOCK_ITEMS.register(bus);
 
-        ManaitaMTKBlocks.BlockEntities.BLOCK_ENTITIES.register(bus);
-        ManaitaMTKEntities.ENTITY.register(bus);
+        BlocksInit.BlockEntities.BLOCK_ENTITIES.register(bus);
+        EntitiesInit.ENTITY.register(bus);
 
 
-        ManaitaMTKMenus.MENU_TYPES.register(bus);
+        MenusInit.MENU_TYPES.register(bus);
 
-        ManaitaMTKSerializers.SERIALIZERS.register(bus);
+        SerializersInit.SERIALIZERS.register(bus);
 
-        ManaitaMTKEnchantments.ENCHANTMENTS.register(bus);
+        EnchantmentsInit.ENCHANTMENTS.register(bus);
 
-        ManaitaMTKTabs.MOD_TABS.register(bus);
+        Tabsinit.MOD_TABS.register(bus);
         MinecraftForge.EVENT_BUS.register(MTKSubscribeEvent.class);
+
+        MTKNetwork.register();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MTKConfig.SPEC, "manaitamtk.toml");
     }

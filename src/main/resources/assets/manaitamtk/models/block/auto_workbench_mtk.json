@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "manaitamtk:block/auto_workbench_mtk_top",
+    "up": "manaitamtk:block/auto_workbench_mtk_top",
+    "north": "manaitamtk:block/auto_workbench_mtk_side4",
+    "east": "manaitamtk:block/auto_workbench_mtk_side3",
+    "south": "manaitamtk:block/auto_workbench_mtk_side2",
+    "west": "manaitamtk:block/auto_workbench_mtk_side1",
+    "particle": "manaitamtk:block/auto_workbench_mtk_top"
+  }
+}

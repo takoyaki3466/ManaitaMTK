@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 import net.minecraft.world.entity.EntityType;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ManaitaMTKEntities {
+public class EntitiesInit {
 
     public static final DeferredRegister<EntityType<?>> ENTITY = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, ManaitaMTK.MOD_ID);
 

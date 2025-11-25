@@ -1,10 +1,11 @@
 package com.takoy3466.manaitamtk.menu;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.block.Slot.MTKItemStackHandler;
-import com.takoy3466.manaitamtk.block.Slot.MTKSlotItemHandler;
-import com.takoy3466.manaitamtk.init.ManaitaMTKItems;
-import com.takoy3466.manaitamtk.init.ManaitaMTKMenus;
+import com.takoy3466.manaitamtk.apiMTK.ISaveLoadMenu;
+import com.takoy3466.manaitamtk.apiMTK.slot.MTKItemStackHandler;
+import com.takoy3466.manaitamtk.apiMTK.slot.MTKSlotItemHandler;
+import com.takoy3466.manaitamtk.init.ItemsInit;
+import com.takoy3466.manaitamtk.init.MenusInit;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.ListTag;
@@ -15,7 +16,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class MTKBackpackMenu extends AbstractContainerMenu {
+public class MTKBackpackMenu extends AbstractContainerMenu implements ISaveLoadMenu {
     private final int MAX_VALUE = 2147483647;
     private final int containerRows = 6;
     private final MTKItemStackHandler stackHandler;
@@ -26,7 +27,7 @@ public class MTKBackpackMenu extends AbstractContainerMenu {
     }
 
     public MTKBackpackMenu(int id, Inventory playerInventory, ItemStack stack) {
-        super(ManaitaMTKMenus.MTK_BACKPACK.get(), id);
+        super(MenusInit.MTK_BACKPACK.get(), id);
         stackHandler = new MTKItemStackHandler(54) {
             @Override
             protected void onContentsChanged(int slot) {
@@ -48,12 +49,12 @@ public class MTKBackpackMenu extends AbstractContainerMenu {
                     @Override
                     public boolean mayPickup(Player player) {
                         ItemStack stack = this.getItem();
-                        return !(stack.getItem() == ManaitaMTKItems.MTK_BACKPACK.get());
+                        return !(stack.getItem() == ItemsInit.MTK_BACKPACK.get());
                     }
 
                     @Override
                     public boolean mayPlace(ItemStack stack) {
-                        return !(stack.getItem() == ManaitaMTKItems.MTK_BACKPACK.get());
+                        return !(stack.getItem() == ItemsInit.MTK_BACKPACK.get());
                     }
                 });
             }
@@ -63,12 +64,12 @@ public class MTKBackpackMenu extends AbstractContainerMenu {
                 @Override
                 public boolean mayPickup(Player player) {
                     ItemStack stack = this.getItem();
-                    return !(stack.getItem() == ManaitaMTKItems.MTK_BACKPACK.get());
+                    return !(stack.getItem() == ItemsInit.MTK_BACKPACK.get());
                 }
 
                 @Override
                 public boolean mayPlace(ItemStack stack) {
-                    return !(stack.getItem() == ManaitaMTKItems.MTK_BACKPACK.get());
+                    return !(stack.getItem() == ItemsInit.MTK_BACKPACK.get());
                 }
             });
         }
@@ -201,7 +202,8 @@ public class MTKBackpackMenu extends AbstractContainerMenu {
         return true;
     }
 
-    private void saveAdditional(CompoundTag tag, MTKItemStackHandler handler) {
+    @Override
+    public void saveAdditional(CompoundTag tag, MTKItemStackHandler handler) {
         ListTag listTagCount = new ListTag();
         CompoundTag MTKTag = new CompoundTag();
         for (int i = 0; i < handler.getSlots(); i++) {
@@ -214,7 +216,8 @@ public class MTKBackpackMenu extends AbstractContainerMenu {
         MTKTag.put("MTKContainer", handler.serializeNBT());
         tag.put(ManaitaMTK.MOD_ID, MTKTag);
     }
-    
+
+    @Override
     public void load(CompoundTag tag, MTKItemStackHandler handler) {
         ListTag listTagCount = tag.getList("itemCount", Tag.TAG_INT); // 3
         CompoundTag MTKTag = tag.getCompound(ManaitaMTK.MOD_ID);
