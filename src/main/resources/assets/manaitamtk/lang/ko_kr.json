@@ -106,7 +106,7 @@
   "advancements.placed_mtk_chest.description": "Manaita 상자를 만들자！",
   "advancements.mtk_backpack.title": "이 백팩...너무 얇지 않나?",
   "advancements.mtk_backpack.description": "MTK백팩을 만들어보자！",
-  "advancements.auto_workbench_mtk.title": "BuildCraft 는 신입니다",
+  "advancements.auto_workbench_mtk.title": "BuildCraft",
   "advancements.auto_workbench_mtk.description": "자동 워크 벤치를 구축합시다！",
 
   "item.manaitamtk.zikokenziyoku.display_massage": "패배！",
@@ -119,6 +119,8 @@
   "item.manaitamtk.manaita_sword_hover_text": "왼쪽 클릭이든 오른쪽 클릭이든 바로 죽음！",
   "item.manaitamtk.mtk_backpack.hover_text": "비었어",
   "item.manaitamtk.manaita_sword.hover_text_mode": "모드: ",
+  "item.manaitamtk.manaita_pickaxe_hover_text": "범위를 지정한 후에는 마우스 오른쪽 버튼을 클릭하여 범위를 파괴할 수 있습니다!",
+  "item.manaitamtk.manaita_paxel_hover_text": "범위를 지정한 후에는 마우스 왼쪽 버튼을 클릭하여 범위를 파괴할 수 있습니다!",
 
   "block.manaitamtk.mtk_furnace_iron.hover_text": "이 정도가 딱 좋지 않아？",
   "block.manaitamtk.mtk_furnace_mtk.hover_text": "한번 굽기만 해도 꽉 채워져！",
@@ -137,6 +139,8 @@
   "block.manaitamtk.mtk_furnace.title": "MTK 화로",
 
   "tooltip.amount": "개수: ",
+
+  "util.manaitamtk.press_to_shift": "설명을 보려면 Shift를 누르세요.",
 
   "gui.overlay.sword.enemy_die": "적전멸 모드",
   "gui.overlay.sword.all_die": "전엔티티 전멸 모드",

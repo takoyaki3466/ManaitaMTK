@@ -4,7 +4,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 
-public interface ITickableBlockEntity {
+public interface ITickableBlockEntity{
 
     void serverTick();
 

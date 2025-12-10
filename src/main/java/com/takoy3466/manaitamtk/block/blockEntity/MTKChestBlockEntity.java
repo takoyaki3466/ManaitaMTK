@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.block.blockEntity;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.apiMTK.slot.MTKItemStackHandler;
+import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.init.BlocksInit;
 import com.takoy3466.manaitamtk.menu.MTKChestMenu;
 import net.minecraft.core.BlockPos;

@@ -1,53 +1,68 @@
 package com.takoy3466.manaitamtk.item.tool;
 
+import com.takoy3466.manaitamtk.apiMTK.IItemhasTag;
+import com.takoy3466.manaitamtk.init.ItemsInit;
+import com.takoy3466.manaitamtk.util.ToolUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 
-public class ToolManaitaPickaxe extends PickaxeItem {
-    public static int range;
+public class ToolManaitaPickaxe extends PickaxeItem implements IItemhasTag<Integer> {
+    private final Component PRESS_TO_SHIFT = Component.translatable("util.manaitamtk.press_to_shift").withStyle(ChatFormatting.GRAY);
+    private final Component DESCRIPTION = Component.translatable("item.manaitamtk.manaita_pickaxe_hover_text");
+
     public ToolManaitaPickaxe() {
         super(MTKTierList.MTK_TIER, 2147483647, 2147483647f, new Item.Properties().fireResistant());
     }
 
     @Override
-    public boolean mineBlock(ItemStack stack, Level world, BlockState blockstate, BlockPos pos, LivingEntity entity) {
-        if (range == 1 || range == 0) {
-            return super.mineBlock(stack, world, blockstate, pos, entity);
-        }else {
-            RangeBreak.control(world, pos.getX(), pos.getY(), pos.getZ(), entity, range);
-            return true;
-        }
+    public InteractionResult useOn(UseOnContext context) {
+        ItemStack stack = context.getItemInHand();
+        Level level = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        LivingEntity entity = context.getPlayer();
+
+        if (stack.getItem() != ItemsInit.MANAITA_PICKAXE.get() || entity == null) return super.useOn(context);
+
+        ToolUtil.RangeBreak.control(level, pos.getX(), pos.getY(), pos.getZ(), entity, this.getTag(stack));
+        return InteractionResult.SUCCESS;
     }
 
-    public void getRangeTag(ItemStack stack) {
-        // NBTから "Range" を読み取る (なければ1を読み込む)
+    @Override
+    public Integer getTag(ItemStack stack) {
         CompoundTag tag = stack.getOrCreateTag();
-        range = tag.getInt("Range");
-        if (range <= 0) range = 1;
+        int range = tag.getInt("Range");
+        return Math.max(range, 1);
     }
 
-    //ピカピカさせる
     @Override
     public boolean isFoil(ItemStack stack) {
-        getRangeTag(stack);
-        return range != 1;
+        return this.getTag(stack) != 1;
     }
 
-    //ホバーテキストをツールに表示する
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
-        getRangeTag(stack);
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
+        int range = this.getTag(stack);
         list.add(Component.literal("MODE : " + range + " x " + range)
                 .withStyle(ChatFormatting.GRAY));
+        if (level == null) return;
+        if (level.isClientSide()) {
+            if (Screen.hasShiftDown()) {
+                list.add(this.DESCRIPTION);
+            }else {
+                list.add(this.PRESS_TO_SHIFT);
+            }
+        }
     }
 }

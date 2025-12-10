@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk.item.tooptip;
+package com.takoy3466.manaitamtk.util.tooptip;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;

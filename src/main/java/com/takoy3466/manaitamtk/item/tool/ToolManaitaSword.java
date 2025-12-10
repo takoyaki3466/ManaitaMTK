@@ -21,10 +21,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ToolManaitaSword extends SwordItem {
-    Component SWORD_TEXT_ENEMY = Component.translatable("gui.overlay.sword.enemy_die").withStyle(ChatFormatting.WHITE);
-    Component SWORD_TEXT_ALL = Component.translatable("gui.overlay.sword.all_die").withStyle(ChatFormatting.RED);
-    Component MODE = Component.translatable("item.manaitamtk.manaita_sword.hover_text_mode");
-    Component KEY = Component.literal("Press Shift + ");
+    private final Component SWORD_TEXT_ENEMY = Component.translatable("gui.overlay.sword.enemy_die").withStyle(ChatFormatting.WHITE);
+    private final Component SWORD_TEXT_ALL = Component.translatable("gui.overlay.sword.all_die").withStyle(ChatFormatting.RED);
+    private final Component MODE = Component.translatable("item.manaitamtk.manaita_sword.hover_text_mode");
+    private final Component KEY = Component.literal("Press Shift + ");
+    public static int modeNumber = 0;
 
     public ToolManaitaSword() {
         super(MTKTierList.MTK_TIER, 1, 2147483647f, new Item.Properties().fireResistant());
@@ -35,7 +36,7 @@ public class ToolManaitaSword extends SwordItem {
         Holder<DamageType> holder = entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.PLAYER_ATTACK);
         DamageSource source = new DamageSource(holder);
         // 攻撃された敵を即死させる
-        if (!entity.level().isClientSide) {
+        if (!entity.level().isClientSide()) {
             entity.setHealth(0.0f);
             if (!entity.isDeadOrDying()) {
                 entity.hurt(source, Float.MAX_VALUE);
@@ -63,12 +64,27 @@ public class ToolManaitaSword extends SwordItem {
     }
 
     @Override
+    public void inventoryTick(ItemStack stack, Level level, Entity entity, int i, boolean b) {
+        super.inventoryTick(stack, level, entity, i, b);
+        if (!(entity instanceof Player player)) return;
+        if (level.isClientSide()) {
+            if (MTKKeyMapping.SwitchExtermination.consumeClick() && player.isSteppingCarefully()) {
+                this.modeChange();
+            }
+        }
+    }
+
+    private void modeChange() {
+        modeNumber = modeNumber < 1 ? modeNumber + 1 : 0;
+    }
+
+    @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
         list.add(Component.translatable("item.manaitamtk.manaita_sword_hover_text")
                 .withStyle(ChatFormatting.GRAY));
         list.add(Component.literal(this.KEY.getString() + MTKKeyMapping.SwitchExtermination.getKey().getDisplayName().getString()));
 
-        if (stack.getOrCreateTag().getBoolean("Bool")) {
+        if (modeNumber == 1) {
             list.add(Component.literal(this.MODE.getString() + this.SWORD_TEXT_ALL.getString()));
         } else list.add(Component.literal(this.MODE.getString() + this.SWORD_TEXT_ENEMY.getString()));
     }

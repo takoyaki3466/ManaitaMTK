@@ -2,8 +2,10 @@ package com.takoy3466.manaitamtk.block;
 
 import com.takoy3466.manaitamtk.block.blockEntity.MTKChestBlockEntity;
 import com.takoy3466.manaitamtk.init.BlocksInit;
+import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -20,7 +22,8 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.items.ItemStackHandler;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
@@ -58,7 +61,7 @@ public class BlockMTKChest extends Block implements EntityBlock {
         if (!level.isClientSide()) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof MTKChestBlockEntity chestEntity) {
-                ItemStackHandler inventory = chestEntity.getItemHandler();
+                MTKItemStackHandler inventory = chestEntity.getItemHandler();
                 for (int index = 0; index < inventory.getSlots(); index++) {
                     ItemStack stack = inventory.getStackInSlot(index);
                     var entity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
@@ -68,6 +71,31 @@ public class BlockMTKChest extends Block implements EntityBlock {
         }
 
         super.onRemove(state, level, pos, newState, isMoving);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public VoxelShape getVisualShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext collisionContext) {
+        return super.getVisualShape(state, getter, pos, collisionContext);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public float getShadeBrightness(BlockState p_60472_, BlockGetter p_60473_, BlockPos p_60474_) {
+        return 1.0F;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean propagatesSkylightDown(BlockState p_49928_, BlockGetter p_49929_, BlockPos pos) {
+        return true;
+    }
+
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean skipRendering(BlockState state1, BlockState state, Direction p_60534_) {
+        return state.is(this) || super.skipRendering(state1, state, p_60534_);
     }
 
     @Override

@@ -1,6 +1,9 @@
 package com.takoy3466.manaitamtk.item.tool;
 
+import com.takoy3466.manaitamtk.apiMTK.IItemhasTag;
+import com.takoy3466.manaitamtk.util.ToolUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -15,7 +18,9 @@ import net.minecraft.world.item.Item;
 
 import java.util.List;
 
-public class ToolManaitaPaxel extends TieredItem {
+public class ToolManaitaPaxel extends TieredItem implements IItemhasTag<Integer> {
+    private final Component PRESS_TO_SHIFT = Component.translatable("util.manaitamtk.press_to_shift").withStyle(ChatFormatting.GRAY);
+    private final Component DESCRIPTION = Component.translatable("item.manaitamtk.manaita_paxel_hover_text");
 
     public ToolManaitaPaxel() {
         super(MTKTierList.MTK_TIER, new Item.Properties().fireResistant().rarity(Rarity.EPIC));
@@ -32,6 +37,7 @@ public class ToolManaitaPaxel extends TieredItem {
     }
 
     //適正ツールの設定
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isCorrectToolForDrops(BlockState blockstate) {
         return true;
@@ -45,21 +51,17 @@ public class ToolManaitaPaxel extends TieredItem {
 
     //範囲破壊呼び出し
     @Override
-    public boolean mineBlock(ItemStack stack, Level world, BlockState blockstate, BlockPos pos, LivingEntity entity) {
-        int range = this.getRangeTag(stack);
-        if (world.isClientSide()) {
-            return super.mineBlock(stack, world, blockstate, pos, entity);
-        }
-
-        if (range == 1 || range == 0) {
-            return super.mineBlock(stack, world, blockstate, pos, entity);
+    public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity livingEntity) {
+        if (this.getTag(stack) <= 1) {
+            return super.mineBlock(stack, level, state, pos, livingEntity);
         }else {
-            RangeBreak.control(world, pos.getX(), pos.getY(), pos.getZ(), entity, range);
+            ToolUtil.RangeBreak.control(level, pos.getX(), pos.getY(), pos.getZ(), livingEntity, this.getTag(stack));
             return true;
         }
     }
 
-    public int getRangeTag(ItemStack stack) {
+    @Override
+    public Integer getTag(ItemStack stack) {
         // NBTから "Range" を読み取る (なければ1を読み込む)
         CompoundTag tag = stack.getOrCreateTag();
         int range = tag.getInt("Range");
@@ -69,14 +71,22 @@ public class ToolManaitaPaxel extends TieredItem {
     //ピカピカさせる
     @Override
     public boolean isFoil(ItemStack stack) {
-        return this.getRangeTag(stack) != 1;
+        return this.getTag(stack) != 1;
     }
 
     //ホバーテキストをツールに表示する
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
-        int range = this.getRangeTag(stack);
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
+        int range = this.getTag(stack);
         list.add(Component.literal("MODE : " + range + " x " + range)
                 .withStyle(ChatFormatting.GRAY));
+        if (level == null) return;
+        if (level.isClientSide()) {
+            if (Screen.hasShiftDown()) {
+                list.add(this.DESCRIPTION);
+            }else {
+                list.add(this.PRESS_TO_SHIFT);
+            }
+        }
     }
 }

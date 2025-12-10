@@ -2,8 +2,8 @@ package com.takoy3466.manaitamtk.menu;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.apiMTK.ISaveLoadMenu;
-import com.takoy3466.manaitamtk.apiMTK.slot.MTKItemStackHandler;
-import com.takoy3466.manaitamtk.apiMTK.slot.MTKSlotItemHandler;
+import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
+import com.takoy3466.manaitamtk.util.slot.MTKSlotItemHandler;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.init.MenusInit;
 import net.minecraft.nbt.CompoundTag;
@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class MTKBackpackMenu extends AbstractContainerMenu implements ISaveLoadMenu {
     private final int MAX_VALUE = 2147483647;
@@ -203,7 +204,7 @@ public class MTKBackpackMenu extends AbstractContainerMenu implements ISaveLoadM
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag, MTKItemStackHandler handler) {
+    public <T extends ItemStackHandler> void saveAdditional(CompoundTag tag, T handler) {
         ListTag listTagCount = new ListTag();
         CompoundTag MTKTag = new CompoundTag();
         for (int i = 0; i < handler.getSlots(); i++) {
@@ -218,7 +219,7 @@ public class MTKBackpackMenu extends AbstractContainerMenu implements ISaveLoadM
     }
 
     @Override
-    public void load(CompoundTag tag, MTKItemStackHandler handler) {
+    public <T extends ItemStackHandler> void load(CompoundTag tag, T handler) {
         ListTag listTagCount = tag.getList("itemCount", Tag.TAG_INT); // 3
         CompoundTag MTKTag = tag.getCompound(ManaitaMTK.MOD_ID);
         handler.deserializeNBT(MTKTag.getCompound("MTKContainer"));

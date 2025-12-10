@@ -6,7 +6,7 @@ import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
 import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.network.MTKNetwork;
-import com.takoy3466.manaitamtk.network.RangePacket;
+import com.takoy3466.manaitamtk.network.PacketRange;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.GameNarrator;
 import net.minecraft.client.Minecraft;
@@ -106,7 +106,7 @@ public class MTKSwitcherScreen extends Screen {
         if (minecraft.player != null) {
             ItemStack stack = minecraft.player.getMainHandItem();
             if (stack.getItem() == ItemsInit.MANAITA_PICKAXE.get() || stack.getItem() == ItemsInit.MANAITA_PAXEL.get()) {
-                MTKNetwork.CHANNEL.sendToServer(new RangePacket(mtkIcon.getModeRange()));
+                MTKNetwork.CHANNEL.sendToServer(new PacketRange(mtkIcon.getModeRange()));
             }
         }
     }

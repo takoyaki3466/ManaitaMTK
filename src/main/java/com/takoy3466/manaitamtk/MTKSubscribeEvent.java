@@ -1,9 +1,9 @@
 package com.takoy3466.manaitamtk;
 
 import com.takoy3466.manaitamtk.init.ItemsInit;
-import com.takoy3466.manaitamtk.item.armor.HelmetManaita;
 import com.takoy3466.manaitamtk.config.MTKConfig;
 import com.takoy3466.manaitamtk.init.EnchantmentsInit;
+import com.takoy3466.manaitamtk.item.tool.ToolManaitaSword;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -120,7 +120,7 @@ public class MTKSubscribeEvent {
 
         if (!level.isClientSide && stack.getItem() == ItemsInit.MANAITA_SWORD.get()) {
             double radius = (double) MTKConfig.SWORD_KILL_RADIUS.get() * 100;
-            boolean killTarget = stack.getOrCreateTag().getBoolean("Bool");
+            boolean killTarget = ToolManaitaSword.modeNumber == 1;
 
 
             List<LivingEntity> targets = killTarget ?
@@ -196,12 +196,11 @@ public class MTKSubscribeEvent {
         if (event.phase != TickEvent.Phase.END) return;
         Player player = event.player;
         if (!player.level().isClientSide()) {
-            if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() == ItemsInit.HELMET_MANAITA.get()) {
-                if (HelmetManaita.modeF == 0.0f) {
-                    HelmetManaita.modeF = 0.05f;
-                }
-                float modeF = HelmetManaita.modeF;
+            ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
+            if (stack.getItem() == ItemsInit.HELMET_MANAITA.get()) {
+                float modeF = stack.getOrCreateTag().getFloat("FlySpeed");
                 player.getAbilities().setFlyingSpeed(modeF);
+                player.onUpdateAbilities();
             }
         }
     }

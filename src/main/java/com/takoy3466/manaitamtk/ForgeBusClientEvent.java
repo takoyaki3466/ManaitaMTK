@@ -3,10 +3,8 @@ package com.takoy3466.manaitamtk;
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.item.ChangeableMagnificationPortableDCT;
-import com.takoy3466.manaitamtk.item.armor.HelmetManaita;
 import com.takoy3466.manaitamtk.item.tool.MTKSwitcherScreen;
-import com.takoy3466.manaitamtk.network.KillBooleanTagPacket;
-import com.takoy3466.manaitamtk.network.MTKNetwork;
+import com.takoy3466.manaitamtk.item.tool.ToolManaitaSword;
 import com.takoy3466.manaitamtk.screen.MTKBackPackScreen;
 import com.takoy3466.manaitamtk.screen.MTKChestScreen;
 import net.minecraft.advancements.Advancement;
@@ -24,7 +22,6 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -88,24 +85,6 @@ public class ForgeBusClientEvent {
     }
 
     @SubscribeEvent
-    public static void onPlayerTickSword(InputEvent.Key event) {
-        Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player == null || minecraft.level == null) return;
-        Player player = minecraft.player;
-        ItemStack stack = player.getMainHandItem();
-
-        if (stack.getItem() == ItemsInit.MANAITA_SWORD.get()) {
-            if (player.isSteppingCarefully() && MTKKeyMapping.SwitchExtermination.consumeClick()) {
-                if (stack.getOrCreateTag().getBoolean("Bool")) {
-                    MTKNetwork.CHANNEL.sendToServer(new KillBooleanTagPacket(!stack.getOrCreateTag().getBoolean("Bool")));
-                }else {
-                    MTKNetwork.CHANNEL.sendToServer(new KillBooleanTagPacket(false));
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
     public static void onRenderGuiOverlayEvent(RenderGuiOverlayEvent event) {
         ResourceLocation FLAME_TEXTURE = new ResourceLocation(ManaitaMTK.MOD_ID, "textures/gui/switch_flame.png");
         Component SWORD_TEXT_ENEMY = Component.translatable("gui.overlay.sword.enemy_die");
@@ -157,8 +136,7 @@ public class ForgeBusClientEvent {
 
         }
         else if (item == ItemsInit.MANAITA_SWORD.get()) {
-            ItemStack stack = player.getMainHandItem();
-            boolean killTarget = stack.getOrCreateTag().getBoolean("Bool");
+            boolean killTarget = ToolManaitaSword.modeNumber == 1;
             int xSword = minecraft.getWindow().getGuiScaledWidth() / 2 - minecraft.font.width(killTarget? SWORD_TEXT_ALL.getString() : SWORD_TEXT_ENEMY.getString()) / 2;
             int ySword = minecraft.getWindow().getGuiScaledHeight() - 49 - minecraft.font.lineHeight;
             graphics.drawString(minecraft.font, killTarget? SWORD_TEXT_ALL : SWORD_TEXT_ENEMY, xSword, ySword, killTarget? Color.RED.getRGB() : Color.GRAY.getRGB());
@@ -174,27 +152,6 @@ public class ForgeBusClientEvent {
             if (count > 1) {
                 event.getToolTip().add(Component.literal(component.getString() + count));
             }
-        }
-    }
-
-    private static int modeNum = 0;
-    private static final Component FIRST_TEXT = Component.translatable("item.manaitamtk.fwai.first_text");
-    @SubscribeEvent
-    public static void flySpeedEvent(TickEvent.PlayerTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) return;
-        if (HelmetManaita.modeF == 0.0f) {
-            HelmetManaita.modeF = 0.05f;
-        }
-        Player player = event.player;
-        if (MTKKeyMapping.FlySpeedKey.consumeClick()) {
-            modeNum = modeNum < 3 ? modeNum + 1 : 0;
-            HelmetManaita.modeF = switch (modeNum) {
-                case 1 -> 0.1F;
-                case 2 -> 0.2F;
-                case 3 -> 0.6F;
-                default -> 0.05F;
-            };
-            player.displayClientMessage(Component.literal(FIRST_TEXT.getString() + HelmetManaita.modeF), true);
         }
     }
 }

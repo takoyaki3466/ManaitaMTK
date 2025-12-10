@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk.apiMTK.slot;
+package com.takoy3466.manaitamtk.util.slot;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;

@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.network;
 
-import com.takoy3466.manaitamtk.apiMTK.MTKPacket;
+import com.takoy3466.manaitamtk.apiMTK.IMTKPacket;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -9,22 +9,24 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class RangePacket extends MTKPacket<RangePacket> {
+public class PacketRange implements IMTKPacket {
     private final int range;
 
-    public RangePacket(int range) {
+    public PacketRange(int range) {
         this.range = range;
     }
 
-    public void encode(RangePacket msg, FriendlyByteBuf buf) {
-        buf.writeInt(msg.range);
+    @Override
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeInt(this.range);
     }
 
-    public static RangePacket decode(FriendlyByteBuf buf) {
-        return new RangePacket(buf.readInt());
+    public static PacketRange decode(FriendlyByteBuf buf) {
+        return new PacketRange(buf.readInt());
     }
 
-    public void handle(RangePacket msg, Supplier<NetworkEvent.Context> ctx) {
+    @Override
+    public void handle(Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             ServerPlayer player = ctx.get().getSender();
             if (player != null) {
@@ -32,7 +34,7 @@ public class RangePacket extends MTKPacket<RangePacket> {
                 if (stack.is(ItemsInit.MANAITA_PICKAXE.get()) ||
                         stack.is(ItemsInit.MANAITA_PAXEL.get())) {
 
-                    stack.getOrCreateTag().putInt("Range", msg.range);
+                    stack.getOrCreateTag().putInt("Range", this.range);
                 }
             }
         });

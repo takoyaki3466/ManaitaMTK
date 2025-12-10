@@ -4,7 +4,7 @@ import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.apiMTK.ITickableBlockEntity;
 import com.takoy3466.manaitamtk.apiMTK.ItemFlag;
 import com.takoy3466.manaitamtk.apiMTK.ItemStackKey;
-import com.takoy3466.manaitamtk.apiMTK.slot.MTKItemStackHandler;
+import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.init.BlocksInit;
 import com.takoy3466.manaitamtk.menu.AutoWorkbenchMTKMenu;
 import net.minecraft.core.BlockPos;
@@ -103,6 +103,10 @@ public class AutoWorkbenchMTKBlockEntity extends BlockEntity implements MenuProv
             }
         }
         return inputHandlerList;
+    }
+
+    public MTKItemStackHandler getItemHandler() {
+        return this.stackHandler;
     }
 
     // レシピに必要なアイテムがIItemHandlerに入っているかチェック

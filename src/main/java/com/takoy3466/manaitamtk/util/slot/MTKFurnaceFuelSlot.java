@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk.apiMTK.slot;
+package com.takoy3466.manaitamtk.util.slot;
 
 import com.takoy3466.manaitamtk.menu.MTKFurnaceMenuBase;
 import net.minecraft.world.Container;

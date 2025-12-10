@@ -105,7 +105,7 @@
   "advancements.placed_mtk_chest.description": "まな板チェストを作ろう！",
   "advancements.mtk_backpack.title": "このバック...ペラペラじゃない?",
   "advancements.mtk_backpack.description": "MTKバックパックを作ってみよう！",
-  "advancements.auto_workbench_mtk.title": "BuildCraft is GOD",
+  "advancements.auto_workbench_mtk.title": "BuildCraft",
   "advancements.auto_workbench_mtk.description": "自動作業台を作ろう！",
 
   "item.manaitamtk.zikokenziyoku.display_massage": "敗北！",
@@ -118,6 +118,8 @@
   "item.manaitamtk.manaita_sword_hover_text": "左クリックでも右クリックでも即死！",
   "item.manaitamtk.mtk_backpack.hover_text": "空っぽだね",
   "item.manaitamtk.manaita_sword.hover_text_mode": "モード: ",
+  "item.manaitamtk.manaita_pickaxe_hover_text": "範囲を指定したら、右クリックで範囲破壊できるよ！",
+  "item.manaitamtk.manaita_paxel_hover_text": "範囲を指定したら、左クリックで範囲破壊できるよ！",
 
   "block.manaitamtk.mtk_furnace_iron.hover_text": "これくらいがちょうどよくない？",
   "block.manaitamtk.mtk_furnace_mtk.hover_text": "一回の精錬で中身がいっぱい！",
@@ -137,6 +139,8 @@
   "block.manaitamtk.mtk_furnace.title": "MTKかまど",
 
   "tooltip.amount": "個数: ",
+
+  "util.manaitamtk.press_to_shift": "SHIFTを押して説明文を表示",
 
   "gui.overlay.sword.enemy_die": "敵殲滅モード",
   "gui.overlay.sword.all_die": "全エンティティ殲滅モード",

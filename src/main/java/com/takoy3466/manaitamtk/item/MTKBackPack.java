@@ -1,8 +1,8 @@
 package com.takoy3466.manaitamtk.item;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.apiMTK.slot.MTKItemStackHandler;
-import com.takoy3466.manaitamtk.item.tooptip.MTKBackPackTooltip;
+import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
+import com.takoy3466.manaitamtk.util.tooptip.MTKBackPackTooltip;
 import com.takoy3466.manaitamtk.menu.MTKBackpackMenu;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;

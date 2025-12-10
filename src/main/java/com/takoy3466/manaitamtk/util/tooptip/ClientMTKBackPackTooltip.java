@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk.item.tooptip;
+package com.takoy3466.manaitamtk.util.tooptip;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;

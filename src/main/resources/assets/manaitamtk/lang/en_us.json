@@ -105,7 +105,7 @@
   "advancements.placed_mtk_chest.description": "Let's make a cutting board chest!",
   "advancements.mtk_backpack.title": "This back... isn't it fluent?",
   "advancements.mtk_backpack.description": "Let's make an MTK backpack!",
-  "advancements.auto_workbench_mtk.title": "BuildCraft is GOD",
+  "advancements.auto_workbench_mtk.title": "BuildCraft",
   "advancements.auto_workbench_mtk.description": "Let's build an automatic workbench!",
 
   "item.manaitamtk.zikokenziyoku.display_massage": "defeat!",
@@ -118,6 +118,8 @@
   "item.manaitamtk.manaita_sword_hover_text": "Instant death with either left or right click!",
   "item.manaitamtk.mtk_backpack.hover_text": "Empty...",
   "item.manaitamtk.manaita_sword.hover_text_mode": "mode: ",
+  "item.manaitamtk.manaita_pickaxe_hover_text": "Once you specify the range, you can destroy the range by right-clicking!",
+  "item.manaitamtk.manaita_paxel_hover_text": "Once you specify the range, you can destroy the range by left-clicking!",
 
   "block.manaitamtk.mtk_furnace_iron.hover_text": "Isn't this just right?",
   "block.manaitamtk.mtk_furnace_mtk.hover_text": "One refining process brings a lot of content!",
@@ -135,6 +137,8 @@
   "block.manaitamtk.mtk_furnace.title": "MTK Furnace",
 
   "tooltip.amount": "Quantity: ",
+
+  "util.manaitamtk.press_to_shift": "Press SHIFT to see description",
 
   "gui.overlay.sword.enemy_die": "Enemy annihilation mode",
   "gui.overlay.sword.all_die": "All Entities Extermination Mode"

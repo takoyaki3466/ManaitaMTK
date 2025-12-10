@@ -1,8 +1,8 @@
 package com.takoy3466.manaitamtk;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
-import com.takoy3466.manaitamtk.item.tooptip.ClientMTKBackPackTooltip;
-import com.takoy3466.manaitamtk.item.tooptip.MTKBackPackTooltip;
+import com.takoy3466.manaitamtk.util.tooptip.ClientMTKBackPackTooltip;
+import com.takoy3466.manaitamtk.util.tooptip.MTKBackPackTooltip;
 import com.takoy3466.manaitamtk.init.EntitiesInit;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.init.MenusInit;
