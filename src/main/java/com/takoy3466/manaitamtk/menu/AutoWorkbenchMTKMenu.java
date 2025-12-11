@@ -84,6 +84,9 @@ public class AutoWorkbenchMTKMenu extends RecipeBookMenu<Container> {
                         stack.setCount(stack.getCount());
                     }
                 }
+            }else {
+                this.blockEntity.setRecipe(null);
+                this.blockEntity.setContainer(null);
             }
 
             resultContainer.setItem(0, stack);
@@ -95,7 +98,7 @@ public class AutoWorkbenchMTKMenu extends RecipeBookMenu<Container> {
     @Override
     public void slotsChanged(@NotNull Container container) {
         this.access.execute((level, pos) -> slotChangedCraftingGrid(this, level, this.player, this.craftSlots, this.resultSlots));
-        if (recipe != null) {
+        if (this.recipe != null) {
             this.resultSlots.setItem(0, this.recipe.getResultItem(this.player.level().registryAccess()));
         }
     }

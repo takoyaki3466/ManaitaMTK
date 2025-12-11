@@ -126,6 +126,7 @@
   "block.manaitamtk.mtk_furnace_break.hover_text": "こんなにいらない！ (33554431倍)",
   "block.manaitamtk.mtk_chest.hover_text_1": "21億 × 54...?",
   "block.manaitamtk.mtk_chest.hover_text_2": "アイテムのテクスチャ...なんかのっぺりしてない...?",
+  "block.manaitamtk.auto_workbench_mtk.hover_text": "GUIを開いている時は最後に使ったレシピが表示されます",
 
 
   "item.manaitamtk.fwai.first_text": "飛行速度 : ",

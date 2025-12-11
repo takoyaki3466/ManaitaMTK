@@ -10,8 +10,10 @@ import com.takoy3466.manaitamtk.menu.AutoWorkbenchMTKMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
@@ -23,7 +25,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,6 +33,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -42,6 +45,7 @@ public class AutoWorkbenchMTKBlockEntity extends BlockEntity implements MenuProv
     private final Container container;
     private CraftingRecipe recipe;
     private ItemStack result;
+
     private final MTKItemStackHandler stackHandler = new MTKItemStackHandler(1){
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
@@ -202,13 +206,12 @@ public class AutoWorkbenchMTKBlockEntity extends BlockEntity implements MenuProv
     }
 
     public void setRecipe(CraftingRecipe recipe) {
-        if (recipe == null) return;
         this.recipe = recipe;
     }
 
     public void setContainer(CraftingContainer craftingContainer) {
-        if (craftingContainer == null) return;
         this.result = this.setResult(this.recipe, craftingContainer);
+        if (craftingContainer == null) return;
         for (int i = 0; i < craftingContainer.getContainerSize(); i++) {
             this.container.setItem(i, craftingContainer.getItem(i));
         }
@@ -216,7 +219,7 @@ public class AutoWorkbenchMTKBlockEntity extends BlockEntity implements MenuProv
 
     @Override
     public Component getDisplayName() {
-        return Component.literal("test");
+        return Component.translatable("block.manaitamtk.auto_workbench_mtk");
     }
 
     @Nullable

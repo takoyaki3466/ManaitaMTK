@@ -127,6 +127,7 @@
   "block.manaitamtk.mtk_furnace_break.hover_text": "너무 많은 것 같은데 (33554431배 )",
   "block.manaitamtk.mtk_chest.hover_text_1": "21억 × 54...?",
   "block.manaitamtk.mtk_chest.hover_text_2": "항목의 질감 ... 평평하지 않습니다 ...?",
+  "block.manaitamtk.auto_workbench_mtk.hover_text": "GUI가 열리면 마지막으로 사용한 레시피가 표시됩니다.",
 
   "item.manaitamtk.fwai.first_text": "비행속도 : ",
   "item.manaitamtk.fwai.second_text": " | 보행 속도 : ",

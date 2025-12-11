@@ -126,6 +126,7 @@
   "block.manaitamtk.mtk_furnace_break.hover_text": "I don't need this much! (x33554431)",
   "block.manaitamtk.mtk_chest.hover_text_1": "2.1 billion × 54...?",
   "block.manaitamtk.mtk_chest.hover_text_2": "The texture of the item...not flat...?",
+  "block.manaitamtk.auto_workbench_mtk.hover_text": "When the GUI is open, the last recipe used will be displayed.",
 
   "item.manaitamtk.fwai.first_text": "Flying speed : ",
   "item.manaitamtk.fwai.second_text": " | Walking speed : ",
