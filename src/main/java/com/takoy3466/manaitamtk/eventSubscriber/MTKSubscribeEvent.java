@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk;
+package com.takoy3466.manaitamtk.eventSubscriber;
 
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.config.MTKConfig;

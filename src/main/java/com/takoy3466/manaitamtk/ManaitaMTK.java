@@ -1,11 +1,13 @@
 package com.takoy3466.manaitamtk;
 
 import com.takoy3466.manaitamtk.config.MTKConfig;
+import com.takoy3466.manaitamtk.eventSubscriber.MTKSubscribeEvent;
 import com.takoy3466.manaitamtk.init.*;
 import com.takoy3466.manaitamtk.init.tab.Tabsinit;
 import com.takoy3466.manaitamtk.network.MTKNetwork;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;

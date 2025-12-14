@@ -1,6 +1,7 @@
-package com.takoy3466.manaitamtk;
+package com.takoy3466.manaitamtk.eventSubscriber;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
+import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.item.ChangeableMagnificationPortableDCT;
 import com.takoy3466.manaitamtk.item.tool.MTKSwitcherScreen;

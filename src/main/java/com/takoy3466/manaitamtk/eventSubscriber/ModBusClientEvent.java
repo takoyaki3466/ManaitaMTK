@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk;
+package com.takoy3466.manaitamtk.eventSubscriber;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
 import com.takoy3466.manaitamtk.util.tooptip.ClientMTKBackPackTooltip;

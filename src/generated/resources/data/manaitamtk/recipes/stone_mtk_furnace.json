@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "manaitamtk:item_mtk"
+    },
+    "C": {
+      "item": "manaitamtk:wood_mtk_furnace"
+    }
+  },
+  "pattern": [
+    "#C#"
+  ],
+  "result": {
+    "item": "manaitamtk:stone_mtk_furnace"
+  },
+  "show_notification": true
+}

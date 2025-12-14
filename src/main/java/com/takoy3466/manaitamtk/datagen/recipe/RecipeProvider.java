@@ -1,0 +1,62 @@
+package com.takoy3466.manaitamtk.datagen.recipe;
+
+import com.takoy3466.manaitamtk.init.BlocksInit;
+import com.takoy3466.manaitamtk.init.BlocksInit.BlockItems;
+import com.takoy3466.manaitamtk.init.ItemsInit;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
+
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+
+public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
+    private final List<Item> furnaceList = List.of(
+            Items.FURNACE,
+            BlockItems.WOOD_MTK_FURNACE.get(),
+            BlockItems.STONE_MTK_FURNACE.get(),
+            BlockItems.IRON_MTK_FURNACE.get(),
+            BlockItems.GOLD_MTK_FURNACE.get(),
+            BlockItems.DIAMOND_MTK_FURNACE.get(),
+            BlockItems.MTK_MTK_FURNACE.get(),
+            BlockItems.GODMTK_MTK_FURNACE.get(),
+            BlockItems.BREAK_MTK_FURNACE.get()
+    );
+
+    public RecipeProvider(PackOutput packOutput) {
+        super(packOutput);
+    }
+
+    @Override
+    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+        for (int i = 0; i < this.furnaceList.size() - 1; i++) {
+            addFurnaceRecipe(consumer, this.furnaceList.get(i + 1), this.furnaceList.get(i));
+        }
+    }
+
+    private void addCraftTableRecipe(Consumer<FinishedRecipe> consumer, ItemLike target, ItemLike ingredient, ItemLike aroundItem) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, target)
+                .pattern("###")
+                .pattern("CCC")
+                .pattern("###")
+                .define('C', ingredient)
+                .define('#', aroundItem)
+                .unlockedBy("hasItem", InventoryChangeTrigger.TriggerInstance.hasItems(ItemsInit.ITEM_MTK.get()))
+                .save(consumer);
+    }
+
+    private void addFurnaceRecipe(Consumer<FinishedRecipe> consumer, ItemLike target, ItemLike ingredient) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, target)
+                .pattern("#C#")
+                .define('C', ingredient)
+                .define('#', ItemsInit.ITEM_MTK.get())
+                .unlockedBy("hasItem", InventoryChangeTrigger.TriggerInstance.hasItems(ItemsInit.ITEM_MTK.get()))
+                .save(consumer);
+    }
+}
