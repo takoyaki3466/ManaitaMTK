@@ -1,6 +1,7 @@
 package com.takoy3466.manaitamtk.eventSubscriber;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
+import com.takoy3466.manaitamtk.menu.PortableFurnaceMenu;
 import com.takoy3466.manaitamtk.util.tooptip.ClientMTKBackPackTooltip;
 import com.takoy3466.manaitamtk.util.tooptip.MTKBackPackTooltip;
 import com.takoy3466.manaitamtk.init.EntitiesInit;
@@ -11,9 +12,12 @@ import com.takoy3466.manaitamtk.screen.MTKBackPackScreen;
 import com.takoy3466.manaitamtk.screen.MTKChestScreen;
 import com.takoy3466.manaitamtk.screen.MTKFurnaceScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -76,6 +80,8 @@ public class ModBusClientEvent {
         MenuScreens.register(MenusInit.MTK_FURNACE_BREAK.get(), MTKFurnaceScreen::new);
 
         MenuScreens.register(MenusInit.MTK_BACKPACK.get(), MTKBackPackScreen::new);
+
+        MenuScreens.register(MenusInit.PORTABLE_FURNACE.get(), MTKFurnaceScreen::new);
 
     }
 

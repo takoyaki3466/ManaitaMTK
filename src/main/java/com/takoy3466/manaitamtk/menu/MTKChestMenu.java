@@ -1,5 +1,6 @@
 package com.takoy3466.manaitamtk.menu;
 
+import com.takoy3466.manaitamtk.util.MTKMenuHelper;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.util.slot.MTKSlotItemHandler;
 import com.takoy3466.manaitamtk.block.blockEntity.MTKChestBlockEntity;
@@ -87,92 +88,7 @@ public class MTKChestMenu extends AbstractContainerMenu {
 
     @Override
     protected boolean moveItemStackTo(ItemStack stack, int i1, int i2, boolean b) {
-        boolean flag = false;
-        int i = i1;
-        if (b) {
-            i = i2 - 1;
-        }
-
-        Slot slot1;
-        ItemStack itemstack;
-        if (stack.isStackable()) {
-            while(!stack.isEmpty()) {
-                if (b) {
-                    if (i < i1) {
-                        break;
-                    }
-                } else if (i >= i2) {
-                    break;
-                }
-
-                slot1 = this.slots.get(i);
-                itemstack = slot1.getItem();
-                if (!itemstack.isEmpty() && ItemStack.isSameItemSameTags(stack, itemstack)) {
-                    long itemStackCount = itemstack.getCount();
-                    long stackCount = stack.getCount();
-
-                    long j = itemStackCount + stackCount;
-                    int maxSize = this.MAX_VALUE;
-                    if (j <= maxSize) {
-                        stack.setCount(0);
-                        itemstack.setCount((int) j);
-                        slot1.setChanged();
-                        flag = true;
-                    } else if (itemstack.getCount() < maxSize) {
-                        stack.shrink(maxSize - itemstack.getCount());
-                        itemstack.setCount(maxSize);
-                        slot1.setChanged();
-                        flag = true;
-                    }
-                }
-
-                if (b) {
-                    --i;
-                } else {
-                    ++i;
-                }
-            }
-        }
-
-        if (!stack.isEmpty()) {
-            if (b) {
-                i = i2 - 1;
-            } else {
-                i = i1;
-            }
-
-            while(true) {
-                if (b) {
-                    if (i < i1) {
-                        break;
-                    }
-                } else if (i >= i2) {
-                    break;
-                }
-
-                slot1 = this.slots.get(i);
-                itemstack = slot1.getItem();
-                if (itemstack.isEmpty() && slot1.mayPlace(stack)) {
-                    if (stack.getCount() > slot1.getMaxStackSize()) {
-                        slot1.setByPlayer(stack.split(slot1.getMaxStackSize()));
-                    } else {
-                        slot1.setByPlayer(stack.split(stack.getCount()));
-                    }
-
-                    slot1.setChanged();
-                    flag = true;
-                    break;
-                }
-
-                if (b) {
-                    --i;
-                } else {
-                    ++i;
-                }
-            }
-        }
-
-        return flag;
+        return MTKMenuHelper.moveItemStackTo(this.slots, stack, i1, i2, b);
     }
 
 

@@ -5,6 +5,7 @@ import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.menu.MTKBackpackMenu;
 import com.takoy3466.manaitamtk.menu.MTKChestMenu;
 import com.takoy3466.manaitamtk.menu.MTKFurnaceMenu;
+import com.takoy3466.manaitamtk.menu.PortableFurnaceMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -37,5 +38,8 @@ public class MenusInit {
 
     public static final RegistryObject<MenuType<MTKBackpackMenu>> MTK_BACKPACK = MENU_TYPES.register("mtk_back_pack",
             () -> IForgeMenuType.create((id, inventory, friendlyByteBuf) -> new MTKBackpackMenu(id, inventory)));
+
+    public static final RegistryObject<MenuType<PortableFurnaceMenu>> PORTABLE_FURNACE = MENU_TYPES.register("portable_furnace",
+            () -> IForgeMenuType.create(PortableFurnaceMenu::new));
 
 }

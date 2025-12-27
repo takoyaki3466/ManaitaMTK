@@ -3,15 +3,8 @@ package com.takoy3466.manaitamtk.init;
 import com.takoy3466.manaitamtk.MTKEnum;
 import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.block.*;
-import com.takoy3466.manaitamtk.block.blockEntity.AutoWorkbenchMTKBlockEntity;
-import com.takoy3466.manaitamtk.block.blockEntity.MTKFurnaceBlockEntity;
 import com.takoy3466.manaitamtk.block.BlockMTKChest;
-import com.takoy3466.manaitamtk.block.blockEntity.MTKChestBlockEntity;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -61,63 +54,4 @@ public class BlocksInit {
         }
     }
 
-    public static class BlockItems{
-        //Block_Itemの追加
-        public static final DeferredRegister<Item> BLOCK_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ManaitaMTK.MOD_ID);
-        public static final RegistryObject<Item> BLOCK_MANAITA = BLOCK_ITEMS.register("block_manaita", () -> new BlockItem(Blocks.BLOCK_MANAITA.get(), new Item.Properties().fireResistant().rarity(Rarity.COMMON)));
-        public static final RegistryObject<Item> BLOCK_MANAITA_DIAMOND = BLOCK_ITEMS.register("block_manaita_diamond", () -> new BlockItem(Blocks.BLOCK_MANAITA_DIAMOND.get(), new Item.Properties().fireResistant().rarity(Rarity.COMMON)));
-        public static final RegistryObject<Item> BLOCK_MANAITA_DIRT = BLOCK_ITEMS.register("block_manaita_dirt", () -> new BlockItem(Blocks.BLOCK_MANAITA_DIRT.get(), new Item.Properties().fireResistant().rarity(Rarity.EPIC)));
-        public static final RegistryObject<Item> BLOCK_MANAITA_GLASS = BLOCK_ITEMS.register("block_manaita_glass", () -> new BlockItem(Blocks.BLOCK_MANAITA_GLASS.get(), new Item.Properties().fireResistant().rarity(Rarity.RARE)));
-
-        public static final RegistryObject<Item> WOOD_CRAFTING_TABLE = BLOCK_ITEMS.register(MTKEnum.WOOD.getBlockname() + "_crafting_table", () -> new BlockItem(BlocksInit.Blocks.WOOD_CRAFTING_TABLE.get(), new Item.Properties()));
-        public static final RegistryObject<Item> STONE_CRAFTING_TABLE = BLOCK_ITEMS.register(MTKEnum.STONE.getBlockname() + "_crafting_table", () -> new BlockItem(BlocksInit.Blocks.STONE_CRAFTING_TABLE.get(), new Item.Properties()));
-        public static final RegistryObject<Item> IRON_CRAFTING_TABLE = BLOCK_ITEMS.register(MTKEnum.IRON.getBlockname() + "_crafting_table", () -> new BlockItem(BlocksInit.Blocks.IRON_CRAFTING_TABLE.get(), new Item.Properties()));
-        public static final RegistryObject<Item> GOLD_CRAFTING_TABLE = BLOCK_ITEMS.register(MTKEnum.GOLD.getBlockname() + "_crafting_table", () -> new BlockItem(BlocksInit.Blocks.GOLD_CRAFTING_TABLE.get(), new Item.Properties()));
-        public static final RegistryObject<Item> DIAMOND_CRAFTING_TABLE = BLOCK_ITEMS.register(MTKEnum.DIAMOND.getBlockname() + "_crafting_table", () -> new BlockItem(BlocksInit.Blocks.DIAMOND_CRAFTING_TABLE.get(), new Item.Properties()));
-        public static final RegistryObject<Item> MTK_CRAFTING_TABLE = BLOCK_ITEMS.register(MTKEnum.MTK.getBlockname() + "_crafting_table", () -> new BlockItem(BlocksInit.Blocks.MTK_CRAFTING_TABLE.get(), new Item.Properties()));
-        public static final RegistryObject<Item> GODMTK_CRAFTING_TABLE = BLOCK_ITEMS.register(MTKEnum.GODMTK.getBlockname() + "_crafting_table", () -> new BlockItem(BlocksInit.Blocks.GODMTK_CRAFTING_TABLE.get(), new Item.Properties().rarity(Rarity.EPIC)));
-        public static final RegistryObject<Item> BREAK_CRAFTING_TABLE = BLOCK_ITEMS.register(MTKEnum.BREAK.getBlockname() + "_crafting_table", () -> new BlockItem(Blocks.BREAK_CRAFTING_TABLE.get(), new Item.Properties().rarity(Rarity.EPIC)));
-
-        public static final RegistryObject<Item> MTK_CHEST = BLOCK_ITEMS.register("mtk_chest", () -> new BlockItem(Blocks.MTK_CHEST.get(), new Item.Properties().fireResistant()));
-
-        public static final RegistryObject<Item> WOOD_MTK_FURNACE = BLOCK_ITEMS.register("wood_mtk_furnace", () -> new BlockItem(Blocks.WOOD_MTK_FURNACE.get(), new Item.Properties().fireResistant()));
-        public static final RegistryObject<Item> STONE_MTK_FURNACE = BLOCK_ITEMS.register("stone_mtk_furnace", () -> new BlockItem(Blocks.STONE_MTK_FURNACE.get(), new Item.Properties().fireResistant()));
-        public static final RegistryObject<Item> IRON_MTK_FURNACE = BLOCK_ITEMS.register("iron_mtk_furnace", () -> new BlockItem(Blocks.IRON_MTK_FURNACE.get(), new Item.Properties().fireResistant()));
-        public static final RegistryObject<Item> GOLD_MTK_FURNACE = BLOCK_ITEMS.register("gold_mtk_furnace", () -> new BlockItem(Blocks.GOLD_MTK_FURNACE.get(), new Item.Properties().fireResistant()));
-        public static final RegistryObject<Item> DIAMOND_MTK_FURNACE = BLOCK_ITEMS.register("diamond_mtk_furnace", () -> new BlockItem(Blocks.DIAMOND_MTK_FURNACE.get(), new Item.Properties().fireResistant()));
-        public static final RegistryObject<Item> MTK_MTK_FURNACE = BLOCK_ITEMS.register("mtk_mtk_furnace", () -> new BlockItem(Blocks.MTK_MTK_FURNACE.get(), new Item.Properties().fireResistant()));
-        public static final RegistryObject<Item> GODMTK_MTK_FURNACE = BLOCK_ITEMS.register("godmtk_mtk_furnace", () -> new BlockItem(Blocks.GODMTK_MTK_FURNACE.get(), new Item.Properties().fireResistant()));
-        public static final RegistryObject<Item> BREAK_MTK_FURNACE = BLOCK_ITEMS.register("break_mtk_furnace", () -> new BlockItem(Blocks.BREAK_MTK_FURNACE.get(), new Item.Properties().fireResistant().rarity(Rarity.EPIC)));
-
-        public static final RegistryObject<Item> AUTO_WORKBENCH_MTK = BLOCK_ITEMS.register("auto_workbench_mtk", () -> new BlockItem(Blocks.AUTO_WORKBENCH_MTK.get(), new Item.Properties().fireResistant().rarity(Rarity.EPIC)));
-
-    }
-
-    public static class BlockEntities {
-        //block_entityの追加
-        public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, ManaitaMTK.MOD_ID);
-
-        public static final RegistryObject<BlockEntityType<MTKChestBlockEntity>> MTK_CHEST = BLOCK_ENTITIES.register("mtk_chest",
-                () -> BlockEntityType.Builder.of(MTKChestBlockEntity::new, Blocks.MTK_CHEST.get()).build(null));
-
-        public static final RegistryObject<BlockEntityType<MTKFurnaceBlockEntity.FurnaceEntityWood>> MTK_FURNACE_WOOD = BLOCK_ENTITIES.register("mtk_furnace_wood",
-                () -> BlockEntityType.Builder.of((pos, state) -> new MTKFurnaceBlockEntity.FurnaceEntityWood(pos, state, MTKEnum.WOOD), Blocks.WOOD_MTK_FURNACE.get()).build(null));
-        public static final RegistryObject<BlockEntityType<MTKFurnaceBlockEntity.FurnaceEntityStone>> MTK_FURNACE_STONE = BLOCK_ENTITIES.register("mtk_furnace_stone",
-                () -> BlockEntityType.Builder.of((pos, state) -> new MTKFurnaceBlockEntity.FurnaceEntityStone(pos, state, MTKEnum.STONE), Blocks.STONE_MTK_FURNACE.get()).build(null));
-        public static final RegistryObject<BlockEntityType<MTKFurnaceBlockEntity.FurnaceEntityIron>> MTK_FURNACE_IRON = BLOCK_ENTITIES.register("mtk_furnace_iron",
-                () -> BlockEntityType.Builder.of((pos, state) -> new MTKFurnaceBlockEntity.FurnaceEntityIron(pos, state, MTKEnum.IRON), Blocks.IRON_MTK_FURNACE.get()).build(null));
-        public static final RegistryObject<BlockEntityType<MTKFurnaceBlockEntity.FurnaceEntityGold>> MTK_FURNACE_GOLD = BLOCK_ENTITIES.register("mtk_furnace_gold",
-                () -> BlockEntityType.Builder.of((pos, state) -> new MTKFurnaceBlockEntity.FurnaceEntityGold(pos, state, MTKEnum.GOLD), Blocks.GOLD_MTK_FURNACE.get()).build(null));
-        public static final RegistryObject<BlockEntityType<MTKFurnaceBlockEntity.FurnaceEntityDiamond>> MTK_FURNACE_DIAMOND = BLOCK_ENTITIES.register("mtk_furnace_diamond",
-                () -> BlockEntityType.Builder.of((pos, state) -> new MTKFurnaceBlockEntity.FurnaceEntityDiamond(pos, state, MTKEnum.DIAMOND), Blocks.DIAMOND_MTK_FURNACE.get()).build(null));
-        public static final RegistryObject<BlockEntityType<MTKFurnaceBlockEntity.FurnaceEntityMTK>> MTK_FURNACE_MTK = BLOCK_ENTITIES.register("mtk_furnace_mtk",
-                () -> BlockEntityType.Builder.of((pos, state) -> new MTKFurnaceBlockEntity.FurnaceEntityMTK(pos, state, MTKEnum.MTK), Blocks.MTK_MTK_FURNACE.get()).build(null));
-        public static final RegistryObject<BlockEntityType<MTKFurnaceBlockEntity.FurnaceEntityGODMTK>> MTK_FURNACE_GODMTK = BLOCK_ENTITIES.register("mtk_furnace_god",
-                () -> BlockEntityType.Builder.of((pos, state) -> new MTKFurnaceBlockEntity.FurnaceEntityGODMTK(pos, state, MTKEnum.GODMTK), Blocks.GODMTK_MTK_FURNACE.get()).build(null));
-        public static final RegistryObject<BlockEntityType<MTKFurnaceBlockEntity.FurnaceEntityBreak>> MTK_FURNACE_BREAK = BLOCK_ENTITIES.register("mtk_furnace_break",
-                () -> BlockEntityType.Builder.of((pos, state) -> new MTKFurnaceBlockEntity.FurnaceEntityBreak(pos, state, MTKEnum.BREAK), Blocks.BREAK_MTK_FURNACE.get()).build(null));
-
-        public static final RegistryObject<BlockEntityType<AutoWorkbenchMTKBlockEntity>> AUTO_WORKBENCH_MTK = BLOCK_ENTITIES.register("auto_workbench_mtk",
-                () -> BlockEntityType.Builder.of(AutoWorkbenchMTKBlockEntity::new, Blocks.AUTO_WORKBENCH_MTK.get()).build(null));
-    }
 }

@@ -167,7 +167,7 @@ public class MTKFurnaceMenuBase extends RecipeBookMenu<Container> {
     }
 
     private boolean canSmelt(ItemStack stack) {
-        return this.level.getRecipeManager().getRecipeFor(this.recipeType, new SimpleContainer(new ItemStack[]{stack}), this.level).isPresent();
+        return this.level.getRecipeManager().getRecipeFor(this.recipeType, new SimpleContainer(stack), this.level).isPresent();
     }
 
     public boolean isFuel(ItemStack stack) {

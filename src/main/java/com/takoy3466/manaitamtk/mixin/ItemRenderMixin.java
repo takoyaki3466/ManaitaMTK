@@ -3,6 +3,7 @@ package com.takoy3466.manaitamtk.mixin;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.takoy3466.manaitamtk.menu.MTKBackpackMenu;
 import com.takoy3466.manaitamtk.menu.MTKChestMenu;
+import com.takoy3466.manaitamtk.menu.PortableFurnaceMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -23,7 +24,7 @@ public abstract class ItemRenderMixin {
 
     @Inject(method = "renderItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;IILjava/lang/String;)V", at = @At("HEAD"), cancellable = true)
     private void onRenderItemDecoration(Font font, ItemStack stack, int x, int y, String string, CallbackInfo ci) {
-        if (minecraft.player.containerMenu instanceof MTKChestMenu || minecraft.player.containerMenu instanceof MTKBackpackMenu) {
+        if (minecraft.player.containerMenu instanceof MTKChestMenu || minecraft.player.containerMenu instanceof MTKBackpackMenu || minecraft.player.containerMenu instanceof PortableFurnaceMenu) {
             if (stack.getCount() > 999){
                 String s = string == null ? "++" : string;
                 this.pose.translate(0.0F, 0.0F, 200.0F);

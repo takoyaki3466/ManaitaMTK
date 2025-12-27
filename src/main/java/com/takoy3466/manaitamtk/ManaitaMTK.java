@@ -1,11 +1,18 @@
 package com.takoy3466.manaitamtk;
 
+import com.takoy3466.manaitamtk.apiMTK.capability.IPortableFurnace;
+import com.takoy3466.manaitamtk.apiMTK.capability.PortableFurnaceProvider;
 import com.takoy3466.manaitamtk.config.MTKConfig;
 import com.takoy3466.manaitamtk.eventSubscriber.MTKSubscribeEvent;
 import com.takoy3466.manaitamtk.init.*;
 import com.takoy3466.manaitamtk.init.tab.Tabsinit;
 import com.takoy3466.manaitamtk.network.MTKNetwork;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -26,9 +33,9 @@ public class ManaitaMTK {
 
         ItemsInit.ITEMS.register(bus);
 
-        BlocksInit.BlockItems.BLOCK_ITEMS.register(bus);
+        BlockItems.BLOCK_ITEMS.register(bus);
 
-        BlocksInit.BlockEntities.BLOCK_ENTITIES.register(bus);
+        BlockEntities.BLOCK_ENTITIES.register(bus);
         EntitiesInit.ENTITY.register(bus);
 
 
@@ -44,5 +51,6 @@ public class ManaitaMTK {
         MTKNetwork.register();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MTKConfig.SPEC, "manaitamtk.toml");
+
     }
 }

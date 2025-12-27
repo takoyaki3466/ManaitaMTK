@@ -2,7 +2,7 @@ package com.takoy3466.manaitamtk.block.blockEntity;
 
 import com.takoy3466.manaitamtk.MTKEnum;
 import com.takoy3466.manaitamtk.apiMTK.ITickableBlockEntity;
-import com.takoy3466.manaitamtk.init.BlocksInit;
+import com.takoy3466.manaitamtk.init.BlockEntities;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
@@ -61,14 +61,14 @@ public class MTKFurnaceBlockEntityBase extends BaseContainerBlockEntity implemen
     @SuppressWarnings("unchecked")
     public MTKFurnaceBlockEntityBase(BlockPos pos, BlockState state, MTKEnum mtkEnum) {
         super(switch (mtkEnum) {
-            case WOOD -> BlocksInit.BlockEntities.MTK_FURNACE_WOOD.get();
-            case STONE -> BlocksInit.BlockEntities.MTK_FURNACE_STONE.get();
-            case IRON -> BlocksInit.BlockEntities.MTK_FURNACE_IRON.get();
-            case GOLD -> BlocksInit.BlockEntities.MTK_FURNACE_GOLD.get();
-            case DIAMOND -> BlocksInit.BlockEntities.MTK_FURNACE_DIAMOND.get();
-            case MTK -> BlocksInit.BlockEntities.MTK_FURNACE_MTK.get();
-            case GODMTK -> BlocksInit.BlockEntities.MTK_FURNACE_GODMTK.get();
-            case BREAK -> BlocksInit.BlockEntities.MTK_FURNACE_BREAK.get();
+            case WOOD -> BlockEntities.MTK_FURNACE_WOOD.get();
+            case STONE -> BlockEntities.MTK_FURNACE_STONE.get();
+            case IRON -> BlockEntities.MTK_FURNACE_IRON.get();
+            case GOLD -> BlockEntities.MTK_FURNACE_GOLD.get();
+            case DIAMOND -> BlockEntities.MTK_FURNACE_DIAMOND.get();
+            case MTK -> BlockEntities.MTK_FURNACE_MTK.get();
+            case GODMTK -> BlockEntities.MTK_FURNACE_GODMTK.get();
+            case BREAK -> BlockEntities.MTK_FURNACE_BREAK.get();
             default -> null;
         }, pos, state);
 
@@ -204,7 +204,7 @@ public class MTKFurnaceBlockEntityBase extends BaseContainerBlockEntity implemen
         boolean flag2 = !this.items.get(0).isEmpty();
         boolean flag3 = !itemstack.isEmpty();
         if (!this.isLit() && (!flag3 || !flag2)) {
-            if (!this.isLit() && this.cookingProgress > 0) {
+            if (this.cookingProgress > 0) {
                 this.cookingProgress = Mth.clamp(this.cookingProgress - 2, 0, this.cookingTotalTime);
             }
         } else {
@@ -213,6 +213,7 @@ public class MTKFurnaceBlockEntityBase extends BaseContainerBlockEntity implemen
 
                 // レシピ取得
                 recipe = this.quickCheck.getRecipeFor(this, level).orElse(null);
+
             } else {
                 recipe = null;
             }

@@ -1,7 +1,6 @@
 package com.takoy3466.manaitamtk.menu;
 
-import com.takoy3466.manaitamtk.config.MTKConfig;
-import com.takoy3466.manaitamtk.init.ItemsInit;
+import com.takoy3466.manaitamtk.apiMTK.IMultipleRecipeResult;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -18,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> {
+public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> implements IMultipleRecipeResult {
     private final CraftingContainer craftSlots;
     private final ResultContainer resultSlots;
     private final ContainerLevelAccess access;
@@ -53,7 +52,7 @@ public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> {
     }
 
     protected void slotChangedCraftingGrid(AbstractContainerMenu menu, Level level, Player player, CraftingContainer craftingContainer, ResultContainer resultContainer) {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             ServerPlayer sPlayer = (ServerPlayer)player;
             ItemStack stack = ItemStack.EMPTY;
             Optional<CraftingRecipe> optionalRecipe = level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, craftingContainer, level);
@@ -78,8 +77,8 @@ public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> {
     public void slotsChanged(@NotNull Container container) {
         this.access.execute((level, pos) -> {
             // CrushedMTKの処理を持ってきた
-            if (matchesD((CraftingContainer) container)){
-                setItem(0,1, assembleD((CraftingContainer) container));
+            if (this.multipleMatche((CraftingContainer) container)){
+                setItem(0,1, this.multipleAssemble((CraftingContainer) container, this.magnification));
                 this.resultSlots.setChanged();
             } else {
                 slotChangedCraftingGrid(this, level, this.player, this.craftSlots, this.resultSlots);
@@ -150,60 +149,6 @@ public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> {
         }
 
         return stack;
-    }
-
-    public boolean matchesD(CraftingContainer container) {
-        boolean source = false;
-        boolean item = false;
-
-        for(int i = 0; i < container.getContainerSize(); ++i) {
-            ItemStack itemStack = container.getItem(i);
-            if (!itemStack.isEmpty()) {
-                if (itemStack.getItem() == ItemsInit.CRUSHED_MTK.get()) {
-                    if (!source) {source = true;}
-                    else {
-                        if (item) {return false;}
-                        item = true;
-                    }
-                } else {
-                    if (item) {return false;}
-                    item = true;
-                }
-            }
-        }
-        return source && item;
-    }
-
-    // * magnificationを追加してちょっと変えてる
-    public ItemStack assembleD(CraftingContainer container) {
-        ItemStack itemStack = ItemStack.EMPTY;
-        int source = 0;
-
-        for(int i = 0; i < container.getContainerSize(); ++i) {
-            ItemStack itemStackInSlot = container.getItem(i);
-            if (!itemStackInSlot.isEmpty() && itemStackInSlot.getItem() != ItemsInit.CRUSHED_MTK.get()) {
-                itemStack = itemStackInSlot;
-            }
-
-            if (!itemStackInSlot.isEmpty() && itemStackInSlot.getItem() == ItemsInit.CRUSHED_MTK.get()) {
-                ++source;
-            }
-        }
-
-        ItemStack result;
-        if (source == 2) {
-            result = new ItemStack(ItemsInit.CRUSHED_MTK.get());
-            //result.setCount(64);
-            result.setCount(MTKConfig.CRUSHED_MTK_MAGNIFICATION.get() * magnification);
-            return result;
-        } else if (itemStack.isEmpty()) {
-            return ItemStack.EMPTY;
-        } else {
-            result = itemStack.copy();
-            //result.setCount(64);
-            result.setCount(MTKConfig.CRUSHED_MTK_MAGNIFICATION.get() * magnification);
-            return result;
-        }
     }
 
     @Override

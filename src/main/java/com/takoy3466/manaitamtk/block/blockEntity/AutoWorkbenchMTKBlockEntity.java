@@ -4,16 +4,15 @@ import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.apiMTK.ITickableBlockEntity;
 import com.takoy3466.manaitamtk.apiMTK.ItemFlag;
 import com.takoy3466.manaitamtk.apiMTK.ItemStackKey;
+import com.takoy3466.manaitamtk.init.BlockEntities;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.init.BlocksInit;
 import com.takoy3466.manaitamtk.menu.AutoWorkbenchMTKMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
@@ -33,7 +32,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -56,7 +54,7 @@ public class AutoWorkbenchMTKBlockEntity extends BlockEntity implements MenuProv
     private final LazyOptional<IItemHandler> stackHandlerLazy = LazyOptional.of(() -> this.stackHandler);
 
     public AutoWorkbenchMTKBlockEntity(BlockPos pos, BlockState state) {
-        super(BlocksInit.BlockEntities.AUTO_WORKBENCH_MTK.get(), pos, state);
+        super(BlockEntities.AUTO_WORKBENCH_MTK.get(), pos, state);
         this.items = NonNullList.withSize(9, ItemStack.EMPTY);
         container = new SimpleContainer(9);
     }

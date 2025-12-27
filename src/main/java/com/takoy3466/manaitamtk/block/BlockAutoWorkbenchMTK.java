@@ -2,8 +2,7 @@ package com.takoy3466.manaitamtk.block;
 
 import com.takoy3466.manaitamtk.apiMTK.BaseTickerEntityBlock;
 import com.takoy3466.manaitamtk.block.blockEntity.AutoWorkbenchMTKBlockEntity;
-import com.takoy3466.manaitamtk.init.BlocksInit;
-import net.minecraft.client.gui.screens.Screen;
+import com.takoy3466.manaitamtk.init.BlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -51,7 +50,7 @@ public class BlockAutoWorkbenchMTK extends BaseTickerEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return BlocksInit.BlockEntities.AUTO_WORKBENCH_MTK.get().create(blockPos, blockState);
+        return BlockEntities.AUTO_WORKBENCH_MTK.get().create(blockPos, blockState);
     }
 
     @SuppressWarnings("deprecation")

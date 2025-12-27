@@ -19,10 +19,12 @@ public record ItemStackKey(Item item, int damage, @Nullable CompoundTag tag) {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ItemStackKey other)) return false;
-        if (item != other.item) return false;
-        if (damage != other.damage) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ItemStackKey other) || item != other.item || damage != other.damage) {
+            return false;
+        }
         return Objects.equals(tag, other.tag);
     }
 

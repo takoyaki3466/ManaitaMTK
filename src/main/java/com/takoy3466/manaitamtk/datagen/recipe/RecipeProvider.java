@@ -1,9 +1,10 @@
 package com.takoy3466.manaitamtk.datagen.recipe;
 
-import com.takoy3466.manaitamtk.init.BlocksInit;
-import com.takoy3466.manaitamtk.init.BlocksInit.BlockItems;
+import com.takoy3466.manaitamtk.init.BlockItems;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -13,7 +14,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
 public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {

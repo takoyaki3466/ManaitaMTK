@@ -1,8 +1,8 @@
 package com.takoy3466.manaitamtk.block.blockEntity;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
+import com.takoy3466.manaitamtk.init.BlockEntities;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
-import com.takoy3466.manaitamtk.init.BlocksInit;
 import com.takoy3466.manaitamtk.menu.MTKChestMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -38,7 +38,7 @@ public class MTKChestBlockEntity extends BlockEntity implements MenuProvider {
     private final LazyOptional<IItemHandler> itemHandlerLazy = LazyOptional.of(() -> itemHandler);
 
     public MTKChestBlockEntity(BlockPos pos, BlockState state) {
-        super(BlocksInit.BlockEntities.MTK_CHEST.get(), pos, state);
+        super(BlockEntities.MTK_CHEST.get(), pos, state);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class MTKChestBlockEntity extends BlockEntity implements MenuProvider {
             }else listTagCount.add(IntTag.valueOf(0));
         }
         tag.put("itemCount", listTagCount);
-        MTKTag.put("MTKContainer", this.itemHandler.serializeNBT());
+        MTKTag.put("MTKSimpleContainer", this.itemHandler.serializeNBT());
         tag.put(ManaitaMTK.MOD_ID, MTKTag);
     }
 
@@ -78,7 +78,7 @@ public class MTKChestBlockEntity extends BlockEntity implements MenuProvider {
         super.load(tag);
         ListTag listTagCount = tag.getList("itemCount", Tag.TAG_INT); // 3
         CompoundTag MTKTag = tag.getCompound(ManaitaMTK.MOD_ID);
-        this.itemHandler.deserializeNBT(MTKTag.getCompound("MTKContainer"));
+        this.itemHandler.deserializeNBT(MTKTag.getCompound("MTKSimpleContainer"));
         for (int i = 0; i < this.itemHandler.getSlots(); i++) {
             int countInt = listTagCount.getInt(i);
             ItemStack stack = this.itemHandler.getStackInSlot(i);

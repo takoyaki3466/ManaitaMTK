@@ -66,10 +66,10 @@ public class MTKBackPack extends Item {
 
         CompoundTag MTKTag = tag.getCompound(ManaitaMTK.MOD_ID);
 
-        if (!MTKTag.contains("MTKContainer") || !tag.contains("itemCount")) return Optional.empty();
+        if (!MTKTag.contains("MTKSimpleContainer") || !tag.contains("itemCount")) return Optional.empty();
 
         ListTag listTagCount = tag.getList("itemCount", Tag.TAG_INT); // 3
-        this.handler.deserializeNBT(MTKTag.getCompound("MTKContainer"));
+        this.handler.deserializeNBT(MTKTag.getCompound("MTKSimpleContainer"));
 
         NonNullList<ItemStack> nonNullList = NonNullList.withSize(this.handler.getSlots(), ItemStack.EMPTY);
 

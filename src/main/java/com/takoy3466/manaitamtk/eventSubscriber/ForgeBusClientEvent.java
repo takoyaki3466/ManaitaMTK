@@ -8,6 +8,7 @@ import com.takoy3466.manaitamtk.item.tool.MTKSwitcherScreen;
 import com.takoy3466.manaitamtk.item.tool.ToolManaitaSword;
 import com.takoy3466.manaitamtk.screen.MTKBackPackScreen;
 import com.takoy3466.manaitamtk.screen.MTKChestScreen;
+import com.takoy3466.manaitamtk.screen.MTKFurnaceScreen;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.client.Minecraft;
@@ -148,7 +149,7 @@ public class ForgeBusClientEvent {
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
         Screen screen = Minecraft.getInstance().screen;
-        if (screen instanceof MTKChestScreen || screen instanceof MTKBackPackScreen) {
+        if (screen instanceof MTKChestScreen || screen instanceof MTKBackPackScreen || screen instanceof MTKFurnaceScreen<?>) {
             int count = event.getItemStack().getCount();
             if (count > 1) {
                 event.getToolTip().add(Component.literal(component.getString() + count));

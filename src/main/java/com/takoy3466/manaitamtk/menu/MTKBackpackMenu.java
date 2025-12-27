@@ -1,23 +1,18 @@
 package com.takoy3466.manaitamtk.menu;
 
-import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.apiMTK.ISaveLoadMenu;
+import com.takoy3466.manaitamtk.apiMTK.ISaveLoad;
+import com.takoy3466.manaitamtk.util.MTKMenuHelper;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.util.slot.MTKSlotItemHandler;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.init.MenusInit;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.IntTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.ItemStackHandler;
 
-public class MTKBackpackMenu extends AbstractContainerMenu implements ISaveLoadMenu {
+public class MTKBackpackMenu extends AbstractContainerMenu implements ISaveLoad {
     private final int MAX_VALUE = 2147483647;
     private final int containerRows = 6;
     private final MTKItemStackHandler stackHandler;
@@ -109,126 +104,13 @@ public class MTKBackpackMenu extends AbstractContainerMenu implements ISaveLoadM
 
     @Override
     protected boolean moveItemStackTo(ItemStack stack, int i1, int i2, boolean b) {
-        boolean flag = false;
-        int i = i1;
-        if (b) {
-            i = i2 - 1;
-        }
-
-        Slot slot1;
-        ItemStack itemstack;
-        if (stack.isStackable()) {
-            while(!stack.isEmpty()) {
-                if (b) {
-                    if (i < i1) {
-                        break;
-                    }
-                } else if (i >= i2) {
-                    break;
-                }
-
-                slot1 = this.slots.get(i);
-                itemstack = slot1.getItem();
-                if (!itemstack.isEmpty() && ItemStack.isSameItemSameTags(stack, itemstack)) {
-                    long itemStackCount = itemstack.getCount();
-                    long stackCount = stack.getCount();
-
-                    long j = itemStackCount + stackCount;
-                    int maxSize = this.MAX_VALUE;
-                    if (j <= maxSize) {
-                        stack.setCount(0);
-                        itemstack.setCount((int) j);
-                        slot1.setChanged();
-                        flag = true;
-                    } else if (itemstack.getCount() < maxSize) {
-                        stack.shrink(maxSize - itemstack.getCount());
-                        itemstack.setCount(maxSize);
-                        slot1.setChanged();
-                        flag = true;
-                    }
-                }
-
-                if (b) {
-                    --i;
-                } else {
-                    ++i;
-                }
-            }
-        }
-
-        if (!stack.isEmpty()) {
-            if (b) {
-                i = i2 - 1;
-            } else {
-                i = i1;
-            }
-
-            while(true) {
-                if (b) {
-                    if (i < i1) {
-                        break;
-                    }
-                } else if (i >= i2) {
-                    break;
-                }
-
-                slot1 = this.slots.get(i);
-                itemstack = slot1.getItem();
-                if (itemstack.isEmpty() && slot1.mayPlace(stack)) {
-                    if (stack.getCount() > slot1.getMaxStackSize()) {
-                        slot1.setByPlayer(stack.split(slot1.getMaxStackSize()));
-                    } else {
-                        slot1.setByPlayer(stack.split(stack.getCount()));
-                    }
-
-                    slot1.setChanged();
-                    flag = true;
-                    break;
-                }
-
-                if (b) {
-                    --i;
-                } else {
-                    ++i;
-                }
-            }
-        }
-
-        return flag;
+        return MTKMenuHelper.moveItemStackTo(this.slots, stack, i1, i2, b);
     }
 
 
     @Override
     public boolean stillValid(Player player) {
         return true;
-    }
-
-    @Override
-    public <T extends ItemStackHandler> void saveAdditional(CompoundTag tag, T handler) {
-        ListTag listTagCount = new ListTag();
-        CompoundTag MTKTag = new CompoundTag();
-        for (int i = 0; i < handler.getSlots(); i++) {
-            ItemStack stack = handler.getStackInSlot(i);
-            if (!handler.getStackInSlot(i).isEmpty()) {
-                listTagCount.add(IntTag.valueOf(stack.getCount()));
-            }else listTagCount.add(IntTag.valueOf(0));
-        }
-        tag.put("itemCount", listTagCount);
-        MTKTag.put("MTKContainer", handler.serializeNBT());
-        tag.put(ManaitaMTK.MOD_ID, MTKTag);
-    }
-
-    @Override
-    public <T extends ItemStackHandler> void load(CompoundTag tag, T handler) {
-        ListTag listTagCount = tag.getList("itemCount", Tag.TAG_INT); // 3
-        CompoundTag MTKTag = tag.getCompound(ManaitaMTK.MOD_ID);
-        handler.deserializeNBT(MTKTag.getCompound("MTKContainer"));
-        for (int i = 0; i < handler.getSlots(); i++) {
-            int countInt = listTagCount.getInt(i);
-            ItemStack stack = handler.getStackInSlot(i);
-            stack.setCount(countInt);
-            handler.setStackInSlot(i, stack);
-        }
     }
 
     public int getContainerRows() {

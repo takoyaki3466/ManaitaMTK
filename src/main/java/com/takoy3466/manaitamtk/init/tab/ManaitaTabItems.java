@@ -7,28 +7,28 @@ public class ManaitaTabItems {
 
     public static final Item[] items = {
             //上から順番にタブに追加される
-            BlocksInit.BlockItems.BLOCK_MANAITA.get(),
-            BlocksInit.BlockItems.BLOCK_MANAITA_DIAMOND.get(),
-            BlocksInit.BlockItems.BLOCK_MANAITA_DIRT.get(),
-            BlocksInit.BlockItems.BLOCK_MANAITA_GLASS.get(),
+            BlockItems.BLOCK_MANAITA.get(),
+            BlockItems.BLOCK_MANAITA_DIAMOND.get(),
+            BlockItems.BLOCK_MANAITA_DIRT.get(),
+            BlockItems.BLOCK_MANAITA_GLASS.get(),
 
-            BlocksInit.BlockItems.WOOD_CRAFTING_TABLE.get(),
-            BlocksInit.BlockItems.STONE_CRAFTING_TABLE.get(),
-            BlocksInit.BlockItems.IRON_CRAFTING_TABLE.get(),
-            BlocksInit.BlockItems.GOLD_CRAFTING_TABLE.get(),
-            BlocksInit.BlockItems.DIAMOND_CRAFTING_TABLE.get(),
-            BlocksInit.BlockItems.MTK_CRAFTING_TABLE.get(),
-            BlocksInit.BlockItems.GODMTK_CRAFTING_TABLE.get(),
-            BlocksInit.BlockItems.BREAK_CRAFTING_TABLE.get(),
+            BlockItems.WOOD_CRAFTING_TABLE.get(),
+            BlockItems.STONE_CRAFTING_TABLE.get(),
+            BlockItems.IRON_CRAFTING_TABLE.get(),
+            BlockItems.GOLD_CRAFTING_TABLE.get(),
+            BlockItems.DIAMOND_CRAFTING_TABLE.get(),
+            BlockItems.MTK_CRAFTING_TABLE.get(),
+            BlockItems.GODMTK_CRAFTING_TABLE.get(),
+            BlockItems.BREAK_CRAFTING_TABLE.get(),
 
-            BlocksInit.BlockItems.WOOD_MTK_FURNACE.get(),
-            BlocksInit.BlockItems.STONE_MTK_FURNACE.get(),
-            BlocksInit.BlockItems.IRON_MTK_FURNACE.get(),
-            BlocksInit.BlockItems.GOLD_MTK_FURNACE.get(),
-            BlocksInit.BlockItems.DIAMOND_MTK_FURNACE.get(),
-            BlocksInit.BlockItems.MTK_MTK_FURNACE.get(),
-            BlocksInit.BlockItems.GODMTK_MTK_FURNACE.get(),
-            BlocksInit.BlockItems.BREAK_MTK_FURNACE.get(),
+            BlockItems.WOOD_MTK_FURNACE.get(),
+            BlockItems.STONE_MTK_FURNACE.get(),
+            BlockItems.IRON_MTK_FURNACE.get(),
+            BlockItems.GOLD_MTK_FURNACE.get(),
+            BlockItems.DIAMOND_MTK_FURNACE.get(),
+            BlockItems.MTK_MTK_FURNACE.get(),
+            BlockItems.GODMTK_MTK_FURNACE.get(),
+            BlockItems.BREAK_MTK_FURNACE.get(),
 
             ItemsInit.ITEM_MTK.get(),
             //ItemsInit.ZIKOKENZIYOKU.get(),
@@ -66,10 +66,10 @@ public class ManaitaTabItems {
             ItemsInit.LEGINS_MANAITA.get(),
             ItemsInit.BOOTS_MANAITA.get(),
 
-            BlocksInit.BlockItems.MTK_CHEST.get(),
+            BlockItems.MTK_CHEST.get(),
             ItemsInit.MTK_BACKPACK.get(),
 
-            BlocksInit.BlockItems.AUTO_WORKBENCH_MTK.get(),
+            BlockItems.AUTO_WORKBENCH_MTK.get(),
 
             ItemsInit.DEBUG_MTK.get()
     };

@@ -59,6 +59,7 @@ public class ItemsInit {
 
     public static final RegistryObject<Item> MTK_BACKPACK = ITEMS.register("mtk_backpack", MTKBackPack::new);
 
+    private static final RegistryObject<Item> PROTABLE_WOOD_FURNACE = ITEMS.register("portable_wood_furnace", () -> new PortableFurnace(MTKEnum.WOOD));
 
 
 

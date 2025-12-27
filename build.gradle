@@ -105,6 +105,11 @@ dependencies {
     compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
     // at runtime, use the full JEI jar for Forge
     runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
+
+    runtimeOnly(fg.deobf("curse.maven:pipez-443900:${getProperty("pipezVersion")}"))
+    runtimeOnly(fg.deobf("curse.maven:jade-324717:${getProperty("jadeVersion")}"))
+
+    runtimeOnly fg.deobf("curse.maven:ae2-223794:${getProperty("ae2Version")}")
 }
 
 mixin {

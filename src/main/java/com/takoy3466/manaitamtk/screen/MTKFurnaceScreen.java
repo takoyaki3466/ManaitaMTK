@@ -1,6 +1,7 @@
 package com.takoy3466.manaitamtk.screen;
 
 import com.takoy3466.manaitamtk.menu.MTKFurnaceMenuBase;
+import com.takoy3466.manaitamtk.menu.PortableFurnaceMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -11,13 +12,15 @@ import net.minecraft.client.gui.screens.recipebook.SmeltingRecipeBookComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.RecipeBookMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class MTKFurnaceScreen extends AbstractContainerScreen<MTKFurnaceMenuBase> implements RecipeUpdateListener {
+public class MTKFurnaceScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> implements RecipeUpdateListener {
     private static final ResourceLocation RECIPE_BUTTON_LOCATION = new ResourceLocation("textures/gui/recipe_button.png");
     private static final ResourceLocation TEXTURE = new ResourceLocation("textures/gui/container/furnace.png");
     public final AbstractFurnaceRecipeBookComponent recipeBookComponent;
@@ -25,7 +28,7 @@ public class MTKFurnaceScreen extends AbstractContainerScreen<MTKFurnaceMenuBase
     private final ResourceLocation texture;
 
     // 元の名前がさっぱりわからないのでi1,i2などが多いです、すいません
-    public MTKFurnaceScreen(MTKFurnaceMenuBase menu, Inventory inventory, Component component) {
+    public MTKFurnaceScreen(T menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
         this.recipeBookComponent = new SmeltingRecipeBookComponent();
         this.texture = TEXTURE;
@@ -34,7 +37,9 @@ public class MTKFurnaceScreen extends AbstractContainerScreen<MTKFurnaceMenuBase
     public void init() {
         super.init();
         this.widthTooNarrow = this.width < 379;
-        this.recipeBookComponent.init(this.width, this.height, this.minecraft, this.widthTooNarrow, this.menu);
+        if (this.menu instanceof RecipeBookMenu<?> recipeBookMenu) {
+            this.recipeBookComponent.init(this.width, this.height, this.minecraft, this.widthTooNarrow, recipeBookMenu);
+        }
         this.leftPos = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
         this.addRenderableWidget(new ImageButton(this.leftPos + 20, this.height / 2 - 49, 20, 18, 0, 0, 19, RECIPE_BUTTON_LOCATION, (button) -> {
             this.recipeBookComponent.toggleVisibility();
@@ -69,12 +74,25 @@ public class MTKFurnaceScreen extends AbstractContainerScreen<MTKFurnaceMenuBase
         int topPos = this.topPos;
         graphics.blit(this.texture, leftPos, topPos, 0, 0, this.imageWidth, this.imageHeight);
         int progress;
-        if (this.menu.isLit()) {
-            progress = this.menu.getLitProgress();
-            graphics.blit(this.texture, leftPos + 56, topPos + 36 + 12 - progress, 176, 12 - progress, 14, progress + 1);
+        if (this.menu instanceof MTKFurnaceMenuBase menuBase) {
+
+            if (menuBase.isLit()) {
+                progress = menuBase.getLitProgress();
+                graphics.blit(this.texture, leftPos + 56, topPos + 36 + 12 - progress, 176, 12 - progress, 14, progress + 1);
+            }
+            progress = menuBase.getBurnProgress();
+            graphics.blit(this.texture, leftPos + 79, topPos + 34, 176, 14, progress + 1, 16);
+
+        } else if (this.menu instanceof PortableFurnaceMenu portableFurnaceMenu) {
+
+            if (portableFurnaceMenu.isLit()) {
+                progress = portableFurnaceMenu.getLitProgress();
+                graphics.blit(this.texture, leftPos + 56, topPos + 36 + 12 - progress, 176, 12 - progress, 14, progress + 1);
+            }
+            progress = portableFurnaceMenu.getBurnProgress();
+            graphics.blit(this.texture, leftPos + 79, topPos + 34, 176, 14, progress + 1, 16);
+
         }
-        progress = this.menu.getBurnProgress();
-        graphics.blit(this.texture, leftPos + 79, topPos + 34, 176, 14, progress + 1, 16);
     }
 
     public boolean mouseClicked(double d, double v, int i) {
