@@ -15,7 +15,7 @@ public class Tabsinit {
     public static final DeferredRegister<CreativeModeTab> MOD_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ManaitaMTK.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> MTK_MAIN = MOD_TABS.register("mtk_main",
-            ()-> {return CreativeModeTab.builder()
+            ()-> CreativeModeTab.builder()
                     .icon(()->new ItemStack(ItemsInit.ITEM_MTK.get()))
                     .title(Component.translatable("itemGroup.mtk_main"))
                     .displayItems((pram,output)->{
@@ -23,6 +23,5 @@ public class Tabsinit {
                             output.accept(item);
                         }
                     })
-                    .build();
-    });
+                    .build());
 }

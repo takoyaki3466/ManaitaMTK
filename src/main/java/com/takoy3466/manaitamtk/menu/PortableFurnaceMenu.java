@@ -1,18 +1,21 @@
 package com.takoy3466.manaitamtk.menu;
 
-import com.takoy3466.manaitamtk.apiMTK.capability.IPortableFurnace;
 import com.takoy3466.manaitamtk.apiMTK.capability.MTKCapabilities;
 import com.takoy3466.manaitamtk.apiMTK.capability.PortableFurnaceData;
-import com.takoy3466.manaitamtk.init.MenusInit;
-import com.takoy3466.manaitamtk.util.MTKMenuHelper;
+import com.takoy3466.manaitamtk.apiMTK.capability.interfaces.IPortableFurnace;
+import com.takoy3466.manaitamtk.apiMTK.helper.MTKMenuHelper;
 import com.takoy3466.manaitamtk.util.slot.*;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
@@ -29,7 +32,7 @@ public class PortableFurnaceMenu extends AbstractContainerMenu {
 
     @SuppressWarnings("unchecked")
     public PortableFurnaceMenu(int id, Inventory playerInventory, ItemStack stack) {
-        super(MenusInit.PORTABLE_FURNACE.get(), id);
+        super(MenuType.FURNACE, id);
         this.player = playerInventory.player;
         LazyOptional<IPortableFurnace> lazyOptional = stack.getCapability(MTKCapabilities.PORTABLE_FURNACE);
         this.furnace = lazyOptional.orElseThrow(() -> new IllegalStateException("IPortableFurnaceがないよ！"));
@@ -44,12 +47,12 @@ public class PortableFurnaceMenu extends AbstractContainerMenu {
 
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 9; ++j) {
-                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlot(new MTKSlot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for(int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+            this.addSlot(new MTKSlot(playerInventory, i, 8 + i * 18, 142));
         }
     }
 

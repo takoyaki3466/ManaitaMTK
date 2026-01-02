@@ -66,6 +66,15 @@
 
   "item.manaitamtk.mtk_backpack": "MTK Backpack",
 
+  "item.manaitamtk.portable_break_furnace": "Portable Break Furnace",
+  "item.manaitamtk.portable_diamond_furnace": "Portable Diamond Furnace",
+  "item.manaitamtk.portable_godmtk_furnace": "Portable Godmtk Furnace",
+  "item.manaitamtk.portable_gold_furnace": "Portable Gold Furnace",
+  "item.manaitamtk.portable_iron_furnace": "Portable Iron Furnace",
+  "item.manaitamtk.portable_mtk_furnace": "Portable mtk Furnace",
+  "item.manaitamtk.portable_stone_furnace": "Portable Stone Furnace",
+  "item.manaitamtk.portable_wood_furnace": "Portable Wood Furnace",
+
   "key.manaitamtk.categories": "ManaitaMTK",
   "key.manaitamtk.helmetsetting": "Helmet Key",
   "key.manaitamtk.flyspeedsetting": "FlySpeed Key",
@@ -136,6 +145,7 @@
 
   "block.manaitamtk.mtk_crafting_table.title": "MTK Crafting Table",
   "block.manaitamtk.mtk_furnace.title": "MTK Furnace",
+  "item.manaitamtk.portable_furnace.title": "portable Furnace",
 
   "tooltip.amount": "Quantity: ",
 

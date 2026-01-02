@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk.apiMTK;
+package com.takoy3466.manaitamtk.apiMTK.record;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
@@ -19,13 +19,14 @@ public record ItemStackKey(Item item, int damage, @Nullable CompoundTag tag) {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof ItemStackKey other) || item != other.item || damage != other.damage) {
-            return false;
-        }
-        return Objects.equals(tag, other.tag);
+        if (this == o) return true;
+        if (!(o instanceof ItemStackKey that)) return false;
+        return damage == that.damage && Objects.equals(item, that.item) && Objects.equals(tag, that.tag);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(item, damage, tag);
     }
 
     public ItemStack getDefaultInstance() {

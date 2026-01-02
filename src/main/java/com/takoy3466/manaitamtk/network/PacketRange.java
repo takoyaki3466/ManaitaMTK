@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.network;
 
-import com.takoy3466.manaitamtk.apiMTK.IMTKPacket;
+import com.takoy3466.manaitamtk.apiMTK.interfaces.IMTKPacket;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;

@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.datagen;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.datagen.recipe.RecipeProvider;
+import com.takoy3466.manaitamtk.datagen.provider.RecipeProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -14,8 +14,14 @@ public class MTKDataGen {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
+        boolean run = event.includeServer();
 
-        addProvider(event.includeServer(), RecipeProvider::new, generator);
+        addProvider(run, RecipeProvider::new, generator);
+
+        /*addProvider(run, LangJPProvider::new, generator);
+        addProvider(run, LangENProvider::new, generator);
+        addProvider(run, LangKOProvider::new, generator);*/
+        // 一回生成したら終わり
     }
 
     public static <T extends DataProvider> void addProvider(boolean run, DataProvider.Factory<T> factory, DataGenerator generator) {

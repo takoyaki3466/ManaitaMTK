@@ -68,6 +68,15 @@
 
   "item.manaitamtk.mtk_backpack": "MTK백팩",
 
+  "item.manaitamtk.portable_break_furnace": "휴대용 부서지다 화로",
+  "item.manaitamtk.portable_diamond_furnace": "휴대용 다이아몬드 화로",
+  "item.manaitamtk.portable_godmtk_furnace": "휴대용 GODMTK 화로",
+  "item.manaitamtk.portable_gold_furnace": "휴대용 금 화로",
+  "item.manaitamtk.portable_iron_furnace": "휴대용 철 화로",
+  "item.manaitamtk.portable_mtk_furnace": "휴대용 MTK 화로",
+  "item.manaitamtk.portable_stone_furnace": "휴대용 결석 화로",
+  "item.manaitamtk.portable_wood_furnace": "휴대용 나무 화로",
+
   "key.manaitamtk.categories": "ManaitaMTK",
   "key.manaitamtk.helmetsetting": "투구키",
   "key.manaitamtk.flyspeedsetting": "비행속도변경키",
@@ -138,6 +147,7 @@
 
   "block.manaitamtk.mtk_crafting_table.title": "MTK 작업대",
   "block.manaitamtk.mtk_furnace.title": "MTK 화로",
+  "item.manaitamtk.portable_furnace.title": "휴대용 화로",
 
   "tooltip.amount": "개수: ",
 

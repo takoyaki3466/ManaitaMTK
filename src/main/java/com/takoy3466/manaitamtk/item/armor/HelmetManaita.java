@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.item.armor;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
-import com.takoy3466.manaitamtk.apiMTK.IItemhasTag;
+import com.takoy3466.manaitamtk.apiMTK.interfaces.IItemhasTag;
 import com.takoy3466.manaitamtk.network.MTKNetwork;
 import com.takoy3466.manaitamtk.network.PacketFlySpeed;
 import net.minecraft.ChatFormatting;

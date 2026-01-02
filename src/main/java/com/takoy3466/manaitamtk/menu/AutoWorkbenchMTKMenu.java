@@ -152,7 +152,7 @@ public class AutoWorkbenchMTKMenu extends RecipeBookMenu<Container> {
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(this.access, player, BlocksInit.Blocks.AUTO_WORKBENCH_MTK.get());
+        return stillValid(this.access, player, BlocksInit.AUTO_WORKBENCH_MTK.getBlock());
     }
 
     @Override

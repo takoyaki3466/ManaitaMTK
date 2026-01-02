@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.block;
 
 import com.takoy3466.manaitamtk.block.blockEntity.MTKChestBlockEntity;
-import com.takoy3466.manaitamtk.init.BlockEntities;
+import com.takoy3466.manaitamtk.init.BlockEntitiesInit;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -38,7 +38,7 @@ public class BlockMTKChest extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return BlockEntities.MTK_CHEST.get().create(blockPos, blockState);
+        return BlockEntitiesInit.MTK_CHEST.get().create(blockPos, blockState);
     }
 
     @SuppressWarnings("deprecation")

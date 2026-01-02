@@ -67,6 +67,15 @@
 
   "item.manaitamtk.mtk_backpack": "MTKバックパック",
 
+  "item.manaitamtk.portable_break_furnace": "ポータブルブレイクかまど",
+  "item.manaitamtk.portable_diamond_furnace": "ポータブルダイヤモンドかまど",
+  "item.manaitamtk.portable_godmtk_furnace": "ポータブルGODMTKかまど",
+  "item.manaitamtk.portable_gold_furnace": "ポータブル金かまど",
+  "item.manaitamtk.portable_iron_furnace": "ポータブル鉄かまど",
+  "item.manaitamtk.portable_mtk_furnace": "ポータブルMTKかまど",
+  "item.manaitamtk.portable_stone_furnace": "ポータブル石かまど",
+  "item.manaitamtk.portable_wood_furnace": "ポータブル木かまど",
+
   "key.manaitamtk.categories": "まな板MTK",
   "key.manaitamtk.helmetsetting": "ヘルメットキー",
   "key.manaitamtk.flyspeedsetting": "飛行速度変更キー",
@@ -138,6 +147,7 @@
 
   "block.manaitamtk.mtk_crafting_table.title": "MTK作業台",
   "block.manaitamtk.mtk_furnace.title": "MTKかまど",
+  "item.manaitamtk.portable_furnace.title": "ポータブルかまど",
 
   "tooltip.amount": "個数: ",
 

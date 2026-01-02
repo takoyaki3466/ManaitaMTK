@@ -1,8 +1,9 @@
-package com.takoy3466.manaitamtk.apiMTK.capability;
+package com.takoy3466.manaitamtk.apiMTK.capability.Provider;
 
 import com.takoy3466.manaitamtk.MTKEnum;
-import com.takoy3466.manaitamtk.util.MTKContainer;
-import com.takoy3466.manaitamtk.util.MTKContainerHelper;
+import com.takoy3466.manaitamtk.apiMTK.capability.interfaces.IPortableFurnace;
+import com.takoy3466.manaitamtk.util.container.MTKContainer;
+import com.takoy3466.manaitamtk.apiMTK.helper.MTKContainerHelper;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.RegistryAccess;

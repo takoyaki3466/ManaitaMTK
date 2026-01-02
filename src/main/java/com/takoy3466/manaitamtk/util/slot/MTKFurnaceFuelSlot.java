@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.util.slot;
 
-import com.takoy3466.manaitamtk.menu.MTKFurnaceMenuBase;
+import com.takoy3466.manaitamtk.menu.MTKFurnaceMenu;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -8,9 +8,9 @@ import net.minecraft.world.item.Items;
 
 public class MTKFurnaceFuelSlot extends Slot {
     private final int MAX_VALUE = 2147483647;
-    private final MTKFurnaceMenuBase menu;
+    private final MTKFurnaceMenu menu;
 
-    public MTKFurnaceFuelSlot(MTKFurnaceMenuBase menu, Container container, int slotId, int x, int y) {
+    public MTKFurnaceFuelSlot(MTKFurnaceMenu menu, Container container, int slotId, int x, int y) {
         super(container, slotId, x, y);
         this.menu = menu;
     }

@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk.util;
+package com.takoy3466.manaitamtk.apiMTK.helper;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
 import net.minecraft.nbt.CompoundTag;

@@ -1,5 +1,6 @@
 package com.takoy3466.manaitamtk.apiMTK.capability;
 
+import com.takoy3466.manaitamtk.apiMTK.capability.interfaces.IPortableFurnace;
 import net.minecraft.world.inventory.ContainerData;
 
 public class PortableFurnaceData implements ContainerData {

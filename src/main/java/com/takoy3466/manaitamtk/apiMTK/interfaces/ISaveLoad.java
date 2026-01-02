@@ -1,6 +1,6 @@
-package com.takoy3466.manaitamtk.apiMTK;
+package com.takoy3466.manaitamtk.apiMTK.interfaces;
 
-import com.takoy3466.manaitamtk.util.MTKContainerHelper;
+import com.takoy3466.manaitamtk.apiMTK.helper.MTKContainerHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.items.ItemStackHandler;
 

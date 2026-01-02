@@ -1,8 +1,8 @@
 package com.takoy3466.manaitamtk.block;
 
-import com.takoy3466.manaitamtk.apiMTK.BaseTickerEntityBlock;
+import com.takoy3466.manaitamtk.apiMTK.abstracts.AbstractTickerEntityBlock;
 import com.takoy3466.manaitamtk.block.blockEntity.AutoWorkbenchMTKBlockEntity;
-import com.takoy3466.manaitamtk.init.BlockEntities;
+import com.takoy3466.manaitamtk.init.BlockEntitiesInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 // テクスチャを書いてくれたトマトさんありがとう！
-public class BlockAutoWorkbenchMTK extends BaseTickerEntityBlock {
+public class BlockAutoWorkbenchMTK extends AbstractTickerEntityBlock {
     private final Component TEXT = Component.translatable("block.manaitamtk.auto_workbench_mtk.hover_text");
 
     public BlockAutoWorkbenchMTK() {
@@ -50,7 +50,7 @@ public class BlockAutoWorkbenchMTK extends BaseTickerEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return BlockEntities.AUTO_WORKBENCH_MTK.get().create(blockPos, blockState);
+        return BlockEntitiesInit.AUTO_WORKBENCH_MTK.get().create(blockPos, blockState);
     }
 
     @SuppressWarnings("deprecation")

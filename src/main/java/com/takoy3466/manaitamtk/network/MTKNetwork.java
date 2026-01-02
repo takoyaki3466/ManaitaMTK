@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.network;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.apiMTK.IMTKPacket;
+import com.takoy3466.manaitamtk.apiMTK.interfaces.IMTKPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkRegistry;

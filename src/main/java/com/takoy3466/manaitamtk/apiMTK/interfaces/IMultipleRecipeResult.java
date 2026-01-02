@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk.apiMTK;
+package com.takoy3466.manaitamtk.apiMTK.interfaces;
 
 import com.takoy3466.manaitamtk.config.MTKConfig;
 import com.takoy3466.manaitamtk.init.ItemsInit;

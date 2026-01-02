@@ -1,10 +1,10 @@
 package com.takoy3466.manaitamtk.menu;
 
-import com.takoy3466.manaitamtk.util.MTKMenuHelper;
+import com.takoy3466.manaitamtk.init.BlocksInit;
+import com.takoy3466.manaitamtk.apiMTK.helper.MTKMenuHelper;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.util.slot.MTKSlotItemHandler;
 import com.takoy3466.manaitamtk.block.blockEntity.MTKChestBlockEntity;
-import com.takoy3466.manaitamtk.init.BlocksInit;
 import com.takoy3466.manaitamtk.init.MenusInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -94,7 +94,7 @@ public class MTKChestMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(this.levelAccess, player, BlocksInit.Blocks.MTK_CHEST.get());
+        return stillValid(this.levelAccess, player, BlocksInit.MTK_CHEST.getBlock());
     }
 
     public MTKChestBlockEntity getBlockEntity() {

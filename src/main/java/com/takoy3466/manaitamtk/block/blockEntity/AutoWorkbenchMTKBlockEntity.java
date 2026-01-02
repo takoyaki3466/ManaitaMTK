@@ -1,12 +1,12 @@
 package com.takoy3466.manaitamtk.block.blockEntity;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.apiMTK.ITickableBlockEntity;
+import com.takoy3466.manaitamtk.apiMTK.interfaces.ITickableBlockEntity;
 import com.takoy3466.manaitamtk.apiMTK.ItemFlag;
-import com.takoy3466.manaitamtk.apiMTK.ItemStackKey;
-import com.takoy3466.manaitamtk.init.BlockEntities;
-import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
+import com.takoy3466.manaitamtk.apiMTK.record.ItemStackKey;
+import com.takoy3466.manaitamtk.init.BlockEntitiesInit;
 import com.takoy3466.manaitamtk.init.BlocksInit;
+import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.menu.AutoWorkbenchMTKMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -54,7 +54,7 @@ public class AutoWorkbenchMTKBlockEntity extends BlockEntity implements MenuProv
     private final LazyOptional<IItemHandler> stackHandlerLazy = LazyOptional.of(() -> this.stackHandler);
 
     public AutoWorkbenchMTKBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntities.AUTO_WORKBENCH_MTK.get(), pos, state);
+        super(BlockEntitiesInit.AUTO_WORKBENCH_MTK.get(), pos, state);
         this.items = NonNullList.withSize(9, ItemStack.EMPTY);
         container = new SimpleContainer(9);
     }
@@ -98,7 +98,7 @@ public class AutoWorkbenchMTKBlockEntity extends BlockEntity implements MenuProv
             Direction direction = iterator.next();
             BlockEntity input = level.getBlockEntity(pos.relative(direction));
             if (input == null) continue;
-            if (input.getBlockState().is(BlocksInit.Blocks.AUTO_WORKBENCH_MTK.get())) continue;
+            if (input.getBlockState().is(BlocksInit.AUTO_WORKBENCH_MTK.getBlock())) continue;
             LazyOptional<IItemHandler> lazyOptional = input.getCapability(ForgeCapabilities.ITEM_HANDLER, direction);
             if (lazyOptional.resolve().isPresent()) {
                 inputHandlerList.add(lazyOptional.resolve().get());

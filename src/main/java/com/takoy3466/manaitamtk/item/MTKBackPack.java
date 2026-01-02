@@ -1,62 +1,37 @@
 package com.takoy3466.manaitamtk.item;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
+import com.takoy3466.manaitamtk.apiMTK.abstracts.AbstractMenuItem;
+import com.takoy3466.manaitamtk.menu.MTKBackpackMenu;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.util.tooptip.MTKBackPackTooltip;
-import com.takoy3466.manaitamtk.menu.MTKBackpackMenu;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class MTKBackPack extends Item {
+public class MTKBackPack extends AbstractMenuItem {
     private final MTKItemStackHandler handler = new MTKItemStackHandler(54);
+    private final Component COMPONENT = Component.translatable("item.manaitamtk.mtk_backpack");
     public MTKBackPack() {
         super(new Properties().stacksTo(1).fireResistant().rarity(Rarity.EPIC));
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-
-        if (!level.isClientSide) {
-            if (player instanceof ServerPlayer serverPlayer) {
-                serverPlayer.openMenu(new MenuProvider() {
-
-                    @Override
-                    public @NotNull Component getDisplayName() {
-                        return Component.translatable("item.manaitamtk.mtk_backpack");
-                    }
-
-                    @Override
-                    public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-                        MTKBackpackMenu menu = new MTKBackpackMenu(id, playerInventory, stack);
-                        if (stack.hasTag()) {
-                            menu.load(stack.getOrCreateTag(), menu.getStackHandler());
-                        }
-
-                        return menu;
-                    }
-                });
-            }
-        }
-        return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide);
+        return this.openMenu(level, player, COMPONENT, hand);
     }
 
     @Override
@@ -87,5 +62,14 @@ public class MTKBackPack extends Item {
         }
 
         return Optional.of(new MTKBackPackTooltip(nonNullList));
+    }
+
+    @Override
+    public AbstractContainerMenu setMenu(int id, Inventory inv, Player player, ItemStack stack) {
+        MTKBackpackMenu menu = new MTKBackpackMenu(id, inv, stack);
+        if (stack.hasTag()) {
+            menu.load(stack.getOrCreateTag(), menu.getStackHandler());
+        }
+        return menu;
     }
 }

@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.item.tool;
 
-import com.takoy3466.manaitamtk.apiMTK.IItemhasTag;
+import com.takoy3466.manaitamtk.apiMTK.interfaces.IItemhasTag;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.util.ToolUtil;
 import net.minecraft.ChatFormatting;

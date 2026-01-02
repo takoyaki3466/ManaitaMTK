@@ -149,7 +149,7 @@ public class ForgeBusClientEvent {
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
         Screen screen = Minecraft.getInstance().screen;
-        if (screen instanceof MTKChestScreen || screen instanceof MTKBackPackScreen || screen instanceof MTKFurnaceScreen<?>) {
+        if (screen instanceof MTKChestScreen || screen instanceof MTKBackPackScreen || screen instanceof MTKFurnaceScreen) {
             int count = event.getItemStack().getCount();
             if (count > 1) {
                 event.getToolTip().add(Component.literal(component.getString() + count));

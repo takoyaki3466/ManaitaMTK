@@ -1,11 +1,12 @@
 package com.takoy3466.manaitamtk.menu;
 
-import com.takoy3466.manaitamtk.apiMTK.ISaveLoad;
-import com.takoy3466.manaitamtk.util.MTKMenuHelper;
+import com.takoy3466.manaitamtk.apiMTK.interfaces.ISaveLoad;
+import com.takoy3466.manaitamtk.apiMTK.helper.MTKMenuHelper;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.util.slot.MTKSlotItemHandler;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.init.MenusInit;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -13,12 +14,11 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public class MTKBackpackMenu extends AbstractContainerMenu implements ISaveLoad {
-    private final int MAX_VALUE = 2147483647;
     private final int containerRows = 6;
     private final MTKItemStackHandler stackHandler;
     private final ItemStack stack;
 
-    public MTKBackpackMenu(int id, Inventory inv) {
+    public MTKBackpackMenu(int id, Inventory inv, FriendlyByteBuf buf) {
         this(id, inv, ItemStack.EMPTY);
     }
 
@@ -34,14 +34,14 @@ public class MTKBackpackMenu extends AbstractContainerMenu implements ISaveLoad 
         this.stack = stack;
         int i = (this.containerRows - 4) * 18;
         // 自スロット
-        for(int j = 0; j < this.containerRows; ++j) {
-            for(int k = 0; k < 9; ++k) {
+        for (int j = 0; j < this.containerRows; ++j) {
+            for (int k = 0; k < 9; ++k) {
                 this.addSlot(new MTKSlotItemHandler(this.stackHandler, k + j * 9, 8 + k * 18, 18 + j * 18));
             }
         }
-        for(int j = 0; j < 3; ++j) {
-            for(int k = 0; k < 9; ++k) {
-                this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 8 + k * 18, 103 + j * 18 + i){
+        for (int j = 0; j < 3; ++j) {
+            for (int k = 0; k < 9; ++k) {
+                this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 8 + k * 18, 103 + j * 18 + i) {
                     @Override
                     public boolean mayPickup(Player player) {
                         ItemStack stack = this.getItem();
@@ -55,8 +55,8 @@ public class MTKBackpackMenu extends AbstractContainerMenu implements ISaveLoad 
                 });
             }
         }
-        for(int j = 0; j < 9; ++j) {
-            this.addSlot(new Slot(playerInventory, j, 8 + j * 18, 161 + i){
+        for (int j = 0; j < 9; ++j) {
+            this.addSlot(new Slot(playerInventory, j, 8 + j * 18, 161 + i) {
                 @Override
                 public boolean mayPickup(Player player) {
                     ItemStack stack = this.getItem();

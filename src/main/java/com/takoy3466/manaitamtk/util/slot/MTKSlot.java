@@ -8,7 +8,7 @@ public class MTKSlot extends Slot {
     private final int MAX_VALUE = 2147483647;
 
     public MTKSlot(Container container, int id, int x, int y) {
-        super(container, x, y, y);
+        super(container, id, x, y);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk.apiMTK;
+package com.takoy3466.manaitamtk.apiMTK.interfaces;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;

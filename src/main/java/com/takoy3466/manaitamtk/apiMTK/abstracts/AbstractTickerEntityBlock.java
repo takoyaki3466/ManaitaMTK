@@ -1,5 +1,6 @@
-package com.takoy3466.manaitamtk.apiMTK;
+package com.takoy3466.manaitamtk.apiMTK.abstracts;
 
+import com.takoy3466.manaitamtk.apiMTK.interfaces.ITickableBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.level.Level;
@@ -15,8 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
-public abstract class BaseTickerEntityBlock extends Block implements EntityBlock {
-    public BaseTickerEntityBlock(BlockBehaviour.Properties properties) {
+public abstract class AbstractTickerEntityBlock extends Block implements EntityBlock {
+    public AbstractTickerEntityBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
 

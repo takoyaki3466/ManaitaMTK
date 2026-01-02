@@ -1,7 +1,6 @@
-package com.takoy3466.manaitamtk.util;
+package com.takoy3466.manaitamtk.apiMTK.helper;
 
 import net.minecraft.core.NonNullList;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 

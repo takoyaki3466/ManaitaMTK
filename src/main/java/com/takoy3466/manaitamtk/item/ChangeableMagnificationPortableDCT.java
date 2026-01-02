@@ -1,17 +1,16 @@
 package com.takoy3466.manaitamtk.item;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
+import com.takoy3466.manaitamtk.apiMTK.abstracts.AbstractMenuItem;
 import com.takoy3466.manaitamtk.menu.MTKCraftingTableMenu;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.*;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
@@ -21,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ChangeableMagnificationPortableDCT extends Item {
+public class ChangeableMagnificationPortableDCT extends AbstractMenuItem {
     static int modeNum = 0;
     public static int magnification = 1;
 
@@ -34,23 +33,7 @@ public class ChangeableMagnificationPortableDCT extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-
-        if (!level.isClientSide) {
-            if (player instanceof ServerPlayer serverPlayer) {
-                serverPlayer.openMenu(new MenuProvider() {
-                    @Override
-                    public @NotNull Component getDisplayName() {
-                        return Component.literal("craft " + magnification + "x");
-                    }
-
-                    @Override
-                    public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-                        return new MTKCraftingTableMenu(id, playerInventory, ContainerLevelAccess.create(level, player.blockPosition()), magnification);
-                    }
-                });
-            }
-        }
-        return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide);
+        return this.openMenu(level, player, "craft " + magnification + "x", hand);
     }
 
     @Override
@@ -97,5 +80,10 @@ public class ChangeableMagnificationPortableDCT extends Item {
         list.add(Component.literal("MODE : " + magnification + "x")
                 .withStyle(ChatFormatting.WHITE)
         );
+    }
+
+    @Override
+    public AbstractContainerMenu setMenu(int id, Inventory inv, Player player, ItemStack stack) {
+        return new MTKCraftingTableMenu(id, inv, this.createAccess(player), magnification);
     }
 }

@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk.util;
+package com.takoy3466.manaitamtk.util.container;
 
 import net.minecraft.world.SimpleContainer;
 

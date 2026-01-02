@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.block.blockEntity;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.init.BlockEntities;
+import com.takoy3466.manaitamtk.init.BlockEntitiesInit;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.menu.MTKChestMenu;
 import net.minecraft.core.BlockPos;
@@ -38,7 +38,7 @@ public class MTKChestBlockEntity extends BlockEntity implements MenuProvider {
     private final LazyOptional<IItemHandler> itemHandlerLazy = LazyOptional.of(() -> itemHandler);
 
     public MTKChestBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntities.MTK_CHEST.get(), pos, state);
+        super(BlockEntitiesInit.MTK_CHEST.get(), pos, state);
     }
 
     @Override

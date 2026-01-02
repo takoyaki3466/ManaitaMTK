@@ -1,10 +1,8 @@
-package com.takoy3466.manaitamtk.datagen.recipe;
+package com.takoy3466.manaitamtk.datagen.provider;
 
-import com.takoy3466.manaitamtk.init.BlockItems;
+import com.takoy3466.manaitamtk.init.BlocksInit;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -19,14 +17,14 @@ import java.util.function.Consumer;
 public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
     private final List<Item> furnaceList = List.of(
             Items.FURNACE,
-            BlockItems.WOOD_MTK_FURNACE.get(),
-            BlockItems.STONE_MTK_FURNACE.get(),
-            BlockItems.IRON_MTK_FURNACE.get(),
-            BlockItems.GOLD_MTK_FURNACE.get(),
-            BlockItems.DIAMOND_MTK_FURNACE.get(),
-            BlockItems.MTK_MTK_FURNACE.get(),
-            BlockItems.GODMTK_MTK_FURNACE.get(),
-            BlockItems.BREAK_MTK_FURNACE.get()
+            BlocksInit.WOOD_MTK_FURNACE.getItem(),
+            BlocksInit.STONE_MTK_FURNACE.getItem(),
+            BlocksInit.IRON_MTK_FURNACE.getItem(),
+            BlocksInit.GOLD_MTK_FURNACE.getItem(),
+            BlocksInit.DIAMOND_MTK_FURNACE.getItem(),
+            BlocksInit.MTK_MTK_FURNACE.getItem(),
+            BlocksInit.GODMTK_MTK_FURNACE.getItem(),
+            BlocksInit.BREAK_MTK_FURNACE.getItem()
     );
 
     public RecipeProvider(PackOutput packOutput) {

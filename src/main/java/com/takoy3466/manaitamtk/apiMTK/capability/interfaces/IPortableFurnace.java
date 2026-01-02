@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk.apiMTK.capability;
+package com.takoy3466.manaitamtk.apiMTK.capability.interfaces;
 
 import com.takoy3466.manaitamtk.MTKEnum;
 import net.minecraft.world.level.Level;
