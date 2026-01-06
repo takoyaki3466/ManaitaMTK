@@ -1,12 +1,13 @@
 package com.takoy3466.manaitamtk.item;
 
-import com.takoy3466.manaitamtk.MTKEnum;
-import com.takoy3466.manaitamtk.apiMTK.abstracts.AbstractMenuItem;
-import com.takoy3466.manaitamtk.apiMTK.capability.MTKCapabilities;
-import com.takoy3466.manaitamtk.apiMTK.capability.Provider.PortableFurnaceProvider;
-import com.takoy3466.manaitamtk.apiMTK.capability.interfaces.IPortableFurnace;
+import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.api.abstracts.AbstractItemMultipler;
+import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
+import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.api.capability.provider.PortableFurnaceProvider;
+import com.takoy3466.manaitamtk.api.capability.interfaces.IPortableFurnace;
+import com.takoy3466.manaitamtk.api.interfaces.IHasMenuProvider;
 import com.takoy3466.manaitamtk.menu.PortableFurnaceMenu;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -18,25 +19,21 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class PortableFurnace extends AbstractMenuItem {
-    private final MTKEnum mtkEnum;
+public class PortableFurnace extends AbstractItemMultipler implements IHasCapability, IHasMenuProvider {
 
-    public PortableFurnace(MTKEnum mtkEnum) {
-        super(new Properties());
-        this.mtkEnum = mtkEnum;
+    public PortableFurnace(MTKTier mtkTier) {
+        super(new Properties(), mtkTier);
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        String displayName = Component.translatable("item.manaitamtk.portable_furnace.title").getString() + " x" + mtkEnum.getMag();
+        String displayName = Component.translatable("item.manaitamtk.portable_furnace.title").getString() + " x" + getMultiple();
         return this.openMenu(level, player, displayName, hand);
     }
 
@@ -52,7 +49,7 @@ public class PortableFurnace extends AbstractMenuItem {
         if (!(entity instanceof Player)) return;
 
         LazyOptional<IPortableFurnace> lazy = stack.getCapability(MTKCapabilities.PORTABLE_FURNACE);
-        lazy.ifPresent(iPortableFurnace -> iPortableFurnace.tick(level, this.mtkEnum));
+        lazy.ifPresent(iPortableFurnace -> iPortableFurnace.tick(level, getMTKTier()));
     }
 
     @Override
@@ -62,17 +59,6 @@ public class PortableFurnace extends AbstractMenuItem {
 
     @Override
     public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        return new ICapabilityProvider() {
-
-            private final LazyOptional<IPortableFurnace> lazyOptional = LazyOptional.of(PortableFurnaceProvider::new);
-
-            @Override
-            public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction direction) {
-                if (capability == MTKCapabilities.PORTABLE_FURNACE) {
-                    return lazyOptional.cast();
-                }
-                return LazyOptional.empty();
-            }
-        };
+        return this.setCapability(MTKCapabilities.PORTABLE_FURNACE, PortableFurnaceProvider::new);
     }
 }

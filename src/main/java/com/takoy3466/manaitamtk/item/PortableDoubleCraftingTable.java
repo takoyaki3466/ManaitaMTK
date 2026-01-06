@@ -1,7 +1,9 @@
 package com.takoy3466.manaitamtk.item;
 
-import com.takoy3466.manaitamtk.MTKEnum;
-import com.takoy3466.manaitamtk.apiMTK.abstracts.AbstractMenuItem;
+import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.init.MTKTiers;
+import com.takoy3466.manaitamtk.api.abstracts.AbstractItemMultipler;
+import com.takoy3466.manaitamtk.api.interfaces.IHasMenuProvider;
 import com.takoy3466.manaitamtk.menu.MTKCraftingTableMenu;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -17,33 +19,31 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class PortableDoubleCraftingTable extends AbstractMenuItem {
-    private final int magnification;
+public class PortableDoubleCraftingTable extends AbstractItemMultipler implements IHasMenuProvider {
 
-    public PortableDoubleCraftingTable(Properties properties, int magnification) {
-        super(properties);
-        this.magnification = magnification;
+    public PortableDoubleCraftingTable(Properties properties, MTKTier mtkTier) {
+        super(properties, mtkTier);
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         super.use(level, player, interactionHand);
-        return this.openMenu(level, player, "craft x" + magnification, interactionHand);
+        return this.openMenu(level, player, "craft x" + getMultiple(), interactionHand);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
-        if (magnification == MTKEnum.BREAK.getMag()) {
+        if (getMTKTier() == MTKTiers.BREAK) {
             list.add(Component.literal(" x33554431 !!")
                     .withStyle(ChatFormatting.RED));
         }else {
-            list.add(Component.literal("x" + magnification)
+            list.add(Component.literal("x" + getMTKName())
                     .withStyle(ChatFormatting.WHITE));
         }
     }
 
     @Override
     public AbstractContainerMenu setMenu(int id, Inventory inv, Player player, ItemStack stack) {
-        return new MTKCraftingTableMenu(id, inv, this.createAccess(player.level(), player.blockPosition()), magnification);
+        return new MTKCraftingTableMenu(id, inv, this.createAccess(player.level(), player.blockPosition()), getMTKTier());
     }
 }

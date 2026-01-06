@@ -1,8 +1,9 @@
 package com.takoy3466.manaitamtk.menu;
 
-import com.takoy3466.manaitamtk.apiMTK.interfaces.ISaveLoad;
-import com.takoy3466.manaitamtk.apiMTK.helper.MTKMenuHelper;
+import com.takoy3466.manaitamtk.api.interfaces.ISaveLoad;
+import com.takoy3466.manaitamtk.api.helper.MTKMenuHelper;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
+import com.takoy3466.manaitamtk.util.slot.MTKSlot;
 import com.takoy3466.manaitamtk.util.slot.MTKSlotItemHandler;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.init.MenusInit;
@@ -41,7 +42,7 @@ public class MTKBackpackMenu extends AbstractContainerMenu implements ISaveLoad 
         }
         for (int j = 0; j < 3; ++j) {
             for (int k = 0; k < 9; ++k) {
-                this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 8 + k * 18, 103 + j * 18 + i) {
+                this.addSlot(new MTKSlot(playerInventory, k + j * 9 + 9, 8 + k * 18, 103 + j * 18 + i) {
                     @Override
                     public boolean mayPickup(Player player) {
                         ItemStack stack = this.getItem();

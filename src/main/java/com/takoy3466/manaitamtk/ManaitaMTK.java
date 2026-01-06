@@ -1,5 +1,6 @@
 package com.takoy3466.manaitamtk;
 
+import com.takoy3466.manaitamtk.api.MTKBlockList;
 import com.takoy3466.manaitamtk.config.MTKConfig;
 import com.takoy3466.manaitamtk.eventSubscriber.MTKSubscribeEvent;
 import com.takoy3466.manaitamtk.init.*;
@@ -42,5 +43,6 @@ public class ManaitaMTK {
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MTKConfig.SPEC, "manaitamtk.toml");
 
+        MTKBlockList.init();
     }
 }

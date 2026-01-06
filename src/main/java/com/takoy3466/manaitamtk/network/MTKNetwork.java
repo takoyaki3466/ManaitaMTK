@@ -1,7 +1,8 @@
 package com.takoy3466.manaitamtk.network;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.apiMTK.interfaces.IMTKPacket;
+import com.takoy3466.manaitamtk.api.abstracts.AbstractMTKPacket;
+import com.takoy3466.manaitamtk.api.interfaces.IMTKPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkRegistry;
@@ -19,13 +20,12 @@ public class MTKNetwork {
             .serverAcceptedVersions(s -> true)
             .simpleChannel();
 
-    public static <T extends IMTKPacket> void registerMessage(Class<T> tClass, Function<FriendlyByteBuf, T> decode) {
+    public static <T extends AbstractMTKPacket> void registerMessage(Class<T> tClass, Function<FriendlyByteBuf, T> decode) {
         CHANNEL.registerMessage(IDs++, tClass, IMTKPacket::encode, decode, IMTKPacket::handle);
     }
 
     public static void register() {
         registerMessage(PacketRange.class, PacketRange::decode);
         registerMessage(PacketFlySpeed.class, PacketFlySpeed::decode);
-
     }
 }

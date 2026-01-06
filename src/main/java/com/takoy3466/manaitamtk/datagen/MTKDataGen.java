@@ -21,7 +21,7 @@ public class MTKDataGen {
         /*addProvider(run, LangJPProvider::new, generator);
         addProvider(run, LangENProvider::new, generator);
         addProvider(run, LangKOProvider::new, generator);*/
-        // 一回生成したら終わり
+        // もともと手書きだったため一回生成したらおわり。今後全てのアイテムをdataGen方式に変える予定
     }
 
     public static <T extends DataProvider> void addProvider(boolean run, DataProvider.Factory<T> factory, DataGenerator generator) {

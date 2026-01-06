@@ -3,10 +3,47 @@ package com.takoy3466.manaitamtk.util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.Property;
+
+import java.util.Collections;
 
 public class ToolUtil {
-    public static class RangeBreak {
+
+    public static void spreadGrow(Level level, BlockPos pos, int radius) {
+        if (!level.isClientSide()) {
+            for (int x = -1* radius; x <= radius; x++) {
+                for (int y = -1* radius; y <= radius; y++) {
+                    for (int z = -1* radius; z <= radius; z++) {
+                        BlockPos targetPos = pos.offset(x, y, z);
+                        BlockState state = level.getBlockState(targetPos);
+
+                        for (Property<?> property : state.getProperties()) {
+                            if (property.getName().equals("age") && property instanceof IntegerProperty ageProperty) {
+                                int currentAge = state.getValue(ageProperty);
+                                int maxAge = Collections.max(ageProperty.getPossibleValues());
+
+                                if (currentAge < maxAge) {
+                                    level.setBlock(targetPos, state.setValue(ageProperty, maxAge), 2);
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    // 割と初期のころに作ってずっとそのままなのでコードがずたずたです、すいません
+    public static void RangeBreak(LevelAccessor accessor, int x, int y, int z, LivingEntity livingEntity, int size) {
+        BrakerClass.control(accessor, x, y, z, livingEntity, size);
+    }
+    private static class BrakerClass {
 
         static int x, y, z, numRange, whileRange;
         static LivingEntity entity;

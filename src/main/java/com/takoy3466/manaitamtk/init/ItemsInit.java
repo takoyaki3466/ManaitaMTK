@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.init;
 
-import com.takoy3466.manaitamtk.MTKEnum;
+import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
 import com.takoy3466.manaitamtk.item.*;
 import com.takoy3466.manaitamtk.item.armor.BootsManaita;
 import com.takoy3466.manaitamtk.item.armor.ChestplateManaita;
@@ -23,24 +23,24 @@ public class ItemsInit {
     public static final RegistryObject<Item> CRUSHED_MTK = ITEMS.register("crushed_mtk", CrushedMTK::new);
     public static final RegistryObject<Item> DEBUG_MTK = ITEMS.register("debug_mtk", DebugMTK::new);
 
-    public static final RegistryObject<Item> PORTABLE_WOOD_CRAFTING_TABLE = portableMCTRegister(MTKEnum.WOOD);
-    public static final RegistryObject<Item> PORTABLE_STONE_CRAFTING_TABLE = portableMCTRegister(MTKEnum.STONE);
-    public static final RegistryObject<Item> PORTABLE_IRON_CRAFTING_TABLE = portableMCTRegister(MTKEnum.IRON);
-    public static final RegistryObject<Item> PORTABLE_GOLD_CRAFTING_TABLE = portableMCTRegister(MTKEnum.GOLD);
-    public static final RegistryObject<Item> PORTABLE_DIAMOND_CRAFTING_TABLE = portableMCTRegister(MTKEnum.DIAMOND);
-    public static final RegistryObject<Item> PORTABLE_MTK_CRAFTING_TABLE = portableMCTRegister(MTKEnum.MTK);
-    public static final RegistryObject<Item> PORTABLE_GODMTK_CRAFTING_TABLE = portableMCTRegister(MTKEnum.GODMTK);
-    public static final RegistryObject<Item> PORTABLE_BREAK_CRAFTING_TABLE = portableMCTRegister(MTKEnum.BREAK);
+    public static final RegistryObject<Item> PORTABLE_WOOD_CRAFTING_TABLE = portableMCTRegister(MTKTiers.WOOD);
+    public static final RegistryObject<Item> PORTABLE_STONE_CRAFTING_TABLE = portableMCTRegister(MTKTiers.STONE);
+    public static final RegistryObject<Item> PORTABLE_IRON_CRAFTING_TABLE = portableMCTRegister(MTKTiers.IRON);
+    public static final RegistryObject<Item> PORTABLE_GOLD_CRAFTING_TABLE = portableMCTRegister(MTKTiers.GOLD);
+    public static final RegistryObject<Item> PORTABLE_DIAMOND_CRAFTING_TABLE = portableMCTRegister(MTKTiers.DIAMOND);
+    public static final RegistryObject<Item> PORTABLE_MTK_CRAFTING_TABLE = portableMCTRegister(MTKTiers.MTK);
+    public static final RegistryObject<Item> PORTABLE_GODMTK_CRAFTING_TABLE = portableMCTRegister(MTKTiers.GODMTK);
+    public static final RegistryObject<Item> PORTABLE_BREAK_CRAFTING_TABLE = portableMCTRegister(MTKTiers.BREAK);
 
     public static final RegistryObject<Item> CHANGEABLE_PORTABLE_DCT = ITEMS.register("changeable_portable_dct", ChangeableMagnificationPortableDCT::new);
 
-    public static final RegistryObject<Item> WOOD_DOUBLE_BLOCK_MTK = doubleBlockMTKRegister(MTKEnum.WOOD);
-    public static final RegistryObject<Item> STONE_DOUBLE_BLOCK_MTK = doubleBlockMTKRegister(MTKEnum.STONE);
-    public static final RegistryObject<Item> IRON_DOUBLE_BLOCK_MTK = doubleBlockMTKRegister(MTKEnum.IRON);
-    public static final RegistryObject<Item> GOLD_DOUBLE_BLOCK_MTK = doubleBlockMTKRegister(MTKEnum.GOLD);
-    public static final RegistryObject<Item> DIAMOND_DOUBLE_BLOCK_MTK = doubleBlockMTKRegister(MTKEnum.DIAMOND);
-    public static final RegistryObject<Item> MTK_DOUBLE_BLOCK_MTK = doubleBlockMTKRegister(MTKEnum.MTK);
-    public static final RegistryObject<Item> GODMTK_DOUBLE_BLOCK_MTK = doubleBlockMTKRegister(MTKEnum.GODMTK);
+    public static final RegistryObject<Item> WOOD_DOUBLE_BLOCK_MTK = doubleBlockMTKRegister(MTKTiers.WOOD);
+    public static final RegistryObject<Item> STONE_DOUBLE_BLOCK_MTK = doubleBlockMTKRegister(MTKTiers.STONE);
+    public static final RegistryObject<Item> IRON_DOUBLE_BLOCK_MTK = doubleBlockMTKRegister(MTKTiers.IRON);
+    public static final RegistryObject<Item> GOLD_DOUBLE_BLOCK_MTK = doubleBlockMTKRegister(MTKTiers.GOLD);
+    public static final RegistryObject<Item> DIAMOND_DOUBLE_BLOCK_MTK = doubleBlockMTKRegister(MTKTiers.DIAMOND);
+    public static final RegistryObject<Item> MTK_DOUBLE_BLOCK_MTK = doubleBlockMTKRegister(MTKTiers.MTK);
+    public static final RegistryObject<Item> GODMTK_DOUBLE_BLOCK_MTK = doubleBlockMTKRegister(MTKTiers.GODMTK);
 
     //tools
     public static final RegistryObject<PickaxeItem> MANAITA_PICKAXE = ITEMS.register("manaita_pickaxe", ToolManaitaPickaxe::new);
@@ -59,31 +59,31 @@ public class ItemsInit {
 
     public static final RegistryObject<Item> MTK_BACKPACK = ITEMS.register("mtk_backpack", MTKBackPack::new);
 
-    public static final RegistryObject<Item> PORTABLE_WOOD_FURNACE = portableFurnaceRegister(MTKEnum.WOOD);
-    public static final RegistryObject<Item> PORTABLE_STONE_FURNACE = portableFurnaceRegister(MTKEnum.STONE);
-    public static final RegistryObject<Item> PORTABLE_IRON_FURNACE = portableFurnaceRegister(MTKEnum.IRON);
-    public static final RegistryObject<Item> PORTABLE_GOLD_FURNACE = portableFurnaceRegister(MTKEnum.GOLD);
-    public static final RegistryObject<Item> PORTABLE_DIAMOND_FURNACE = portableFurnaceRegister(MTKEnum.DIAMOND);
-    public static final RegistryObject<Item> PORTABLE_MTK_FURNACE = portableFurnaceRegister(MTKEnum.MTK);
-    public static final RegistryObject<Item> PORTABLE_GODMTK_FURNACE = portableFurnaceRegister(MTKEnum.GODMTK);
-    public static final RegistryObject<Item> PORTABLE_BREAK_FURNACE = portableFurnaceRegister(MTKEnum.BREAK);
+    public static final RegistryObject<Item> PORTABLE_WOOD_FURNACE = portableFurnaceRegister(MTKTiers.WOOD);
+    public static final RegistryObject<Item> PORTABLE_STONE_FURNACE = portableFurnaceRegister(MTKTiers.STONE);
+    public static final RegistryObject<Item> PORTABLE_IRON_FURNACE = portableFurnaceRegister(MTKTiers.IRON);
+    public static final RegistryObject<Item> PORTABLE_GOLD_FURNACE = portableFurnaceRegister(MTKTiers.GOLD);
+    public static final RegistryObject<Item> PORTABLE_DIAMOND_FURNACE = portableFurnaceRegister(MTKTiers.DIAMOND);
+    public static final RegistryObject<Item> PORTABLE_MTK_FURNACE = portableFurnaceRegister(MTKTiers.MTK);
+    public static final RegistryObject<Item> PORTABLE_GODMTK_FURNACE = portableFurnaceRegister(MTKTiers.GODMTK);
+    public static final RegistryObject<Item> PORTABLE_BREAK_FURNACE = portableFurnaceRegister(MTKTiers.BREAK);
 
 
 
     //型の作成
-    private static RegistryObject<Item> portableMCTRegister(MTKEnum tableEnum){
-        return ITEMS.register("portable_" + tableEnum.getComponent() + "_crafting_table",
-                () -> new PortableDoubleCraftingTable(new Item.Properties(), tableEnum.getMag())
+    private static RegistryObject<Item> portableMCTRegister(MTKTier mtkTier){
+        return ITEMS.register("portable_" + mtkTier.getName() + "_crafting_table",
+                () -> new PortableDoubleCraftingTable(new Item.Properties(), mtkTier)
         );
     }
 
-    private static RegistryObject<Item> doubleBlockMTKRegister(MTKEnum tableEnum){
-        return ITEMS.register(tableEnum.getComponent() + "_double_block_mtk",
-                () -> new DoubleBlockMTK(new Item.Properties(), tableEnum.getMag())
+    private static RegistryObject<Item> doubleBlockMTKRegister(MTKTier mtkTier){
+        return ITEMS.register(mtkTier.getName() + "_double_block_mtk",
+                () -> new DoubleBlockMTK(new Item.Properties(), mtkTier)
         );
     }
 
-    private static RegistryObject<Item> portableFurnaceRegister(MTKEnum mtkEnum) {
-        return ITEMS.register("portable_" + mtkEnum.getComponent() + "_furnace", () -> new PortableFurnace(mtkEnum));
+    private static RegistryObject<Item> portableFurnaceRegister(MTKTier mtkTier) {
+        return ITEMS.register("portable_" + mtkTier.getName() + "_furnace", () -> new PortableFurnace(mtkTier));
     }
 }

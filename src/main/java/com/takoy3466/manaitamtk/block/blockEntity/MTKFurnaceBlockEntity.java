@@ -1,7 +1,8 @@
 package com.takoy3466.manaitamtk.block.blockEntity;
 
-import com.takoy3466.manaitamtk.MTKEnum;
-import com.takoy3466.manaitamtk.apiMTK.interfaces.ITickableBlockEntity;
+import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.api.abstracts.BaseContainerBlockEntityMultipler;
+import com.takoy3466.manaitamtk.api.interfaces.ITickableBlockEntity;
 import com.takoy3466.manaitamtk.init.BlockEntitiesInit;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.*;
@@ -27,7 +28,6 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
@@ -40,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Iterator;
 import java.util.List;
 
-public class MTKFurnaceBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, RecipeHolder, StackedContentsCompatible, ITickableBlockEntity {
+public class MTKFurnaceBlockEntity extends BaseContainerBlockEntityMultipler implements WorldlyContainer, RecipeHolder, StackedContentsCompatible, ITickableBlockEntity {
     private static final int[] SLOTS_FOR_UP = new int[]{0};
     private static final int[] SLOTS_FOR_DOWN = new int[]{2, 1};
     private static final int[] SLOTS_FOR_SIDES = new int[]{1};
@@ -55,24 +55,21 @@ public class MTKFurnaceBlockEntity extends BaseContainerBlockEntity implements W
     private int cookingTotalTime;
 
     public final ContainerData dataAccess;
-    private final MTKEnum mtkEnum;
     private final Component guiName = Component.translatable("block.manaitamtk.mtk_furnace.title");
 
-    @SuppressWarnings("unchecked")
-    public MTKFurnaceBlockEntity(BlockPos pos, BlockState state, MTKEnum mtkEnum) {
-        super(switch (mtkEnum) {
-            case WOOD -> BlockEntitiesInit.MTK_FURNACE_WOOD.get();
-            case STONE -> BlockEntitiesInit.MTK_FURNACE_STONE.get();
-            case IRON -> BlockEntitiesInit.MTK_FURNACE_IRON.get();
-            case GOLD -> BlockEntitiesInit.MTK_FURNACE_GOLD.get();
-            case DIAMOND -> BlockEntitiesInit.MTK_FURNACE_DIAMOND.get();
-            case MTK -> BlockEntitiesInit.MTK_FURNACE_MTK.get();
-            case GODMTK -> BlockEntitiesInit.MTK_FURNACE_GODMTK.get();
-            case BREAK -> BlockEntitiesInit.MTK_FURNACE_BREAK.get();
-            default -> null;
-        }, pos, state);
+    public MTKFurnaceBlockEntity(BlockPos pos, BlockState state, MTKTier mtkTier) {
+        super(switch (mtkTier.getMultiple()) {
+            case 2 -> BlockEntitiesInit.MTK_FURNACE_WOOD.get();
+            case 4 -> BlockEntitiesInit.MTK_FURNACE_STONE.get();
+            case 8 -> BlockEntitiesInit.MTK_FURNACE_IRON.get();
+            case 16 -> BlockEntitiesInit.MTK_FURNACE_GOLD.get();
+            case 32 -> BlockEntitiesInit.MTK_FURNACE_DIAMOND.get();
+            case 64 -> BlockEntitiesInit.MTK_FURNACE_MTK.get();
+            case 512 -> BlockEntitiesInit.MTK_FURNACE_GODMTK.get();
+            case 33554431 -> BlockEntitiesInit.MTK_FURNACE_BREAK.get();
+            default -> BlockEntitiesInit.MTK_FURNACE_WOOD.get();
+        }, pos, state, mtkTier);
 
-        this.mtkEnum = mtkEnum;
 
         this.items = NonNullList.withSize(3, ItemStack.EMPTY);
         this.recipeType = RecipeType.SMELTING;
@@ -110,7 +107,7 @@ public class MTKFurnaceBlockEntity extends BaseContainerBlockEntity implements W
 
     @Override
     protected Component getDefaultName() {
-        return Component.literal(this.guiName.getString() + " x" + mtkEnum.getMag());
+        return Component.literal(this.guiName.getString() + " x" + getMultiple());
     }
 
     @Override
@@ -130,7 +127,7 @@ public class MTKFurnaceBlockEntity extends BaseContainerBlockEntity implements W
             ItemStack result = recipe.assemble(this, access);
 
             // いつもの倍化処理
-            result.setCount(result.getCount() * this.mtkEnum.getMag());
+            multipler(result);
 
             ItemStack output = stacks.get(2);
             if (output.isEmpty()) {
@@ -420,7 +417,6 @@ public class MTKFurnaceBlockEntity extends BaseContainerBlockEntity implements W
     public void awardUsedRecipes(Player p_281647_, List<ItemStack> list) {
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> capability, @javax.annotation.Nullable Direction facing) {
         if (capability == ForgeCapabilities.ITEM_HANDLER && facing != null && !this.remove) {

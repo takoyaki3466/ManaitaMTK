@@ -2,10 +2,11 @@ package com.takoy3466.manaitamtk.eventSubscriber;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
 import com.takoy3466.manaitamtk.ManaitaMTK;
+import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.api.capability.interfaces.IMTKSword;
+import com.takoy3466.manaitamtk.api.capability.interfaces.IMultiple;
 import com.takoy3466.manaitamtk.init.ItemsInit;
-import com.takoy3466.manaitamtk.item.ChangeableMagnificationPortableDCT;
 import com.takoy3466.manaitamtk.item.tool.MTKSwitcherScreen;
-import com.takoy3466.manaitamtk.item.tool.ToolManaitaSword;
 import com.takoy3466.manaitamtk.screen.MTKBackPackScreen;
 import com.takoy3466.manaitamtk.screen.MTKChestScreen;
 import com.takoy3466.manaitamtk.screen.MTKFurnaceScreen;
@@ -24,6 +25,7 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -109,7 +111,8 @@ public class ForgeBusClientEvent {
         int FLAME_Y = minecraft.getWindow().getGuiScaledHeight() - 10 - 24;
 
         if (player == null || minecraft.options.renderDebug) return;
-        Item item = player.getMainHandItem().getItem();
+        ItemStack stack = player.getMainHandItem();
+        Item item = stack.getItem();
 
         if (item == ItemsInit.MANAITA_PICKAXE.get()) {
             MTKSwitcherScreen.MTKIcon mtkIcon = MTKSwitcherScreen.MTKIcon.getFromRange(player.getMainHandItem().getOrCreateTag().getInt("Range"));
@@ -125,20 +128,28 @@ public class ForgeBusClientEvent {
         }
         else if (item == ItemsInit.CHANGEABLE_PORTABLE_DCT.get()) {
             graphics.blit(FLAME_TEXTURE , FLAME_X, FLAME_Y , 0, 0 , 24, 24 , 24, 24);
-            ItemStack stack;
-            switch (ChangeableMagnificationPortableDCT.magnification) {
-                case 1 -> stack = Items.CRAFTING_TABLE.getDefaultInstance();
-                case 4 -> stack = Items.STONE.getDefaultInstance();
-                case 8 -> stack = Items.IRON_INGOT.getDefaultInstance();
-                case 16 -> stack = Items.GOLD_INGOT.getDefaultInstance();
-                case 64 -> stack = ItemsInit.CRUSHED_MTK.get().getDefaultInstance();
-                default -> stack = ItemStack.EMPTY;
-            }
-            graphics.renderItem(stack, FLAME_X + 4, FLAME_Y + 4);
+            ItemStack portableTableStack;
+            LazyOptional<IMultiple> lazyOptional = stack.getCapability(MTKCapabilities.MULTIPLE);
+            if (lazyOptional.isPresent() && lazyOptional.resolve().isPresent()) {
+                switch (lazyOptional.resolve().get().getMultiple()) {
+                    case 1 -> portableTableStack = Items.CRAFTING_TABLE.getDefaultInstance();
+                    case 4 -> portableTableStack = Items.STONE.getDefaultInstance();
+                    case 8 -> portableTableStack = Items.IRON_INGOT.getDefaultInstance();
+                    case 16 -> portableTableStack = Items.GOLD_INGOT.getDefaultInstance();
+                    case 64 -> portableTableStack = ItemsInit.CRUSHED_MTK.get().getDefaultInstance();
+                    default -> portableTableStack = ItemStack.EMPTY;
+                }
+            }else return;
+            graphics.renderItem(portableTableStack, FLAME_X + 4, FLAME_Y + 4);
 
         }
         else if (item == ItemsInit.MANAITA_SWORD.get()) {
-            boolean killTarget = ToolManaitaSword.modeNumber == 1;
+            LazyOptional<IMTKSword> lazyOptional = stack.getCapability(MTKCapabilities.MTK_SWORD);
+            boolean killTarget;
+            if (lazyOptional.isPresent() && lazyOptional.resolve().isPresent()) {
+                killTarget = lazyOptional.resolve().get().IsKillAll();
+            }else killTarget = false;
+
             int xSword = minecraft.getWindow().getGuiScaledWidth() / 2 - minecraft.font.width(killTarget? SWORD_TEXT_ALL.getString() : SWORD_TEXT_ENEMY.getString()) / 2;
             int ySword = minecraft.getWindow().getGuiScaledHeight() - 49 - minecraft.font.lineHeight;
             graphics.drawString(minecraft.font, killTarget? SWORD_TEXT_ALL : SWORD_TEXT_ENEMY, xSword, ySword, killTarget? Color.RED.getRGB() : Color.GRAY.getRGB());

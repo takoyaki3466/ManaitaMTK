@@ -1,5 +1,7 @@
 package com.takoy3466.manaitamtk.block;
 
+import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.api.abstracts.AbstractBlockMultipler;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -18,14 +20,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class BlockManaitaBase extends Block{
-    private final int magnification;
+public class BlockManaitaBase extends AbstractBlockMultipler {
 
-    public BlockManaitaBase(int magnification) {
+    public BlockManaitaBase(MTKTier mtkTier) {
         super(Properties.of()
                 .strength(0.5F,210000)
-                .sound(SoundType.WOOD)); //音の追加
-        this.magnification = magnification;
+                .sound(SoundType.WOOD), mtkTier); //音の追加
     }
 
     static int Size;
@@ -34,7 +34,7 @@ public class BlockManaitaBase extends Block{
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         Size = 0;
-        while (Size < magnification){
+        while (Size < getMultiple()){
             // 手に持ってるアイテムをコピー
             ItemStack copyItem = player.getMainHandItem().copy();
             // コピーアイテムの数を決める(１個)
@@ -55,7 +55,7 @@ public class BlockManaitaBase extends Block{
     //ホバーテキストをツールに表示する
     @Override
     public void appendHoverText(ItemStack stack, @Nullable BlockGetter getter, List<Component> list, TooltipFlag flag) {
-        list.add(Component.literal("x" + magnification + " only!!")
+        list.add(Component.literal("x" + getMultiple() + " only!!")
                 .withStyle(ChatFormatting.WHITE)
         );
     }

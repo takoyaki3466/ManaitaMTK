@@ -1,13 +1,14 @@
 package com.takoy3466.manaitamtk.item.tool;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
+import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
+import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.api.capability.interfaces.IMTKSword;
+import com.takoy3466.manaitamtk.api.capability.provider.MTKSwordProvider;
+import com.takoy3466.manaitamtk.util.WeaponUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageType;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -16,50 +17,33 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ToolManaitaSword extends SwordItem {
+public class ToolManaitaSword extends SwordItem implements IHasCapability {
     private final Component SWORD_TEXT_ENEMY = Component.translatable("gui.overlay.sword.enemy_die").withStyle(ChatFormatting.WHITE);
     private final Component SWORD_TEXT_ALL = Component.translatable("gui.overlay.sword.all_die").withStyle(ChatFormatting.RED);
     private final Component MODE = Component.translatable("item.manaitamtk.manaita_sword.hover_text_mode");
     private final Component KEY = Component.literal("Press Shift + ");
-    public static int modeNumber = 0;
 
     public ToolManaitaSword() {
-        super(MTKTierList.MTK_TIER, 1, 2147483647f, new Item.Properties().fireResistant());
+        super(MTKToolTierList.MTK_TIER, 1, 2147483647f, new Item.Properties().fireResistant());
     }
 
     @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity entity, LivingEntity player) {
-        Holder<DamageType> holder = entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.PLAYER_ATTACK);
-        DamageSource source = new DamageSource(holder);
-        // 攻撃された敵を即死させる
-        if (!entity.level().isClientSide()) {
-            entity.setHealth(0.0f);
-            if (!entity.isDeadOrDying()) {
-                entity.hurt(source, Float.MAX_VALUE);
-                entity.die(source);
-            }
-        }
-        return super.hurtEnemy(stack, entity, player);
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity player) {
+        WeaponUtil.die(target);
+        return super.hurtEnemy(stack, target, player);
     }
 
     @Override
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
-        Holder<DamageType> holder = entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.GENERIC);
-        DamageSource source = new DamageSource(holder);
         if (entity instanceof LivingEntity target) {
-            target.setInvulnerable(false);
-            target.setHealth(0.0f);
-
-            if (!target.isDeadOrDying()) {
-                target.hurt(source, Float.MAX_VALUE);
-                target.die(source);
-            }
+            WeaponUtil.die(target);
         }
-
         return super.onLeftClickEntity(stack, player, entity);
     }
 
@@ -69,13 +53,16 @@ public class ToolManaitaSword extends SwordItem {
         if (!(entity instanceof Player player)) return;
         if (level.isClientSide()) {
             if (MTKKeyMapping.SwitchExtermination.consumeClick() && player.isSteppingCarefully()) {
-                this.modeChange();
+                this.execute(MTKCapabilities.MTK_SWORD, stack, imtkSword -> imtkSword.setIsKillAll(!this.isKillAll(stack)));
             }
         }
     }
 
-    private void modeChange() {
-        modeNumber = modeNumber < 1 ? modeNumber + 1 : 0;
+    public boolean isKillAll(ItemStack stack) {
+        LazyOptional<IMTKSword> lazyOptional = this.getLazyOptional(MTKCapabilities.MTK_SWORD, stack);
+        if (this.isUsage(lazyOptional)) {
+            return this.getInterface(lazyOptional).IsKillAll();
+        }else return false;
     }
 
     @Override
@@ -84,8 +71,13 @@ public class ToolManaitaSword extends SwordItem {
                 .withStyle(ChatFormatting.GRAY));
         list.add(Component.literal(this.KEY.getString() + MTKKeyMapping.SwitchExtermination.getKey().getDisplayName().getString()));
 
-        if (modeNumber == 1) {
+        if (this.isKillAll(stack)) {
             list.add(Component.literal(this.MODE.getString() + this.SWORD_TEXT_ALL.getString()));
         } else list.add(Component.literal(this.MODE.getString() + this.SWORD_TEXT_ENEMY.getString()));
+    }
+
+    @Override
+    public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
+        return this.setCapability(MTKCapabilities.MTK_SWORD, MTKSwordProvider::new);
     }
 }

@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.network;
 
-import com.takoy3466.manaitamtk.apiMTK.interfaces.IMTKPacket;
+import com.takoy3466.manaitamtk.api.abstracts.AbstractMTKPacket;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -10,10 +10,9 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class PacketFlySpeed implements IMTKPacket {
-    private final float msg;
+public class PacketFlySpeed extends AbstractMTKPacket<Float> {
     public PacketFlySpeed(float msg) {
-        this.msg = msg;
+        super(msg);
     }
 
     @Override

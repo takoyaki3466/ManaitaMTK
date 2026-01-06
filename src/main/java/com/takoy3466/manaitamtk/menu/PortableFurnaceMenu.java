@@ -1,9 +1,9 @@
 package com.takoy3466.manaitamtk.menu;
 
-import com.takoy3466.manaitamtk.apiMTK.capability.MTKCapabilities;
-import com.takoy3466.manaitamtk.apiMTK.capability.PortableFurnaceData;
-import com.takoy3466.manaitamtk.apiMTK.capability.interfaces.IPortableFurnace;
-import com.takoy3466.manaitamtk.apiMTK.helper.MTKMenuHelper;
+import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.api.capability.PortableFurnaceData;
+import com.takoy3466.manaitamtk.api.capability.interfaces.IPortableFurnace;
+import com.takoy3466.manaitamtk.api.helper.MTKMenuHelper;
 import com.takoy3466.manaitamtk.util.slot.*;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.SimpleContainer;

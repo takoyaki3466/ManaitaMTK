@@ -33,7 +33,7 @@ public class MTKSwitcherScreen extends Screen {
     private int firstMouseX;
     private int firstMouseY;
     private boolean setFirstMousePos;
-    private final List<MTKSlot> slots = Lists.newArrayList();
+    private final List<MTKIconSlot> slots = Lists.newArrayList();
     private static final String UNDER_TEXT_FIRST = Component.translatable("gui.mtk_switcher_screen.first_title").getString();
     private static final String UNDER_TEXT_SECOND = Component.translatable("gui.mtk_switcher_screen.second_title").getString();
     private static final Component UNDER_TEXT_KEY = Component.literal(MTKKeyMapping.MTKSwitcherSelectKey.getKey().getDisplayName().getString()).withStyle(ChatFormatting.AQUA);
@@ -66,7 +66,7 @@ public class MTKSwitcherScreen extends Screen {
         Iterator iterator = this.slots.iterator();
 
         while(iterator.hasNext()) {
-            if (iterator.next() instanceof MTKSlot mtkSlot){
+            if (iterator.next() instanceof MTKIconSlot mtkSlot){
                 mtkSlot.render(graphics, x, y, f);
                 mtkSlot.setSelected(this.currentlyMode == mtkSlot.icon);
                 if (!$$6 && mtkSlot.isHoveredOrFocused()) {
@@ -84,7 +84,7 @@ public class MTKSwitcherScreen extends Screen {
 
         for(int i = 0; i < MTKIcon.VALUES.length; ++i) {
             MTKIcon mtkIcon = MTKIcon.VALUES[i];
-            this.slots.add(new MTKSlot(mtkIcon, this.width / 2 - ALL_SLOTS_WIDTH / 2 + i * 31, this.height / 2 - 31));
+            this.slots.add(new MTKIconSlot(mtkIcon, this.width / 2 - ALL_SLOTS_WIDTH / 2 + i * 31, this.height / 2 - 31));
         }
     }
 
@@ -127,7 +127,7 @@ public class MTKSwitcherScreen extends Screen {
     public void mouseMoved(double x, double y) {
         super.mouseMoved(x, y);
 
-        for (MTKSlot slot : this.slots) {
+        for (MTKIconSlot slot : this.slots) {
             if (slot.isMouseOver(x, y)) {
                 this.currentlyMode = slot.icon;
                 this.sendTag(this.currentlyMode);
@@ -227,7 +227,7 @@ public class MTKSwitcherScreen extends Screen {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class MTKSlot extends AbstractWidget {
+    public static class MTKIconSlot extends AbstractWidget {
         final MTKIcon icon;
         private boolean isSelected;
         /*
@@ -241,7 +241,7 @@ public class MTKSwitcherScreen extends Screen {
         OVERALL_Y = 128;
         */
 
-        public MTKSlot(MTKIcon mtkIcon, int x, int y) {
+        public MTKIconSlot(MTKIcon mtkIcon, int x, int y) {
             super(x, y, 26, 26, mtkIcon.getName());
             this.icon = mtkIcon;
         }

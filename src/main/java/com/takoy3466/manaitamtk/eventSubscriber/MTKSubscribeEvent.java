@@ -1,18 +1,18 @@
 package com.takoy3466.manaitamtk.eventSubscriber;
 
+import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.api.capability.helper.MTKCapabilityHelper;
+import com.takoy3466.manaitamtk.api.capability.interfaces.IFly;
+import com.takoy3466.manaitamtk.api.capability.interfaces.IInvincible;
+import com.takoy3466.manaitamtk.api.capability.interfaces.IMTKSword;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.config.MTKConfig;
 import com.takoy3466.manaitamtk.init.EnchantmentsInit;
-import com.takoy3466.manaitamtk.item.tool.ToolManaitaSword;
+import com.takoy3466.manaitamtk.util.WeaponUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageType;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -24,6 +24,7 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -31,48 +32,32 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class MTKSubscribeEvent {
 
     // 死ぬ時のイベント
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() == ItemsInit.HELMET_MANAITA.get()) {
-                event.setCanceled(true);
-            }
-        }
+        MTKEventHelper.cancel(event);
     }
 
     // 攻撃されたときのイベント
     @SubscribeEvent
     public void onLivingAttack(LivingAttackEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() == ItemsInit.HELMET_MANAITA.get()) {
-                event.setCanceled(true);
-            }
-        }
+        MTKEventHelper.cancel(event);
     }
 
     // ダメージを受けた時のイベント
     @SubscribeEvent
     public static void onPlayerDamage(LivingDamageEvent event) {
-        if ((event.getEntity() instanceof Player player)) {
-            if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() == ItemsInit.HELMET_MANAITA.get()) {
-                event.setAmount(0.0f);
-                event.setCanceled(true);
-            }
-        }
+        MTKEventHelper.cancel(event);
     }
 
     // HP減少を受けた時のイベント
     @SubscribeEvent
     public static void onLivingHurt(LivingHurtEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() == ItemsInit.HELMET_MANAITA.get()) {
-                event.setCanceled(true);
-            }
-        }
+        MTKEventHelper.cancel(event);
     }
 
     @SuppressWarnings("deprecation")
@@ -120,29 +105,21 @@ public class MTKSubscribeEvent {
 
         if (!level.isClientSide && stack.getItem() == ItemsInit.MANAITA_SWORD.get()) {
             double radius = (double) MTKConfig.SWORD_KILL_RADIUS.get() * 100;
-            boolean killTarget = ToolManaitaSword.modeNumber == 1;
+            boolean isKillAll;
+            LazyOptional<IMTKSword> lazyOptional = stack.getCapability(MTKCapabilities.MTK_SWORD);
+            if (MTKCapabilityHelper.isUsage(lazyOptional)) {
+                isKillAll = MTKCapabilityHelper.getInterface(lazyOptional).IsKillAll();
+            }else isKillAll = false;
 
+            Class<LivingEntity> entityClass = LivingEntity.class;
+            Predicate<LivingEntity> allEntity = entity -> (entity != player) && (entity instanceof LivingEntity);
+            Predicate<LivingEntity> onlyEnemy = entity -> (entity != player) && (entity instanceof Enemy);
 
-            List<LivingEntity> targets = killTarget ?
-                    level.getEntitiesOfClass(LivingEntity.class,player.getBoundingBox().inflate(radius / 10),entity -> (entity != player) && (entity instanceof LivingEntity)) //プレイヤー以外の前LivingEntity
-                    : level.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(radius), entity -> (entity != player) && (entity instanceof Enemy) //プレイヤー以外の敵全員
-            );
+            List<LivingEntity> targets = isKillAll ?
+                    WeaponUtil.selectTargets(entityClass, level, player, radius/10, allEntity)
+                    : WeaponUtil.selectTargets(entityClass, level, player, radius, onlyEnemy);
 
-            for (LivingEntity target : targets) {
-                // 雷を生成
-                LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(level);
-                lightning.wasOnFire = false;
-                if (player instanceof ServerPlayer sPlayer) {
-                    lightning.moveTo(target.position());
-                    lightning.setCause(sPlayer);
-                    if (!target.isDeadOrDying()) {
-                        level.addFreshEntity(lightning);
-                    }
-                }
-                Holder<DamageType> holder = level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.GENERIC);
-                target.hurt(new DamageSource(holder), Float.MAX_VALUE);
-                target.setHealth(0.0f);
-            }
+            WeaponUtil.lightningStriker(targets, level, player);
         }
     }
 
@@ -153,7 +130,8 @@ public class MTKSubscribeEvent {
 
         if (!player.level().isClientSide()) {
             // 特定の装備をつけているか確認
-            if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() == ItemsInit.HELMET_MANAITA.get()) {
+            LazyOptional<IInvincible> lazyOptional = MTKCapabilityHelper.getLazyOptional(MTKCapabilities.INVINCIBLE, player);
+            if (MTKCapabilityHelper.isUsage(lazyOptional) && MTKCapabilityHelper.getInterface(lazyOptional).isInvincible()) {
                 player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 40, 2, false, false, false));
                 if (player.getFoodData().getFoodLevel() < 20) {
                     player.getFoodData().setFoodLevel(20);
@@ -196,41 +174,29 @@ public class MTKSubscribeEvent {
         if (event.phase != TickEvent.Phase.END) return;
         Player player = event.player;
         if (!player.level().isClientSide()) {
-            ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
-            if (stack.getItem() == ItemsInit.HELMET_MANAITA.get()) {
-                float modeF = stack.getOrCreateTag().getFloat("FlySpeed");
-                player.getAbilities().setFlyingSpeed(modeF);
-                player.onUpdateAbilities();
-            }
+            LazyOptional<IFly> lazyOptional = MTKCapabilityHelper.getLazyOptional(MTKCapabilities.FLY, player);
+            float modeF;
+            if (MTKCapabilityHelper.isUsage(lazyOptional)) {
+                modeF = MTKCapabilityHelper.getInterface(lazyOptional).getFlySpeed();
+
+            }else modeF = 0.05f;
+            player.getAbilities().setFlyingSpeed(modeF);
+            player.onUpdateAbilities();
         }
     }
 
     @SubscribeEvent
     public static void onLivingKnockBackEvent(LivingKnockBackEvent event) {
-        if ((event.getEntity() instanceof Player player)) {
-            if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() == ItemsInit.HELMET_MANAITA.get()) {
-                event.setRatioX(0);
-                event.setRatioZ(0);
-                event.setCanceled(true);
-            }
-        }
+        MTKEventHelper.cancel(event);
     }
 
     @SubscribeEvent
     public static void onLivingDrops(LivingDropsEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() == ItemsInit.HELMET_MANAITA.get()) {
-                event.setCanceled(true);
-            }
-        }
+        MTKEventHelper.cancel(event);
     }
 
     @SubscribeEvent
     public static void onExperienceDrop(LivingExperienceDropEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() == ItemsInit.HELMET_MANAITA.get()) {
-                event.setCanceled(true);
-            }
-        }
+        MTKEventHelper.cancel(event);
     }
 }

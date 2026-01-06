@@ -1,9 +1,10 @@
 package com.takoy3466.manaitamtk.menu;
 
-import com.takoy3466.manaitamtk.MTKEnum;
+import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
 import com.takoy3466.manaitamtk.block.blockEntity.MTKFurnaceBlockEntity;
 import com.takoy3466.manaitamtk.util.slot.MTKFurnaceFuelSlot;
 import com.takoy3466.manaitamtk.init.MenusInit;
+import com.takoy3466.manaitamtk.util.slot.MTKSlot;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -28,20 +29,20 @@ public class MTKFurnaceMenu extends RecipeBookMenu<Container> {
 
     public final MTKFurnaceBlockEntity blockEntity;
 
-    public MTKFurnaceMenu(int id, Inventory playerInventory, FriendlyByteBuf buf, MTKEnum mtkEnum) {
-        this(id, playerInventory, buf.readBlockPos(), mtkEnum);
+    public MTKFurnaceMenu(int id, Inventory playerInventory, FriendlyByteBuf buf, MTKTier mtkTier) {
+        this(id, playerInventory, buf.readBlockPos(), mtkTier);
     }
 
-    public MTKFurnaceMenu(int id, Inventory playerInventory, BlockPos pos, MTKEnum mtkEnum) {
-        super(switch (mtkEnum) {
-            case WOOD -> MenusInit.MTK_FURNACE_WOOD.get();
-            case STONE -> MenusInit.MTK_FURNACE_STONE.get();
-            case IRON -> MenusInit.MTK_FURNACE_IRON.get();
-            case GOLD -> MenusInit.MTK_FURNACE_GOLD.get();
-            case DIAMOND -> MenusInit.MTK_FURNACE_DIAMOND.get();
-            case MTK -> MenusInit.MTK_FURNACE_MTK.get();
-            case GODMTK -> MenusInit.MTK_FURNACE_GODMTK.get();
-            case BREAK -> MenusInit.MTK_FURNACE_BREAK.get();
+    public MTKFurnaceMenu(int id, Inventory playerInventory, BlockPos pos, MTKTier mtkTier) {
+        super(switch (mtkTier.getMultiple()) {
+            case 2 -> MenusInit.MTK_FURNACE_WOOD.get();
+            case 4 -> MenusInit.MTK_FURNACE_STONE.get();
+            case 8 -> MenusInit.MTK_FURNACE_IRON.get();
+            case 16 -> MenusInit.MTK_FURNACE_GOLD.get();
+            case 32 -> MenusInit.MTK_FURNACE_DIAMOND.get();
+            case 64 -> MenusInit.MTK_FURNACE_MTK.get();
+            case 612 -> MenusInit.MTK_FURNACE_GODMTK.get();
+            case 33554431 -> MenusInit.MTK_FURNACE_BREAK.get();
             default -> null;
         }, id);
         this.recipeType = RecipeType.SMELTING;
@@ -63,12 +64,12 @@ public class MTKFurnaceMenu extends RecipeBookMenu<Container> {
         
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 9; ++j) {
-                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlot(new MTKSlot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for(int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+            this.addSlot(new MTKSlot(playerInventory, i, 8 + i * 18, 142));
         }
 
         this.addDataSlots(containerData);

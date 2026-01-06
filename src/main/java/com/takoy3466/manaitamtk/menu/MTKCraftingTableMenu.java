@@ -1,6 +1,9 @@
 package com.takoy3466.manaitamtk.menu;
 
-import com.takoy3466.manaitamtk.apiMTK.interfaces.IMultipleRecipeResult;
+import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.api.abstracts.RecipeBookMenuMultipler;
+import com.takoy3466.manaitamtk.api.interfaces.IMultipleRecipeResult;
+import com.takoy3466.manaitamtk.util.slot.MTKSlot;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -17,36 +20,34 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> implements IMultipleRecipeResult {
+public class MTKCraftingTableMenu extends RecipeBookMenuMultipler<CraftingContainer> implements IMultipleRecipeResult {
     private final CraftingContainer craftSlots;
     private final ResultContainer resultSlots;
     private final ContainerLevelAccess access;
     private final Player player;
-    private final int magnification;
 
-    public MTKCraftingTableMenu(int id, Inventory playerInventory, ContainerLevelAccess access, int mag) {
-        super(MenuType.CRAFTING, id);
+    public MTKCraftingTableMenu(int id, Inventory playerInventory, ContainerLevelAccess access, MTKTier mtkTier) {
+        super(MenuType.CRAFTING, id, mtkTier);
         this.craftSlots = new TransientCraftingContainer(this, 3, 3);
         this.resultSlots = new ResultContainer();
         this.access = access;
         this.player = playerInventory.player;
-        this.magnification = mag;
         this.addSlot(new ResultSlot(playerInventory.player, this.craftSlots, this.resultSlots, 0, 124, 35));
 
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 3; ++j) {
-                this.addSlot(new Slot(this.craftSlots, j + i * 3, 30 + j * 18, 17 + i * 18));
+                this.addSlot(new MTKSlot(this.craftSlots, j + i * 3, 30 + j * 18, 17 + i * 18));
             }
         }
 
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 9; ++j) {
-                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlot(new MTKSlot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for(int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+            this.addSlot(new MTKSlot(playerInventory, i, 8 + i * 18, 142));
         }
 
     }
@@ -62,7 +63,7 @@ public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> impl
                     ItemStack result = recipe.assemble(craftingContainer, level.registryAccess());
                     if (result.isItemEnabled(level.enabledFeatures())) {
                         stack = result;
-                        stack.setCount(stack.getCount() * this.magnification);
+                        this.multipler(stack);
                     }
                 }
             }
@@ -78,7 +79,7 @@ public class MTKCraftingTableMenu extends RecipeBookMenu<CraftingContainer> impl
         this.access.execute((level, pos) -> {
             // CrushedMTKの処理を持ってきた
             if (this.multipleMatche((CraftingContainer) container)){
-                setItem(0,1, this.multipleAssemble((CraftingContainer) container, this.magnification));
+                setItem(0,1, this.multipleAssemble((CraftingContainer) container, getMultiple()));
                 this.resultSlots.setChanged();
             } else {
                 slotChangedCraftingGrid(this, level, this.player, this.craftSlots, this.resultSlots);

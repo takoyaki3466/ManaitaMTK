@@ -1,5 +1,7 @@
 package com.takoy3466.manaitamtk.item;
 
+import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.api.abstracts.AbstractItemMultipler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -10,12 +12,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
-public class DoubleBlockMTK extends Item {
-    private final int magnification;
+public class DoubleBlockMTK extends AbstractItemMultipler {
 
-    public DoubleBlockMTK(Properties properties, int magnification) {
-        super(properties);
-        this.magnification = magnification;
+    public DoubleBlockMTK(Properties properties, MTKTier mtkTier) {
+        super(properties, mtkTier);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class DoubleBlockMTK extends Item {
         BlockPos pos = context.getClickedPos();
         Level level = context.getLevel();
         Item item = level.getBlockState(pos).getBlock().asItem();
-        ItemStack result = new ItemStack(item, magnification);
+        ItemStack result = new ItemStack(item, getMultiple());
 
         if (context.getPlayer().getInventory().getFreeSlot() >= 1) {
             player.getInventory().add(result);

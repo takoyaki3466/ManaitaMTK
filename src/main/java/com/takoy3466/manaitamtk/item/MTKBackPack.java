@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.item;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.apiMTK.abstracts.AbstractMenuItem;
+import com.takoy3466.manaitamtk.api.interfaces.IHasMenuProvider;
 import com.takoy3466.manaitamtk.menu.MTKBackpackMenu;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.util.tooptip.MTKBackPackTooltip;
@@ -16,13 +16,14 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 
-public class MTKBackPack extends AbstractMenuItem {
+public class MTKBackPack extends Item implements IHasMenuProvider {
     private final MTKItemStackHandler handler = new MTKItemStackHandler(54);
     private final Component COMPONENT = Component.translatable("item.manaitamtk.mtk_backpack");
     public MTKBackPack() {

@@ -1,8 +1,9 @@
 package com.takoy3466.manaitamtk.menu;
 
 import com.takoy3466.manaitamtk.init.BlocksInit;
-import com.takoy3466.manaitamtk.apiMTK.helper.MTKMenuHelper;
+import com.takoy3466.manaitamtk.api.helper.MTKMenuHelper;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
+import com.takoy3466.manaitamtk.util.slot.MTKSlot;
 import com.takoy3466.manaitamtk.util.slot.MTKSlotItemHandler;
 import com.takoy3466.manaitamtk.block.blockEntity.MTKChestBlockEntity;
 import com.takoy3466.manaitamtk.init.MenusInit;
@@ -17,7 +18,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class MTKChestMenu extends AbstractContainerMenu {
-    private final int MAX_VALUE = 2147483647;
     private final MTKChestBlockEntity blockEntity;
     private final ContainerLevelAccess levelAccess;
     private final MTKItemStackHandler handler;
@@ -52,12 +52,12 @@ public class MTKChestMenu extends AbstractContainerMenu {
         // プレイヤーインベントリ
         for(j = 0; j < 3; ++j) {
             for(k = 0; k < 9; ++k) {
-                this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 8 + k * 18, 103 + j * 18 + i));
+                this.addSlot(new MTKSlot(playerInventory, k + j * 9 + 9, 8 + k * 18, 103 + j * 18 + i));
             }
         }
         // ホットバー
         for(j = 0; j < 9; ++j) {
-            this.addSlot(new Slot(playerInventory, j, 8 + j * 18, 161 + i));
+            this.addSlot(new MTKSlot(playerInventory, j, 8 + j * 18, 161 + i));
         }
     }
 

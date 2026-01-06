@@ -1,7 +1,9 @@
 package com.takoy3466.manaitamtk.block;
 
-import com.takoy3466.manaitamtk.MTKEnum;
-import com.takoy3466.manaitamtk.apiMTK.interfaces.ITickableBlockEntity;
+import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.init.MTKTiers;
+import com.takoy3466.manaitamtk.api.interfaces.IMTKMultiple;
+import com.takoy3466.manaitamtk.api.interfaces.ITickableBlockEntity;
 import com.takoy3466.manaitamtk.block.blockEntity.MTKFurnaceBlockEntity;
 import com.takoy3466.manaitamtk.init.BlockEntitiesInit;
 import net.minecraft.core.BlockPos;
@@ -30,12 +32,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class BlockMTKFurnace extends AbstractFurnaceBlock {
-    private final MTKEnum mtkEnum;
+public class BlockMTKFurnace extends AbstractFurnaceBlock implements IMTKMultiple {
+    private final MTKTier mtkTier;
 
-    public BlockMTKFurnace(MTKEnum mtkEnum) {
+    public BlockMTKFurnace(MTKTier mtkTier) {
         super(Properties.of().strength(0.5F,210000).sound(SoundType.WOOD));
-        this.mtkEnum= mtkEnum;
+        this.mtkTier = mtkTier;
     }
 
     @Override
@@ -45,16 +47,16 @@ public class BlockMTKFurnace extends AbstractFurnaceBlock {
         if (level.isClientSide()) return;
         if (blockEntity instanceof MTKFurnaceBlockEntity) {
             if (player instanceof ServerPlayer sPlayer) {
-                switch (mtkEnum) {
-                    case WOOD -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_WOOD.get().create(pos, state), pos);
-                    case STONE -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_STONE.get().create(pos, state), pos);
-                    case IRON -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_IRON.get().create(pos, state), pos);
-                    case GOLD -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_GOLD.get().create(pos, state), pos);
-                    case DIAMOND -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_DIAMOND.get().create(pos, state), pos);
-                    case MTK -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_MTK.get().create(pos, state), pos);
-                    case GODMTK -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_GODMTK.get().create(pos, state), pos);
-                    case BREAK -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_BREAK.get().create(pos, state), pos);
-                    default -> throw new IllegalStateException("Unexpected value: " + mtkEnum);
+                switch (getMultiple()) {
+                    case 2 -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_WOOD.get().create(pos, state), pos);
+                    case 4 -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_STONE.get().create(pos, state), pos);
+                    case 8 -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_IRON.get().create(pos, state), pos);
+                    case 16 -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_GOLD.get().create(pos, state), pos);
+                    case 32 -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_DIAMOND.get().create(pos, state), pos);
+                    case 64 -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_MTK.get().create(pos, state), pos);
+                    case 512 -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_GODMTK.get().create(pos, state), pos);
+                    case 33554431 -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_BREAK.get().create(pos, state), pos);
+                    default -> throw new IllegalStateException("Unexpected value: " + mtkTier);
                 }
             }
         }
@@ -63,30 +65,30 @@ public class BlockMTKFurnace extends AbstractFurnaceBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        switch (mtkEnum) {
-            case WOOD -> {
-                return new MTKFurnaceBlockEntity(pos, state, mtkEnum);
+        switch (getMultiple()) {
+            case 2 -> {
+                return new MTKFurnaceBlockEntity(pos, state, getMTKTier());
             }
-            case STONE -> {
-                return new MTKFurnaceBlockEntity(pos, state, mtkEnum);
+            case 4 -> {
+                return new MTKFurnaceBlockEntity(pos, state, getMTKTier());
             }
-            case IRON -> {
-                return new MTKFurnaceBlockEntity(pos, state, mtkEnum);
+            case 8 -> {
+                return new MTKFurnaceBlockEntity(pos, state, getMTKTier());
             }
-            case GOLD -> {
-                return new MTKFurnaceBlockEntity(pos, state, mtkEnum);
+            case 16 -> {
+                return new MTKFurnaceBlockEntity(pos, state, getMTKTier());
             }
-            case DIAMOND -> {
-                return new MTKFurnaceBlockEntity(pos, state, mtkEnum);
+            case 32 -> {
+                return new MTKFurnaceBlockEntity(pos, state, getMTKTier());
             }
-            case MTK -> {
-                return new MTKFurnaceBlockEntity(pos, state, mtkEnum);
+            case 64 -> {
+                return new MTKFurnaceBlockEntity(pos, state, getMTKTier());
             }
-            case GODMTK -> {
-                return new MTKFurnaceBlockEntity(pos, state, mtkEnum);
+            case 512 -> {
+                return new MTKFurnaceBlockEntity(pos, state, getMTKTier());
             }
-            case BREAK -> {
-                return new MTKFurnaceBlockEntity(pos, state, mtkEnum);
+            case 33554431 -> {
+                return new MTKFurnaceBlockEntity(pos, state, getMTKTier());
             }
             default -> {
                 return  null;
@@ -96,24 +98,21 @@ public class BlockMTKFurnace extends AbstractFurnaceBlock {
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (level.isClientSide()) return null;
-        switch (mtkEnum) {
-            case WOOD,STONE,IRON,GOLD,DIAMOND,MTK,GODMTK,BREAK -> {
-                return ITickableBlockEntity.getTickerHelper(level);
-            }
-            default -> throw new IllegalStateException("Unexpected value: " + mtkEnum);
+        if (!level.isClientSide()) {
+            return ITickableBlockEntity.getTickerHelper(level);
         }
+        return null;
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable BlockGetter getter, List<Component> list, TooltipFlag flag) {
         Component c;
-        switch (mtkEnum) {
-            case WOOD, STONE, GOLD, DIAMOND, GODMTK -> {return;}
-            case IRON -> c = Component.translatable("block.manaitamtk.mtk_furnace_iron.hover_text");
-            case MTK -> c = Component.translatable("block.manaitamtk.mtk_furnace_mtk.hover_text");
-            case BREAK -> c = Component.translatable("block.manaitamtk.mtk_furnace_break.hover_text");
-            default -> c = Component.literal(String.valueOf(new IllegalStateException("Unexpected value: " + mtkEnum)));
+        switch (getMultiple()) {
+            case 2, 4, 8, 32, 512 -> {return;}
+            case 16 -> c = Component.translatable("block.manaitamtk.mtk_furnace_iron.hover_text");
+            case 64 -> c = Component.translatable("block.manaitamtk.mtk_furnace_mtk.hover_text");
+            case 33554431 -> c = Component.translatable("block.manaitamtk.mtk_furnace_break.hover_text");
+            default -> c = Component.literal(String.valueOf(new IllegalStateException("Unexpected value: " + mtkTier)));
         }
         list.add(c);
     }
@@ -142,7 +141,7 @@ public class BlockMTKFurnace extends AbstractFurnaceBlock {
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState state1, boolean bool) {
         if (!state.is(state1.getBlock())) {
             BlockEntity blockentity = level.getBlockEntity(pos);
-            if (this.mtkEnum == MTKEnum.BREAK && blockentity instanceof MTKFurnaceBlockEntity furnaceEntityBreak) {
+            if (getMTKTier() == MTKTiers.BREAK && blockentity instanceof MTKFurnaceBlockEntity furnaceEntityBreak) {
                 Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), furnaceEntityBreak.getItem(0));
                 Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), furnaceEntityBreak.getItem(1));
                 ItemStack dropResultItem = furnaceEntityBreak.getItem(2);
@@ -157,5 +156,20 @@ public class BlockMTKFurnace extends AbstractFurnaceBlock {
             super.onRemove(state, level, pos, state1, bool);
         }
 
+    }
+
+    @Override
+    public MTKTier getMTKTier() {
+        return this.mtkTier;
+    }
+
+    @Override
+    public int getMultiple() {
+        return getMTKTier().getMultiple();
+    }
+
+    @Override
+    public String getMTKName() {
+        return getMTKTier().getName();
     }
 }

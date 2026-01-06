@@ -1,10 +1,16 @@
 package com.takoy3466.manaitamtk.item.armor;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
-import com.takoy3466.manaitamtk.apiMTK.interfaces.IItemhasTag;
-import com.takoy3466.manaitamtk.network.MTKNetwork;
-import com.takoy3466.manaitamtk.network.PacketFlySpeed;
+import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
+import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.api.capability.provider.FlyProvider;
+import com.takoy3466.manaitamtk.api.capability.provider.InvincibleProvider;
+import com.takoy3466.manaitamtk.api.capability.interfaces.IFly;
+import com.takoy3466.manaitamtk.api.capability.interfaces.IInvincible;
+import com.takoy3466.manaitamtk.init.ItemsInit;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -14,11 +20,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.LazyOptional;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class HelmetManaita extends armorManaitaCore implements IItemhasTag<Float> {
+public class HelmetManaita extends armorManaitaCore implements IHasCapability {
     private final Component hoverText = Component.translatable("item.manaitamtk.helmet_manaita.hover_text");
     private static final Component FIRST_TEXT = Component.translatable("item.manaitamtk.fwai.first_text");
     private int flySpeed = 0;
@@ -34,9 +44,16 @@ public class HelmetManaita extends armorManaitaCore implements IItemhasTag<Float
 
     //ヘルメットをかぶってる時に飛行出来るようにする やつを呼ぶ
     @Override
-    public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slot, boolean selected) {
-        super.inventoryTick(itemstack, world, entity, slot, selected);
+    public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
+        super.inventoryTick(stack, world, entity, slot, selected);
+
+
         if (!(entity instanceof Player player)) return;
+        ItemStack helmetStack = player.getItemBySlot(EquipmentSlot.HEAD);
+        boolean isEquipHelmet = helmetStack.getItem() == ItemsInit.HELMET_MANAITA.get();
+        this.execute(MTKCapabilities.FLY, stack, iFly -> iFly.setCanFly(isEquipHelmet));
+        this.execute(MTKCapabilities.INVINCIBLE, stack, iInvincible -> iInvincible.setInvincible(isEquipHelmet));
+
         if (world.isClientSide()){ // クライアントだけの処理 (キー入力のチェック)
             if (MTKKeyMapping.HelmetKey.consumeClick()){
                 modeNumber = modeChange(modeNumber, 1);
@@ -45,11 +62,11 @@ public class HelmetManaita extends armorManaitaCore implements IItemhasTag<Float
             } else if (MTKKeyMapping.FlySpeedKey.consumeClick()) {
                 this.flySpeed = modeChange(this.flySpeed, 3);// 0 -> 0.05f, 1 -> 0.1f, 2 -> 0.2f, 3 -> 0.6f
                 switch (this.flySpeed) {
-                    case 0 -> this.send(0.05f);
-                    case 1 -> this.send(0.1f);
-                    case 2 -> this.send(0.2f);
-                    case 3 -> this.send(0.6f);
-                    default -> this.send(0.05f);
+                    case 0 -> this.setFlySpeed(stack, 0.05f);
+                    case 1 -> this.setFlySpeed(stack, 0.1f);
+                    case 2 -> this.setFlySpeed(stack, 0.2f);
+                    case 3 -> this.setFlySpeed(stack, 0.6f);
+                    default -> this.setFlySpeed(stack, 0.05f);
                 }
                 String s =  switch (this.flySpeed) {
                     case 0 -> "0.05";
@@ -70,13 +87,17 @@ public class HelmetManaita extends armorManaitaCore implements IItemhasTag<Float
         }
     }
 
-    private void send(float flySpeed) {
-        MTKNetwork.CHANNEL.sendToServer(new PacketFlySpeed(flySpeed));
+    public void setFlySpeed(ItemStack stack, float flySpeed) {
+        this.execute(MTKCapabilities.FLY, stack, iFly -> iFly.setFlySpeed(flySpeed));
     }
 
-    @Override
-    public Float getTag(ItemStack stack) {
-        float flySpeed = stack.getOrCreateTag().getFloat("FlySpeed");
+    public Float getFlySpeed(ItemStack stack) {
+        LazyOptional<IFly> lazyOptional = this.getLazyOptional(MTKCapabilities.FLY, stack);
+        float flySpeed;
+        if (this.isUsage(lazyOptional)) {
+            flySpeed = this.getInterface(lazyOptional).getFlySpeed();
+        }else flySpeed = 0.05f;
+
         return Math.max(flySpeed, 0.05f);
     }
 
@@ -101,8 +122,28 @@ public class HelmetManaita extends armorManaitaCore implements IItemhasTag<Float
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
 
-        list.add(Component.literal(hoverText.getString() + this.getTag(stack))
+        list.add(Component.literal(hoverText.getString() + this.getFlySpeed(stack))
                 .withStyle(ChatFormatting.GRAY)
         );
+    }
+
+    @Override
+    public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
+        return new ICapabilityProvider() {
+
+            final LazyOptional<IFly> fly = LazyOptional.of(FlyProvider::new);
+            final LazyOptional<IInvincible> invincible = LazyOptional.of(InvincibleProvider::new);
+
+            @Override
+            public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction direction) {
+                if (capability == MTKCapabilities.FLY) {
+                    return fly.cast();
+                }
+                if (capability == MTKCapabilities.INVINCIBLE) {
+                    return invincible.cast();
+                }
+                else return LazyOptional.empty();
+            }
+        };
     }
 }

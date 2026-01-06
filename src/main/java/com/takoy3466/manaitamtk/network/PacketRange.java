@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.network;
 
-import com.takoy3466.manaitamtk.apiMTK.interfaces.IMTKPacket;
+import com.takoy3466.manaitamtk.api.abstracts.AbstractMTKPacket;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -9,16 +9,14 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class PacketRange implements IMTKPacket {
-    private final int range;
-
-    public PacketRange(int range) {
-        this.range = range;
+public class PacketRange extends AbstractMTKPacket<Integer> {
+    public PacketRange(int msg) {
+        super(msg);
     }
 
     @Override
     public void encode(FriendlyByteBuf buf) {
-        buf.writeInt(this.range);
+        buf.writeInt(this.msg);
     }
 
     public static PacketRange decode(FriendlyByteBuf buf) {
@@ -34,7 +32,7 @@ public class PacketRange implements IMTKPacket {
                 if (stack.is(ItemsInit.MANAITA_PICKAXE.get()) ||
                         stack.is(ItemsInit.MANAITA_PAXEL.get())) {
 
-                    stack.getOrCreateTag().putInt("Range", this.range);
+                    stack.getOrCreateTag().putInt("Range", this.msg);
                 }
             }
         });

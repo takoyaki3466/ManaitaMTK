@@ -1,9 +1,9 @@
 package com.takoy3466.manaitamtk.block.blockEntity;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.apiMTK.interfaces.ITickableBlockEntity;
-import com.takoy3466.manaitamtk.apiMTK.ItemFlag;
-import com.takoy3466.manaitamtk.apiMTK.record.ItemStackKey;
+import com.takoy3466.manaitamtk.api.interfaces.ITickableBlockEntity;
+import com.takoy3466.manaitamtk.api.ItemFlag;
+import com.takoy3466.manaitamtk.api.record.ItemStackKey;
 import com.takoy3466.manaitamtk.init.BlockEntitiesInit;
 import com.takoy3466.manaitamtk.init.BlocksInit;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
