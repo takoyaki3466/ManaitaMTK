@@ -37,7 +37,7 @@ public class PortableDoubleCraftingTable extends AbstractItemMultipler implement
             list.add(Component.literal(" x33554431 !!")
                     .withStyle(ChatFormatting.RED));
         }else {
-            list.add(Component.literal("x" + getMTKName())
+            list.add(Component.literal("x" + getMultiple())
                     .withStyle(ChatFormatting.WHITE));
         }
     }

@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.eventSubscriber;
 
-import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
+import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMappings;
 import com.takoy3466.manaitamtk.util.tooptip.ClientMTKBackPackTooltip;
 import com.takoy3466.manaitamtk.util.tooptip.MTKBackPackTooltip;
 import com.takoy3466.manaitamtk.init.EntitiesInit;
@@ -42,12 +42,12 @@ public class ModBusClientEvent {
     //キーの登録
     @SubscribeEvent
     public static void keyRegister(RegisterKeyMappingsEvent event) {
-        event.register(MTKKeyMapping.HelmetKey);
-        event.register(MTKKeyMapping.FlySpeedKey);
-        event.register(MTKKeyMapping.MagnificationKey);
-        event.register(MTKKeyMapping.MTKSwitcherOpenKey);
-        event.register(MTKKeyMapping.MTKSwitcherSelectKey);
-        event.register(MTKKeyMapping.SwitchExtermination);
+        event.register(MTKKeyMappings.HelmetKey);
+        event.register(MTKKeyMappings.FlySpeedKey);
+        event.register(MTKKeyMappings.MagnificationKey);
+        event.register(MTKKeyMappings.MTKSwitcherOpenKey);
+        event.register(MTKKeyMappings.MTKSwitcherSelectKey);
+        event.register(MTKKeyMappings.SwitchExterminationKey);
     }
 
     //弓の動き方

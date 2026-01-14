@@ -2,9 +2,6 @@ package com.takoy3466.manaitamtk.eventSubscriber;
 
 import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
 import com.takoy3466.manaitamtk.api.capability.helper.MTKCapabilityHelper;
-import com.takoy3466.manaitamtk.api.capability.interfaces.IFly;
-import com.takoy3466.manaitamtk.api.capability.interfaces.IInvincible;
-import com.takoy3466.manaitamtk.api.capability.interfaces.IMTKSword;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.config.MTKConfig;
 import com.takoy3466.manaitamtk.init.EnchantmentsInit;
@@ -24,7 +21,6 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -101,25 +97,27 @@ public class MTKSubscribeEvent {
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
         Player player = event.getEntity();
         Level level = player.level();
-        ItemStack stack = event.getItemStack();
+        InteractionHand hand = event.getHand();
+        if (!(player instanceof ServerPlayer serverPlayer)) {
+            return;
+        }
+        ItemStack stack = serverPlayer.getItemInHand(hand);
 
-        if (!level.isClientSide && stack.getItem() == ItemsInit.MANAITA_SWORD.get()) {
+        if (!level.isClientSide() && stack.getItem() == ItemsInit.MANAITA_SWORD.get()) {
             double radius = (double) MTKConfig.SWORD_KILL_RADIUS.get() * 100;
-            boolean isKillAll;
-            LazyOptional<IMTKSword> lazyOptional = stack.getCapability(MTKCapabilities.MTK_SWORD);
-            if (MTKCapabilityHelper.isUsage(lazyOptional)) {
-                isKillAll = MTKCapabilityHelper.getInterface(lazyOptional).IsKillAll();
-            }else isKillAll = false;
 
-            Class<LivingEntity> entityClass = LivingEntity.class;
-            Predicate<LivingEntity> allEntity = entity -> (entity != player) && (entity instanceof LivingEntity);
-            Predicate<LivingEntity> onlyEnemy = entity -> (entity != player) && (entity instanceof Enemy);
+            MTKCapabilityHelper.execute(MTKCapabilities.KILL_SWORD, player, hand, iKillSword -> {
+                Class<LivingEntity> entityClass = LivingEntity.class;
+                Predicate<LivingEntity> allEntity = entity -> (entity != player) && (entity instanceof LivingEntity);
+                Predicate<LivingEntity> onlyEnemy = entity -> (entity != player) && (entity instanceof Enemy);
 
-            List<LivingEntity> targets = isKillAll ?
-                    WeaponUtil.selectTargets(entityClass, level, player, radius/10, allEntity)
-                    : WeaponUtil.selectTargets(entityClass, level, player, radius, onlyEnemy);
+                List<LivingEntity> targets = iKillSword.isKillAll() ?
+                        WeaponUtil.selectTargets(entityClass, level, player, radius/10, allEntity)
+                        : WeaponUtil.selectTargets(entityClass, level, player, radius, onlyEnemy);
 
-            WeaponUtil.lightningStriker(targets, level, player);
+                iKillSword.kill(targets, level, player);
+
+            });
         }
     }
 
@@ -130,13 +128,15 @@ public class MTKSubscribeEvent {
 
         if (!player.level().isClientSide()) {
             // 特定の装備をつけているか確認
-            LazyOptional<IInvincible> lazyOptional = MTKCapabilityHelper.getLazyOptional(MTKCapabilities.INVINCIBLE, player);
-            if (MTKCapabilityHelper.isUsage(lazyOptional) && MTKCapabilityHelper.getInterface(lazyOptional).isInvincible()) {
-                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 40, 2, false, false, false));
-                if (player.getFoodData().getFoodLevel() < 20) {
-                    player.getFoodData().setFoodLevel(20);
+            MTKCapabilityHelper.execute(MTKCapabilities.INVINCIBLE, player, EquipmentSlot.HEAD, iInvincible -> {
+                if (iInvincible.isInvincible()) {
+                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 40, 2, false, false, false));
+                    if (player.getFoodData().getFoodLevel() < 20) {
+                        player.getFoodData().setFoodLevel(20);
+                    }
                 }
-            }
+
+            });
         }
     }
 
@@ -153,6 +153,7 @@ public class MTKSubscribeEvent {
                 if (current.getItem() != ItemsInit.HELMET_MANAITA.get()) {
                     player.getAbilities().mayfly = false;
                     player.getAbilities().flying = false;
+                    MTKCapabilityHelper.execute(MTKCapabilities.FLY, player, EquipmentSlot.HEAD, iFly -> iFly.setCanFly(false));
                     player.onUpdateAbilities();
 
                     if (player instanceof ServerPlayer serverPlayer) {
@@ -163,6 +164,7 @@ public class MTKSubscribeEvent {
             }else {
                 if (current.getItem() == ItemsInit.HELMET_MANAITA.get()) {
                     player.getAbilities().mayfly = true;
+                    MTKCapabilityHelper.execute(MTKCapabilities.FLY, player, EquipmentSlot.HEAD, iFly -> iFly.setCanFly(true));
                     player.onUpdateAbilities();
                 }
             }
@@ -174,14 +176,11 @@ public class MTKSubscribeEvent {
         if (event.phase != TickEvent.Phase.END) return;
         Player player = event.player;
         if (!player.level().isClientSide()) {
-            LazyOptional<IFly> lazyOptional = MTKCapabilityHelper.getLazyOptional(MTKCapabilities.FLY, player);
-            float modeF;
-            if (MTKCapabilityHelper.isUsage(lazyOptional)) {
-                modeF = MTKCapabilityHelper.getInterface(lazyOptional).getFlySpeed();
+            MTKCapabilityHelper.execute(MTKCapabilities.FLY, player, EquipmentSlot.HEAD, iFly -> {
+                player.getAbilities().setFlyingSpeed(iFly.getFlySpeed());
+                player.onUpdateAbilities();
+            });
 
-            }else modeF = 0.05f;
-            player.getAbilities().setFlyingSpeed(modeF);
-            player.onUpdateAbilities();
         }
     }
 

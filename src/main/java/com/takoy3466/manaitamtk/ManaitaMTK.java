@@ -13,30 +13,35 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
+import java.util.logging.Logger;
+
 @Mod("manaitamtk")
 public class ManaitaMTK {
 
     public static final String MOD_ID = "manaitamtk";
+    public static Logger LOGGER = Logger.getLogger(MOD_ID);
 
     public ManaitaMTK(){
         //最初に読み込む所
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        BlocksInit.BLOCK.register(bus);
+        BlocksInit.BLOCKS.register(bus);
+        BlocksInit.TIER_BLOCKS.register(bus);
 
         ItemsInit.ITEMS.register(bus);
+        ItemsInit.TIER_ITEM.register(bus);
 
-        BlockEntitiesInit.BLOCK_ENTITY.register(bus);
+        BlockEntitiesInit.BLOCK_ENTITIES.register(bus);
         EntitiesInit.ENTITY.register(bus);
 
 
-        MenusInit.MENU.register(bus);
+        MenusInit.MENUS.register(bus);
 
         SerializersInit.SERIALIZERS.register(bus);
 
         EnchantmentsInit.ENCHANTMENTS.register(bus);
 
-        Tabsinit.MOD_TABS.register(bus);
+        Tabsinit.TABS.register(bus);
         MinecraftForge.EVENT_BUS.register(MTKSubscribeEvent.class);
 
         MTKNetwork.register();

@@ -1,7 +1,8 @@
 package com.takoy3466.manaitamtk.network;
 
 import com.takoy3466.manaitamtk.api.abstracts.AbstractMTKPacket;
-import com.takoy3466.manaitamtk.init.ItemsInit;
+import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.api.capability.helper.MTKCapabilityHelper;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -29,11 +30,7 @@ public class PacketRange extends AbstractMTKPacket<Integer> {
             ServerPlayer player = ctx.get().getSender();
             if (player != null) {
                 ItemStack stack = player.getMainHandItem();
-                if (stack.is(ItemsInit.MANAITA_PICKAXE.get()) ||
-                        stack.is(ItemsInit.MANAITA_PAXEL.get())) {
-
-                    stack.getOrCreateTag().putInt("Range", this.msg);
-                }
+                MTKCapabilityHelper.execute(MTKCapabilities.RANGE_BREAK, stack, iRangeBreak -> iRangeBreak.setRange(this.msg));
             }
         });
         ctx.get().setPacketHandled(true);

@@ -1,0 +1,38 @@
+{
+  "parent": "manaitamtk:item_mtk",
+  "criteria": {
+    "inv_change": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "manaitamtk:wood_mtk_furnace"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.make_wood_mtk_furnace.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "manaitamtk:wood_mtk_furnace"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.make_wood_mtk_furnace.title"
+    }
+  },
+  "requirements": [
+    [
+      "inv_change"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

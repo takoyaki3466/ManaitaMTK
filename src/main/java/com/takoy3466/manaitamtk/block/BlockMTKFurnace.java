@@ -1,175 +1,101 @@
 package com.takoy3466.manaitamtk.block;
 
-import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
-import com.takoy3466.manaitamtk.init.MTKTiers;
-import com.takoy3466.manaitamtk.api.interfaces.IMTKMultiple;
-import com.takoy3466.manaitamtk.api.interfaces.ITickableBlockEntity;
 import com.takoy3466.manaitamtk.block.blockEntity.MTKFurnaceBlockEntity;
-import com.takoy3466.manaitamtk.init.BlockEntitiesInit;
+import com.takoy3466.manaitamtk.init.MTKTiers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.Container;
-import net.minecraft.world.Containers;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractFurnaceBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+public class BlockMTKFurnace {
 
-public class BlockMTKFurnace extends AbstractFurnaceBlock implements IMTKMultiple {
-    private final MTKTier mtkTier;
+    public static class Wood extends AbstractBlockMTKFurnace {
+        public Wood() {
+            super(MTKTiers.WOOD);
+        }
 
-    public BlockMTKFurnace(MTKTier mtkTier) {
-        super(Properties.of().strength(0.5F,210000).sound(SoundType.WOOD));
-        this.mtkTier = mtkTier;
-    }
-
-    @Override
-    protected void openContainer(Level level, BlockPos pos, Player player) {
-        BlockEntity blockEntity = level.getBlockEntity(pos);
-        BlockState state = blockEntity.getBlockState();
-        if (level.isClientSide()) return;
-        if (blockEntity instanceof MTKFurnaceBlockEntity) {
-            if (player instanceof ServerPlayer sPlayer) {
-                switch (getMultiple()) {
-                    case 2 -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_WOOD.get().create(pos, state), pos);
-                    case 4 -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_STONE.get().create(pos, state), pos);
-                    case 8 -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_IRON.get().create(pos, state), pos);
-                    case 16 -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_GOLD.get().create(pos, state), pos);
-                    case 32 -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_DIAMOND.get().create(pos, state), pos);
-                    case 64 -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_MTK.get().create(pos, state), pos);
-                    case 512 -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_GODMTK.get().create(pos, state), pos);
-                    case 33554431 -> NetworkHooks.openScreen(sPlayer, BlockEntitiesInit.MTK_FURNACE_BREAK.get().create(pos, state), pos);
-                    default -> throw new IllegalStateException("Unexpected value: " + mtkTier);
-                }
-            }
+        @Override
+        public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return new MTKFurnaceBlockEntity.Wood(pos, state);
         }
     }
 
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        switch (getMultiple()) {
-            case 2 -> {
-                return new MTKFurnaceBlockEntity(pos, state, getMTKTier());
-            }
-            case 4 -> {
-                return new MTKFurnaceBlockEntity(pos, state, getMTKTier());
-            }
-            case 8 -> {
-                return new MTKFurnaceBlockEntity(pos, state, getMTKTier());
-            }
-            case 16 -> {
-                return new MTKFurnaceBlockEntity(pos, state, getMTKTier());
-            }
-            case 32 -> {
-                return new MTKFurnaceBlockEntity(pos, state, getMTKTier());
-            }
-            case 64 -> {
-                return new MTKFurnaceBlockEntity(pos, state, getMTKTier());
-            }
-            case 512 -> {
-                return new MTKFurnaceBlockEntity(pos, state, getMTKTier());
-            }
-            case 33554431 -> {
-                return new MTKFurnaceBlockEntity(pos, state, getMTKTier());
-            }
-            default -> {
-                return  null;
-            }
+    public static class Stone extends AbstractBlockMTKFurnace {
+        public Stone() {
+            super(MTKTiers.STONE);
+        }
+
+        @Override
+        public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return new MTKFurnaceBlockEntity.Stone(pos, state);
         }
     }
 
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (!level.isClientSide()) {
-            return ITickableBlockEntity.getTickerHelper(level);
+    public static class Iron extends AbstractBlockMTKFurnace {
+        public Iron() {
+            super(MTKTiers.IRON);
         }
-        return null;
-    }
 
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable BlockGetter getter, List<Component> list, TooltipFlag flag) {
-        Component c;
-        switch (getMultiple()) {
-            case 2, 4, 8, 32, 512 -> {return;}
-            case 16 -> c = Component.translatable("block.manaitamtk.mtk_furnace_iron.hover_text");
-            case 64 -> c = Component.translatable("block.manaitamtk.mtk_furnace_mtk.hover_text");
-            case 33554431 -> c = Component.translatable("block.manaitamtk.mtk_furnace_break.hover_text");
-            default -> c = Component.literal(String.valueOf(new IllegalStateException("Unexpected value: " + mtkTier)));
-        }
-        list.add(c);
-    }
-
-    @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource source) {
-        if (state.getValue(LIT)) {
-            double x = (double) pos.getX() + 0.5;
-            double y = pos.getY();
-            double z = (double) pos.getZ() + 0.5;
-            if (source.nextDouble() < 0.1) {
-                level.playLocalSound(x, y, z, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
-            }
-            Direction direction = state.getValue(FACING);
-            Direction.Axis axis = direction.getAxis();
-            double v = source.nextDouble() * 0.6 - 0.3;
-            double x1 = axis == Direction.Axis.X ? (double)direction.getStepX() * 0.52 : v;
-            double x2 = source.nextDouble() * 6.0 / 16.0;
-            double x3 = axis == Direction.Axis.Z ? (double)direction.getStepZ() * 0.52 : v;
-            level.addParticle(ParticleTypes.SMOKE, x + x1, y + x2, z + x3, 0.0, 0.0, 0.0);
-            level.addParticle(ParticleTypes.FLAME, x + x1, y + x2, z + x3, 0.0, 0.0, 0.0);
+        @Override
+        public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return new MTKFurnaceBlockEntity.Iron(pos, state);
         }
     }
 
-    @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState state1, boolean bool) {
-        if (!state.is(state1.getBlock())) {
-            BlockEntity blockentity = level.getBlockEntity(pos);
-            if (getMTKTier() == MTKTiers.BREAK && blockentity instanceof MTKFurnaceBlockEntity furnaceEntityBreak) {
-                Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), furnaceEntityBreak.getItem(0));
-                Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), furnaceEntityBreak.getItem(1));
-                ItemStack dropResultItem = furnaceEntityBreak.getItem(2);
-                if (!dropResultItem.isEmpty()) {
-                    dropResultItem.setCount(64);
-                    Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), dropResultItem);
-                }
-            }
-            Containers.dropContents(level, pos, (Container) blockentity);
-            level.updateNeighbourForOutputSignal(pos, this);
-
-            super.onRemove(state, level, pos, state1, bool);
+    public static class Gold extends AbstractBlockMTKFurnace {
+        public Gold() {
+            super(MTKTiers.GOLD);
         }
 
+        @Override
+        public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return new MTKFurnaceBlockEntity.Gold(pos, state);
+        }
     }
 
-    @Override
-    public MTKTier getMTKTier() {
-        return this.mtkTier;
+    public static class Diamond extends AbstractBlockMTKFurnace {
+        public Diamond() {
+            super(MTKTiers.DIAMOND);
+        }
+
+        @Override
+        public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return new MTKFurnaceBlockEntity.Diamond(pos, state);
+        }
     }
 
-    @Override
-    public int getMultiple() {
-        return getMTKTier().getMultiple();
+    public static class MTK extends AbstractBlockMTKFurnace {
+        public MTK() {
+            super(MTKTiers.MTK);
+        }
+
+        @Override
+        public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return new MTKFurnaceBlockEntity.MTK(pos, state);
+        }
     }
 
-    @Override
-    public String getMTKName() {
-        return getMTKTier().getName();
+    public static class GodMTK extends AbstractBlockMTKFurnace {
+        public GodMTK() {
+            super(MTKTiers.GODMTK);
+        }
+
+        @Override
+        public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return new MTKFurnaceBlockEntity.GodMTK(pos, state);
+        }
+    }
+
+    public static class Break extends AbstractBlockMTKFurnace {
+        public Break() {
+            super(MTKTiers.BREAK);
+        }
+
+        @Override
+        public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return new MTKFurnaceBlockEntity.Break(pos, state);
+        }
     }
 }
+

@@ -2,8 +2,6 @@ package com.takoy3466.manaitamtk.api.capability.provider;
 
 import com.takoy3466.manaitamtk.api.capability.interfaces.IFly;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public class FlyProvider implements IFly, INBTSerializable<CompoundTag> {
@@ -25,20 +23,15 @@ public class FlyProvider implements IFly, INBTSerializable<CompoundTag> {
 
     @Override
     public float getFlySpeed() {
+        if (this.flySpeed == 0) {
+            this.flySpeed = 0.05f;
+        }
         return this.flySpeed;
     }
 
     @Override
     public boolean canFly() {
         return this.isFly;
-    }
-
-    @Override
-    public void flySpeedChange(ItemStack stack, Player player) {
-        if (this.isFly) {
-            player.getAbilities().setFlyingSpeed(this.flySpeed);
-            player.onUpdateAbilities();
-        }
     }
 
     @Override

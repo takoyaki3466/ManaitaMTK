@@ -21,6 +21,7 @@ public abstract class AbstractTickerEntityBlock extends Block implements EntityB
         super(properties);
     }
 
+
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }

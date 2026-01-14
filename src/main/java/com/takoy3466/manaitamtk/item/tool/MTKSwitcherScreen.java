@@ -2,8 +2,10 @@ package com.takoy3466.manaitamtk.item.tool;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
+import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMappings;
 import com.takoy3466.manaitamtk.ManaitaMTK;
+import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.network.MTKNetwork;
 import com.takoy3466.manaitamtk.network.PacketRange;
@@ -25,7 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-public class MTKSwitcherScreen extends Screen {
+public class MTKSwitcherScreen extends Screen implements IHasCapability {
     private static final ResourceLocation MTK_SWITCHER_LOCATION = new ResourceLocation(ManaitaMTK.MOD_ID,"textures/gui/container/mtk_switcher.png");
     private static final int ALL_SLOTS_WIDTH = MTKIcon.values().length * 31 - 5;
     private MTKIcon previousMode;
@@ -36,7 +38,7 @@ public class MTKSwitcherScreen extends Screen {
     private final List<MTKIconSlot> slots = Lists.newArrayList();
     private static final String UNDER_TEXT_FIRST = Component.translatable("gui.mtk_switcher_screen.first_title").getString();
     private static final String UNDER_TEXT_SECOND = Component.translatable("gui.mtk_switcher_screen.second_title").getString();
-    private static final Component UNDER_TEXT_KEY = Component.literal(MTKKeyMapping.MTKSwitcherSelectKey.getKey().getDisplayName().getString()).withStyle(ChatFormatting.AQUA);
+    private static final Component UNDER_TEXT_KEY = Component.literal(MTKKeyMappings.MTKSwitcherSelectKey.getKey().getDisplayName().getString()).withStyle(ChatFormatting.AQUA);
     private static final Component UNDER_TEXT = Component.literal(UNDER_TEXT_FIRST + UNDER_TEXT_KEY.getString() + UNDER_TEXT_SECOND);
 
     public MTKSwitcherScreen() {
@@ -93,30 +95,30 @@ public class MTKSwitcherScreen extends Screen {
         if (minecraft.player != null) {
             ItemStack stack = minecraft.player.getMainHandItem();
             if (stack.getItem() == ItemsInit.MANAITA_PICKAXE.get() || stack.getItem() == ItemsInit.MANAITA_PAXEL.get()) {
-                this.previousMode = MTKSwitcherScreen.MTKIcon.getFromRange(stack.getOrCreateTag().getInt("Range"));
+                this.execute(MTKCapabilities.RANGE_BREAK, stack, iRangeBreak -> this.previousMode = MTKIcon.getFromRange(iRangeBreak.getRange()));
             }
         }else if (this.previousMode == null) {
             this.previousMode = MTKIcon.ONE;
         }
     }
-
-    // サーバーにパケットを送信
-    private void sendTag(MTKIcon mtkIcon) {
+    
+    private void sendRange(MTKIcon mtkIcon) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player != null) {
             ItemStack stack = minecraft.player.getMainHandItem();
             if (stack.getItem() == ItemsInit.MANAITA_PICKAXE.get() || stack.getItem() == ItemsInit.MANAITA_PAXEL.get()) {
-                MTKNetwork.CHANNEL.sendToServer(new PacketRange(mtkIcon.getModeRange()));
+                this.execute(MTKCapabilities.RANGE_BREAK, stack, iRangeBreak -> iRangeBreak.setRange(mtkIcon.getModeRange()));
+                MTKNetwork.sendToServer(new PacketRange(mtkIcon.getModeRange()));
             }
         }
     }
 
     @Override
     public boolean keyPressed(int key1, int key2, int key3) {
-        if (key1 == MTKKeyMapping.MTKSwitcherSelectKey.getKey().getValue()) {
+        if (key1 == MTKKeyMappings.MTKSwitcherSelectKey.getKey().getValue()) {
             this.setFirstMousePos = false;
             this.currentlyMode = this.currentlyMode.getNext();
-            this.sendTag(this.currentlyMode);
+            this.sendRange(this.currentlyMode);
             return true;
         } else {
             return super.keyPressed(key1, key2, key3);
@@ -130,7 +132,7 @@ public class MTKSwitcherScreen extends Screen {
         for (MTKIconSlot slot : this.slots) {
             if (slot.isMouseOver(x, y)) {
                 this.currentlyMode = slot.icon;
-                this.sendTag(this.currentlyMode);
+                this.sendRange(this.currentlyMode);
             }
         }
     }
@@ -142,12 +144,15 @@ public class MTKSwitcherScreen extends Screen {
 
     @Override
     public boolean mouseScrolled(double x, double y, double delta) {
+        if (this.currentlyMode == null || this.previousMode == null) {
+            return false;
+        }
         if (delta < 0) {
             this.currentlyMode = this.currentlyMode.getNext();
         } else if (delta > 0) {
             this.currentlyMode = this.currentlyMode.getPrevious();
         }
-        this.sendTag(this.currentlyMode);
+        this.sendRange(this.currentlyMode);
         return true;
     }
 

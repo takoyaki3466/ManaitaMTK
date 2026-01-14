@@ -1,8 +1,8 @@
 package com.takoy3466.manaitamtk.api.capability.provider;
 
+import com.takoy3466.manaitamtk.api.capability.interfaces.IPortableFurnace;
 import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
 import com.takoy3466.manaitamtk.api.interfaces.IMTKMultiple;
-import com.takoy3466.manaitamtk.api.capability.interfaces.IPortableFurnace;
 import com.takoy3466.manaitamtk.util.container.MTKContainer;
 import com.takoy3466.manaitamtk.api.helper.MTKContainerHelper;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
@@ -22,13 +22,12 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 
-public class PortableFurnaceProvider implements IPortableFurnace<MTKItemStackHandler>, INBTSerializable<CompoundTag>, RecipeHolder, IMTKMultiple {
+public class PortableFurnaceProvider implements IPortableFurnace<MTKItemStackHandler>, RecipeHolder, IMTKMultiple {
     private final String LIT_TIME = "LitTime";
     private final String LIT_DURATION = "litDuration";
     private final String COOKING_PROGRESS = "cookingProgress";

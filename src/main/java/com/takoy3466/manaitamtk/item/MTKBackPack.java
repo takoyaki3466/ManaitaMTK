@@ -1,7 +1,9 @@
 package com.takoy3466.manaitamtk.item;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
+import com.takoy3466.manaitamtk.api.helper.MTKContainerHelper;
 import com.takoy3466.manaitamtk.api.interfaces.IHasMenuProvider;
+import com.takoy3466.manaitamtk.api.interfaces.ISaveLoad;
 import com.takoy3466.manaitamtk.menu.MTKBackpackMenu;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.util.tooptip.MTKBackPackTooltip;
@@ -23,7 +25,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 
-public class MTKBackPack extends Item implements IHasMenuProvider {
+public class MTKBackPack extends Item implements IHasMenuProvider, ISaveLoad {
     private final MTKItemStackHandler handler = new MTKItemStackHandler(54);
     private final Component COMPONENT = Component.translatable("item.manaitamtk.mtk_backpack");
     public MTKBackPack() {
@@ -38,22 +40,18 @@ public class MTKBackPack extends Item implements IHasMenuProvider {
     @Override
     public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
         CompoundTag tag = stack.getOrCreateTag();
-        if (!tag.contains(ManaitaMTK.MOD_ID)) return Optional.empty();
-
-        CompoundTag MTKTag = tag.getCompound(ManaitaMTK.MOD_ID);
-
-        if (!MTKTag.contains("MTKSimpleContainer") || !tag.contains("itemCount")) return Optional.empty();
-
-        ListTag listTagCount = tag.getList("itemCount", Tag.TAG_INT); // 3
-        this.handler.deserializeNBT(MTKTag.getCompound("MTKSimpleContainer"));
-
-        NonNullList<ItemStack> nonNullList = NonNullList.withSize(this.handler.getSlots(), ItemStack.EMPTY);
-
+        this.load(tag, this.handler);
+        boolean isEmpty = true;
         for (int i = 0; i < this.handler.getSlots(); i++) {
-            int countInt = listTagCount.getInt(i);
-            ItemStack stack1 = this.handler.getStackInSlot(i);
-            stack1.setCount(countInt); this.handler.setStackInSlot(i, stack1);
+            if (!(this.handler.getStackInSlot(i).isEmpty())) {
+                isEmpty = false;
+                break;
+            }
         }
+        if (isEmpty) {
+            return Optional.empty();
+        }
+        NonNullList<ItemStack> nonNullList = NonNullList.withSize(this.handler.getSlots(), ItemStack.EMPTY);
 
         for (int i = 0; i < this.handler.getSlots(); i++) {
             ItemStack slotStack = this.handler.getStackInSlot(i);

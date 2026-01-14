@@ -1,9 +1,12 @@
 package com.takoy3466.manaitamtk.network;
 
 import com.takoy3466.manaitamtk.api.abstracts.AbstractMTKPacket;
+import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.api.capability.helper.MTKCapabilityHelper;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
@@ -29,10 +32,7 @@ public class PacketFlySpeed extends AbstractMTKPacket<Float> {
         ctx.get().enqueueWork(() -> {
             ServerPlayer player = ctx.get().getSender();
             if (player != null) {
-                ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
-                if (stack.is(ItemsInit.HELMET_MANAITA.get())) {
-                    stack.getOrCreateTag().putFloat("FlySpeed", this.msg);
-                }
+                MTKCapabilityHelper.execute(MTKCapabilities.FLY, player.getItemBySlot(EquipmentSlot.HEAD), iFly -> iFly.setFlySpeed(this.msg));
             }
         });
         ctx.get().setPacketHandled(true);

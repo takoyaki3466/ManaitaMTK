@@ -6,11 +6,14 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@OnlyIn(Dist.CLIENT)
 public class ClientMTKBackPackTooltip implements ClientTooltipComponent {
     private final MTKBackPackTooltip backPackTooltip;
 
@@ -92,7 +95,7 @@ public class ClientMTKBackPackTooltip implements ClientTooltipComponent {
         }
     }
 
-    public static String setCountDisplay(long count) {
+    public String setCountDisplay(long count) {
         double tera = Math.pow(10, 12);
         double giga = Math.pow(10, 9);
         double mega = Math.pow(10, 6);

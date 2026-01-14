@@ -9,6 +9,8 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -34,13 +36,14 @@ public class ToolManaitaPickaxe extends PickaxeItem implements IHasCapability {
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         Player player = context.getPlayer();
+        InteractionHand hand = context.getHand();
 
-        if (player != null) {
+        if (player != null && !level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             this.execute(MTKCapabilities.RANGE_BREAK, context,
-                    iRangeBreak -> iRangeBreak.rangeBreak(level, pos.getX(), pos.getY(), pos.getZ(), player, iRangeBreak.getRange())
+                    iRangeBreak -> iRangeBreak.rangeBreak(level, pos.getX(), pos.getY(), pos.getZ(), player, getRange(serverPlayer.getItemInHand(hand)))
             );
 
-            return InteractionResult.SUCCESS;
+            return InteractionResult.sidedSuccess(level.isClientSide());
         }
         return super.useOn(context);
     }
@@ -63,7 +66,9 @@ public class ToolManaitaPickaxe extends PickaxeItem implements IHasCapability {
         int range = this.getRange(stack);
         list.add(Component.literal("MODE : " + range + " x " + range)
                 .withStyle(ChatFormatting.GRAY));
-        if (level == null) return;
+        if (level == null) {
+            return;
+        }
         if (level.isClientSide()) {
             if (Screen.hasShiftDown()) {
                 list.add(this.DESCRIPTION);

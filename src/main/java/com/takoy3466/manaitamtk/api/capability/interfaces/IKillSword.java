@@ -8,11 +8,11 @@ import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 import java.util.List;
 
 @AutoRegisterCapability
-public interface IMTKSword {
+public interface IKillSword {
 
     void setIsKillAll(boolean isKillAll);
 
-    boolean IsKillAll();
+    boolean isKillAll();
 
     void kill(LivingEntity target, Level level, Player player);
 

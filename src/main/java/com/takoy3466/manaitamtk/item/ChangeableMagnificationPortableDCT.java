@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.item;
 
-import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
+import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMappings;
 import com.takoy3466.manaitamtk.api.capability.interfaces.IMultiple;
 import com.takoy3466.manaitamtk.api.capability.provider.MultipleProvider;
 import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
@@ -49,7 +49,7 @@ public class ChangeableMagnificationPortableDCT extends Item implements IHasCapa
         if (!(entity instanceof Player player)) return;
 
         if (world.isClientSide){
-            if(MTKKeyMapping.MagnificationKey.consumeClick()){
+            if(MTKKeyMappings.MagnificationKey.consumeClick()){
                 modeNum = modeNum < 4 ? modeNum + 1 : 0;
                 switch (modeNum){
                     case 1:

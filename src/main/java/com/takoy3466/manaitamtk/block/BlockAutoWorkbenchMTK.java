@@ -3,6 +3,7 @@ package com.takoy3466.manaitamtk.block;
 import com.takoy3466.manaitamtk.api.abstracts.AbstractTickerEntityBlock;
 import com.takoy3466.manaitamtk.block.blockEntity.AutoWorkbenchMTKBlockEntity;
 import com.takoy3466.manaitamtk.init.BlockEntitiesInit;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -27,7 +28,7 @@ import java.util.List;
 
 // テクスチャを書いてくれたトマトさんありがとう！
 public class BlockAutoWorkbenchMTK extends AbstractTickerEntityBlock {
-    private final Component TEXT = Component.translatable("block.manaitamtk.auto_workbench_mtk.hover_text");
+    private final Component TEXT = Component.translatable("block.manaitamtk.auto_workbench_mtk.hover_text").withStyle(ChatFormatting.GRAY);
 
     public BlockAutoWorkbenchMTK() {
         super(Properties.of().strength(5F,21000000).sound(SoundType.WOOD));

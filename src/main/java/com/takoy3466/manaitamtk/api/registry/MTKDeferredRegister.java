@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk.api.register;
+package com.takoy3466.manaitamtk.api.registry;
 
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -7,6 +7,11 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
+/**
+ * 複数のオブジェクトを同時に登録したいときに使います
+ * @param <FRONT>
+ * @param <BEHIND>
+ */
 public class MTKDeferredRegister<FRONT, BEHIND> {
     private final DeferredRegister<FRONT> FRONT_REGISTER;
     private final DeferredRegister<BEHIND> BEHIND_REGISTER;
@@ -29,7 +34,7 @@ public class MTKDeferredRegister<FRONT, BEHIND> {
         return BEHIND_REGISTER.register(name, supplier);
     }
 
-    public MTKRegistryObject<FRONT, BEHIND> registerAll(RegistryObject<FRONT> front, RegistryObject<BEHIND> behind) {
+    public MTKRegistryObject<FRONT, BEHIND> getMTKRegistry(RegistryObject<FRONT> front, RegistryObject<BEHIND> behind) {
         return new MTKRegistryObject<>(front, behind);
     }
 

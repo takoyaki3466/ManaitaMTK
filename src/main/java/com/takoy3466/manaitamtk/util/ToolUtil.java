@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -40,17 +39,17 @@ public class ToolUtil {
 
 
     // 割と初期のころに作ってずっとそのままなのでコードがずたずたです、すいません
-    public static void RangeBreak(LevelAccessor accessor, int x, int y, int z, LivingEntity livingEntity, int size) {
-        BrakerClass.control(accessor, x, y, z, livingEntity, size);
+    public static void RangeBreak(Level level, int x, int y, int z, LivingEntity livingEntity, int size) {
+        BrakerClass.control(level, x, y, z, livingEntity, size);
     }
     private static class BrakerClass {
 
         static int x, y, z, numRange, whileRange;
         static LivingEntity entity;
-        static LevelAccessor world;
+        static Level world;
         static int X, Y, Z;
 
-        public static void control(LevelAccessor WORLD, int X, int Y, int Z, LivingEntity ENTITY, int I) {
+        public static void control(Level WORLD, int X, int Y, int Z, LivingEntity ENTITY, int I) {
             if (ENTITY == null)
                 return;
 
@@ -65,7 +64,7 @@ public class ToolUtil {
             operate(world, x, y, z, entity, numRange, whileRange);
         }
 
-        public static void operate(LevelAccessor world, int x, int y, int z, LivingEntity entity, int numRange, int whileRange) {
+        public static void operate(Level world, int x, int y, int z, LivingEntity entity, int numRange, int whileRange) {
 
             if ((entity.getXRot() >= 40 && entity.getXRot() <= 90) || (entity.getXRot() <= -40 && entity.getXRot() >= -90)) {
                 X = numRange;

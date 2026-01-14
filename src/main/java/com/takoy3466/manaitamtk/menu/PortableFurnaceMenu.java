@@ -4,8 +4,11 @@ import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
 import com.takoy3466.manaitamtk.api.capability.PortableFurnaceData;
 import com.takoy3466.manaitamtk.api.capability.interfaces.IPortableFurnace;
 import com.takoy3466.manaitamtk.api.helper.MTKMenuHelper;
+import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
+import com.takoy3466.manaitamtk.api.interfaces.ISaveLoad;
 import com.takoy3466.manaitamtk.util.slot.*;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -17,18 +20,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 
-public class PortableFurnaceMenu extends AbstractContainerMenu {
+public class PortableFurnaceMenu extends AbstractContainerMenu implements IHasCapability {
     private final IPortableFurnace<MTKItemStackHandler> furnace;
     private final ContainerData containerData;
     private final Player player;
     private final RecipeType<? extends AbstractCookingRecipe> recipeType;
-
-    public PortableFurnaceMenu(int id, Inventory inv, FriendlyByteBuf buf) {
-        this(id, inv, ItemStack.EMPTY);
-    }
+    private final ItemStack stack;
 
     @SuppressWarnings("unchecked")
     public PortableFurnaceMenu(int id, Inventory playerInventory, ItemStack stack) {
@@ -38,6 +39,7 @@ public class PortableFurnaceMenu extends AbstractContainerMenu {
         this.furnace = lazyOptional.orElseThrow(() -> new IllegalStateException("IPortableFurnaceがないよ！"));
         this.containerData = new PortableFurnaceData(furnace);
         this.recipeType = RecipeType.SMELTING;
+        this.stack = stack;
 
         this.addSlot(new MTKSlotItemHandler(this.furnace.gethandler(), 0, 56, 17)); // importSlot
         this.addSlot(new MTKFurnaceFuelHandler(this, this.furnace.gethandler(), 1, 56, 53)); // fuelSlot
@@ -126,6 +128,7 @@ public class PortableFurnaceMenu extends AbstractContainerMenu {
     @Override
     public void removed(@NotNull Player player) {
         super.removed(player);
+        this.execute(MTKCapabilities.PORTABLE_FURNACE, stack, INBTSerializable::serializeNBT);
     }
 
     public boolean isLit() {

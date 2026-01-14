@@ -9,8 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class MTKContainerHelper {
-    private static final String TAG_COUNT = "itemCount";
-    private static final String TAG_HANDLER = "MTKhandler";
+    public static final String TAG_COUNT = "itemCount";
+    public static final String TAG_HANDLER = "MTKhandler";
 
     /**
      * 1スロットにアイテムが64個以上ある時に安全に保存するために使います。
@@ -39,8 +39,14 @@ public class MTKContainerHelper {
      * @param <T> ItemStackHandlerを継承しているものを使用してください
      */
     public static <T extends ItemStackHandler> void loadHandler(CompoundTag tag, T handler) {
+        if (!(tag.contains(TAG_COUNT) || tag.contains(ManaitaMTK.MOD_ID))) {
+            return;
+        }
         ListTag listTagCount = tag.getList(TAG_COUNT, Tag.TAG_INT); // 3
         CompoundTag MTKTag = tag.getCompound(ManaitaMTK.MOD_ID);
+        if (!(MTKTag.contains(TAG_HANDLER))){
+            return;
+        }
         handler.deserializeNBT(MTKTag.getCompound(TAG_HANDLER));
         for (int i = 0; i < handler.getSlots(); i++) {
             int countInt = listTagCount.getInt(i);

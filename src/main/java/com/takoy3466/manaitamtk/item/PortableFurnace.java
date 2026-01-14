@@ -54,6 +54,7 @@ public class PortableFurnace extends AbstractItemMultipler implements IHasCapabi
 
     @Override
     public AbstractContainerMenu setMenu(int id, Inventory inventory, Player player, ItemStack stack) {
+        this.execute(MTKCapabilities.PORTABLE_FURNACE, stack, iPortableFurnace -> iPortableFurnace.deserializeNBT(stack.getOrCreateTag()));
         return new PortableFurnaceMenu(id, inventory, stack);
     }
 

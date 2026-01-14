@@ -1,0 +1,38 @@
+{
+  "criteria": {
+    "tick": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:crafting_table"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "minecraft:textures/block/stone.png",
+    "description": {
+      "translate": "advancements.start.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "manaitamtk:item_mtk"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.start.title"
+    }
+  },
+  "requirements": [
+    [
+      "tick"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

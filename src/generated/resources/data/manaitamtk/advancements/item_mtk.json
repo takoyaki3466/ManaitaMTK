@@ -1,0 +1,38 @@
+{
+  "parent": "manaitamtk:manaita_mtk_start",
+  "criteria": {
+    "inv_change": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "manaitamtk:block_manaita"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.make_mtk.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "manaitamtk:item_mtk"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.make_mtk.title"
+    }
+  },
+  "requirements": [
+    [
+      "inv_change"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -14,7 +14,7 @@ public class MTKCapabilities {
 
     public static final Capability<IRangeBreak> RANGE_BREAK = CapabilityManager.get(new CapabilityToken<>() {});
 
-    public static final Capability<IMTKSword> MTK_SWORD = CapabilityManager.get(new CapabilityToken<>() {});
+    public static final Capability<IKillSword> KILL_SWORD = CapabilityManager.get(new CapabilityToken<>() {});
 
     public static final Capability<IWoodReverse> WOOD_REVERSE = CapabilityManager.get(new CapabilityToken<>() {});
 

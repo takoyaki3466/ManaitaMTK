@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.item.armor;
 
-import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
+import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMappings;
 import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
 import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
 import com.takoy3466.manaitamtk.api.capability.provider.FlyProvider;
@@ -8,6 +8,8 @@ import com.takoy3466.manaitamtk.api.capability.provider.InvincibleProvider;
 import com.takoy3466.manaitamtk.api.capability.interfaces.IFly;
 import com.takoy3466.manaitamtk.api.capability.interfaces.IInvincible;
 import com.takoy3466.manaitamtk.init.ItemsInit;
+import com.takoy3466.manaitamtk.network.MTKNetwork;
+import com.takoy3466.manaitamtk.network.PacketFlySpeed;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -51,22 +53,25 @@ public class HelmetManaita extends armorManaitaCore implements IHasCapability {
         if (!(entity instanceof Player player)) return;
         ItemStack helmetStack = player.getItemBySlot(EquipmentSlot.HEAD);
         boolean isEquipHelmet = helmetStack.getItem() == ItemsInit.HELMET_MANAITA.get();
-        this.execute(MTKCapabilities.FLY, stack, iFly -> iFly.setCanFly(isEquipHelmet));
         this.execute(MTKCapabilities.INVINCIBLE, stack, iInvincible -> iInvincible.setInvincible(isEquipHelmet));
 
+        if (helmetStack.getItem() != ItemsInit.HELMET_MANAITA.get()) {
+            return;
+        }
+
         if (world.isClientSide()){ // クライアントだけの処理 (キー入力のチェック)
-            if (MTKKeyMapping.HelmetKey.consumeClick()){
+            if (MTKKeyMappings.HelmetKey.consumeClick()){
                 modeNumber = modeChange(modeNumber, 1);
                 player.displayClientMessage(Component.literal("MODE :" + modeName()),true);
 
-            } else if (MTKKeyMapping.FlySpeedKey.consumeClick()) {
+            } else if (MTKKeyMappings.FlySpeedKey.consumeClick()) {
                 this.flySpeed = modeChange(this.flySpeed, 3);// 0 -> 0.05f, 1 -> 0.1f, 2 -> 0.2f, 3 -> 0.6f
                 switch (this.flySpeed) {
-                    case 0 -> this.setFlySpeed(stack, 0.05f);
-                    case 1 -> this.setFlySpeed(stack, 0.1f);
-                    case 2 -> this.setFlySpeed(stack, 0.2f);
-                    case 3 -> this.setFlySpeed(stack, 0.6f);
-                    default -> this.setFlySpeed(stack, 0.05f);
+                    case 0 -> this.setFlySpeed(0.05f);
+                    case 1 -> this.setFlySpeed(0.1f);
+                    case 2 -> this.setFlySpeed(0.2f);
+                    case 3 -> this.setFlySpeed(0.6f);
+                    default -> this.setFlySpeed(0.05f);
                 }
                 String s =  switch (this.flySpeed) {
                     case 0 -> "0.05";
@@ -87,8 +92,8 @@ public class HelmetManaita extends armorManaitaCore implements IHasCapability {
         }
     }
 
-    public void setFlySpeed(ItemStack stack, float flySpeed) {
-        this.execute(MTKCapabilities.FLY, stack, iFly -> iFly.setFlySpeed(flySpeed));
+    public void setFlySpeed(float flySpeed) {
+        MTKNetwork.CHANNEL.sendToServer(new PacketFlySpeed(flySpeed));
     }
 
     public Float getFlySpeed(ItemStack stack) {

@@ -4,7 +4,7 @@ import com.takoy3466.manaitamtk.api.capability.interfaces.IRangeBreak;
 import com.takoy3466.manaitamtk.util.ToolUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public class RangeBreakProvider implements IRangeBreak, INBTSerializable<CompoundTag> {
@@ -13,8 +13,10 @@ public class RangeBreakProvider implements IRangeBreak, INBTSerializable<Compoun
     private int range;
 
     @Override
-    public void rangeBreak(LevelAccessor accessor, int x, int y, int z, LivingEntity livingEntity, int size) {
-        ToolUtil.RangeBreak(accessor, x, y, z, livingEntity, size);
+    public void rangeBreak(Level level, int x, int y, int z, LivingEntity livingEntity, int size) {
+        if (!level.isClientSide()) {
+            ToolUtil.RangeBreak(level, x, y, z, livingEntity, size);
+        }
     }
 
     @Override
@@ -38,6 +40,4 @@ public class RangeBreakProvider implements IRangeBreak, INBTSerializable<Compoun
     public void deserializeNBT(CompoundTag tag) {
         this.range = tag.getInt(RANGE_BREAK);
     }
-
-
 }

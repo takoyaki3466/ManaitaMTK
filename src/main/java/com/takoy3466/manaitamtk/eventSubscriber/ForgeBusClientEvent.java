@@ -1,9 +1,9 @@
 package com.takoy3466.manaitamtk.eventSubscriber;
 
-import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
+import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMappings;
 import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
-import com.takoy3466.manaitamtk.api.capability.interfaces.IMTKSword;
+import com.takoy3466.manaitamtk.api.capability.interfaces.IKillSword;
 import com.takoy3466.manaitamtk.api.capability.interfaces.IMultiple;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.item.tool.MTKSwitcherScreen;
@@ -43,7 +43,7 @@ public class ForgeBusClientEvent {
 
         boolean hasItem = item == ItemsInit.MANAITA_PICKAXE.get() || item == ItemsInit.MANAITA_PAXEL.get();
         if (!hasItem) return;
-        if (MTKKeyMapping.MTKSwitcherOpenKey.matches(event.getKey(), event.getScanCode())) {
+        if (MTKKeyMappings.MTKSwitcherOpenKey.matches(event.getKey(), event.getScanCode())) {
             if (event.getAction() == GLFW.GLFW_PRESS) {
                 minecraft.setScreen(new MTKSwitcherScreen());
             } else if (event.getAction() == GLFW.GLFW_RELEASE) {
@@ -65,7 +65,7 @@ public class ForgeBusClientEvent {
         Player player = minecraft.player;
         if (isDone) return;
         if (!isDown) {
-            if (MTKKeyMapping.MTKSwitcherOpenKey.isDown()) {
+            if (MTKKeyMappings.MTKSwitcherOpenKey.isDown()) {
                 isDown = true;
             }
         }
@@ -144,10 +144,10 @@ public class ForgeBusClientEvent {
 
         }
         else if (item == ItemsInit.MANAITA_SWORD.get()) {
-            LazyOptional<IMTKSword> lazyOptional = stack.getCapability(MTKCapabilities.MTK_SWORD);
+            LazyOptional<IKillSword> lazyOptional = stack.getCapability(MTKCapabilities.KILL_SWORD);
             boolean killTarget;
             if (lazyOptional.isPresent() && lazyOptional.resolve().isPresent()) {
-                killTarget = lazyOptional.resolve().get().IsKillAll();
+                killTarget = lazyOptional.resolve().get().isKillAll();
             }else killTarget = false;
 
             int xSword = minecraft.getWindow().getGuiScaledWidth() / 2 - minecraft.font.width(killTarget? SWORD_TEXT_ALL.getString() : SWORD_TEXT_ENEMY.getString()) / 2;

@@ -1,10 +1,12 @@
 package com.takoy3466.manaitamtk.item.tool;
 
-import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMapping;
+import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMappings;
+import com.takoy3466.manaitamtk.api.capability.interfaces.IKillSword;
 import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
 import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
-import com.takoy3466.manaitamtk.api.capability.interfaces.IMTKSword;
 import com.takoy3466.manaitamtk.api.capability.provider.MTKSwordProvider;
+import com.takoy3466.manaitamtk.network.MTKNetwork;
+import com.takoy3466.manaitamtk.network.PacketisKillAll;
 import com.takoy3466.manaitamtk.util.WeaponUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -50,18 +52,21 @@ public class ToolManaitaSword extends SwordItem implements IHasCapability {
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int i, boolean b) {
         super.inventoryTick(stack, level, entity, i, b);
-        if (!(entity instanceof Player player)) return;
+        if (!(entity instanceof Player player)) {
+            return;
+        }
         if (level.isClientSide()) {
-            if (MTKKeyMapping.SwitchExtermination.consumeClick() && player.isSteppingCarefully()) {
-                this.execute(MTKCapabilities.MTK_SWORD, stack, imtkSword -> imtkSword.setIsKillAll(!this.isKillAll(stack)));
+            if (MTKKeyMappings.SwitchExterminationKey.consumeClick() && player.isSteppingCarefully()) {
+                this.execute(MTKCapabilities.KILL_SWORD, stack, imtkSword -> imtkSword.setIsKillAll(!imtkSword.isKillAll()));
+                MTKNetwork.sendToServer(new PacketisKillAll(isKillAll(stack)));
             }
         }
     }
 
     public boolean isKillAll(ItemStack stack) {
-        LazyOptional<IMTKSword> lazyOptional = this.getLazyOptional(MTKCapabilities.MTK_SWORD, stack);
+        LazyOptional<IKillSword> lazyOptional = this.getLazyOptional(MTKCapabilities.KILL_SWORD, stack);
         if (this.isUsage(lazyOptional)) {
-            return this.getInterface(lazyOptional).IsKillAll();
+            return this.getInterface(lazyOptional).isKillAll();
         }else return false;
     }
 
@@ -69,7 +74,7 @@ public class ToolManaitaSword extends SwordItem implements IHasCapability {
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
         list.add(Component.translatable("item.manaitamtk.manaita_sword_hover_text")
                 .withStyle(ChatFormatting.GRAY));
-        list.add(Component.literal(this.KEY.getString() + MTKKeyMapping.SwitchExtermination.getKey().getDisplayName().getString()));
+        list.add(Component.literal(this.KEY.getString() + MTKKeyMappings.SwitchExterminationKey.getKey().getDisplayName().getString()));
 
         if (this.isKillAll(stack)) {
             list.add(Component.literal(this.MODE.getString() + this.SWORD_TEXT_ALL.getString()));
@@ -78,6 +83,6 @@ public class ToolManaitaSword extends SwordItem implements IHasCapability {
 
     @Override
     public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        return this.setCapability(MTKCapabilities.MTK_SWORD, MTKSwordProvider::new);
+        return this.setCapability(MTKCapabilities.KILL_SWORD, MTKSwordProvider::new);
     }
 }

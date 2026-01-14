@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * MTKEnumからの移行。基本的にはMTKEnumから何も変わっていません
  * new作成またはcreateメソッドから作成できます。
- * */
+ */
 @SuppressWarnings("ClassCanBeRecord")
 public class MTKTier {
     private final int multiple;

@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.menu;
 
 import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
-import com.takoy3466.manaitamtk.block.blockEntity.MTKFurnaceBlockEntity;
+import com.takoy3466.manaitamtk.block.blockEntity.AbstractMTKFurnaceBlockEntity;
 import com.takoy3466.manaitamtk.util.slot.MTKFurnaceFuelSlot;
 import com.takoy3466.manaitamtk.init.MenusInit;
 import com.takoy3466.manaitamtk.util.slot.MTKSlot;
@@ -27,7 +27,7 @@ public class MTKFurnaceMenu extends RecipeBookMenu<Container> {
     private final RecipeType<? extends AbstractCookingRecipe> recipeType;
     private final RecipeBookType recipeBookType;
 
-    public final MTKFurnaceBlockEntity blockEntity;
+    public final AbstractMTKFurnaceBlockEntity blockEntity;
 
     public MTKFurnaceMenu(int id, Inventory playerInventory, FriendlyByteBuf buf, MTKTier mtkTier) {
         this(id, playerInventory, buf.readBlockPos(), mtkTier);
@@ -50,7 +50,7 @@ public class MTKFurnaceMenu extends RecipeBookMenu<Container> {
         this.level = playerInventory.player.level();
 
         BlockEntity be = playerInventory.player.level().getBlockEntity(pos);
-        if (be instanceof MTKFurnaceBlockEntity furnaceBlockEntity){
+        if (be instanceof AbstractMTKFurnaceBlockEntity furnaceBlockEntity){
             this.blockEntity = furnaceBlockEntity;
         } else {
             throw new IllegalStateException(be.getClass().getCanonicalName() + "と MTKFurnaceBlockEntity クラスは違うよ！");
@@ -191,7 +191,7 @@ public class MTKFurnaceMenu extends RecipeBookMenu<Container> {
         return litDuration != 0 ? litTime * 13 / litDuration : 0;
     }
 
-    public MTKFurnaceBlockEntity getBlockEntity() {
+    public AbstractMTKFurnaceBlockEntity getBlockEntity() {
         return this.blockEntity;
     }
 }

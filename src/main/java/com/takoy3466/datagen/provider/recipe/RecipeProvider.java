@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk.datagen.provider;
+package com.takoy3466.datagen.provider.recipe;
 
 import com.takoy3466.manaitamtk.init.BlocksInit;
 import com.takoy3466.manaitamtk.init.ItemsInit;

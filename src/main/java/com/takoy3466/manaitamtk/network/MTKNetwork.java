@@ -3,8 +3,10 @@ package com.takoy3466.manaitamtk.network;
 import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.api.abstracts.AbstractMTKPacket;
 import com.takoy3466.manaitamtk.api.interfaces.IMTKPacket;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
@@ -27,5 +29,10 @@ public class MTKNetwork {
     public static void register() {
         registerMessage(PacketRange.class, PacketRange::decode);
         registerMessage(PacketFlySpeed.class, PacketFlySpeed::decode);
+        registerMessage(PacketisKillAll.class, PacketisKillAll::decode);
+    }
+
+    public static <MSG> void sendToServer(MSG msg) {
+        CHANNEL.sendToServer(msg);
     }
 }
