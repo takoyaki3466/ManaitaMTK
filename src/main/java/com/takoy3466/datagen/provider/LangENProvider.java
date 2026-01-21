@@ -1,16 +1,16 @@
-package com.takoy3466.datagen.provider.lang;
+package com.takoy3466.datagen.provider;
 
+import com.takoy3466.datagen.provider.abstracts.MTKLangProvider;
 import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
-import com.takoy3466.datagen.provider.lang.abstracts.MTKLangProvider;
 import com.takoy3466.manaitamtk.api.registry.tiered.TieredRegistryObject;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 
-public class LangKOProvider extends MTKLangProvider {
-    public LangKOProvider(PackOutput output) {
-        super(output, ManaitaMTK.MOD_ID, "ko_kr");
+public class LangENProvider extends MTKLangProvider {
+    public LangENProvider(PackOutput output) {
+        super(output, ManaitaMTK.MOD_ID, "en_us");
     }
 
     @Override
@@ -32,7 +32,7 @@ public class LangKOProvider extends MTKLangProvider {
 
     }
     private void portableFurnace(TieredRegistryObject<Item, MTKTier> object) {
-        add(object.get(), "휴대용 " + of(object.getTier()) + " 화로");
+        add(object.get(), "Portable " + of(object.getTier()) + " Furnace");
     }
 
     @Override
@@ -64,5 +64,4 @@ public class LangKOProvider extends MTKLangProvider {
     protected void otherTranslate() {
 
     }
-
 }

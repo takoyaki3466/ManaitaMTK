@@ -4,7 +4,7 @@ import com.takoy3466.manaitamtk.api.capability.interfaces.IMultiple;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.util.INBTSerializable;
 
-public class MultipleProvider implements IMultiple, INBTSerializable<CompoundTag> {
+public class MultipleProvider implements IMultiple {
     private final String MULTIPLE = "multiple";
 
     private int multiple;

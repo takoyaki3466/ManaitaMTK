@@ -1,9 +1,11 @@
 package com.takoy3466.manaitamtk.item.tool;
 
+import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
 import com.takoy3466.manaitamtk.api.capability.interfaces.IRangeBreak;
 import com.takoy3466.manaitamtk.api.capability.provider.RangeBreakProvider;
-import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
+import com.takoy3466.manaitamtk.api.interfaces.ISimpleCapability;
+import com.takoy3466.manaitamtk.api.interfaces.IUseTag;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -16,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.Nullable;
@@ -23,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 
-public class ToolManaitaPickaxe extends PickaxeItem implements IHasCapability {
+public class ToolManaitaPickaxe extends PickaxeItem implements ISimpleCapability<IRangeBreak>, IUseTag {
     private final Component PRESS_TO_SHIFT = Component.translatable("util.manaitamtk.press_to_shift").withStyle(ChatFormatting.GRAY);
     private final Component DESCRIPTION = Component.translatable("item.manaitamtk.manaita_pickaxe_hover_text");
 
@@ -39,7 +42,7 @@ public class ToolManaitaPickaxe extends PickaxeItem implements IHasCapability {
         InteractionHand hand = context.getHand();
 
         if (player != null && !level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
-            this.execute(MTKCapabilities.RANGE_BREAK, context,
+            this.execute(context.getItemInHand(),
                     iRangeBreak -> iRangeBreak.rangeBreak(level, pos.getX(), pos.getY(), pos.getZ(), player, getRange(serverPlayer.getItemInHand(hand)))
             );
 
@@ -55,6 +58,25 @@ public class ToolManaitaPickaxe extends PickaxeItem implements IHasCapability {
         }else return 1;
     }
 
+    // load
+    @Override
+    public void readShareTag(ItemStack stack, @Nullable CompoundTag nbt) {
+        if (nbt == null) {
+            return;
+        }
+        stack.setTag(nbt);
+        if (isContains(nbt)) {
+            execute(stack, iRangeBreak -> iRangeBreak.deserializeNBT(getTag(nbt)));
+        }
+    }
+
+    // save
+    @Override
+    public @Nullable CompoundTag getShareTag(ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTag().copy();
+        execute(stack, iRangeBreak -> tag.put(getPath(), iRangeBreak.serializeNBT()));
+        return tag;
+    }
 
     @Override
     public boolean isFoil(ItemStack stack) {
@@ -80,6 +102,23 @@ public class ToolManaitaPickaxe extends PickaxeItem implements IHasCapability {
 
     @Override
     public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        return this.setCapability(MTKCapabilities.RANGE_BREAK, RangeBreakProvider::new);
+        return this.setCapability(() -> {
+            RangeBreakProvider provider = new RangeBreakProvider();
+            if (isContains(stack)) {
+                provider.deserializeNBT(getTag(stack));
+            }
+            return provider;
+        });
+    }
+
+    @Nullable
+    @Override
+    public String getPath() {
+        return ManaitaMTK.MOD_ID;
+    }
+
+    @Override
+    public Capability<IRangeBreak> getCapability() {
+        return MTKCapabilities.RANGE_BREAK;
     }
 }

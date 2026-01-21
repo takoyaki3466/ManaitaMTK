@@ -1,17 +1,21 @@
 package com.takoy3466.manaitamtk.item;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMappings;
+import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.api.capability.interfaces.IMultiple;
 import com.takoy3466.manaitamtk.api.capability.provider.MultipleProvider;
-import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
 import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
 import com.takoy3466.manaitamtk.api.interfaces.IHasMenuProvider;
+import com.takoy3466.manaitamtk.api.interfaces.ISimpleCapability;
+import com.takoy3466.manaitamtk.api.interfaces.IUseTag;
 import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
 import com.takoy3466.manaitamtk.init.MTKTiers;
 import com.takoy3466.manaitamtk.menu.MTKCraftingTableMenu;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -23,6 +27,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
@@ -30,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ChangeableMagnificationPortableDCT extends Item implements IHasCapability, IHasMenuProvider {
+public class ChangeableMagnificationPortableDCT extends Item implements ISimpleCapability<IMultiple>, IHasMenuProvider, IUseTag {
     static int modeNum = 0;
 
     public ChangeableMagnificationPortableDCT() {
@@ -41,7 +46,10 @@ public class ChangeableMagnificationPortableDCT extends Item implements IHasCapa
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        return this.openMenu(level, player, "craft " + getMagnification(player.getItemInHand(hand)) + "x", hand);
+        if (player instanceof ServerPlayer serverPlayer) {
+            return this.openMenu(level, serverPlayer, "craft " + getMagnification(serverPlayer.getItemInHand(hand)) + "x", hand);
+        }
+        return InteractionResultHolder.pass(player.getItemInHand(hand));
     }
 
     @Override
@@ -74,6 +82,24 @@ public class ChangeableMagnificationPortableDCT extends Item implements IHasCapa
         }
     }
 
+    @Override
+    public void readShareTag(ItemStack stack, @Nullable CompoundTag nbt) {
+        if (nbt == null) {
+            return;
+        }
+        stack.setTag(nbt);
+        if (isContains(nbt)) {
+            execute(stack, iMultiple -> iMultiple.deserializeNBT(getTag(nbt)));
+        }
+    }
+
+    @Override
+    public @Nullable CompoundTag getShareTag(ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTag().copy();
+        execute(stack, iMultiple -> tag.put(getPath(), iMultiple.serializeNBT()));
+        return tag;
+    }
+
     public int getMagnification(ItemStack stack) {
         LazyOptional<IMultiple> lazyOptional = this.getLazyOptional(MTKCapabilities.MULTIPLE, stack);
         if (this.isUsage(lazyOptional)) {
@@ -83,15 +109,18 @@ public class ChangeableMagnificationPortableDCT extends Item implements IHasCapa
     }
 
     public void setMagnification(ItemStack stack, int magnification) {
-        LazyOptional<IMultiple> lazyOptional = this.getLazyOptional(MTKCapabilities.MULTIPLE, stack);
-        if (this.isUsage(lazyOptional)) {
-            this.execute(lazyOptional, iMultiple -> iMultiple.setMultiple(magnification));
-        }
+        execute(stack, (iMultiple) -> iMultiple.setMultiple(magnification));
     }
 
     @Override
     public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        return this.setCapability(MTKCapabilities.MULTIPLE, MultipleProvider::new);
+        return this.setCapability(() -> {
+            MultipleProvider provider = new MultipleProvider();
+            if (isContains(stack)) {
+                provider.deserializeNBT(getTag(stack));
+            }
+            return provider;
+        });
     }
 
     @Override
@@ -124,5 +153,16 @@ public class ChangeableMagnificationPortableDCT extends Item implements IHasCapa
             case 33554431 -> MTKTiers.BREAK;
             default -> MTKTiers.WOOD;
         };
+    }
+
+    @Override
+    public Capability<IMultiple> getCapability() {
+        return MTKCapabilities.MULTIPLE;
+    }
+
+    @Nullable
+    @Override
+    public String getPath() {
+        return ManaitaMTK.MOD_ID;
     }
 }

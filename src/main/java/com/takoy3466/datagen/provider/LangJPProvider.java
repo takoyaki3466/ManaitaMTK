@@ -1,6 +1,6 @@
-package com.takoy3466.datagen.provider.lang;
+package com.takoy3466.datagen.provider;
 
-import com.takoy3466.datagen.provider.lang.abstracts.MTKLangProvider;
+import com.takoy3466.datagen.provider.abstracts.MTKLangProvider;
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMappings;
 import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;

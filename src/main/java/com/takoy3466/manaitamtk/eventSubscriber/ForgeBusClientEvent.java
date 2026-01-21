@@ -114,17 +114,12 @@ public class ForgeBusClientEvent {
         ItemStack stack = player.getMainHandItem();
         Item item = stack.getItem();
 
-        if (item == ItemsInit.MANAITA_PICKAXE.get()) {
-            MTKSwitcherScreen.MTKIcon mtkIcon = MTKSwitcherScreen.MTKIcon.getFromRange(player.getMainHandItem().getOrCreateTag().getInt("Range"));
-            graphics.blit(FLAME_TEXTURE , FLAME_X, FLAME_Y , 0, 0 , 24, 24 , 24, 24);
-            graphics.renderItem(mtkIcon.getRenderStack(), FLAME_X + 4, FLAME_Y + 4);
-
-        }
-        else if (item == ItemsInit.MANAITA_PAXEL.get()) {
-            MTKSwitcherScreen.MTKIcon mtkIcon = MTKSwitcherScreen.MTKIcon.getFromRange(player.getMainHandItem().getOrCreateTag().getInt("Range"));
-            graphics.blit(FLAME_TEXTURE , FLAME_X, FLAME_Y , 0, 0 , 24, 24 , 24, 24);
-            graphics.renderItem(mtkIcon.getRenderStack(), FLAME_X + 4, FLAME_Y + 4);
-
+        if (item == ItemsInit.MANAITA_PICKAXE.get() || item == ItemsInit.MANAITA_PAXEL.get()) {
+            MTKEventHelper.execute(MTKCapabilities.RANGE_BREAK, stack, (cap) -> {
+                MTKSwitcherScreen.MTKIcon mtkIcon = MTKSwitcherScreen.MTKIcon.getFromRange(cap.getRange());
+                graphics.blit(FLAME_TEXTURE , FLAME_X, FLAME_Y , 0, 0 , 24, 24 , 24, 24);
+                graphics.renderItem(mtkIcon.getRenderStack(), FLAME_X + 4, FLAME_Y + 4);
+            });
         }
         else if (item == ItemsInit.CHANGEABLE_PORTABLE_DCT.get()) {
             graphics.blit(FLAME_TEXTURE , FLAME_X, FLAME_Y , 0, 0 , 24, 24 , 24, 24);
@@ -137,24 +132,22 @@ public class ForgeBusClientEvent {
                     case 8 -> portableTableStack = Items.IRON_INGOT.getDefaultInstance();
                     case 16 -> portableTableStack = Items.GOLD_INGOT.getDefaultInstance();
                     case 64 -> portableTableStack = ItemsInit.CRUSHED_MTK.get().getDefaultInstance();
-                    default -> portableTableStack = ItemStack.EMPTY;
+                    default -> portableTableStack = Items.CRAFTING_TABLE.getDefaultInstance();
                 }
             }else return;
             graphics.renderItem(portableTableStack, FLAME_X + 4, FLAME_Y + 4);
 
         }
         else if (item == ItemsInit.MANAITA_SWORD.get()) {
-            LazyOptional<IKillSword> lazyOptional = stack.getCapability(MTKCapabilities.KILL_SWORD);
-            boolean killTarget;
-            if (lazyOptional.isPresent() && lazyOptional.resolve().isPresent()) {
-                killTarget = lazyOptional.resolve().get().isKillAll();
-            }else killTarget = false;
-
-            int xSword = minecraft.getWindow().getGuiScaledWidth() / 2 - minecraft.font.width(killTarget? SWORD_TEXT_ALL.getString() : SWORD_TEXT_ENEMY.getString()) / 2;
-            int ySword = minecraft.getWindow().getGuiScaledHeight() - 49 - minecraft.font.lineHeight;
-            graphics.drawString(minecraft.font, killTarget? SWORD_TEXT_ALL : SWORD_TEXT_ENEMY, xSword, ySword, killTarget? Color.RED.getRGB() : Color.GRAY.getRGB());
+            MTKEventHelper.execute(MTKCapabilities.KILL_SWORD, stack, (cap) -> {
+                boolean killTarget = cap.isKillAll();
+                int xSword = minecraft.getWindow().getGuiScaledWidth() / 2 - minecraft.font.width(killTarget? SWORD_TEXT_ALL.getString() : SWORD_TEXT_ENEMY.getString()) / 2;
+                int ySword = minecraft.getWindow().getGuiScaledHeight() - 49 - minecraft.font.lineHeight;
+                graphics.drawString(minecraft.font, killTarget? SWORD_TEXT_ALL : SWORD_TEXT_ENEMY, xSword, ySword, killTarget? Color.RED.getRGB() : Color.GRAY.getRGB());
+            });
         }
     }
+
     private static final Component component = Component.translatable("tooltip.amount");
 
     @SubscribeEvent

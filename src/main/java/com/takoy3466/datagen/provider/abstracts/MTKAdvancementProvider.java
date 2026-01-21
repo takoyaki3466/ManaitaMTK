@@ -1,4 +1,4 @@
-package com.takoy3466.datagen.provider.lang.abstracts;
+package com.takoy3466.datagen.provider.abstracts;
 
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;

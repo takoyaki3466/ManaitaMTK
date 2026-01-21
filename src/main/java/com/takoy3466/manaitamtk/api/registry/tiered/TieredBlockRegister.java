@@ -26,6 +26,10 @@ public class TieredBlockRegister<TIER> {
         return TieredBlockRegistryObject.of(REGISTER.getMTKRegistry(block, item), tier);
     }
 
+    public MTKDeferredRegister<Block, Item> getRegister() {
+        return REGISTER;
+    }
+
     public void register(IEventBus bus) {
         REGISTER.register(bus);
     }

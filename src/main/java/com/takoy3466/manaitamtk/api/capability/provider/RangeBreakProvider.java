@@ -5,9 +5,8 @@ import com.takoy3466.manaitamtk.util.ToolUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.util.INBTSerializable;
 
-public class RangeBreakProvider implements IRangeBreak, INBTSerializable<CompoundTag> {
+public class RangeBreakProvider implements IRangeBreak {
     private final String RANGE_BREAK = "rangeBreak";
 
     private int range;

@@ -4,6 +4,7 @@ import com.takoy3466.manaitamtk.api.registry.BlockRegistryObject;
 import com.takoy3466.manaitamtk.api.registry.MTKRegistryObject;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.RegistryObject;
 
 @SuppressWarnings("ClassCanBeRecord")
 public class TieredBlockRegistryObject<TIER> {
@@ -21,6 +22,14 @@ public class TieredBlockRegistryObject<TIER> {
 
     public static <T> TieredBlockRegistryObject<T> of(MTKRegistryObject<Block, Item> object, T tier) {
         return new TieredBlockRegistryObject<>(BlockRegistryObject.of(object), tier);
+    }
+
+    public RegistryObject<Block> getFront() {
+        return object.getFront();
+    }
+
+    public RegistryObject<Item> getBehind() {
+        return object.getBehind();
     }
 
     public Block getBlock() {

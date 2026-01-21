@@ -2,6 +2,7 @@ package com.takoy3466.manaitamtk.api.capability.interfaces;
 
 import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -27,5 +28,11 @@ public interface IPortableFurnace<T extends ItemStackHandler> extends INBTSerial
     MTKTier getMTKTier();
     void setMTKTier(MTKTier mtkTier);
 
-    void tick(Level level, MTKTier mtkEnum);
+    void tick(Level level, MTKTier mtkTier);
+
+    @Override
+    void deserializeNBT(CompoundTag compoundTag);
+
+    @Override
+    CompoundTag serializeNBT();
 }

@@ -1,5 +1,6 @@
 package com.takoy3466.manaitamtk.api.capability.provider;
 
+import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.api.capability.interfaces.IPortableFurnace;
 import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
 import com.takoy3466.manaitamtk.api.interfaces.IMTKMultiple;
@@ -171,7 +172,6 @@ public class PortableFurnaceProvider implements IPortableFurnace<MTKItemStackHan
                 this.cookingProgress = 0;
             }
         }
-
     }
 
     private boolean isLit() {
@@ -262,17 +262,17 @@ public class PortableFurnaceProvider implements IPortableFurnace<MTKItemStackHan
     }
 
     @Override
-    public void deserializeNBT(CompoundTag tag) {
-        MTKContainerHelper.loadHandler(tag, this.handler);
-        this.litTime = tag.getInt(LIT_TIME);
-        this.litDuration = tag.getInt(LIT_DURATION);
-        this.cookingProgress = tag.getInt(COOKING_PROGRESS);
-        this.cookingTotalTime = tag.getInt(COOK_TIME_TOTAL);
-        CompoundTag compoundtag = tag.getCompound(RECIPE_USED);
-        Iterator var3 = compoundtag.getAllKeys().iterator();
+    public void deserializeNBT(CompoundTag compoundTag) {
+        MTKContainerHelper.loadHandler(compoundTag, this.handler);
+        this.litTime = compoundTag.getInt(LIT_TIME);
+        this.litDuration = compoundTag.getInt(LIT_DURATION);
+        this.cookingProgress = compoundTag.getInt(COOKING_PROGRESS);
+        this.cookingTotalTime = compoundTag.getInt(COOK_TIME_TOTAL);
+        CompoundTag compoundtag = compoundTag.getCompound(RECIPE_USED);
+        Iterator iterator = compoundtag.getAllKeys().iterator();
 
-        while(var3.hasNext()) {
-            String s = (String)var3.next();
+        while(iterator.hasNext()) {
+            String s = (String)iterator.next();
             this.recipesUsed.put(new ResourceLocation(s), compoundtag.getInt(s));
         }
     }

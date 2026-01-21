@@ -1,9 +1,11 @@
 package com.takoy3466.manaitamtk.item.tool;
 
+import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
 import com.takoy3466.manaitamtk.api.capability.interfaces.IRangeBreak;
 import com.takoy3466.manaitamtk.api.capability.provider.RangeBreakProvider;
-import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
+import com.takoy3466.manaitamtk.api.interfaces.ISimpleCapability;
+import com.takoy3466.manaitamtk.api.interfaces.IUseTag;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -16,13 +18,14 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ToolManaitaPaxel extends TieredItem implements IHasCapability {
+public class ToolManaitaPaxel extends TieredItem implements ISimpleCapability<IRangeBreak>, IUseTag {
     private final Component PRESS_TO_SHIFT = Component.translatable("util.manaitamtk.press_to_shift").withStyle(ChatFormatting.GRAY);
     private final Component DESCRIPTION = Component.translatable("item.manaitamtk.manaita_paxel_hover_text");
 
@@ -70,6 +73,24 @@ public class ToolManaitaPaxel extends TieredItem implements IHasCapability {
         }else return 1;
     }
 
+    @Override
+    public void readShareTag(ItemStack stack, @Nullable CompoundTag nbt) {
+        if (nbt == null) {
+            return;
+        }
+        stack.setTag(nbt);
+        if (isContains(nbt)) {
+            execute(stack, iRangeBreak -> iRangeBreak.deserializeNBT(getTag(nbt)));
+        }
+    }
+
+    @Override
+    public @Nullable CompoundTag getShareTag(ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTag().copy();
+        execute(stack, iRangeBreak -> tag.put(getPath(), iRangeBreak.serializeNBT()));
+        return tag;
+    }
+
     //ピカピカさせる
     @Override
     public boolean isFoil(ItemStack stack) {
@@ -94,6 +115,23 @@ public class ToolManaitaPaxel extends TieredItem implements IHasCapability {
 
     @Override
     public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        return setCapability(MTKCapabilities.RANGE_BREAK, RangeBreakProvider::new);
+        return this.setCapability(() -> {
+            RangeBreakProvider provider = new RangeBreakProvider();
+            if (isContains(stack)) {
+                provider.deserializeNBT(getTag(stack));
+            }
+            return provider;
+        });
+    }
+
+    @Override
+    public Capability<IRangeBreak> getCapability() {
+        return MTKCapabilities.RANGE_BREAK;
+    }
+
+    @Nullable
+    @Override
+    public String getPath() {
+        return ManaitaMTK.MOD_ID;
     }
 }

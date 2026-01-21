@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "manaitamtk:item/portable_wood_furnace"
+  }
+}

@@ -1,6 +1,6 @@
 package com.takoy3466.datagen.provider;
 
-import com.takoy3466.datagen.provider.lang.abstracts.MTKAdvancementProvider;
+import com.takoy3466.datagen.provider.abstracts.MTKAdvancementProvider;
 import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.init.BlocksInit;
 import com.takoy3466.manaitamtk.init.ItemsInit;

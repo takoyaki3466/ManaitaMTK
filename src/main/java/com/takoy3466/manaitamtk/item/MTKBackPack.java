@@ -1,7 +1,5 @@
 package com.takoy3466.manaitamtk.item;
 
-import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.api.helper.MTKContainerHelper;
 import com.takoy3466.manaitamtk.api.interfaces.IHasMenuProvider;
 import com.takoy3466.manaitamtk.api.interfaces.ISaveLoad;
 import com.takoy3466.manaitamtk.menu.MTKBackpackMenu;
@@ -9,8 +7,6 @@ import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.util.tooptip.MTKBackPackTooltip;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;

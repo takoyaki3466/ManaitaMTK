@@ -27,6 +27,10 @@ public class BlockRegister {
         return BlockRegistryObject.of(REGISTER.getMTKRegistry(block, item));
     }
 
+    public MTKDeferredRegister<Block, Item> getRegister() {
+        return REGISTER;
+    }
+
     public void register(IEventBus bus) {
         REGISTER.register(bus);
     }

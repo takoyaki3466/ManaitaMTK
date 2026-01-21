@@ -1,5 +1,6 @@
 package com.takoy3466.manaitamtk.menu;
 
+import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
 import com.takoy3466.manaitamtk.api.capability.PortableFurnaceData;
 import com.takoy3466.manaitamtk.api.capability.interfaces.IPortableFurnace;
@@ -7,6 +8,7 @@ import com.takoy3466.manaitamtk.api.helper.MTKMenuHelper;
 import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
 import com.takoy3466.manaitamtk.api.interfaces.ISaveLoad;
 import com.takoy3466.manaitamtk.util.slot.*;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
@@ -35,8 +37,7 @@ public class PortableFurnaceMenu extends AbstractContainerMenu implements IHasCa
     public PortableFurnaceMenu(int id, Inventory playerInventory, ItemStack stack) {
         super(MenuType.FURNACE, id);
         this.player = playerInventory.player;
-        LazyOptional<IPortableFurnace> lazyOptional = stack.getCapability(MTKCapabilities.PORTABLE_FURNACE);
-        this.furnace = lazyOptional.orElseThrow(() -> new IllegalStateException("IPortableFurnaceがないよ！"));
+        this.furnace = stack.getCapability(MTKCapabilities.PORTABLE_FURNACE).orElseThrow(() -> new IllegalStateException("IPortableFurnaceがないよ！"));
         this.containerData = new PortableFurnaceData(furnace);
         this.recipeType = RecipeType.SMELTING;
         this.stack = stack;
@@ -128,7 +129,8 @@ public class PortableFurnaceMenu extends AbstractContainerMenu implements IHasCa
     @Override
     public void removed(@NotNull Player player) {
         super.removed(player);
-        this.execute(MTKCapabilities.PORTABLE_FURNACE, stack, INBTSerializable::serializeNBT);
+        CompoundTag tag = this.stack.getOrCreateTag();
+        this.execute(MTKCapabilities.PORTABLE_FURNACE, stack, (iPortableFurnace) -> tag.put(ManaitaMTK.MOD_ID, iPortableFurnace.serializeNBT()));
     }
 
     public boolean isLit() {

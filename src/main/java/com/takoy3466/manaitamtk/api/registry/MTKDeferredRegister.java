@@ -1,5 +1,6 @@
 package com.takoy3466.manaitamtk.api.registry;
 
+import net.minecraft.core.Holder;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -36,6 +37,14 @@ public class MTKDeferredRegister<FRONT, BEHIND> {
 
     public MTKRegistryObject<FRONT, BEHIND> getMTKRegistry(RegistryObject<FRONT> front, RegistryObject<BEHIND> behind) {
         return new MTKRegistryObject<>(front, behind);
+    }
+
+    public DeferredRegister<FRONT> getFront() {
+        return FRONT_REGISTER;
+    }
+
+    public DeferredRegister<BEHIND> getBehind() {
+        return BEHIND_REGISTER;
     }
 
     public void register(IEventBus bus) {

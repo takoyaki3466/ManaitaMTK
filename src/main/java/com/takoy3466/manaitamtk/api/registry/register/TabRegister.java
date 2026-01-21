@@ -24,13 +24,13 @@ public class TabRegister extends MTKRegister<CreativeModeTab> {
         return this.REIGSTER.register(name, supplier);
     }
 
-    public RegistryObject<CreativeModeTab> register(String name, RegistryObject<Item> iconItem, Component title, Item[] displayItems) {
+    public RegistryObject<CreativeModeTab> register(String name, RegistryObject<Item> iconItem, Component title, RegistryObject<? extends Item>[] displayItems) {
         return register(name, () -> CreativeModeTab.builder()
                 .icon(() -> new ItemStack(iconItem.get()))
                 .title(title)
                 .displayItems((itemDisplayParameters, output) -> {
-                    for (Item item1 : displayItems) {
-                        output.accept(item1);
+                    for (RegistryObject<? extends Item> item : displayItems) {
+                        output.accept(item.get());
                     }
                 }).build());
     }

@@ -23,6 +23,14 @@ public class BlockRegistryObject {
         return REGISTRY;
     }
 
+    public RegistryObject<Block> getFront() {
+        return REGISTRY.getRegistryFront();
+    }
+
+    public RegistryObject<Item> getBehind() {
+        return REGISTRY.getRegistryBehind();
+    }
+
     public Block getBlock() {
         return REGISTRY.getFront();
     }
