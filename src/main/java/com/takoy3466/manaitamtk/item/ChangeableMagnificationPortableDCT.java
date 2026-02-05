@@ -11,8 +11,9 @@ import com.takoy3466.manaitamtk.api.interfaces.IUseTag;
 import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
 import com.takoy3466.manaitamtk.init.MTKTiers;
 import com.takoy3466.manaitamtk.menu.MTKCraftingTableMenu;
+import com.takoy3466.manaitamtk.network.MTKNetwork;
+import com.takoy3466.manaitamtk.network.PacketMultiple;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -56,8 +57,8 @@ public class ChangeableMagnificationPortableDCT extends Item implements ISimpleC
     public void inventoryTick(@NotNull ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
         if (!(entity instanceof Player player)) return;
 
-        if (world.isClientSide){
-            if(MTKKeyMappings.MagnificationKey.consumeClick()){
+        if (world.isClientSide()) {
+            if (MTKKeyMappings.MagnificationKey.consumeClick()) {
                 modeNum = modeNum < 4 ? modeNum + 1 : 0;
                 switch (modeNum){
                     case 1:
@@ -109,7 +110,10 @@ public class ChangeableMagnificationPortableDCT extends Item implements ISimpleC
     }
 
     public void setMagnification(ItemStack stack, int magnification) {
-        execute(stack, (iMultiple) -> iMultiple.setMultiple(magnification));
+        execute(stack, (iMultiple) -> {
+            iMultiple.setMultiple(magnification);
+            MTKNetwork.sendToServer(new PacketMultiple(magnification));
+        });
     }
 
     @Override
@@ -138,21 +142,7 @@ public class ChangeableMagnificationPortableDCT extends Item implements ISimpleC
 
     @Override
     public AbstractContainerMenu setMenu(int id, Inventory inv, Player player, ItemStack stack) {
-        return new MTKCraftingTableMenu(id, inv, this.createAccess(player), getMTKTier(getMagnification(stack)));
-    }
-
-    private MTKTier getMTKTier(int multiple) {
-        return switch (multiple) {
-            case 2 -> MTKTiers.WOOD;
-            case 4 -> MTKTiers.STONE;
-            case 8 -> MTKTiers.IRON;
-            case 16 -> MTKTiers.GOLD;
-            case 32 -> MTKTiers.DIAMOND;
-            case 64 -> MTKTiers.MTK;
-            case 512 -> MTKTiers.GODMTK;
-            case 33554431 -> MTKTiers.BREAK;
-            default -> MTKTiers.WOOD;
-        };
+        return new MTKCraftingTableMenu(id, inv, this.createAccess(player), getMagnification(stack));
     }
 
     @Override

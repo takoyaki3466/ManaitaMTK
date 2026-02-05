@@ -157,7 +157,7 @@ public class LangJPProvider extends MTKLangProvider {
         add("advancements.make_break_mtk_furnace.description", "ブレイクかまどを作ろう！");
         add("advancements.make_wood_mtk_furnace.title", "待て待て！木で焼いたら燃えちゃうって！");
         add("advancements.make_wood_mtk_furnace.description", "木のかまどを作ろう！");
-        add("advancements.make_mtk_mtk_furnace.title", "MTK_MTK_FURNACEって冗長すぎないか...?");
+        add("advancements.make_mtk_mtk_furnace.title", "MTK_MTK_FURNACEって冗長じゃない?");
         add("advancements.make_mtk_mtk_furnace.description", "MTKかまどを作ろう！");
         add("advancements.placed_mtk_chest.title","「板」のチェストに物は入らなくないか?");
         add("advancements.placed_mtk_chest.description", "まな板チェストを作ろう！");

@@ -1,4 +1,4 @@
-package com.takoy3466.manaitamtk.eventSubscriber;
+package com.takoy3466.manaitamtk.event;
 
 import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
 import com.takoy3466.manaitamtk.api.capability.helper.MTKCapabilityHelper;

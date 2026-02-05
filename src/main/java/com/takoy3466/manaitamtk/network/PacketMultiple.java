@@ -4,7 +4,7 @@ import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.api.abstracts.AbstractMTKPacket;
 import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
 import com.takoy3466.manaitamtk.api.capability.helper.MTKCapabilityHelper;
-import com.takoy3466.manaitamtk.api.capability.interfaces.IKillSword;
+import com.takoy3466.manaitamtk.api.capability.interfaces.IMultiple;
 import com.takoy3466.manaitamtk.api.interfaces.ISimpleCapability;
 import com.takoy3466.manaitamtk.api.interfaces.IUseTag;
 import net.minecraft.nbt.CompoundTag;
@@ -17,18 +17,18 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public class PacketisKillAll extends AbstractMTKPacket<Boolean> implements ISimpleCapability<IKillSword>, IUseTag {
-    public PacketisKillAll(Boolean msg) {
+public class PacketMultiple extends AbstractMTKPacket<Integer> implements ISimpleCapability<IMultiple>, IUseTag {
+    public PacketMultiple(Integer msg) {
         super(msg);
     }
 
     @Override
     public void encode(FriendlyByteBuf buf) {
-        buf.writeBoolean(this.msg);
+        buf.writeInt(this.msg);
     }
 
-    public static PacketisKillAll decode(FriendlyByteBuf buf) {
-        return new PacketisKillAll(buf.readBoolean());
+    public static PacketMultiple decode(FriendlyByteBuf buf) {
+        return new PacketMultiple(buf.readInt());
     }
 
     @Override
@@ -37,19 +37,18 @@ public class PacketisKillAll extends AbstractMTKPacket<Boolean> implements ISimp
             ServerPlayer player = ctx.get().getSender();
             if (player != null) {
                 ItemStack stack = player.getMainHandItem();
-                MTKCapabilityHelper.execute(MTKCapabilities.KILL_SWORD, stack, iKillSword -> {
+                execute(stack, (iMultiple -> {
                     CompoundTag tag = stack.getOrCreateTag();
-                    iKillSword.setIsKillAll(this.msg);
-                    tag.put(getPath(), iKillSword.serializeNBT());
-                });
+                    iMultiple.setMultiple(this.msg);
+                    tag.put(getPath(), iMultiple.serializeNBT());
+                }));
             }
         });
-        ctx.get().setPacketHandled(true);
     }
 
     @Override
-    public Capability<IKillSword> getCapability() {
-        return MTKCapabilities.KILL_SWORD;
+    public Capability<IMultiple> getCapability() {
+        return MTKCapabilities.MULTIPLE;
     }
 
     @Nullable

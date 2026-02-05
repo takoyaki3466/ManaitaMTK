@@ -3,7 +3,6 @@ package com.takoy3466.manaitamtk.block;
 import com.takoy3466.manaitamtk.block.blockEntity.MTKFurnaceBlockEntity;
 import com.takoy3466.manaitamtk.init.MTKTiers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;

@@ -1,0 +1,32 @@
+{
+  "parent": "manaitamtk:manaita_paxel",
+  "criteria": {
+    "open_switcher": {
+      "conditions": {
+        "screen": "mtk_switcher"
+      },
+      "trigger": "minecraft:mtk_open"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.mtk_screen_open.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "manaitamtk:manaita_paxel"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.mtk_screen_open.title"
+    }
+  },
+  "requirements": [
+    [
+      "open_switcher"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

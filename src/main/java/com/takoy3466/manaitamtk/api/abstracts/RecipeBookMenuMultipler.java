@@ -9,28 +9,48 @@ import net.minecraft.world.item.ItemStack;
 
 public abstract class RecipeBookMenuMultipler<CONTAINER extends Container> extends RecipeBookMenu<CONTAINER> implements IMTKMultiple {
     protected final MTKTier mtkTier;
+    private final int multiple;
+    private final boolean isHasMTKTier;
     
     public RecipeBookMenuMultipler(MenuType<?> type, int id, MTKTier mtkTier) {
         super(type, id);
         this.mtkTier = mtkTier;
+        this.multiple = 1;
+        this.isHasMTKTier = true;
+    }
+
+    public RecipeBookMenuMultipler(MenuType<?> type, int id, int multiple) {
+        super(type, id);
+        this.mtkTier = null;
+        this.multiple = multiple;
+        this.isHasMTKTier = false;
     }
 
     @Override
     public String getMTKName() {
-        return getMTKTier().getName();
+        if (isHasMTKTier) {
+            return getMTKTier().getName();
+        }else return "";
     }
 
     @Override
     public MTKTier getMTKTier() {
-        return this.mtkTier;
+        if (isHasMTKTier) {
+            return this.mtkTier;
+        }else return MTKTier.DEFAULT;
     }
 
     @Override
     public int getMultiple() {
-        return getMTKTier().getMultiple();
+        if (isHasMTKTier) {
+            return getMTKTier().getMultiple();
+        }else return this.multiple;
     }
 
     public void multipler(ItemStack stack) {
+        if (getMultiple() == 1) {
+            return;
+        }
         this.multipler(stack, getMultiple());
     }
 }

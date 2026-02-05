@@ -1,12 +1,12 @@
 {
-  "parent": "manaitamtk:manaita_mtk_start",
+  "parent": "manaitamtk:item_mtk",
   "criteria": {
     "inv_change": {
       "conditions": {
         "items": [
           {
             "items": [
-              "manaitamtk:item_mtk"
+              "manaitamtk:manaita_paxel"
             ]
           }
         ]
@@ -17,16 +17,16 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.make_mtk.description"
+      "translate": "advancements.make_paxel.description"
     },
-    "frame": "task",
+    "frame": "challenge",
     "hidden": false,
     "icon": {
-      "item": "manaitamtk:item_mtk"
+      "item": "manaitamtk:manaita_paxel"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.make_mtk.title"
+      "translate": "advancements.make_paxel.title"
     }
   },
   "requirements": [

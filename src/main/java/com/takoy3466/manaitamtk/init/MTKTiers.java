@@ -3,7 +3,6 @@ package com.takoy3466.manaitamtk.init;
 import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
 
 public class MTKTiers {
-
     public static final MTKTier WOOD = MTKTier.create(2, "wood");
     public static final MTKTier STONE = MTKTier.create(4, "stone");
     public static final MTKTier IRON = MTKTier.create(8, "iron");

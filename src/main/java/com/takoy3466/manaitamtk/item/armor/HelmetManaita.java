@@ -1,12 +1,14 @@
 package com.takoy3466.manaitamtk.item.armor;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMappings;
+import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
 import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
 import com.takoy3466.manaitamtk.api.capability.provider.FlyProvider;
 import com.takoy3466.manaitamtk.api.capability.provider.InvincibleProvider;
 import com.takoy3466.manaitamtk.api.capability.interfaces.IFly;
 import com.takoy3466.manaitamtk.api.capability.interfaces.IInvincible;
+import com.takoy3466.manaitamtk.api.interfaces.IUseTag;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.network.MTKNetwork;
 import com.takoy3466.manaitamtk.network.PacketFlySpeed;
@@ -30,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class HelmetManaita extends armorManaitaCore implements IHasCapability {
+public class HelmetManaita extends armorManaitaCore implements IHasCapability, IUseTag {
     private final Component hoverText = Component.translatable("item.manaitamtk.helmet_manaita.hover_text");
     private static final Component FIRST_TEXT = Component.translatable("item.manaitamtk.fwai.first_text");
     private int flySpeed = 0;
@@ -67,11 +69,11 @@ public class HelmetManaita extends armorManaitaCore implements IHasCapability {
             } else if (MTKKeyMappings.FlySpeedKey.consumeClick()) {
                 this.flySpeed = modeChange(this.flySpeed, 3);// 0 -> 0.05f, 1 -> 0.1f, 2 -> 0.2f, 3 -> 0.6f
                 switch (this.flySpeed) {
-                    case 0 -> this.setFlySpeed(0.05f);
-                    case 1 -> this.setFlySpeed(0.1f);
-                    case 2 -> this.setFlySpeed(0.2f);
-                    case 3 -> this.setFlySpeed(0.6f);
-                    default -> this.setFlySpeed(0.05f);
+                    case 0 -> this.setFlySpeed(stack, 0.05f);
+                    case 1 -> this.setFlySpeed(stack, 0.1f);
+                    case 2 -> this.setFlySpeed(stack, 0.2f);
+                    case 3 -> this.setFlySpeed(stack, 0.6f);
+                    default -> this.setFlySpeed(stack, 0.05f);
                 }
                 String s =  switch (this.flySpeed) {
                     case 0 -> "0.05";
@@ -92,18 +94,31 @@ public class HelmetManaita extends armorManaitaCore implements IHasCapability {
         }
     }
 
-    public void setFlySpeed(float flySpeed) {
-        MTKNetwork.CHANNEL.sendToServer(new PacketFlySpeed(flySpeed));
+    @Override
+    public void readShareTag(ItemStack stack, @Nullable CompoundTag nbt) {
+        if (nbt == null) {
+            return;
+        }
+        stack.setTag(nbt);
+        if (isContains(nbt)) {
+            execute(MTKCapabilities.FLY, stack, iFly -> iFly.deserializeNBT(getTag(nbt)));
+        }
     }
 
-    public Float getFlySpeed(ItemStack stack) {
-        LazyOptional<IFly> lazyOptional = this.getLazyOptional(MTKCapabilities.FLY, stack);
-        float flySpeed;
-        if (this.isUsage(lazyOptional)) {
-            flySpeed = this.getInterface(lazyOptional).getFlySpeed();
-        }else flySpeed = 0.05f;
+    @Override
+    public @Nullable CompoundTag getShareTag(ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTag().copy();
+        execute(MTKCapabilities.FLY, stack, iFly -> tag.put(getPath(), iFly.serializeNBT()));
+        return tag;
+    }
 
-        return Math.max(flySpeed, 0.05f);
+    public void setFlySpeed(ItemStack stack, float flySpeed) {
+        execute(MTKCapabilities.FLY, stack, iFly -> {
+            iFly.setFlySpeed(flySpeed);
+            CompoundTag tag = stack.getOrCreateTag();
+            tag.put(getPath(), iFly.serializeNBT());
+            MTKNetwork.CHANNEL.sendToServer(new PacketFlySpeed(flySpeed));
+        });
     }
 
     //modeNumberをころころ変えて設定する
@@ -126,21 +141,27 @@ public class HelmetManaita extends armorManaitaCore implements IHasCapability {
     //ホバーテキストをツールに表示する
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
-
-        list.add(Component.literal(hoverText.getString() + this.getFlySpeed(stack))
-                .withStyle(ChatFormatting.GRAY)
-        );
+        execute(MTKCapabilities.FLY, stack,
+                iFly -> list.add(Component.literal(hoverText.getString() + iFly.getFlySpeed())
+                        .withStyle(ChatFormatting.GRAY)
+        ));
     }
 
     @Override
     public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
         return new ICapabilityProvider() {
 
-            final LazyOptional<IFly> fly = LazyOptional.of(FlyProvider::new);
+            final FlyProvider flyProvider = new FlyProvider();
+            
+            final LazyOptional<IFly> fly = LazyOptional.of(() -> flyProvider);
             final LazyOptional<IInvincible> invincible = LazyOptional.of(InvincibleProvider::new);
+
 
             @Override
             public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction direction) {
+                if (isContains(stack)) {
+                    flyProvider.deserializeNBT(getTag(stack));
+                }
                 if (capability == MTKCapabilities.FLY) {
                     return fly.cast();
                 }
@@ -150,5 +171,11 @@ public class HelmetManaita extends armorManaitaCore implements IHasCapability {
                 else return LazyOptional.empty();
             }
         };
+    }
+
+    @Nullable
+    @Override
+    public String getPath() {
+        return ManaitaMTK.MOD_ID;
     }
 }

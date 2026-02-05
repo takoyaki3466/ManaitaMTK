@@ -28,7 +28,6 @@ public class BowMTK extends BowItem {
                 .stacksTo(1)
         );
     }
-
     @SuppressWarnings("deprecation")
     public void releaseUsing(ItemStack stack, Level world, LivingEntity entity, int timeLeft) {
         if (entity instanceof Player player) {

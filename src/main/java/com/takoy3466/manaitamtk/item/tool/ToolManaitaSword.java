@@ -1,10 +1,13 @@
 package com.takoy3466.manaitamtk.item.tool;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMappings;
+import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.api.capability.interfaces.IKillSword;
 import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
 import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
 import com.takoy3466.manaitamtk.api.capability.provider.MTKSwordProvider;
+import com.takoy3466.manaitamtk.api.interfaces.ISimpleCapability;
+import com.takoy3466.manaitamtk.api.interfaces.IUseTag;
 import com.takoy3466.manaitamtk.network.MTKNetwork;
 import com.takoy3466.manaitamtk.network.PacketisKillAll;
 import com.takoy3466.manaitamtk.util.WeaponUtil;
@@ -19,13 +22,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ToolManaitaSword extends SwordItem implements IHasCapability {
+public class ToolManaitaSword extends SwordItem implements ISimpleCapability<IKillSword>, IUseTag {
     private final Component SWORD_TEXT_ENEMY = Component.translatable("gui.overlay.sword.enemy_die").withStyle(ChatFormatting.WHITE);
     private final Component SWORD_TEXT_ALL = Component.translatable("gui.overlay.sword.all_die").withStyle(ChatFormatting.RED);
     private final Component MODE = Component.translatable("item.manaitamtk.manaita_sword.hover_text_mode");
@@ -57,17 +61,13 @@ public class ToolManaitaSword extends SwordItem implements IHasCapability {
         }
         if (level.isClientSide()) {
             if (MTKKeyMappings.SwitchExterminationKey.consumeClick() && player.isSteppingCarefully()) {
-                this.execute(MTKCapabilities.KILL_SWORD, stack, imtkSword -> imtkSword.setIsKillAll(!imtkSword.isKillAll()));
-                MTKNetwork.sendToServer(new PacketisKillAll(isKillAll(stack)));
+                this.execute(MTKCapabilities.KILL_SWORD, stack, iKillSword -> {
+                    iKillSword.setIsKillAll(!iKillSword.isKillAll());
+                    MTKNetwork.sendToServer(new PacketisKillAll(iKillSword.isKillAll()));
+                });
+
             }
         }
-    }
-
-    public boolean isKillAll(ItemStack stack) {
-        LazyOptional<IKillSword> lazyOptional = this.getLazyOptional(MTKCapabilities.KILL_SWORD, stack);
-        if (this.isUsage(lazyOptional)) {
-            return this.getInterface(lazyOptional).isKillAll();
-        }else return false;
     }
 
     @Override
@@ -76,13 +76,32 @@ public class ToolManaitaSword extends SwordItem implements IHasCapability {
                 .withStyle(ChatFormatting.GRAY));
         list.add(Component.literal(this.KEY.getString() + MTKKeyMappings.SwitchExterminationKey.getKey().getDisplayName().getString()));
 
-        if (this.isKillAll(stack)) {
-            list.add(Component.literal(this.MODE.getString() + this.SWORD_TEXT_ALL.getString()));
-        } else list.add(Component.literal(this.MODE.getString() + this.SWORD_TEXT_ENEMY.getString()));
+        execute(stack, iKillSword -> {
+            if (iKillSword.isKillAll()) {
+                list.add(Component.literal(this.MODE.getString() + this.SWORD_TEXT_ALL.getString()));
+            } else list.add(Component.literal(this.MODE.getString() + this.SWORD_TEXT_ENEMY.getString()));
+        });
     }
 
     @Override
     public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        return this.setCapability(MTKCapabilities.KILL_SWORD, MTKSwordProvider::new);
+        return this.setCapability(() -> {
+            MTKSwordProvider provider = new MTKSwordProvider();
+            if (isContains(stack)) {
+                provider.deserializeNBT(getTag(stack));
+            }
+            return provider;
+        });
+    }
+
+    @Override
+    public Capability<IKillSword> getCapability() {
+        return MTKCapabilities.KILL_SWORD;
+    }
+
+    @Nullable
+    @Override
+    public String getPath() {
+        return ManaitaMTK.MOD_ID;
     }
 }

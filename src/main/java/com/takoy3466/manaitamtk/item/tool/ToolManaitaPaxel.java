@@ -6,13 +6,16 @@ import com.takoy3466.manaitamtk.api.capability.interfaces.IRangeBreak;
 import com.takoy3466.manaitamtk.api.capability.provider.RangeBreakProvider;
 import com.takoy3466.manaitamtk.api.interfaces.ISimpleCapability;
 import com.takoy3466.manaitamtk.api.interfaces.IUseTag;
+import com.takoy3466.manaitamtk.util.WeaponUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
@@ -41,6 +44,20 @@ public class ToolManaitaPaxel extends TieredItem implements ISimpleCapability<IR
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         return enchantment.category == EnchantmentCategory.DIGGER;
+    }
+
+    @Override
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity player) {
+        WeaponUtil.die(target);
+        return super.hurtEnemy(stack, target, player);
+    }
+
+    @Override
+    public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
+        if (entity instanceof LivingEntity target) {
+            WeaponUtil.die(target);
+        }
+        return super.onLeftClickEntity(stack, player, entity);
     }
 
     //適正ツールの設定

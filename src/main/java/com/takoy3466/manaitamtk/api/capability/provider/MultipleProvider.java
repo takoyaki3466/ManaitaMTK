@@ -2,7 +2,6 @@ package com.takoy3466.manaitamtk.api.capability.provider;
 
 import com.takoy3466.manaitamtk.api.capability.interfaces.IMultiple;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.util.INBTSerializable;
 
 public class MultipleProvider implements IMultiple {
     private final String MULTIPLE = "multiple";
@@ -16,6 +15,9 @@ public class MultipleProvider implements IMultiple {
 
     @Override
     public int getMultiple() {
+        if (this.multiple <= 0) {
+            return 1;
+        }
         return this.multiple;
     }
 

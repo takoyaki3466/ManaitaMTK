@@ -2,9 +2,8 @@ package com.takoy3466.manaitamtk.api.capability.provider;
 
 import com.takoy3466.manaitamtk.api.capability.interfaces.IFly;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.util.INBTSerializable;
 
-public class FlyProvider implements IFly, INBTSerializable<CompoundTag> {
+public class FlyProvider implements IFly {
     private final String IS_FLY = "isFly";
     private final String FLY_SPEED = "flySpeed";
 

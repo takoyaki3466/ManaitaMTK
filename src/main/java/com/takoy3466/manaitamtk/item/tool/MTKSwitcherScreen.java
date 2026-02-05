@@ -5,7 +5,9 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMappings;
 import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
-import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
+import com.takoy3466.manaitamtk.api.capability.interfaces.IRangeBreak;
+import com.takoy3466.manaitamtk.api.interfaces.ISimpleCapability;
+import com.takoy3466.manaitamtk.api.interfaces.IUseTag;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.network.MTKNetwork;
 import com.takoy3466.manaitamtk.network.PacketRange;
@@ -22,12 +24,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.capabilities.Capability;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-public class MTKSwitcherScreen extends Screen implements IHasCapability {
+public class MTKSwitcherScreen extends Screen implements ISimpleCapability<IRangeBreak>, IUseTag {
     private static final ResourceLocation MTK_SWITCHER_LOCATION = new ResourceLocation(ManaitaMTK.MOD_ID,"textures/gui/container/mtk_switcher.png");
     private static final int ALL_SLOTS_WIDTH = MTKIcon.values().length * 31 - 5;
     private MTKIcon previousMode;
@@ -95,19 +99,18 @@ public class MTKSwitcherScreen extends Screen implements IHasCapability {
         if (minecraft.player != null) {
             ItemStack stack = minecraft.player.getMainHandItem();
             if (stack.getItem() == ItemsInit.MANAITA_PICKAXE.get() || stack.getItem() == ItemsInit.MANAITA_PAXEL.get()) {
-                this.execute(MTKCapabilities.RANGE_BREAK, stack, iRangeBreak -> this.previousMode = MTKIcon.getFromRange(iRangeBreak.getRange()));
+                execute(stack, iRangeBreak -> this.previousMode = MTKIcon.getFromRange(iRangeBreak.getRange()));
             }
         }else if (this.previousMode == null) {
             this.previousMode = MTKIcon.ONE;
         }
     }
     
-    private void sendRange(MTKIcon mtkIcon) {
+    private void setRange(MTKIcon mtkIcon) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player != null) {
             ItemStack stack = minecraft.player.getMainHandItem();
             if (stack.getItem() == ItemsInit.MANAITA_PICKAXE.get() || stack.getItem() == ItemsInit.MANAITA_PAXEL.get()) {
-                this.execute(MTKCapabilities.RANGE_BREAK, stack, iRangeBreak -> iRangeBreak.setRange(mtkIcon.getModeRange()));
                 MTKNetwork.sendToServer(new PacketRange(mtkIcon.getModeRange()));
             }
         }
@@ -118,7 +121,7 @@ public class MTKSwitcherScreen extends Screen implements IHasCapability {
         if (key1 == MTKKeyMappings.MTKSwitcherSelectKey.getKey().getValue()) {
             this.setFirstMousePos = false;
             this.currentlyMode = this.currentlyMode.getNext();
-            this.sendRange(this.currentlyMode);
+            this.setRange(this.currentlyMode);
             return true;
         } else {
             return super.keyPressed(key1, key2, key3);
@@ -132,7 +135,7 @@ public class MTKSwitcherScreen extends Screen implements IHasCapability {
         for (MTKIconSlot slot : this.slots) {
             if (slot.isMouseOver(x, y)) {
                 this.currentlyMode = slot.icon;
-                this.sendRange(this.currentlyMode);
+                this.setRange(this.currentlyMode);
             }
         }
     }
@@ -152,8 +155,19 @@ public class MTKSwitcherScreen extends Screen implements IHasCapability {
         } else if (delta > 0) {
             this.currentlyMode = this.currentlyMode.getPrevious();
         }
-        this.sendRange(this.currentlyMode);
+        this.setRange(this.currentlyMode);
         return true;
+    }
+
+    @Override
+    public Capability<IRangeBreak> getCapability() {
+        return MTKCapabilities.RANGE_BREAK;
+    }
+
+    @Nullable
+    @Override
+    public String getPath() {
+        return ManaitaMTK.MOD_ID;
     }
 
     @OnlyIn(Dist.CLIENT)

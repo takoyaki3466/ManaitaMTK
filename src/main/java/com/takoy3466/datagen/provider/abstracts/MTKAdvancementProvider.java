@@ -2,13 +2,18 @@ package com.takoy3466.datagen.provider.abstracts;
 
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeAdvancementProvider;
 
 import javax.annotation.Nullable;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public abstract class MTKAdvancementProvider implements ForgeAdvancementProvider.AdvancementGenerator {
@@ -62,16 +67,16 @@ public abstract class MTKAdvancementProvider implements ForgeAdvancementProvider
         }
 
         // めんどくさい人向け
-        public static AdvDisplay create(ItemLike item, String baseName, @Nullable ResourceLocation backGround, FrameType frameType, boolean isPopUp, boolean isFrowChat, boolean isHideUntilAchieved) {
-            Component title = Component.translatable("advancements." + baseName + ".title");
-            Component description = Component.translatable("advancements." + baseName + ".description");
+        public static AdvDisplay create(ItemLike item, String baseCommonName, @Nullable ResourceLocation backGround, FrameType frameType, boolean isPopUp, boolean isFrowChat, boolean isHideUntilAchieved) {
+            Component title = Component.translatable("advancements." + baseCommonName + ".title");
+            Component description = Component.translatable("advancements." + baseCommonName + ".description");
             return create(item, title, description, backGround, frameType, isPopUp, isFrowChat, isHideUntilAchieved);
         }
 
         // エクストリームめんどくさい人向け
-        public static AdvDisplay create(ItemLike item, String baseName, @Nullable ResourceLocation backGround, FrameType frameType, ForPeopleWhoFindWorkTedious tedious) {
-            Component title = Component.translatable("advancements." + baseName + ".title");
-            Component description = Component.translatable("advancements." + baseName + ".description");
+        public static AdvDisplay create(ItemLike item, String baseCommonName, @Nullable ResourceLocation backGround, FrameType frameType, ForPeopleWhoFindWorkTedious tedious) {
+            Component title = Component.translatable("advancements." + baseCommonName + ".title");
+            Component description = Component.translatable("advancements." + baseCommonName + ".description");
             return create(item, title, description, backGround, frameType, tedious.isPopUp(), tedious.isFrowChat(), tedious.isHideUntilAchieved());
         }
     }
@@ -89,10 +94,6 @@ public abstract class MTKAdvancementProvider implements ForgeAdvancementProvider
 
         public static AdvCriterion create(String criterionName, CriterionTriggerInstance instance) {
             return new AdvCriterion(criterionName, new Criterion(instance));
-        }
-
-        public static AdvCriterion create(String criterionName, Item item) {
-            return new AdvCriterion(criterionName, new Criterion(InventoryChangeTrigger.TriggerInstance.hasItems(item)));
         }
     }
 
@@ -128,5 +129,9 @@ public abstract class MTKAdvancementProvider implements ForgeAdvancementProvider
                 advDisplay.isFrowChat(),
                 advDisplay.isHideUntilAchieved()
         );
+    }
+
+    protected static InventoryChangeTrigger.TriggerInstance getInvTrigger(ItemLike itemLike) {
+        return InventoryChangeTrigger.TriggerInstance.hasItems(itemLike);
     }
 }

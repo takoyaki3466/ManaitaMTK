@@ -25,6 +25,9 @@ public class RangeBreakProvider implements IRangeBreak {
 
     @Override
     public int getRange() {
+        if (this.range <= 0) {
+            return 1;
+        }
         return this.range;
     }
 

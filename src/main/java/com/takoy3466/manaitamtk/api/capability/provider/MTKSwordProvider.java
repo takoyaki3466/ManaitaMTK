@@ -6,9 +6,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.util.INBTSerializable;
 
-public class MTKSwordProvider implements IKillSword, INBTSerializable<CompoundTag> {
+public class MTKSwordProvider implements IKillSword {
     private final String IS_KILL_ALL = "isKillAll";
     private boolean isKillAll;
 

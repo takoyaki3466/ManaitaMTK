@@ -1,6 +1,6 @@
 {
-  "advancement.mtk_screen_open.description": "F3とF4押したときに出てくるやつやないか！",
-  "advancement.mtk_screen_open.title": "なんか見覚えあるスクリーンだな...",
+  "advancements.mtk_screen_open.description": "F3とF4押したときに出てくるやつやないか！",
+  "advancements.mtk_screen_open.title": "なんか見覚えあるスクリーンだな...",
   "advancements.auto_workbench_mtk.description": "自動作業台を作ろう！",
   "advancements.auto_workbench_mtk.title": "BuildCraft",
   "advancements.make_break_crafting_table.description": "ブレイク作業台を作ろう！",
@@ -12,7 +12,7 @@
   "advancements.make_mtk.description": "MTKを作ろう",
   "advancements.make_mtk.title": "このまな板設置できないんだけど！！",
   "advancements.make_mtk_mtk_furnace.description": "MTKかまどを作ろう！",
-  "advancements.make_mtk_mtk_furnace.title": "MTK_MTK_FURNACEって冗長すぎないか...?",
+  "advancements.make_mtk_mtk_furnace.title": "MTK_MTK_FURNACEって冗長じゃない?",
   "advancements.make_paxel.description": "まな板のパクセルを作ろう！",
   "advancements.make_paxel.title": "パクセルこそ至高！！！",
   "advancements.make_wood_mtk_furnace.description": "木のかまどを作ろう！",

@@ -96,6 +96,10 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/"
+    }
     mavenCentral()
 }
 
@@ -104,17 +108,18 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    // compile against the JEI API but do not include it at runtime
-    compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
-    compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
-    // at runtime, use the full JEI jar for Forge
-    runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
+    // Forge (see below block as well if you use Forge Gradle)
+    runtimeOnly(fg.deobf("dev.emi:emi-forge:${emi_version}"))
 
     runtimeOnly(fg.deobf("curse.maven:pipez-443900:${getProperty("pipezVersion")}"))
     runtimeOnly(fg.deobf("curse.maven:jade-324717:${getProperty("jadeVersion")}"))
 
-    runtimeOnly fg.deobf("curse.maven:ae2-223794:${getProperty("ae2Version")}")
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    runtimeOnly(fg.deobf("curse.maven:ae2-223794:${getProperty("ae2Version")}"))
+
+    runtimeOnly(fg.deobf("mekanism:Mekanism:${mekanism_version}"))// Mekanism
+    runtimeOnly(fg.deobf("mekanism:Mekanism:${mekanism_version}:additions"))// Mekanism: Additions
+    runtimeOnly(fg.deobf("mekanism:Mekanism:${mekanism_version}:generators"))// Mekanism: Generators
+    runtimeOnly(fg.deobf("mekanism:Mekanism:${mekanism_version}:tools"))// Mekanism: Tools
 }
 
 mixin {

@@ -26,6 +26,32 @@ public class MTKCraftingTableMenu extends RecipeBookMenuMultipler<CraftingContai
     private final ContainerLevelAccess access;
     private final Player player;
 
+    public MTKCraftingTableMenu(int id, Inventory playerInventory, ContainerLevelAccess access, int multiple) {
+        super(MenuType.CRAFTING, id, multiple);
+        this.craftSlots = new TransientCraftingContainer(this, 3, 3);
+        this.resultSlots = new ResultContainer();
+        this.access = access;
+        this.player = playerInventory.player;
+        this.addSlot(new ResultSlot(playerInventory.player, this.craftSlots, this.resultSlots, 0, 124, 35));
+
+        for(int i = 0; i < 3; ++i) {
+            for(int j = 0; j < 3; ++j) {
+                this.addSlot(new MTKSlot(this.craftSlots, j + i * 3, 30 + j * 18, 17 + i * 18));
+            }
+        }
+
+        for(int i = 0; i < 3; ++i) {
+            for(int j = 0; j < 9; ++j) {
+                this.addSlot(new MTKSlot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+            }
+        }
+
+        for(int i = 0; i < 9; ++i) {
+            this.addSlot(new MTKSlot(playerInventory, i, 8 + i * 18, 142));
+        }
+
+    }
+
     public MTKCraftingTableMenu(int id, Inventory playerInventory, ContainerLevelAccess access, MTKTier mtkTier) {
         super(MenuType.CRAFTING, id, mtkTier);
         this.craftSlots = new TransientCraftingContainer(this, 3, 3);

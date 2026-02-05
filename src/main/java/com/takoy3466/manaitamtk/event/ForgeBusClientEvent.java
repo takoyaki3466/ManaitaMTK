@@ -1,23 +1,22 @@
-package com.takoy3466.manaitamtk.eventSubscriber;
+package com.takoy3466.manaitamtk.event;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMappings;
 import com.takoy3466.manaitamtk.ManaitaMTK;
+import com.takoy3466.manaitamtk.api.MTKScreenId;
 import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
-import com.takoy3466.manaitamtk.api.capability.interfaces.IKillSword;
 import com.takoy3466.manaitamtk.api.capability.interfaces.IMultiple;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.item.tool.MTKSwitcherScreen;
+import com.takoy3466.manaitamtk.network.MTKNetwork;
+import com.takoy3466.manaitamtk.network.PacketScreenOpen;
 import com.takoy3466.manaitamtk.screen.MTKBackPackScreen;
 import com.takoy3466.manaitamtk.screen.MTKChestScreen;
 import com.takoy3466.manaitamtk.screen.MTKFurnaceScreen;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -25,6 +24,7 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -54,38 +54,15 @@ public class ForgeBusClientEvent {
         }
     }
 
-    private static final ResourceLocation ID = new ResourceLocation(ManaitaMTK.MOD_ID, "manaita_paxel_open_screen");
-    private static boolean isDone = false;
-    private static boolean isDown;
-
     @SubscribeEvent
-    public static void onAdvancementKey(InputEvent.Key event) {
-        Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player == null || minecraft.level == null) return;
-        Player player = minecraft.player;
-        if (isDone) return;
-        if (!isDown) {
-            if (MTKKeyMappings.MTKSwitcherOpenKey.isDown()) {
-                isDown = true;
-            }
+    public static void openScreen(ScreenEvent.Opening event) {
+        Screen screen = event.getScreen();
+        String screenId = MTKScreenId.getScreenId(screen);
+        if (screenId == null || screenId.isEmpty()) {
+            return;
         }
-        if (isDown) {
-            if (!player.level().isClientSide()) {
-                ServerPlayer serverPlayer = (ServerPlayer) player;
-                Advancement advancement = serverPlayer.server.getAdvancements().getAdvancement(ID);
-                if (advancement != null) {
-                    AdvancementProgress progress = serverPlayer.getAdvancements().getOrStartProgress(advancement);
-                    if (!progress.isDone()) {
-                        for (String criteria : progress.getRemainingCriteria()) {
-                            serverPlayer.getAdvancements().award(advancement, criteria);
-                            isDone = true;
-                        }
-                    }else if (!isDown) {
-                        isDown = true;
-                    }
-                }
-            }
-        }
+
+        MTKNetwork.sendToServer(new PacketScreenOpen(screenId));
     }
 
     @SubscribeEvent

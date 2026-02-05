@@ -3,7 +3,7 @@ package com.takoy3466.manaitamtk.api.mtkTier;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
  * MTKEnumからの移行。基本的にはMTKEnumから何も変わっていません
@@ -13,6 +13,8 @@ import java.util.Objects;
 public class MTKTier {
     private final int multiple;
     private final String name;
+
+    public static final MTKTier DEFAULT = MTKTier.create(1, "noTitle");
 
     /**
      * newを用いた作成以外にも、createメソッドを使うことも出来ます。
@@ -49,22 +51,9 @@ public class MTKTier {
     }
 
     @Override
-    public String toString() {
-        return "MTKTier{" +
-                "multiple=" + multiple +
-                ", name='" + name + '\'' +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof MTKTier mtkTier)) return false;
         return getMultiple() == mtkTier.getMultiple() && Objects.equals(getName(), mtkTier.getName());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getMultiple(), getName());
     }
 }

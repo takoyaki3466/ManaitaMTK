@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BlockManaitaBase extends AbstractBlockMultipler {
@@ -28,27 +30,41 @@ public class BlockManaitaBase extends AbstractBlockMultipler {
                 .sound(SoundType.WOOD), mtkTier); //音の追加
     }
 
-    static int Size;
-
+    // whileループから変更
     @SuppressWarnings("deprecation")
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-        Size = 0;
-        while (Size < getMultiple()){
-            // 手に持ってるアイテムをコピー
-            ItemStack copyItem = player.getMainHandItem().copy();
-            // コピーアイテムの数を決める(１個)
-            copyItem.setCount(1);
-
-            //もしインベントリに空のスロットがあるなら
-            if (player.getInventory().getFreeSlot() >= 1){
-                //コピーをインベントリーに追加
-                player.getInventory().add(copyItem);
-            }
-            //コピーをブロックの位置にドロップ
-            else Block.popResource(world, pos, copyItem);
-            Size++;
+        ItemStack target = player.getMainHandItem().copy();
+        int itemCount = getMultiple();
+        Inventory inv = player.getInventory();
+        if (target.isEmpty()) {
+            return InteractionResult.PASS;
         }
+
+        List<Integer> freeSlotIds = getFreeSlots(inv);
+
+        for (int slotId : freeSlotIds) {
+            if (itemCount <= 0) {
+                break;
+            }
+            if (itemCount >= 64) {
+                target.setCount(64);
+                itemCount -= 64;
+            } else {
+                target.setCount(Math.max(itemCount, 0));
+                itemCount = -1;
+            }
+
+            if (target.getCount() != 0) {
+                inv.items.set(slotId, target);
+            }
+        }
+
+        if (itemCount >= 1) {
+            target.setCount(itemCount);
+            Block.popResource(world, pos, target);
+        }
+
         return InteractionResult.SUCCESS;
     }
 
@@ -58,5 +74,16 @@ public class BlockManaitaBase extends AbstractBlockMultipler {
         list.add(Component.literal("x" + getMultiple() + " only!!")
                 .withStyle(ChatFormatting.WHITE)
         );
+    }
+
+    public List<Integer> getFreeSlots(Inventory inv) {
+        List<Integer> freeSlotIds = new ArrayList<>();
+
+        for (int i = 0; i < inv.items.size(); i++) {
+            if (inv.items.get(i).isEmpty()) {
+                freeSlotIds.add(i);
+            }
+        }
+        return freeSlotIds;
     }
 }

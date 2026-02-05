@@ -6,7 +6,11 @@ import net.minecraft.world.item.ItemStack;
 public interface IMTKMultiple {
 
     default void multipler(ItemStack stack, int multiple) {
-        stack.setCount(multiple);
+        multipler(stack, stack.getCount(), multiple);
+    }
+
+    default void multipler(ItemStack stack, int count, int multiple) {
+        stack.setCount(count * multiple);
     }
 
     MTKTier getMTKTier();

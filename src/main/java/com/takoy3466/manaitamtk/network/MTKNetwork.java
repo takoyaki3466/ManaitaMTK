@@ -30,6 +30,8 @@ public class MTKNetwork {
         registerMessage(PacketRange.class, PacketRange::decode);
         registerMessage(PacketFlySpeed.class, PacketFlySpeed::decode);
         registerMessage(PacketisKillAll.class, PacketisKillAll::decode);
+        registerMessage(PacketMultiple.class, PacketMultiple::decode);
+        registerMessage(PacketScreenOpen.class, PacketScreenOpen::decode);
     }
 
     public static <MSG> void sendToServer(MSG msg) {
