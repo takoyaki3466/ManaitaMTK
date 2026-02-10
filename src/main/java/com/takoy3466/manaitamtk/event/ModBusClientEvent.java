@@ -1,6 +1,7 @@
 package com.takoy3466.manaitamtk.event;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMappings;
+import com.takoy3466.manaitamtk.screen.MultiFurnaceScreen;
 import com.takoy3466.manaitamtk.util.tooptip.ClientMTKBackPackTooltip;
 import com.takoy3466.manaitamtk.util.tooptip.MTKBackPackTooltip;
 import com.takoy3466.manaitamtk.init.EntitiesInit;
@@ -76,6 +77,8 @@ public class ModBusClientEvent {
         MenuScreens.register(MenusInit.MTK_FURNACE_BREAK.get(), MTKFurnaceScreen::new);
 
         MenuScreens.register(MenusInit.MTK_BACKPACK.get(), MTKBackPackScreen::new);
+
+        MenuScreens.register(MenusInit.WOOD_MULTI_FURNACE.get(), MultiFurnaceScreen::new);
     }
 
     @SubscribeEvent

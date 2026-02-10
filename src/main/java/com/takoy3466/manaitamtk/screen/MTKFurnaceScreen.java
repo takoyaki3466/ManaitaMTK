@@ -36,9 +36,7 @@ public class MTKFurnaceScreen extends AbstractContainerScreen<MTKFurnaceMenu> im
     public void init() {
         super.init();
         this.widthTooNarrow = this.width < 379;
-        if (this.menu instanceof RecipeBookMenu<?>) {
-            this.recipeBookComponent.init(this.width, this.height, this.minecraft, this.widthTooNarrow, (RecipeBookMenu<?>) menu);
-        }
+        this.recipeBookComponent.init(this.width, this.height, this.minecraft, this.widthTooNarrow, menu);
         this.leftPos = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
         this.addRenderableWidget(new ImageButton(this.leftPos + 20, this.height / 2 - 49, 20, 18, 0, 0, 19, RECIPE_BUTTON_LOCATION, (button) -> {
             this.recipeBookComponent.toggleVisibility();

@@ -1,5 +1,6 @@
 package com.takoy3466.manaitamtk.block;
 
+import com.takoy3466.manaitamtk.api.abstracts.AbstractFurnaceMultipler;
 import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
 import com.takoy3466.manaitamtk.init.MTKTiers;
 import com.takoy3466.manaitamtk.api.interfaces.IMTKMultiple;
@@ -30,25 +31,16 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public abstract class AbstractBlockMTKFurnace extends AbstractFurnaceBlock implements IMTKMultiple {
-    private final MTKTier mtkTier;
+public abstract class AbstractBlockMTKFurnace extends AbstractFurnaceMultipler {
 
     public AbstractBlockMTKFurnace(MTKTier mtkTier) {
-        super(Properties.of().strength(0.5F,210000).sound(SoundType.WOOD));
-        this.mtkTier = mtkTier;
+        super(Properties.of().strength(0.5F,210000).sound(SoundType.WOOD), mtkTier);
     }
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         if (!level.isClientSide()) {
             return ITickableBlockEntity.getTickerHelper(level);
-        }
-        return null;
-    }
-
-    public MenuProvider createMenuProvider(BlockPos pos, BlockState state) {
-        if (newBlockEntity(pos, state) instanceof MenuProvider provider) {
-            return provider;
         }
         return null;
     }
@@ -120,20 +112,5 @@ public abstract class AbstractBlockMTKFurnace extends AbstractFurnaceBlock imple
             }
             super.onRemove(state, level, pos, state1, bool);
         }
-    }
-
-    @Override
-    public MTKTier getMTKTier() {
-        return this.mtkTier;
-    }
-
-    @Override
-    public int getMultiple() {
-        return getMTKTier().getMultiple();
-    }
-
-    @Override
-    public String getMTKName() {
-        return getMTKTier().getName();
     }
 }

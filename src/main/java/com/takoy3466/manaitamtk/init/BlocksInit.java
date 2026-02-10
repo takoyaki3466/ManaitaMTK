@@ -56,6 +56,8 @@ public class BlocksInit {
 
     public static final BlockRegistryObject AUTO_WORKBENCH_MTK = BLOCKS.register("auto_workbench_mtk", BlockAutoWorkbenchMTK::new, EPIC);
 
+    public static final TieredBlockRegistryObject<MTKTier> WOOD_MULTI_FURNACE = TIER_BLOCKS.register("wood_multi_furnace", () -> new BlockMultiFurnace(MTKTiers.WOOD), new Item.Properties(), MTKTiers.WOOD);
+
 
 
     //型の作成

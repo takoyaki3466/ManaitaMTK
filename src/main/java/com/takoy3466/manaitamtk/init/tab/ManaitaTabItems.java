@@ -80,6 +80,8 @@ public class ManaitaTabItems {
 
             BlocksInit.AUTO_WORKBENCH_MTK.getBehind(),
 
+            BlocksInit.WOOD_MULTI_FURNACE.getBehind(),
+
             ItemsInit.DEBUG_MTK,
     };
 }

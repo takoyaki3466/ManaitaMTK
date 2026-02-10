@@ -4,11 +4,10 @@ import com.takoy3466.manaitamtk.ManaitaMTK;
 import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
 import com.takoy3466.manaitamtk.api.registry.register.BlockEntityRegister;
 import com.takoy3466.manaitamtk.api.registry.tiered.TieredBlockRegistryObject;
-import com.takoy3466.manaitamtk.block.blockEntity.AutoWorkbenchMTKBlockEntity;
-import com.takoy3466.manaitamtk.block.blockEntity.MTKChestBlockEntity;
-import com.takoy3466.manaitamtk.block.blockEntity.MTKFurnaceBlockEntity;
-import com.takoy3466.manaitamtk.block.blockEntity.AbstractMTKFurnaceBlockEntity;
+import com.takoy3466.manaitamtk.block.blockEntity.*;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.RegistryObject;
 
 public class BlockEntitiesInit {
@@ -27,6 +26,8 @@ public class BlockEntitiesInit {
     public static final RegistryObject<BlockEntityType<MTKFurnaceBlockEntity.Break>> MTK_FURNACE_BREAK = furnaceRegister(BlocksInit.BREAK_MTK_FURNACE, MTKFurnaceBlockEntity.Break::new, MTKTiers.BREAK);
 
     public static final RegistryObject<BlockEntityType<AutoWorkbenchMTKBlockEntity>> AUTO_WORKBENCH_MTK = BLOCK_ENTITIES.register("auto_workbench_mtk", AutoWorkbenchMTKBlockEntity::new, BlocksInit.AUTO_WORKBENCH_MTK);
+
+    public static final RegistryObject<BlockEntityType<MultiFurnaceBlockEntity>> WOOD_MULTI_FURNACE = BLOCK_ENTITIES.register("wood_multi_furnace", (pos, state) -> new MultiFurnaceBlockEntity(pos, state, MTKTiers.WOOD), BlocksInit.WOOD_MULTI_FURNACE);
 
     public static <T extends AbstractMTKFurnaceBlockEntity> RegistryObject<BlockEntityType<T>> furnaceRegister(TieredBlockRegistryObject<MTKTier> block, BlockEntityType.BlockEntitySupplier<T> supplier, MTKTier mtkTier) {
         return BLOCK_ENTITIES.register("mtk_furnace_" + mtkTier.getName(), supplier, block);

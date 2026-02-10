@@ -1,5 +1,7 @@
 package com.takoy3466.manaitamtk.menu;
 
+import com.takoy3466.manaitamtk.api.helper.MTKMenuHelper;
+import com.takoy3466.manaitamtk.api.interfaces.IFurnaceMenu;
 import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
 import com.takoy3466.manaitamtk.block.blockEntity.AbstractMTKFurnaceBlockEntity;
 import com.takoy3466.manaitamtk.util.slot.MTKFurnaceFuelSlot;
@@ -21,7 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.ForgeHooks;
 
-public class MTKFurnaceMenu extends RecipeBookMenu<Container> {
+public class MTKFurnaceMenu extends RecipeBookMenu<Container> implements IFurnaceMenu {
     private final ContainerData containerData;
     private final Level level;
     private final RecipeType<? extends AbstractCookingRecipe> recipeType;
@@ -167,7 +169,12 @@ public class MTKFurnaceMenu extends RecipeBookMenu<Container> {
         return stack;
     }
 
-    private boolean canSmelt(ItemStack stack) {
+    @Override
+    protected boolean moveItemStackTo(ItemStack stack, int i, int i1, boolean b) {
+        return MTKMenuHelper.moveItemStackTo(this.slots, stack, i, i1, b);
+    }
+
+    public boolean canSmelt(ItemStack stack) {
         return this.level.getRecipeManager().getRecipeFor(this.recipeType, new SimpleContainer(stack), this.level).isPresent();
     }
 

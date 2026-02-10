@@ -27,7 +27,10 @@ public abstract class AbstractTickerEntityBlock extends Block implements EntityB
     }
 
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return ITickableBlockEntity.getTickerHelper(level);
+        if (!level.isClientSide()) {
+            return ITickableBlockEntity.getTickerHelper(level);
+        }
+        return null;
     }
 
     public boolean triggerEvent(BlockState state, Level level, BlockPos pos, int i, int i1) {

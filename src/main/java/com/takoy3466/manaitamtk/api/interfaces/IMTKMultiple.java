@@ -9,6 +9,10 @@ public interface IMTKMultiple {
         multipler(stack, stack.getCount(), multiple);
     }
 
+    default void multipler(ItemStack stack) {
+        multipler(stack, stack.getCount(), getMultiple());
+    }
+
     default void multipler(ItemStack stack, int count, int multiple) {
         stack.setCount(count * multiple);
     }

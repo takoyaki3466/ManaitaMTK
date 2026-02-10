@@ -35,6 +35,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.Nullable;
 
@@ -405,7 +406,7 @@ public abstract class AbstractMTKFurnaceBlockEntity extends BaseContainerBlockEn
     }
 
     @Override
-    public void awardUsedRecipes(Player p_281647_, List<ItemStack> list) {
+    public void awardUsedRecipes(Player player, List<ItemStack> list) {
     }
 
     @Override

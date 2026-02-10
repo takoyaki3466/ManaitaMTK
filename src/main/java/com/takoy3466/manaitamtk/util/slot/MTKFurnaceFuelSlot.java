@@ -1,22 +1,31 @@
 package com.takoy3466.manaitamtk.util.slot;
 
-import com.takoy3466.manaitamtk.menu.MTKFurnaceMenu;
+import com.takoy3466.manaitamtk.api.interfaces.IFurnaceMenu;
+import com.takoy3466.manaitamtk.menu.MultiFurnaceMenu;
 import net.minecraft.world.Container;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 public class MTKFurnaceFuelSlot extends Slot {
     private final int MAX_VALUE = 2147483647;
-    private final MTKFurnaceMenu menu;
+    private final AbstractContainerMenu menu;
 
-    public MTKFurnaceFuelSlot(MTKFurnaceMenu menu, Container container, int slotId, int x, int y) {
+    public MTKFurnaceFuelSlot(AbstractContainerMenu menu, Container container, int slotId, int x, int y) {
         super(container, slotId, x, y);
         this.menu = menu;
     }
 
     public boolean mayPlace(ItemStack stack) {
-        return this.menu.isFuel(stack) || isBucket(stack);
+        if (menu instanceof IFurnaceMenu furnaceMenu) {
+            return furnaceMenu.isFuel(stack) || isBucket(stack);
+        }
+        else if (menu instanceof MultiFurnaceMenu multiFurnaceMenu) {
+            return multiFurnaceMenu.isFuel(stack) || isBucket(stack);
+        }else {
+            return false;
+        }
     }
 
     public int getMaxStackSize(ItemStack stack) {

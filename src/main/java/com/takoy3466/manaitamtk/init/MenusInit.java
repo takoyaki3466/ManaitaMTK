@@ -6,6 +6,7 @@ import com.takoy3466.manaitamtk.api.registry.register.MenuRegister;
 import com.takoy3466.manaitamtk.menu.MTKBackpackMenu;
 import com.takoy3466.manaitamtk.menu.MTKChestMenu;
 import com.takoy3466.manaitamtk.menu.MTKFurnaceMenu;
+import com.takoy3466.manaitamtk.menu.MultiFurnaceMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -25,6 +26,7 @@ public class MenusInit {
 
     public static final RegistryObject<MenuType<MTKBackpackMenu>> MTK_BACKPACK = MENUS.register("mtk_back_pack", MTKBackpackMenu::new);
 
+    public static final RegistryObject<MenuType<MultiFurnaceMenu>> WOOD_MULTI_FURNACE = MENUS.register("wood_multi_furnace", MultiFurnaceMenu::new);
 
     public static RegistryObject<MenuType<MTKFurnaceMenu>> furnaceRegister(MTKTier mtkTier) {
         return MENUS.register("mtk_furnace_" + mtkTier.getName(), (id, inv, buf) -> new MTKFurnaceMenu(id, inv, buf, mtkTier));
