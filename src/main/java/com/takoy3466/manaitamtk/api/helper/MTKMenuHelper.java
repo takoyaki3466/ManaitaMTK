@@ -1,6 +1,10 @@
 package com.takoy3466.manaitamtk.api.helper;
 
+import com.takoy3466.manaitamtk.api.MTKStack;
+import com.takoy3466.manaitamtk.util.slot.MTKSlot;
 import net.minecraft.core.NonNullList;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
@@ -9,23 +13,29 @@ public class MTKMenuHelper {
 
     /**
      * 64個以上のアイテムを扱う時向けのmoveItemStackToです。
+     * @param slots Menuクラスで追加したslotたち。
+     * @param stack 移動させたいアイテム。
+     * @param slotIdStart 移動先のスロットの始まり。
+     * @param slotIdEnd 移動先のスロットの終わり、数値自身は含まない。ex) 39を入れた場合38までの参照となる。
+     * @param direction スロットを探す順番を逆にするか否か。ex) trueの場合は slotIdEnd -> slotIdStart, falseの場合は slotIdStart -> slotIdEnd。
+     * @return アイテムが対象の場所に移動したか。(1個でも移動すればtrueになる)
      */
-    public static boolean moveItemStackTo(NonNullList<Slot> slots, ItemStack stack, int i1, int i2, boolean b) {
+    public static boolean moveItemStackTo(NonNullList<Slot> slots, ItemStack stack, int slotIdStart, int slotIdEnd, boolean direction) {
         boolean flag = false;
-        int i = i1;
-        if (b) {
-            i = i2 - 1;
+        int i = slotIdStart;
+        if (direction) {
+            i = slotIdEnd - 1;
         }
 
         Slot slot1;
         ItemStack itemstack;
         if (stack.isStackable()) {
             while(!stack.isEmpty()) {
-                if (b) {
-                    if (i < i1) {
+                if (direction) {
+                    if (i < slotIdStart) {
                         break;
                     }
-                } else if (i >= i2) {
+                } else if (i >= slotIdEnd) {
                     break;
                 }
 
@@ -50,7 +60,7 @@ public class MTKMenuHelper {
                     }
                 }
 
-                if (b) {
+                if (direction) {
                     --i;
                 } else {
                     ++i;
@@ -59,18 +69,18 @@ public class MTKMenuHelper {
         }
 
         if (!stack.isEmpty()) {
-            if (b) {
-                i = i2 - 1;
+            if (direction) {
+                i = slotIdEnd - 1;
             } else {
-                i = i1;
+                i = slotIdStart;
             }
 
             while(true) {
-                if (b) {
-                    if (i < i1) {
+                if (direction) {
+                    if (i < slotIdStart) {
                         break;
                     }
-                } else if (i >= i2) {
+                } else if (i >= slotIdEnd) {
                     break;
                 }
 
@@ -88,7 +98,7 @@ public class MTKMenuHelper {
                     break;
                 }
 
-                if (b) {
+                if (direction) {
                     --i;
                 } else {
                     ++i;
@@ -98,5 +108,4 @@ public class MTKMenuHelper {
 
         return flag;
     }
-
 }
