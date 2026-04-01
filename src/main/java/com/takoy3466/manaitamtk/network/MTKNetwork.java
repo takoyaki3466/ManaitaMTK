@@ -1,12 +1,10 @@
 package com.takoy3466.manaitamtk.network;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.api.abstracts.AbstractMTKPacket;
-import com.takoy3466.manaitamtk.api.interfaces.IMTKPacket;
-import net.minecraft.client.Minecraft;
+import com.takoy3466.manaitamtk.core.abstracts.AbstractMTKPacket;
+import com.takoy3466.manaitamtk.core.interfaces.IMTKPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
@@ -22,7 +20,7 @@ public class MTKNetwork {
             .serverAcceptedVersions(s -> true)
             .simpleChannel();
 
-    public static <T extends AbstractMTKPacket> void registerMessage(Class<T> tClass, Function<FriendlyByteBuf, T> decode) {
+    private static <T extends AbstractMTKPacket> void registerMessage(Class<T> tClass, Function<FriendlyByteBuf, T> decode) {
         CHANNEL.registerMessage(IDs++, tClass, IMTKPacket::encode, decode, IMTKPacket::handle);
     }
 
@@ -32,6 +30,9 @@ public class MTKNetwork {
         registerMessage(PacketisKillAll.class, PacketisKillAll::decode);
         registerMessage(PacketMultiple.class, PacketMultiple::decode);
         registerMessage(PacketScreenOpen.class, PacketScreenOpen::decode);
+        registerMessage(PacketOverlay.class, PacketOverlay::decode);
+        registerMessage(PacketRightClickStack.class, PacketRightClickStack::decode);
+        registerMessage(PacketMTKTrigger.class, PacketMTKTrigger::decode);
     }
 
     public static <MSG> void sendToServer(MSG msg) {

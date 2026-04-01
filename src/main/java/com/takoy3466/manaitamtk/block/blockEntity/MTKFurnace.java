@@ -1,17 +1,18 @@
 package com.takoy3466.manaitamtk.block.blockEntity;
 
-import com.takoy3466.manaitamtk.api.interfaces.IMTKFurnace;
-import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.core.helper.MTKContainerHelper;
+import com.takoy3466.manaitamtk.core.interfaces.IMTKFurnace;
+import com.takoy3466.manaitamtk.core.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.block.blockEntity.abstracts.AbstractMultiFurnaceBlockEntity;
 import com.takoy3466.manaitamtk.util.container.MTKContainer;
+import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
-import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.ContainerData;
@@ -35,8 +36,8 @@ public class MTKFurnace implements IMTKFurnace {
     private final RecipeType<? extends AbstractCookingRecipe> recipeType;
     private final Object2IntOpenHashMap<ResourceLocation> recipesUsed;
     private final RecipeManager.CachedCheck<Container, ? extends AbstractCookingRecipe> quickCheck;
-    private NonNullList<ItemStack> items;
-    private final MultiFurnaceBlockEntity blockEntity;
+    private MTKItemStackHandler handler;
+    private final AbstractMultiFurnaceBlockEntity blockEntity;
     private final MTKTier mtkTier;
     private final MTKContainer mtkContainer = new MTKContainer(1);
 
@@ -47,11 +48,11 @@ public class MTKFurnace implements IMTKFurnace {
 
     private final ContainerData containerData;
 
-    public MTKFurnace(MultiFurnaceBlockEntity blockEntity, MTKTier mtkTier, RecipeType recipeType) {
+    public MTKFurnace(AbstractMultiFurnaceBlockEntity blockEntity, MTKTier mtkTier, RecipeType recipeType) {
         this.recipeType = recipeType;
         recipesUsed = new Object2IntOpenHashMap<>();
         quickCheck = RecipeManager.createCheck(recipeType);
-        items = NonNullList.withSize(3, ItemStack.EMPTY);
+        handler = MTKItemStackHandler.withSize(3, ItemStack.EMPTY);
         this.blockEntity = blockEntity;
         this.mtkTier = mtkTier;
         containerData = new ContainerData() {
@@ -134,26 +135,27 @@ public class MTKFurnace implements IMTKFurnace {
     }
 
     @Override
-    public NonNullList<ItemStack> getItems() {
-        return items;
+    public MTKItemStackHandler getHandler() {
+        return handler;
     }
 
     @Override
-    public void setItems(NonNullList<ItemStack> items) {
-        this.items = items;
+    public void setHandler(MTKItemStackHandler handler) {
+        this.handler = handler;
     }
     
     @Override
     public boolean isEmpty() {
-        Iterator iterator = items.iterator();
-        ItemStack stack;
+        Iterator var1 = handler.iterator();
+
+        ItemStack itemstack;
         do {
-            if (!iterator.hasNext()) {
+            if (!var1.hasNext()) {
                 return true;
             }
 
-            stack = (ItemStack) iterator.next();
-        } while (stack.isEmpty());
+            itemstack = (ItemStack)var1.next();
+        } while(itemstack.isEmpty());
 
         return false;
     }
@@ -163,13 +165,13 @@ public class MTKFurnace implements IMTKFurnace {
         if (slotId > 2) {
             return ItemStack.EMPTY;
         }
-        return items.get(slotId);
+        return handler.getStackInSlot(slotId);
     }
     
     public void setItem(int i, ItemStack stack) {
-        ItemStack itemstack = this.items.get(i);
+        ItemStack itemstack = this.handler.getStackInSlot(i);
         boolean flag = !stack.isEmpty() && ItemStack.isSameItemSameTags(itemstack, stack);
-        this.items.set(i, stack);
+        this.handler.setStackInSlot(i, stack);
         if (stack.getCount() > blockEntity.getMaxStackSize()) {
             stack.setCount(blockEntity.getMaxStackSize());
         }
@@ -189,7 +191,7 @@ public class MTKFurnace implements IMTKFurnace {
     }
 
     public void fillStackedContents(StackedContents stackedContents) {
-        Iterator stackIterator = items.iterator();
+        Iterator stackIterator = this.handler.iterator();
 
         while(stackIterator.hasNext()) {
             ItemStack itemstack = (ItemStack)stackIterator.next();
@@ -215,7 +217,7 @@ public class MTKFurnace implements IMTKFurnace {
         tag.putInt("BurnTime", litTime);
         tag.putInt("CookTime", cookingProgress);
         tag.putInt("CookTimeTotal", cookingTotalTime);
-        ContainerHelper.saveAllItems(tag, items);
+        MTKContainerHelper.saveHandler(tag, handler);
         CompoundTag compoundtag = new CompoundTag();
         recipesUsed.forEach((resourceLocation, integer) -> compoundtag.putInt(resourceLocation.toString(), integer));
         tag.put("RecipesUsed", compoundtag);
@@ -223,12 +225,12 @@ public class MTKFurnace implements IMTKFurnace {
 
     @Override
     public void load(CompoundTag tag) {
-        items = NonNullList.withSize(blockEntity.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag, items);
+        handler = MTKItemStackHandler.withSize(3, ItemStack.EMPTY);
+        MTKContainerHelper.loadHandler(tag, handler);
         litTime = tag.getInt("BurnTime");
         cookingProgress = tag.getInt("CookTime");
         cookingTotalTime = tag.getInt("CookTimeTotal");
-        litDuration = getBurnDuration(items.get(1));
+        litDuration = getBurnDuration(handler.getStackInSlot(1));
         CompoundTag compoundtag = tag.getCompound("RecipesUsed");
         Iterator iterator = compoundtag.getAllKeys().iterator();
 
@@ -250,8 +252,8 @@ public class MTKFurnace implements IMTKFurnace {
             --litTime;
         }
 
-        ItemStack itemstack = items.get(1);
-        boolean flag2 = !items.get(0).isEmpty();
+        ItemStack itemstack = handler.getStackInSlot(1);
+        boolean flag2 = !handler.getStackInSlot(0).isEmpty();
         boolean flag3 = !itemstack.isEmpty();
         if (!isLit() && (!flag3 || !flag2)) {
             if (cookingProgress > 0) {
@@ -268,29 +270,29 @@ public class MTKFurnace implements IMTKFurnace {
             }
 
             int i = blockEntity.getMaxStackSize();
-            if (!isLit() && canBurn(level.registryAccess(), recipe, items, i)) {
-                System.out.println(canBurn(level.registryAccess(), recipe, items, i));
+            if (!isLit() && canBurn(level.registryAccess(), recipe, handler, i)) {
+                System.out.println(canBurn(level.registryAccess(), recipe, handler, i));
                 litTime = getBurnDuration(itemstack);
                 litDuration = litTime;
                 if (isLit()) {
                     flag1 = true;
                     if (itemstack.hasCraftingRemainingItem()) {
-                        items.set(1, itemstack.getCraftingRemainingItem());
+                        handler.setStackInSlot(1, itemstack.getCraftingRemainingItem());
                     } else if (flag3) {
                         itemstack.shrink(1);
                         if (itemstack.isEmpty()) {
-                            items.set(1, itemstack.getCraftingRemainingItem());
+                            handler.setStackInSlot(1, itemstack.getCraftingRemainingItem());
                         }
                     }
                 }
             }
 
-            if (isLit() && canBurn(level.registryAccess(), recipe, items, i)) {
+            if (isLit() && canBurn(level.registryAccess(), recipe, handler, i)) {
                 ++cookingProgress;
                 if (cookingProgress == cookingTotalTime) {
                     cookingProgress = 0;
                     cookingTotalTime = getCookingTotalTime();
-                    if (burn(level.registryAccess(), recipe, items, i)) {
+                    if (burn(level.registryAccess(), recipe, handler, i)) {
                         blockEntity.setRecipeUsed(recipe);
                     }
 
@@ -313,27 +315,27 @@ public class MTKFurnace implements IMTKFurnace {
     }
 
     private SimpleContainer getContainer() {
-        this.mtkContainer.setItem(0, items.get(0));
+        this.mtkContainer.setItem(0, handler.getStackInSlot(0));
         return this.mtkContainer;
     }
 
-    private boolean burn(RegistryAccess access, @javax.annotation.Nullable Recipe<Container> recipe, NonNullList<ItemStack> stacks, int i) {
-        if (recipe != null && canBurn(access, recipe, stacks, i)) {
-            ItemStack input = stacks.get(0);
+    private boolean burn(RegistryAccess access, @javax.annotation.Nullable Recipe<Container> recipe, MTKItemStackHandler handler, int i) {
+        if (recipe != null && canBurn(access, recipe, handler, i)) {
+            ItemStack input = handler.getStackInSlot(0);
             ItemStack result = recipe.assemble(getContainer(), access);
 
             // いつもの倍化処理
             multipler(result);
 
-            ItemStack output = stacks.get(2);
+            ItemStack output = handler.getStackInSlot(2);
             if (output.isEmpty()) {
-                stacks.set(2, result.copy());
+                handler.setStackInSlot(2, result.copy());
             } else if (output.is(result.getItem())) {
                 output.grow(result.getCount());
             }
 
-            if (input.is(Blocks.WET_SPONGE.asItem()) && !stacks.get(1).isEmpty() && stacks.get(1).is(Items.BUCKET)) {
-                stacks.set(1, new ItemStack(Items.WATER_BUCKET));
+            if (input.is(Blocks.WET_SPONGE.asItem()) && !handler.getStackInSlot(1).isEmpty() && handler.getStackInSlot(1).is(Items.BUCKET)) {
+                handler.setStackInSlot(1, new ItemStack(Items.WATER_BUCKET));
             }
 
             input.shrink(1);
@@ -343,13 +345,13 @@ public class MTKFurnace implements IMTKFurnace {
         }
     }
 
-    private boolean canBurn(RegistryAccess access, @javax.annotation.Nullable Recipe<Container> recipe, NonNullList<ItemStack> stacks, int i) {
-        if (!stacks.get(0).isEmpty() && recipe != null) {
+    private boolean canBurn(RegistryAccess access, @javax.annotation.Nullable Recipe<Container> recipe, MTKItemStackHandler handler, int i) {
+        if (!handler.getStackInSlot(0).isEmpty() && recipe != null) {
             ItemStack stack = recipe.assemble(getContainer(), access);
             if (stack.isEmpty()) {
                 return false;
             } else {
-                ItemStack stack1 = stacks.get(2);
+                ItemStack stack1 = handler.getStackInSlot(2);
                 if (stack1.isEmpty()) {
                     return true;
                 } else if (!ItemStack.isSameItem(stack1, stack)) {

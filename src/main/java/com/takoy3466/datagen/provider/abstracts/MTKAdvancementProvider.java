@@ -2,18 +2,12 @@ package com.takoy3466.datagen.provider.abstracts;
 
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeAdvancementProvider;
 
 import javax.annotation.Nullable;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public abstract class MTKAdvancementProvider implements ForgeAdvancementProvider.AdvancementGenerator {
@@ -131,7 +125,11 @@ public abstract class MTKAdvancementProvider implements ForgeAdvancementProvider
         );
     }
 
-    protected static InventoryChangeTrigger.TriggerInstance getInvTrigger(ItemLike itemLike) {
+    protected InventoryChangeTrigger.TriggerInstance getInvTrigger(ItemLike itemLike) {
         return InventoryChangeTrigger.TriggerInstance.hasItems(itemLike);
+    }
+
+    protected AdvCriterion getInvChangeCriterion(ItemLike itemLike) {
+        return AdvCriterion.create("inv_change", getInvTrigger(itemLike));
     }
 }

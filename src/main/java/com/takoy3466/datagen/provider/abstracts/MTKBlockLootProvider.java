@@ -1,8 +1,8 @@
 package com.takoy3466.datagen.provider.abstracts;
 
-import com.takoy3466.manaitamtk.api.registry.BlockRegistryObject;
-import com.takoy3466.manaitamtk.api.registry.MTKRegistryObject;
-import com.takoy3466.manaitamtk.api.registry.tiered.TieredBlockRegistryObject;
+import com.takoy3466.manaitamtk.core.registry.BlockRegistryObject;
+import com.takoy3466.manaitamtk.core.registry.MTKRegistryObject;
+import com.takoy3466.manaitamtk.core.registry.tiered.TieredBlockRegistryObject;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlagSet;
@@ -47,8 +47,16 @@ public abstract class MTKBlockLootProvider extends BlockLootSubProvider {
         dropSelfMTK(block.getRegistry(), condition);
     }
 
-    protected <TIER> void dropSelf(TieredBlockRegistryObject<TIER> block, boolean condition) {
+    protected void dropSelfMTK(BlockRegistryObject block) {
+        dropSelfMTK(block.getRegistry(), true);
+    }
+
+    protected <TIER> void dropSelfMTK(TieredBlockRegistryObject<TIER> block, boolean condition) {
         dropSelfMTK(block.getFront(), condition);
+    }
+
+    protected <TIER> void dropSelfMTK(TieredBlockRegistryObject<TIER> block) {
+        dropSelfMTK(block.getFront(), true);
     }
 
     protected <T extends ConditionUserBuilder<T>> T explosionCondition(boolean condition, ConditionUserBuilder<T> builder) {

@@ -23,10 +23,10 @@ public class MTKChestScreen extends AbstractContainerScreen<MTKChestMenu> {
 
     @Override
     protected void renderBg(GuiGraphics graphics, float v, int i, int i1) {
-        graphics.blit(SCREEN, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
-        graphics.blit(SCREEN, this.leftPos + -89, this.topPos + -13, 0, 0, 400, 200, 400, 200);
-
-
+        int x = (this.width - this.imageWidth) / 2;
+        int y = (this.height - this.imageHeight) / 2;
+        graphics.blit(this.SCREEN, x, y, 0, 0, this.imageWidth, this.containerRows * 18 + 17);
+        graphics.blit(this.SCREEN, x, y + this.containerRows * 18 + 17, 0, 126, this.imageWidth, 96);
     }
 
     @Override

@@ -17,35 +17,58 @@ public class LTProvider extends MTKBlockLootProvider {
 
     public LTProvider() {
         super(Collections.emptySet()/*爆発耐性を持つアイテムのリスト*/, FeatureFlags.VANILLA_SET);
+        
     }
 
     @Override
     protected void generate() {
-        dropSelfMTK(BlocksInit.BLOCK_MANAITA, true);
+        dropSelfMTK(BlocksInit.BLOCK_MANAITA);
+        dropSelfMTK(BlocksInit.BLOCK_MANAITA_DIAMOND);
+        dropSelfMTK(BlocksInit.BLOCK_MANAITA_DIRT);
+        dropSelfMTK(BlocksInit.BLOCK_MANAITA_GLASS);
+
+        dropSelfMTK(BlocksInit.WOOD_CRAFTING_TABLE);
+        dropSelfMTK(BlocksInit.STONE_CRAFTING_TABLE);
+        dropSelfMTK(BlocksInit.IRON_CRAFTING_TABLE);
+        dropSelfMTK(BlocksInit.GOLD_CRAFTING_TABLE);
+        dropSelfMTK(BlocksInit.DIAMOND_CRAFTING_TABLE);
+        dropSelfMTK(BlocksInit.MTK_CRAFTING_TABLE);
+        dropSelfMTK(BlocksInit.GODMTK_CRAFTING_TABLE);
+        dropSelfMTK(BlocksInit.BREAK_CRAFTING_TABLE);
+
+        dropSelfMTK(BlocksInit.MTK_CHEST);
+
+        dropSelfMTK(BlocksInit.WOOD_MTK_FURNACE);
+        dropSelfMTK(BlocksInit.STONE_MTK_FURNACE);
+        dropSelfMTK(BlocksInit.IRON_MTK_FURNACE);
+        dropSelfMTK(BlocksInit.GOLD_MTK_FURNACE);
+        dropSelfMTK(BlocksInit.DIAMOND_MTK_FURNACE);
+        dropSelfMTK(BlocksInit.MTK_MTK_FURNACE);
+        dropSelfMTK(BlocksInit.GODMTK_MTK_FURNACE);
+        dropSelfMTK(BlocksInit.BREAK_MTK_FURNACE);
+
+        dropSelfMTK(BlocksInit.AUTO_WORKBENCH_MTK);
+
+        dropSelfMTK(BlocksInit.WOOD_MULTI_FURNACE);
+        dropSelfMTK(BlocksInit.STONE_MULTI_FURNACE);
+        dropSelfMTK(BlocksInit.IRON_MULTI_FURNACE);
+        dropSelfMTK(BlocksInit.GOLD_MULTI_FURNACE);
+        dropSelfMTK(BlocksInit.DIAMOND_MULTI_FURNACE);
+        dropSelfMTK(BlocksInit.MTK_MULTI_FURNACE);
+        dropSelfMTK(BlocksInit.GODMTK_MULTI_FURNACE);
+        dropSelfMTK(BlocksInit.BREAK_MULTI_FURNACE);
+
     }
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return new Iterable<>() {
-            @NotNull
-            @Override
-            public Iterator<Block> iterator() {
-                return BlocksInit.BLOCK_MANAITA.getFront().stream().iterator();
-            }
-        };
-        /*
         Iterator<Block> iteratorTier = BlocksInit.TIER_BLOCKS.getRegister().getFront().getEntries().stream().flatMap(RegistryObject::stream).iterator();
         Iterator<Block> iteratorBlock = BlocksInit.BLOCKS.getRegister().getFront().getEntries().stream().flatMap(RegistryObject::stream).iterator();
-        return mergeIterators(iteratorBlock, iteratorTier);
-        */
-    }
-
-    public static <T> Iterable<T> mergeIterators(Iterator<T> iterator1, Iterator<T> iterator2) {
-        Stream<T> stream = Stream.concat(
+        Stream<Block> stream = Stream.concat(
                 StreamSupport.stream(
-                        Spliterators.spliteratorUnknownSize(iterator1, 0), false),
+                        Spliterators.spliteratorUnknownSize(iteratorTier, 0), false),
                 StreamSupport.stream(
-                        Spliterators.spliteratorUnknownSize(iterator2, 0), false)
+                        Spliterators.spliteratorUnknownSize(iteratorBlock, 0), false)
         );
         return stream::iterator;
     }

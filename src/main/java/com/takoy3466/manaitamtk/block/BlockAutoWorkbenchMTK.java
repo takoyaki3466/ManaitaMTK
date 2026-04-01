@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.block;
 
-import com.takoy3466.manaitamtk.api.abstracts.AbstractTickerEntityBlock;
+import com.takoy3466.manaitamtk.core.abstracts.AbstractTickerEntityBlock;
 import com.takoy3466.manaitamtk.block.blockEntity.AutoWorkbenchMTKBlockEntity;
 import com.takoy3466.manaitamtk.init.BlockEntitiesInit;
 import net.minecraft.ChatFormatting;

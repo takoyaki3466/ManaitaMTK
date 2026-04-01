@@ -1,42 +1,94 @@
 package com.takoy3466.manaitamtk.block;
 
-import com.takoy3466.manaitamtk.api.abstracts.AbstractFurnaceMultipler;
-import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
-import com.takoy3466.manaitamtk.block.blockEntity.MultiFurnaceBlockEntity;
+import com.takoy3466.manaitamtk.block.abstracts.AbstractBlockMultiFurnace;
+import com.takoy3466.manaitamtk.init.BlockEntitiesInit;
+import com.takoy3466.manaitamtk.init.MTKTiers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
-public class BlockMultiFurnace extends AbstractFurnaceMultipler {
-
-    public BlockMultiFurnace(MTKTier mtkTier) {
-        super(Properties.of().sound(SoundType.WOOD), mtkTier);
+public class BlockMultiFurnace {
+    public static class Wood extends AbstractBlockMultiFurnace {
+        public Wood() {
+            super(MTKTiers.WOOD);
+        }
+        @Nullable
+        @Override
+        public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            System.out.println(this.getClass().getName() + " create BlockEntity");
+            return BlockEntitiesInit.WOOD_MULTI_FURNACE.get().create(pos, state);
+        }
     }
 
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new MultiFurnaceBlockEntity(blockPos, blockState, getMTKTier());
-    }
+    public static class Stone extends AbstractBlockMultiFurnace {
+        public Stone() {
+            super(MTKTiers.STONE);
+        }
 
-    @Override
-    protected void openContainer(Level level, BlockPos pos, Player player) {
-        if (level.isClientSide()) {
-            return;
+        @Override
+        public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return BlockEntitiesInit.STONE_MULTI_FURNACE.get().create(pos, state);
         }
-        BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (!(blockEntity instanceof MultiFurnaceBlockEntity furnaceBlockEntity)) {
-            return;
+    }
+    public static class Iron extends AbstractBlockMultiFurnace {
+        public Iron() {
+            super(MTKTiers.IRON);
         }
-        BlockState state = furnaceBlockEntity.getBlockState();
-        if (player instanceof ServerPlayer serverPlayer) {
-            NetworkHooks.openScreen(serverPlayer, createMenuProvider(pos, state), pos);
+
+        @Override
+        public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return BlockEntitiesInit.IRON_MULTI_FURNACE.get().create(pos, state);
+        }
+    }
+    public static class Gold extends AbstractBlockMultiFurnace {
+        public Gold() {
+            super(MTKTiers.GOLD);
+        }
+
+        @Override
+        public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return BlockEntitiesInit.GOLD_MULTI_FURNACE.get().create(pos, state);
+        }
+    }
+    public static class Diamond extends AbstractBlockMultiFurnace {
+        public Diamond() {
+            super(MTKTiers.DIAMOND);
+        }
+
+        @Override
+        public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return BlockEntitiesInit.DIAMOND_MULTI_FURNACE.get().create(pos, state);
+        }
+    }
+    public static class MTK extends AbstractBlockMultiFurnace {
+        public MTK() {
+            super(MTKTiers.MTK);
+        }
+
+        @Override
+        public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return BlockEntitiesInit.MTK_MULTI_FURNACE.get().create(pos, state);
+        }
+    }
+    public static class GodMTK extends AbstractBlockMultiFurnace {
+        public GodMTK() {
+            super(MTKTiers.GODMTK);
+        }
+
+        @Override
+        public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return BlockEntitiesInit.GODMTK_MULTI_FURNACE.get().create(pos, state);
+        }
+    }
+    public static class Break extends AbstractBlockMultiFurnace {
+        public Break() {
+            super(MTKTiers.BREAK);
+        }
+
+        @Override
+        public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return BlockEntitiesInit.BREAK_MULTI_FURNACE.get().create(pos, state);
         }
     }
 }

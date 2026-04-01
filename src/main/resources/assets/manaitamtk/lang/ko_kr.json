@@ -61,6 +61,15 @@
   "block.manaitamtk.mtk_chest": "Manaita 상자",
   "block.manaitamtk.auto_workbench_mtk": "자동 작업대",
 
+  "block.manaitamtk.break_multi_furnace": "부서지다 33554431x 폭발 용광로",
+  "block.manaitamtk.diamond_multi_furnace": "다이아몬드 32x 폭발 용광로",
+  "block.manaitamtk.godmtk_multi_furnace": "GODMTK 512x 폭발 용광로",
+  "block.manaitamtk.gold_multi_furnace": "금 16x 폭발 용광로",
+  "block.manaitamtk.iron_multi_furnace": "철 8x 폭발 용광로",
+  "block.manaitamtk.mtk_multi_furnace": "MTK 64x 폭발 용광로",
+  "block.manaitamtk.stone_multi_furnace": "결석 4x 폭발 용광로",
+  "block.manaitamtk.wood_multi_furnace": "나무 2x 폭발 용광로",
+
   "item.manaitamtk.helmet_manaita": "Manaita 투구",
   "item.manaitamtk.chestplate_manaita": "Manaita 흉갑",
   "item.manaitamtk.legins_manaita": "Manaita 레깅스",
@@ -117,6 +126,14 @@
   "advancements.mtk_backpack.description": "MTK백팩을 만들어보자！",
   "advancements.auto_workbench_mtk.title": "BuildCraft",
   "advancements.auto_workbench_mtk.description": "자동 워크 벤치를 구축합시다！",
+  "advancements.make_break_multi_furnace.description": "블레이크 제련소의 연기로를 만들어 봅시다!",
+  "advancements.make_break_multi_furnace.title": "하나 태우면 더 이상 필요하지 않나요?",
+  "advancements.make_wood_multi_furnace.description": "나무로 훈연로를 만들어보자!",
+  "advancements.make_wood_multi_furnace.title": "1개는 2개입니다! 슈퍼 가치!",
+  "advancements.use_sword.description": "칼로 번개를...?",
+  "advancements.use_sword.title": "우루세!",
+  "advancements.craft_in_break_ct.description": "브레이크 작업대에서 크래프트 해 보자!",
+  "advancements.craft_in_break_ct.title": "이것이 바로 진정한 도마입니다!",
 
   "item.manaitamtk.zikokenziyoku.display_massage": "패배！",
 

@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "manaitamtk:block/break_multi_furnace_bottom",
+    "east": "manaitamtk:block/break_multi_furnace_side2",
+    "north": "manaitamtk:block/break_multi_furnace_side1",
+    "south": "manaitamtk:block/break_multi_furnace_side2",
+    "up": "manaitamtk:block/break_multi_furnace_top",
+    "west": "manaitamtk:block/break_multi_furnace_side2"
+  }
+}

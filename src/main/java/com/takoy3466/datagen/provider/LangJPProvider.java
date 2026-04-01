@@ -3,9 +3,9 @@ package com.takoy3466.datagen.provider;
 import com.takoy3466.datagen.provider.abstracts.MTKLangProvider;
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMappings;
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
-import com.takoy3466.manaitamtk.api.registry.tiered.TieredBlockRegistryObject;
-import com.takoy3466.manaitamtk.api.registry.tiered.TieredRegistryObject;
+import com.takoy3466.manaitamtk.core.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.core.registry.tiered.TieredBlockRegistryObject;
+import com.takoy3466.manaitamtk.core.registry.tiered.TieredRegistryObject;
 import com.takoy3466.manaitamtk.init.BlocksInit;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.init.MTKTiers;
@@ -104,6 +104,14 @@ public class LangJPProvider extends MTKLangProvider {
         furnace(BlocksInit.MTK_MTK_FURNACE);
         furnace(BlocksInit.GODMTK_MTK_FURNACE);
         furnace(BlocksInit.BREAK_MTK_FURNACE);
+        multiFurnace(BlocksInit.WOOD_MULTI_FURNACE);
+        multiFurnace(BlocksInit.STONE_MULTI_FURNACE);
+        multiFurnace(BlocksInit.IRON_MULTI_FURNACE);
+        multiFurnace(BlocksInit.GOLD_MULTI_FURNACE);
+        multiFurnace(BlocksInit.DIAMOND_MULTI_FURNACE);
+        multiFurnace(BlocksInit.MTK_MULTI_FURNACE);
+        multiFurnace(BlocksInit.GODMTK_MULTI_FURNACE);
+        multiFurnace(BlocksInit.BREAK_MULTI_FURNACE);
 
         add(BlocksInit.BLOCK_MANAITA.getBlock(), "まな板");
         add(BlocksInit.BLOCK_MANAITA_DIAMOND.getBlock(), "まな板のダイヤモンド");
@@ -118,6 +126,13 @@ public class LangJPProvider extends MTKLangProvider {
     }
     private void furnace(TieredBlockRegistryObject<MTKTier> object) {
         add(object.getBlock(), of(object.getTier()).getJP() + "の" + object.getTier().getMultiple() + "倍かまど");
+    }
+    private void multiFurnace(TieredBlockRegistryObject<MTKTier> object) {
+        if (object.getTier() == MTKTiers.BREAK) {
+            add(object.getBlock(), of(object.getTier()).getJP() + "溶鉱燻製炉");
+        }else {
+            add(object.getBlock(), of(object.getTier()).getJP() + "の" + "溶鉱燻製炉");
+        }
     }
 
     @Override
@@ -151,8 +166,8 @@ public class LangJPProvider extends MTKLangProvider {
         add("advancements.make_crushed_mtk.description", "MTKを焼いてみよう！");
         add("advancements.make_break_crafting_table.title", "なんか数字のキリ悪くない...?");
         add("advancements.make_break_crafting_table.description", "ブレイク作業台を作ろう！");
-        add("advancement.mtk_screen_open.title", "なんか見覚えあるスクリーンだな...");
-        add("advancement.mtk_screen_open.description", "F3とF4押したときに出てくるやつやないか！");
+        add("advancements.mtk_screen_open.title", "なんか見覚えあるスクリーンだな...");
+        add("advancements.mtk_screen_open.description", "F3とF4押したときに出てくるやつやないか！");
         add("advancements.make_break_mtk_furnace.title", "あれ...テクスチャの使いまわし...?");
         add("advancements.make_break_mtk_furnace.description", "ブレイクかまどを作ろう！");
         add("advancements.make_wood_mtk_furnace.title", "待て待て！木で焼いたら燃えちゃうって！");
@@ -165,7 +180,14 @@ public class LangJPProvider extends MTKLangProvider {
         add("advancements.mtk_backpack.description", "MTKバックパックを作ってみよう！");
         add("advancements.auto_workbench_mtk.title", "BuildCraft");
         add("advancements.auto_workbench_mtk.description", "自動作業台を作ろう！");
-
+        add("advancements.make_wood_multi_furnace.title", "1個で2個分！超お得！");
+        add("advancements.make_wood_multi_furnace.description", "木の溶鉱燻製炉を作ろう！");
+        add("advancements.make_break_multi_furnace.title", "こんな量さばききれるわけないだろ！");
+        add("advancements.make_break_multi_furnace.description", "ブレイク溶鉱燻製炉を作ろう！");
+        add("advancements.use_sword.title", "うるせぇ！");
+        add("advancements.use_sword.description", "剣で雷を...?");
+        add("advancements.craft_in_break_ct.title", "これこそが真のまな板だ！");
+        add("advancements.craft_in_break_ct.description", "ブレイク作業台でクラフトしてみよう！");
     }
 
     @Override

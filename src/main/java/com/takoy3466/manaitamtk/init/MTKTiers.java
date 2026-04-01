@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.init;
 
-import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.core.mtkTier.MTKTier;
 
 public class MTKTiers {
     public static final MTKTier WOOD = MTKTier.create(2, "wood");

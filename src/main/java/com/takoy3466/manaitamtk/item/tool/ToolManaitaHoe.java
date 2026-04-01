@@ -1,8 +1,8 @@
 package com.takoy3466.manaitamtk.item.tool;
 
-import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
-import com.takoy3466.manaitamtk.api.capability.provider.SpreadGrowProvider;
-import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
+import com.takoy3466.manaitamtk.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.capability.provider.SpreadGrowProvider;
+import com.takoy3466.manaitamtk.core.interfaces.IHasCapability;
 import com.takoy3466.manaitamtk.config.MTKConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;

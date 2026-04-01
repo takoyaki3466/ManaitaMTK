@@ -1,5 +1,6 @@
 package com.takoy3466.manaitamtk.block;
 
+import com.takoy3466.manaitamtk.block.abstracts.AbstractBlockMTKFurnace;
 import com.takoy3466.manaitamtk.block.blockEntity.MTKFurnaceBlockEntity;
 import com.takoy3466.manaitamtk.init.MTKTiers;
 import net.minecraft.core.BlockPos;

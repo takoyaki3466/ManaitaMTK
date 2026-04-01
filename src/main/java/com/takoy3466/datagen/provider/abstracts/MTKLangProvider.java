@@ -1,6 +1,6 @@
 package com.takoy3466.datagen.provider.abstracts;
 
-import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.core.mtkTier.MTKTier;
 import com.takoy3466.manaitamtk.init.MTKTiers;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;

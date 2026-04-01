@@ -1,19 +1,16 @@
 package com.takoy3466.manaitamtk.network;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.api.abstracts.AbstractMTKPacket;
-import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
-import com.takoy3466.manaitamtk.api.capability.helper.MTKCapabilityHelper;
-import com.takoy3466.manaitamtk.api.capability.interfaces.IFly;
-import com.takoy3466.manaitamtk.api.interfaces.ISimpleCapability;
-import com.takoy3466.manaitamtk.api.interfaces.IUseTag;
-import com.takoy3466.manaitamtk.init.ItemsInit;
+import com.takoy3466.manaitamtk.core.abstracts.AbstractMTKPacket;
+import com.takoy3466.manaitamtk.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.capability.helper.MTKCapabilityHelper;
+import com.takoy3466.manaitamtk.capability.interfaces.IFly;
+import com.takoy3466.manaitamtk.core.interfaces.ISimpleCapability;
+import com.takoy3466.manaitamtk.core.interfaces.IUseTag;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.network.NetworkEvent;
 import org.jetbrains.annotations.Nullable;

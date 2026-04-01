@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "manaitamtk:gold_multi_furnace"
+    }
+  ],
+  "result": {
+    "item": "manaitamtk:portable_gold_furnace"
+  }
+}

@@ -1,11 +1,11 @@
 package com.takoy3466.manaitamtk.init;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
-import com.takoy3466.manaitamtk.api.registry.register.BlockRegister;
-import com.takoy3466.manaitamtk.api.registry.BlockRegistryObject;
-import com.takoy3466.manaitamtk.api.registry.tiered.TieredBlockRegister;
-import com.takoy3466.manaitamtk.api.registry.tiered.TieredBlockRegistryObject;
+import com.takoy3466.manaitamtk.core.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.core.registry.register.BlockRegister;
+import com.takoy3466.manaitamtk.core.registry.BlockRegistryObject;
+import com.takoy3466.manaitamtk.core.registry.tiered.TieredBlockRegister;
+import com.takoy3466.manaitamtk.core.registry.tiered.TieredBlockRegistryObject;
 import com.takoy3466.manaitamtk.block.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -56,9 +56,14 @@ public class BlocksInit {
 
     public static final BlockRegistryObject AUTO_WORKBENCH_MTK = BLOCKS.register("auto_workbench_mtk", BlockAutoWorkbenchMTK::new, EPIC);
 
-    public static final TieredBlockRegistryObject<MTKTier> WOOD_MULTI_FURNACE = TIER_BLOCKS.register("wood_multi_furnace", () -> new BlockMultiFurnace(MTKTiers.WOOD), new Item.Properties(), MTKTiers.WOOD);
-
-
+    public static final TieredBlockRegistryObject<MTKTier> WOOD_MULTI_FURNACE = multiFurnace(BlockMultiFurnace.Wood::new, MTKTiers.WOOD);
+    public static final TieredBlockRegistryObject<MTKTier> STONE_MULTI_FURNACE = multiFurnace(BlockMultiFurnace.Stone::new, MTKTiers.STONE);
+    public static final TieredBlockRegistryObject<MTKTier> IRON_MULTI_FURNACE = multiFurnace(BlockMultiFurnace.Iron::new, MTKTiers.IRON);
+    public static final TieredBlockRegistryObject<MTKTier> GOLD_MULTI_FURNACE = multiFurnace(BlockMultiFurnace.Gold::new, MTKTiers.GOLD);
+    public static final TieredBlockRegistryObject<MTKTier> DIAMOND_MULTI_FURNACE = multiFurnace(BlockMultiFurnace.Diamond::new, MTKTiers.DIAMOND);
+    public static final TieredBlockRegistryObject<MTKTier> MTK_MULTI_FURNACE = multiFurnace(BlockMultiFurnace.MTK::new, MTKTiers.MTK);
+    public static final TieredBlockRegistryObject<MTKTier> GODMTK_MULTI_FURNACE = multiFurnace(BlockMultiFurnace.GodMTK::new, MTKTiers.GODMTK);
+    public static final TieredBlockRegistryObject<MTKTier> BREAK_MULTI_FURNACE = multiFurnace(BlockMultiFurnace.Break::new, MTKTiers.BREAK);
 
     //型の作成
     public static BlockRegistryObject blockManaitaRegister(MTKTier mtkTier) {
@@ -72,5 +77,9 @@ public class BlocksInit {
 
     public static TieredBlockRegistryObject<MTKTier> furnaceRegister(Supplier<Block> supplier, MTKTier mtkTier) {
         return TIER_BLOCKS.register(mtkTier.getName() + "_mtk_furnace", supplier, isContain(mtkTier), mtkTier);
+    }
+
+    public static TieredBlockRegistryObject<MTKTier> multiFurnace(Supplier<Block> supplier, MTKTier mtkTier) {
+        return TIER_BLOCKS.register(mtkTier.getName() + "_multi_furnace", supplier, isContain(mtkTier), mtkTier);
     }
 }

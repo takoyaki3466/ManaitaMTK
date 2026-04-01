@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.util.slot;
 
-import com.takoy3466.manaitamtk.api.interfaces.IFurnaceMenu;
-import com.takoy3466.manaitamtk.menu.MultiFurnaceMenu;
+import com.takoy3466.manaitamtk.core.interfaces.IFurnaceMenu;
+import com.takoy3466.manaitamtk.menu.abstracts.AbstractMultiFurnaceMenu;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
@@ -21,7 +21,7 @@ public class MTKFurnaceFuelSlot extends Slot {
         if (menu instanceof IFurnaceMenu furnaceMenu) {
             return furnaceMenu.isFuel(stack) || isBucket(stack);
         }
-        else if (menu instanceof MultiFurnaceMenu multiFurnaceMenu) {
+        else if (menu instanceof AbstractMultiFurnaceMenu multiFurnaceMenu) {
             return multiFurnaceMenu.isFuel(stack) || isBucket(stack);
         }else {
             return false;

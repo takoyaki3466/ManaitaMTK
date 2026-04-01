@@ -2,8 +2,10 @@ package com.takoy3466.datagen.provider;
 
 import com.takoy3466.datagen.provider.abstracts.MTKAdvancementProvider;
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.api.criterionTrigger.MTKOpenTrigger;
-import com.takoy3466.manaitamtk.api.MTKScreenId;
+import com.takoy3466.manaitamtk.criterionTrigger.ScreenOpenTrigger;
+import com.takoy3466.manaitamtk.core.MTKScreenId;
+import com.takoy3466.manaitamtk.criterionTrigger.MTKTrigger;
+import com.takoy3466.manaitamtk.criterionTrigger.RightClickTrigger;
 import com.takoy3466.manaitamtk.init.BlocksInit;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import net.minecraft.advancements.*;
@@ -32,25 +34,67 @@ public class AdvProvider extends MTKAdvancementProvider {
         Advancement ITEM_MTK = add(getRoot("item_mtk"), consumer, MTK_START,
                 AdvDisplay.create(ItemsInit.ITEM_MTK.get(), "make_mtk", null, FrameType.TASK, TTF),
                 null,
-                AdvCriterion.create(INV_CHANGE, getInvTrigger(ItemsInit.ITEM_MTK.get()))
+                getInvChangeCriterion(ItemsInit.ITEM_MTK.get())
         );
-        Advancement _opWOOD_MTK_FURNACE = add(getRoot("wood_mtk_furnace"),consumer, ITEM_MTK,
+        Advancement WOOD_MTK_FURNACE = add(getRoot("wood_mtk_furnace"),consumer, ITEM_MTK,
                 AdvDisplay.create(BlocksInit.WOOD_MTK_FURNACE.getItem(), "make_wood_mtk_furnace", null, FrameType.TASK, TTF),
                 null,
-                AdvCriterion.create(INV_CHANGE, getInvTrigger(BlocksInit.WOOD_MTK_FURNACE.getItem()))
+                getInvChangeCriterion(BlocksInit.WOOD_MTK_FURNACE.getItem())
+        );
+
+        Advancement MTK_MTK_FURNACE = add(getRoot("mtk_mtk_furnace"), consumer, WOOD_MTK_FURNACE,
+                AdvDisplay.create(BlocksInit.MTK_MTK_FURNACE.getItem(), "make_mtk_mtk_furnace", null, FrameType.TASK, TTF),
+                null,
+                getInvChangeCriterion(BlocksInit.MTK_MTK_FURNACE.getItem())
         );
 
         Advancement MANAITA_PAXEL = add(getRoot("manaita_paxel"), consumer, ITEM_MTK,
                 AdvDisplay.create(ItemsInit.MANAITA_PAXEL.get(), "make_paxel", null, FrameType.CHALLENGE, TTF),
                 null,
-                AdvCriterion.create(INV_CHANGE, getInvTrigger(ItemsInit.MANAITA_PAXEL.get()))
+                getInvChangeCriterion(ItemsInit.MANAITA_PAXEL.get())
         );
 
         Advancement PAXEL_OPEN_SCREEN = add(getRoot("manaita_paxel_open_screen"), consumer, MANAITA_PAXEL,
                 AdvDisplay.create(ItemsInit.MANAITA_PAXEL.get(), "mtk_screen_open", null, FrameType.TASK, TTF),
                 null,
-                AdvCriterion.create("open_switcher", new MTKOpenTrigger.TriggerInstance(ContextAwarePredicate.ANY, MTKScreenId.MTK_SWITCHER))
+                AdvCriterion.create("open_switcher", new ScreenOpenTrigger.TriggerInstance(ContextAwarePredicate.ANY, MTKScreenId.MTK_SWITCHER))
         );
+
+        Advancement WOOD_MULTI_FURNACE = add(getRoot("wood_multi_furnace"), consumer, MTK_MTK_FURNACE,
+                AdvDisplay.create(BlocksInit.WOOD_MULTI_FURNACE.getItem(), "make_wood_multi_furnace", null, FrameType.TASK, TTF),
+                null,
+                getInvChangeCriterion(BlocksInit.WOOD_MULTI_FURNACE.getItem())
+        );
+
+        Advancement BREAK_CRAFTING_TABLE = add(getRoot("break_crafting_table"), consumer, ITEM_MTK,
+                AdvDisplay.create(BlocksInit.BREAK_CRAFTING_TABLE.getItem(), "make_break_crafting_table", null, FrameType.CHALLENGE, TTF),
+                null,
+                getInvChangeCriterion(BlocksInit.BREAK_CRAFTING_TABLE.getItem())
+        );
+
+        Advancement BREAK_MTK_FURNACE = add(getRoot("break_mtk_furnace"), consumer, BREAK_CRAFTING_TABLE,
+                AdvDisplay.create(BlocksInit.BREAK_MTK_FURNACE.getItem(), "make_break_mtk_furnace", null, FrameType.CHALLENGE, TTF),
+                null,
+                getInvChangeCriterion(BlocksInit.BREAK_MTK_FURNACE.getItem())
+        );
+
+        Advancement BREAK_MULTI_FURNACE = add(getRoot("break_multi_furnace"), consumer, BREAK_MTK_FURNACE,
+                AdvDisplay.create(BlocksInit.BREAK_MULTI_FURNACE.getItem(), "make_break_multi_furnace", null, FrameType.CHALLENGE, TTF),
+                null,
+                getInvChangeCriterion(BlocksInit.BREAK_MULTI_FURNACE.getItem())
+        );
+
+        Advancement USE_SWORD = add(getRoot("use_sword"), consumer, MANAITA_PAXEL,
+                AdvDisplay.create(ItemsInit.MANAITA_SWORD.get(), "use_sword", null, FrameType.TASK, TTF),
+                null,
+                AdvCriterion.create("use_sword", new RightClickTrigger.TriggerInstance(ContextAwarePredicate.ANY, ItemPredicate.Builder.item().of(ItemsInit.MANAITA_SWORD.get()).build()))
+        );
+
+        Advancement CRAFT_IN_BREAK_CRAFTING_TABLE = add(getRoot("craft_in_break_ct"), consumer, BREAK_CRAFTING_TABLE,
+                AdvDisplay.create(BlocksInit.BREAK_CRAFTING_TABLE.getItem(), "craft_in_break_ct", null, FrameType.TASK, TTF),
+                null,
+                AdvCriterion.create("craft_in_break_ct", new MTKTrigger.TriggerInstance(ContextAwarePredicate.ANY, MTKTrigger.CRAFT_IN_BREAK_CRAFTING_TABLE))
+                );
 
     }
 

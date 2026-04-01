@@ -2,6 +2,7 @@ package com.takoy3466.manaitamtk.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.takoy3466.manaitamtk.menu.*;
+import com.takoy3466.manaitamtk.menu.abstracts.AbstractMTKFurnaceMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -40,7 +41,7 @@ public abstract class ItemRenderMixin {
         boolean isMTKChest = menu instanceof MTKChestMenu;
         boolean isMTKBackpack = menu instanceof MTKBackpackMenu;
         boolean isPortableFurnace = menu instanceof PortableFurnaceMenu;
-        boolean isMTKFurnace = menu instanceof MTKFurnaceMenu;
+        boolean isMTKFurnace = menu instanceof AbstractMTKFurnaceMenu;
         boolean isMTKCraftTable = menu instanceof MTKCraftingTableMenu;
         return isMTKChest || isMTKBackpack || isPortableFurnace || isMTKFurnace || isMTKCraftTable;
     }

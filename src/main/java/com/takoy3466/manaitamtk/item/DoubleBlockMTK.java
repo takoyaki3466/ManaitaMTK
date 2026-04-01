@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.item;
 
-import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
-import com.takoy3466.manaitamtk.api.abstracts.AbstractItemMultipler;
+import com.takoy3466.manaitamtk.core.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.core.abstracts.AbstractItemMultipler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;

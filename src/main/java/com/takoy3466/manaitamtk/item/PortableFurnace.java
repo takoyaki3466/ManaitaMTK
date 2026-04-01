@@ -1,14 +1,14 @@
 package com.takoy3466.manaitamtk.item;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.api.interfaces.ISimpleCapability;
-import com.takoy3466.manaitamtk.api.interfaces.IUseTag;
-import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
-import com.takoy3466.manaitamtk.api.abstracts.AbstractItemMultipler;
-import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
-import com.takoy3466.manaitamtk.api.capability.provider.PortableFurnaceProvider;
-import com.takoy3466.manaitamtk.api.capability.interfaces.IPortableFurnace;
-import com.takoy3466.manaitamtk.api.interfaces.IHasMenuProvider;
+import com.takoy3466.manaitamtk.core.interfaces.ISimpleCapability;
+import com.takoy3466.manaitamtk.core.interfaces.IUseTag;
+import com.takoy3466.manaitamtk.core.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.core.abstracts.AbstractItemMultipler;
+import com.takoy3466.manaitamtk.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.capability.provider.PortableFurnaceProvider;
+import com.takoy3466.manaitamtk.capability.interfaces.IPortableFurnace;
+import com.takoy3466.manaitamtk.core.interfaces.IHasMenuProvider;
 import com.takoy3466.manaitamtk.menu.PortableFurnaceMenu;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

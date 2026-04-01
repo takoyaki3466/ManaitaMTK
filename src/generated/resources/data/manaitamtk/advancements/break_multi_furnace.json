@@ -1,0 +1,38 @@
+{
+  "parent": "manaitamtk:break_mtk_furnace",
+  "criteria": {
+    "inv_change": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "manaitamtk:break_multi_furnace"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.make_break_multi_furnace.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "manaitamtk:break_multi_furnace"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.make_break_multi_furnace.title"
+    }
+  },
+  "requirements": [
+    [
+      "inv_change"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

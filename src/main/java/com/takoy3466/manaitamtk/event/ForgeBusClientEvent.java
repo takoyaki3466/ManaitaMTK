@@ -2,11 +2,11 @@ package com.takoy3466.manaitamtk.event;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMappings;
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.api.MTKScreenId;
-import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
-import com.takoy3466.manaitamtk.api.capability.interfaces.IMultiple;
+import com.takoy3466.manaitamtk.core.MTKScreenId;
+import com.takoy3466.manaitamtk.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.capability.interfaces.IMultiple;
 import com.takoy3466.manaitamtk.init.ItemsInit;
-import com.takoy3466.manaitamtk.item.tool.MTKSwitcherScreen;
+import com.takoy3466.manaitamtk.screen.MTKSwitcherScreen;
 import com.takoy3466.manaitamtk.network.MTKNetwork;
 import com.takoy3466.manaitamtk.network.PacketScreenOpen;
 import com.takoy3466.manaitamtk.screen.MTKBackPackScreen;

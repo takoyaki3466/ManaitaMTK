@@ -1,9 +1,11 @@
 package com.takoy3466.datagen.provider;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.core.mtkTier.MTKTier;
 import com.takoy3466.datagen.provider.abstracts.MTKLangProvider;
-import com.takoy3466.manaitamtk.api.registry.tiered.TieredRegistryObject;
+import com.takoy3466.manaitamtk.core.registry.tiered.TieredBlockRegistryObject;
+import com.takoy3466.manaitamtk.core.registry.tiered.TieredRegistryObject;
+import com.takoy3466.manaitamtk.init.BlocksInit;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
@@ -38,6 +40,18 @@ public class LangKOProvider extends MTKLangProvider {
     @Override
     protected void blockTranslate() {
 
+        multiFurnace(BlocksInit.WOOD_MULTI_FURNACE);
+        multiFurnace(BlocksInit.STONE_MULTI_FURNACE);
+        multiFurnace(BlocksInit.IRON_MULTI_FURNACE);
+        multiFurnace(BlocksInit.GOLD_MULTI_FURNACE);
+        multiFurnace(BlocksInit.DIAMOND_MULTI_FURNACE);
+        multiFurnace(BlocksInit.MTK_MULTI_FURNACE);
+        multiFurnace(BlocksInit.GODMTK_MULTI_FURNACE);
+        multiFurnace(BlocksInit.BREAK_MULTI_FURNACE);
+    }
+
+    private void multiFurnace(TieredBlockRegistryObject<MTKTier> object) {
+        add(object.getBlock(), of(object.getTier()).getKO() + " " + object.getTier().getMultiple() + "x 폭발 용광로");
     }
 
     @Override

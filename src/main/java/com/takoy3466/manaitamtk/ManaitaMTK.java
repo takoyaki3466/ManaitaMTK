@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk;
 
-import com.takoy3466.manaitamtk.api.MTKBlockList;
+import com.takoy3466.manaitamtk.core.MTKBlockList;
 import com.takoy3466.manaitamtk.config.MTKConfig;
 import com.takoy3466.manaitamtk.event.MTKSubscribeEvent;
 import com.takoy3466.manaitamtk.init.*;

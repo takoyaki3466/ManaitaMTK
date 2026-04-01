@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.KeyMapping;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.api.keyMapping.KeyMappingRegister;
+import com.takoy3466.manaitamtk.core.keyMapping.KeyMappingRegister;
 import net.minecraft.client.KeyMapping;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;

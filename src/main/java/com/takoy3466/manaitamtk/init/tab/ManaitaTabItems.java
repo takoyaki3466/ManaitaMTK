@@ -81,6 +81,14 @@ public class ManaitaTabItems {
             BlocksInit.AUTO_WORKBENCH_MTK.getBehind(),
 
             BlocksInit.WOOD_MULTI_FURNACE.getBehind(),
+            BlocksInit.STONE_MULTI_FURNACE.getBehind(),
+            BlocksInit.IRON_MULTI_FURNACE.getBehind(),
+            BlocksInit.GOLD_MULTI_FURNACE.getBehind(),
+            BlocksInit.DIAMOND_MULTI_FURNACE.getBehind(),
+            BlocksInit.MTK_MULTI_FURNACE.getBehind(),
+            BlocksInit.GODMTK_MULTI_FURNACE.getBehind(),
+            BlocksInit.BREAK_MULTI_FURNACE.getBehind(),
+
 
             ItemsInit.DEBUG_MTK,
     };

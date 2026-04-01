@@ -79,6 +79,14 @@ public class ModBusClientEvent {
         MenuScreens.register(MenusInit.MTK_BACKPACK.get(), MTKBackPackScreen::new);
 
         MenuScreens.register(MenusInit.WOOD_MULTI_FURNACE.get(), MultiFurnaceScreen::new);
+        MenuScreens.register(MenusInit.STONE_MULTI_FURNACE.get(), MultiFurnaceScreen::new);
+        MenuScreens.register(MenusInit.IRON_MULTI_FURNACE.get(), MultiFurnaceScreen::new);
+        MenuScreens.register(MenusInit.GOLD_MULTI_FURNACE.get(), MultiFurnaceScreen::new);
+        MenuScreens.register(MenusInit.DIAMOND_MULTI_FURNACE.get(), MultiFurnaceScreen::new);
+        MenuScreens.register(MenusInit.MTK_MULTI_FURNACE.get(), MultiFurnaceScreen::new);
+        MenuScreens.register(MenusInit.GODMTK_MULTI_FURNACE.get(), MultiFurnaceScreen::new);
+        MenuScreens.register(MenusInit.BREAK_MULTI_FURNACE.get(), MultiFurnaceScreen::new);
+
     }
 
     @SubscribeEvent

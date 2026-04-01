@@ -1,0 +1,36 @@
+{
+  "parent": "manaitamtk:manaita_paxel",
+  "criteria": {
+    "use_sword": {
+      "conditions": {
+        "item": {
+          "items": [
+            "manaitamtk:manaita_sword"
+          ]
+        }
+      },
+      "trigger": "manaitamtk:right_click"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.use_sword.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "manaitamtk:manaita_sword"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.use_sword.title"
+    }
+  },
+  "requirements": [
+    [
+      "use_sword"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

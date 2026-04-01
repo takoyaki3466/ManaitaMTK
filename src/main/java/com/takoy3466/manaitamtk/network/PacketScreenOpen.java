@@ -1,6 +1,6 @@
 package com.takoy3466.manaitamtk.network;
 
-import com.takoy3466.manaitamtk.api.abstracts.AbstractMTKPacket;
+import com.takoy3466.manaitamtk.core.abstracts.AbstractMTKPacket;
 import com.takoy3466.manaitamtk.init.TriggersInit;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;

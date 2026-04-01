@@ -1,11 +1,11 @@
 package com.takoy3466.manaitamtk.item.tool;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
-import com.takoy3466.manaitamtk.api.capability.interfaces.IRangeBreak;
-import com.takoy3466.manaitamtk.api.capability.provider.RangeBreakProvider;
-import com.takoy3466.manaitamtk.api.interfaces.ISimpleCapability;
-import com.takoy3466.manaitamtk.api.interfaces.IUseTag;
+import com.takoy3466.manaitamtk.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.capability.interfaces.IRangeBreak;
+import com.takoy3466.manaitamtk.capability.provider.RangeBreakProvider;
+import com.takoy3466.manaitamtk.core.interfaces.ISimpleCapability;
+import com.takoy3466.manaitamtk.core.interfaces.IUseTag;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;

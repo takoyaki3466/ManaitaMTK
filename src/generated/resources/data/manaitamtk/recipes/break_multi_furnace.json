@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "manaitamtk:portable_break_furnace"
+    }
+  ],
+  "result": {
+    "item": "manaitamtk:break_multi_furnace"
+  }
+}

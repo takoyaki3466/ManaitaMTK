@@ -5,7 +5,7 @@
       "conditions": {
         "screen": "mtk_switcher"
       },
-      "trigger": "minecraft:mtk_open"
+      "trigger": "manaitamtk:mtk_open"
     }
   },
   "display": {

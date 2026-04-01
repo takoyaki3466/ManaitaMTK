@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.menu;
 
-import com.takoy3466.manaitamtk.api.interfaces.ISaveLoad;
-import com.takoy3466.manaitamtk.api.helper.MTKMenuHelper;
+import com.takoy3466.manaitamtk.core.interfaces.ISaveLoad;
+import com.takoy3466.manaitamtk.core.helper.MTKMenuHelper;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.util.slot.MTKSlot;
 import com.takoy3466.manaitamtk.util.slot.MTKSlotItemHandler;

@@ -1,14 +1,10 @@
 package com.takoy3466.manaitamtk.init.tab;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.api.registry.register.TabRegister;
+import com.takoy3466.manaitamtk.core.registry.register.TabRegister;
 import com.takoy3466.manaitamtk.init.ItemsInit;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 @SuppressWarnings("unused")

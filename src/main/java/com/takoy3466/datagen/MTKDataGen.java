@@ -38,8 +38,8 @@ public class MTKDataGen {
                 List.of(new LootTableProvider.SubProviderEntry(LTProvider::new, LootContextParamSets.BLOCK))));
         generator.addProvider(run, new BSProvider(output, helper));
 
-        //addProvider(run, LangENProvider::new, generator);
-        //addProvider(run, LangKOProvider::new, generator);
+//        addProvider(run, LangENProvider::new, generator);
+//        addProvider(run, LangKOProvider::new, generator);
         // 今後全てのアイテムをdataGen方式に変える予定
     }
 

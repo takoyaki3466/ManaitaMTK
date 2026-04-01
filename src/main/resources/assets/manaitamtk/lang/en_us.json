@@ -59,6 +59,15 @@
   "block.manaitamtk.mtk_chest": "MTK Chest",
   "block.manaitamtk.auto_workbench_mtk": "Auto Workbench",
 
+  "block.manaitamtk.break_multi_furnace": "Break 33554431x blast smoking furnace",
+  "block.manaitamtk.diamond_multi_furnace": "Diamond 32x blast smoking furnace",
+  "block.manaitamtk.godmtk_multi_furnace": "Godmtk 512x blast smoking furnace",
+  "block.manaitamtk.gold_multi_furnace": "Gold 16x blast smoking furnace",
+  "block.manaitamtk.iron_multi_furnace": "Iron 8x blast smoking furnace",
+  "block.manaitamtk.mtk_multi_furnace": "mtk 64x blast smoking furnace",
+  "block.manaitamtk.stone_multi_furnace": "Stone 4x blast smoking furnace",
+  "block.manaitamtk.wood_multi_furnace": "Wood 2x blast smoking furnace",
+
   "item.manaitamtk.helmet_manaita": "Manaita Helmet",
   "item.manaitamtk.chestplate_manaita": "Manaita Chestplate",
   "item.manaitamtk.legins_manaita": "Manaita Leggings",
@@ -116,6 +125,14 @@
   "advancements.mtk_backpack.description": "Let's make an MTK backpack!",
   "advancements.auto_workbench_mtk.title": "BuildCraft",
   "advancements.auto_workbench_mtk.description": "Let's build an automatic workbench!",
+  "advancements.make_break_multi_furnace.description": "Let's make a Blake Smelter Smoking Furnace!",
+  "advancements.make_break_multi_furnace.title": "If I burn one, will I no longer need it?",
+  "advancements.make_wood_multi_furnace.description": "Let's make a wood smoking furnace!",
+  "advancements.make_wood_multi_furnace.title": "1 piece is 2 pieces! Super value!",
+  "advancements.use_sword.description": "Lightning with a sword...?",
+  "advancements.use_sword.title": "Noisy!",
+  "advancements.craft_in_break_ct.description": "Let's try crafting at the break workbench!",
+  "advancements.craft_in_break_ct.title": "This is a true cutting board!",
 
   "item.manaitamtk.zikokenziyoku.display_massage": "defeat!",
 

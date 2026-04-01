@@ -2,12 +2,11 @@ package com.takoy3466.manaitamtk.item.tool;
 
 import com.takoy3466.manaitamtk.KeyMapping.MTKKeyMappings;
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.api.capability.interfaces.IKillSword;
-import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
-import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
-import com.takoy3466.manaitamtk.api.capability.provider.MTKSwordProvider;
-import com.takoy3466.manaitamtk.api.interfaces.ISimpleCapability;
-import com.takoy3466.manaitamtk.api.interfaces.IUseTag;
+import com.takoy3466.manaitamtk.capability.interfaces.IKillSword;
+import com.takoy3466.manaitamtk.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.capability.provider.MTKSwordProvider;
+import com.takoy3466.manaitamtk.core.interfaces.ISimpleCapability;
+import com.takoy3466.manaitamtk.core.interfaces.IUseTag;
 import com.takoy3466.manaitamtk.network.MTKNetwork;
 import com.takoy3466.manaitamtk.network.PacketisKillAll;
 import com.takoy3466.manaitamtk.util.WeaponUtil;
@@ -24,7 +23,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;

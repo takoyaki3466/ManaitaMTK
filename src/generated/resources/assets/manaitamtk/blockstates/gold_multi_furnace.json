@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "manaitamtk:block/gold_multi_furnace",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "manaitamtk:block/gold_multi_furnace"
+    },
+    "facing=south": {
+      "model": "manaitamtk:block/gold_multi_furnace",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "manaitamtk:block/gold_multi_furnace",
+      "y": 270
+    }
+  }
+}

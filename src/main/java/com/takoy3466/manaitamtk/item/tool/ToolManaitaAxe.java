@@ -1,8 +1,8 @@
 package com.takoy3466.manaitamtk.item.tool;
 
-import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
-import com.takoy3466.manaitamtk.api.capability.provider.WoodReverseProvider;
-import com.takoy3466.manaitamtk.api.interfaces.IHasCapability;
+import com.takoy3466.manaitamtk.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.capability.provider.WoodReverseProvider;
+import com.takoy3466.manaitamtk.core.interfaces.IHasCapability;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

@@ -1,8 +1,8 @@
 package com.takoy3466.manaitamtk.init;
 
-import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
-import com.takoy3466.manaitamtk.api.registry.tiered.TieredDeferredRegister;
-import com.takoy3466.manaitamtk.api.registry.tiered.TieredRegistryObject;
+import com.takoy3466.manaitamtk.core.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.core.registry.tiered.TieredDeferredRegister;
+import com.takoy3466.manaitamtk.core.registry.tiered.TieredRegistryObject;
 import com.takoy3466.manaitamtk.item.*;
 import com.takoy3466.manaitamtk.item.armor.BootsManaita;
 import com.takoy3466.manaitamtk.item.armor.ChestplateManaita;

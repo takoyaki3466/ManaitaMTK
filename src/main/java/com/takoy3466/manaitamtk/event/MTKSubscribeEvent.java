@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.event;
 
-import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
-import com.takoy3466.manaitamtk.api.capability.helper.MTKCapabilityHelper;
+import com.takoy3466.manaitamtk.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.capability.helper.MTKCapabilityHelper;
 import com.takoy3466.manaitamtk.init.ItemsInit;
 import com.takoy3466.manaitamtk.config.MTKConfig;
 import com.takoy3466.manaitamtk.init.EnchantmentsInit;
@@ -117,6 +117,9 @@ public class MTKSubscribeEvent {
 
                 iKillSword.kill(targets, level, player);
 
+                if (!targets.isEmpty()) {
+                    WeaponUtil.RightClickTrigger(stack);
+                }
             });
         }
     }

@@ -1,7 +1,7 @@
 package com.takoy3466.manaitamtk.item;
 
-import com.takoy3466.manaitamtk.api.interfaces.IHasMenuProvider;
-import com.takoy3466.manaitamtk.api.interfaces.ISaveLoad;
+import com.takoy3466.manaitamtk.core.interfaces.IHasMenuProvider;
+import com.takoy3466.manaitamtk.core.interfaces.ISaveLoad;
 import com.takoy3466.manaitamtk.menu.MTKBackpackMenu;
 import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import com.takoy3466.manaitamtk.util.tooptip.MTKBackPackTooltip;

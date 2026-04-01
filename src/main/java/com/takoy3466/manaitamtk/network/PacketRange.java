@@ -1,10 +1,10 @@
 package com.takoy3466.manaitamtk.network;
 
 import com.takoy3466.manaitamtk.ManaitaMTK;
-import com.takoy3466.manaitamtk.api.abstracts.AbstractMTKPacket;
-import com.takoy3466.manaitamtk.api.capability.MTKCapabilities;
-import com.takoy3466.manaitamtk.api.capability.helper.MTKCapabilityHelper;
-import com.takoy3466.manaitamtk.api.interfaces.IUseTag;
+import com.takoy3466.manaitamtk.core.abstracts.AbstractMTKPacket;
+import com.takoy3466.manaitamtk.capability.MTKCapabilities;
+import com.takoy3466.manaitamtk.capability.helper.MTKCapabilityHelper;
+import com.takoy3466.manaitamtk.core.interfaces.IUseTag;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;

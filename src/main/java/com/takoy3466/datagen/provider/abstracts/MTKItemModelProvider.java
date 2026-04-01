@@ -1,7 +1,7 @@
 package com.takoy3466.datagen.provider.abstracts;
 
-import com.takoy3466.manaitamtk.api.registry.MTKRegistryObject;
-import com.takoy3466.manaitamtk.api.registry.tiered.TieredRegistryObject;
+import com.takoy3466.manaitamtk.core.registry.MTKRegistryObject;
+import com.takoy3466.manaitamtk.core.registry.tiered.TieredRegistryObject;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;

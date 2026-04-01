@@ -1,8 +1,12 @@
 package com.takoy3466.manaitamtk.menu;
 
-import com.takoy3466.manaitamtk.api.mtkTier.MTKTier;
-import com.takoy3466.manaitamtk.api.abstracts.RecipeBookMenuMultipler;
-import com.takoy3466.manaitamtk.api.interfaces.IMultipleRecipeResult;
+import com.takoy3466.manaitamtk.core.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.core.abstracts.RecipeBookMenuMultipler;
+import com.takoy3466.manaitamtk.core.interfaces.IMultipleRecipeResult;
+import com.takoy3466.manaitamtk.criterionTrigger.MTKTrigger;
+import com.takoy3466.manaitamtk.init.MTKTiers;
+import com.takoy3466.manaitamtk.network.MTKNetwork;
+import com.takoy3466.manaitamtk.network.PacketMTKTrigger;
 import com.takoy3466.manaitamtk.util.slot.MTKSlot;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -90,6 +94,10 @@ public class MTKCraftingTableMenu extends RecipeBookMenuMultipler<CraftingContai
                     if (result.isItemEnabled(level.enabledFeatures())) {
                         stack = result;
                         this.multipler(stack);
+
+                        if (getMultiple() == MTKTiers.BREAK.getMultiple()) {
+                            MTKNetwork.sendToServer(new PacketMTKTrigger(MTKTrigger.CRAFT_IN_BREAK_CRAFTING_TABLE));
+                        }
                     }
                 }
             }

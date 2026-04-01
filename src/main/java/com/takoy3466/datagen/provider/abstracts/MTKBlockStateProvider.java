@@ -14,7 +14,7 @@ public abstract class MTKBlockStateProvider extends BlockStateProvider {
     }
 
     protected void cube(Block block, ModelFile modelFile) {
-        simpleBlock(block, modelFile);
+        simpleBlockWithItem(block, modelFile);
     }
 
     private void cube(Block block, String name, ResourceLocation down, ResourceLocation up, ResourceLocation north, ResourceLocation south, ResourceLocation east, ResourceLocation west) {

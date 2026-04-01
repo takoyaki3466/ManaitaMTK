@@ -2,6 +2,8 @@ package com.takoy3466.datagen.provider;
 
 import com.takoy3466.datagen.provider.abstracts.MTKBlockStateProvider;
 import com.takoy3466.manaitamtk.ManaitaMTK;
+import com.takoy3466.manaitamtk.core.mtkTier.MTKTier;
+import com.takoy3466.manaitamtk.core.registry.tiered.TieredBlockRegistryObject;
 import com.takoy3466.manaitamtk.init.BlocksInit;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -21,5 +23,17 @@ public class BSProvider extends MTKBlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         cube(BlocksInit.BLOCK_MANAITA.getBlock(), "block_manaita", TOP, TOP, SIDE2, SIDE1, SIDE1, SIDE1);
+        cubeMultiFurnace(BlocksInit.WOOD_MULTI_FURNACE);
+        cubeMultiFurnace(BlocksInit.STONE_MULTI_FURNACE);
+        cubeMultiFurnace(BlocksInit.IRON_MULTI_FURNACE);
+        cubeMultiFurnace(BlocksInit.GOLD_MULTI_FURNACE);
+        cubeMultiFurnace(BlocksInit.DIAMOND_MULTI_FURNACE);
+        cubeMultiFurnace(BlocksInit.MTK_MULTI_FURNACE);
+        cubeMultiFurnace(BlocksInit.GODMTK_MULTI_FURNACE);
+        cubeMultiFurnace(BlocksInit.BREAK_MULTI_FURNACE);
+    }
+
+    private void cubeMultiFurnace(TieredBlockRegistryObject<MTKTier> block) {
+        cube(block.getBlock(), block.getTier().getName() + "_multi_furnace", BOTTOM, TOP, SIDE1, SIDE2, SIDE2, SIDE2);
     }
 }
