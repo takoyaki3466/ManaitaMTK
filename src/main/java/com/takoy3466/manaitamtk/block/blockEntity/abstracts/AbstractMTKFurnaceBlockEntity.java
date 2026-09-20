@@ -3,7 +3,6 @@ package com.takoy3466.manaitamtk.block.blockEntity.abstracts;
 import com.takoy3466.manaitamtk.core.mtkTier.MTKTier;
 import com.takoy3466.manaitamtk.core.abstracts.BaseContainerBlockEntityMultipler;
 import com.takoy3466.manaitamtk.core.interfaces.ITickableBlockEntity;
-import com.takoy3466.manaitamtk.menu.abstracts.AbstractMTKFurnaceMenu;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
@@ -36,6 +35,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
@@ -97,14 +97,12 @@ public abstract class AbstractMTKFurnaceBlockEntity extends BaseContainerBlockEn
     }
 
     @Override
-    protected Component getDefaultName() {
+    protected @NotNull Component getDefaultName() {
         return Component.literal(this.guiName.getString() + " x" + getMultiple());
     }
 
     @Override
-    public AbstractContainerMenu createMenu(int id, Inventory inventory) {
-        return new AbstractMTKFurnaceMenu(id, inventory, this.getBlockPos(), getMTKTier());
-    }
+    public abstract @NotNull AbstractContainerMenu createMenu(int id, Inventory inventory);
 
     // 加工時間の設定
     private static int  getTotalCookTime() {

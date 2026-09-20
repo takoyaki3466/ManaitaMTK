@@ -1,12 +1,13 @@
 package com.takoy3466.manaitamtk.capability;
 
 import com.takoy3466.manaitamtk.capability.interfaces.*;
+import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
 
 public class MTKCapabilities {
-    public static final Capability<IPortableFurnace> PORTABLE_FURNACE = CapabilityManager.get(new CapabilityToken<>() {});
+    public static final Capability<IPortableFurnace<MTKItemStackHandler>> PORTABLE_FURNACE = CapabilityManager.get(new CapabilityToken<>() {});
 
     public static final Capability<IFly> FLY = CapabilityManager.get(new CapabilityToken<>() {});
 

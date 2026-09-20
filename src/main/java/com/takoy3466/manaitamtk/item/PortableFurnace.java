@@ -10,6 +10,7 @@ import com.takoy3466.manaitamtk.capability.provider.PortableFurnaceProvider;
 import com.takoy3466.manaitamtk.capability.interfaces.IPortableFurnace;
 import com.takoy3466.manaitamtk.core.interfaces.IHasMenuProvider;
 import com.takoy3466.manaitamtk.menu.PortableFurnaceMenu;
+import com.takoy3466.manaitamtk.util.slot.MTKItemStackHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -27,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class PortableFurnace extends AbstractItemMultipler implements ISimpleCapability<IPortableFurnace>, IHasMenuProvider, IUseTag {
+public class PortableFurnace extends AbstractItemMultipler implements ISimpleCapability<IPortableFurnace<MTKItemStackHandler>>, IHasMenuProvider, IUseTag {
 
     public PortableFurnace(MTKTier mtkTier) {
         super(new Properties(), mtkTier);
@@ -94,7 +95,7 @@ public class PortableFurnace extends AbstractItemMultipler implements ISimpleCap
     }
 
     @Override
-    public Capability<IPortableFurnace> getCapability() {
+    public Capability<IPortableFurnace<MTKItemStackHandler>> getCapability() {
         return MTKCapabilities.PORTABLE_FURNACE;
     }
 }

@@ -63,7 +63,7 @@ public class MTKSubscribeEvent {
         Level level = event.getPlayer().level();
 
         if (level.isClientSide()) return;
-        if (player instanceof ServerPlayer sPlayer){
+        if (player instanceof ServerPlayer sPlayer) {
             if (sPlayer.gameMode.getGameModeForPlayer() == GameType.CREATIVE) return;
         }
 
@@ -111,9 +111,7 @@ public class MTKSubscribeEvent {
                 Predicate<LivingEntity> allEntity = entity -> (entity != player) && (entity instanceof LivingEntity);
                 Predicate<LivingEntity> onlyEnemy = entity -> (entity != player) && (entity instanceof Enemy);
 
-                List<LivingEntity> targets = iKillSword.isKillAll() ?
-                        WeaponUtil.selectTargets(entityClass, level, player, radius/10, allEntity)
-                        : WeaponUtil.selectTargets(entityClass, level, player, radius, onlyEnemy);
+                List<LivingEntity> targets = iKillSword.isKillAll() ? WeaponUtil.selectTargets(entityClass, level, player, radius / 10, allEntity) : WeaponUtil.selectTargets(entityClass, level, player, radius, onlyEnemy);
 
                 iKillSword.kill(targets, level, player);
 
@@ -160,17 +158,44 @@ public class MTKSubscribeEvent {
                     player.onUpdateAbilities();
 
                     if (player instanceof ServerPlayer serverPlayer) {
-                        serverPlayer.connection.teleport(serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(),
-                                serverPlayer.getYRot(), serverPlayer.getXRot());
+                        serverPlayer.connection.teleport(serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), serverPlayer.getYRot(), serverPlayer.getXRot());
                     }
                 }
-            }else {
+            } else {
                 if (current.getItem() == ItemsInit.HELMET_MANAITA.get()) {
                     player.getAbilities().mayfly = true;
                     MTKCapabilityHelper.execute(MTKCapabilities.FLY, player, EquipmentSlot.HEAD, iFly -> iFly.setCanFly(true));
                     player.onUpdateAbilities();
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerTickFlySync(TickEvent.PlayerTickEvent event) {
+        if (event.phase != TickEvent.Phase.END) {
+            return;
+        }
+
+        Player player = event.player;
+
+        if (player.level().isClientSide()) {
+            return;
+        }
+        if (player.isCreative() || player.isSpectator()) {
+            return;
+        }
+
+        boolean canFly = player.getItemBySlot(EquipmentSlot.HEAD).is(ItemsInit.HELMET_MANAITA.get());
+
+        if (player.getAbilities().mayfly != canFly) {
+            player.getAbilities().mayfly = canFly;
+
+            if (!canFly) {
+                player.getAbilities().flying = false;
+            }
+
+            player.onUpdateAbilities();
         }
     }
 

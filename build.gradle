@@ -7,7 +7,6 @@ buildscript {
     }
     dependencies {
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -19,7 +18,6 @@ plugins {
 }
 
 apply plugin: 'org.spongepowered.mixin'
-apply plugin: 'kotlin'
 
 version = mod_version
 group = mod_group_id
@@ -160,7 +158,4 @@ tasks.named('jar', Jar).configure {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
-}
-kotlin {
-    jvmToolchain(17)
 }

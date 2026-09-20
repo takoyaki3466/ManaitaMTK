@@ -48,7 +48,7 @@ public class PortableFurnaceProvider implements IPortableFurnace<MTKItemStackHan
 
 
     @Override
-    public MTKItemStackHandler gethandler() {
+    public MTKItemStackHandler getHandler() {
         return this.handler;
     }
 

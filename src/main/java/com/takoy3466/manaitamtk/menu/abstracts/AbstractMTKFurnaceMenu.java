@@ -2,10 +2,8 @@ package com.takoy3466.manaitamtk.menu.abstracts;
 
 import com.takoy3466.manaitamtk.core.helper.MTKMenuHelper;
 import com.takoy3466.manaitamtk.core.interfaces.IFurnaceMenu;
-import com.takoy3466.manaitamtk.core.mtkTier.MTKTier;
 import com.takoy3466.manaitamtk.block.blockEntity.abstracts.AbstractMTKFurnaceBlockEntity;
 import com.takoy3466.manaitamtk.util.slot.MTKFurnaceFuelSlot;
-import com.takoy3466.manaitamtk.init.MenusInit;
 import com.takoy3466.manaitamtk.util.slot.MTKSlot;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -22,8 +20,11 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.ForgeHooks;
+import org.jetbrains.annotations.NotNull;
 
-public class AbstractMTKFurnaceMenu extends RecipeBookMenu<Container> implements IFurnaceMenu {
+import java.util.Objects;
+
+public abstract class AbstractMTKFurnaceMenu extends RecipeBookMenu<Container> implements IFurnaceMenu {
     private final ContainerData containerData;
     private final Level level;
     private final RecipeType<? extends AbstractCookingRecipe> recipeType;
@@ -31,22 +32,12 @@ public class AbstractMTKFurnaceMenu extends RecipeBookMenu<Container> implements
 
     public final AbstractMTKFurnaceBlockEntity blockEntity;
 
-    public AbstractMTKFurnaceMenu(int id, Inventory playerInventory, FriendlyByteBuf buf, MTKTier mtkTier) {
-        this(id, playerInventory, buf.readBlockPos(), mtkTier);
+    public AbstractMTKFurnaceMenu(MenuType<?> type, int id, Inventory playerInventory, FriendlyByteBuf buf) {
+        this(type, id, playerInventory, buf.readBlockPos());
     }
 
-    public AbstractMTKFurnaceMenu(int id, Inventory playerInventory, BlockPos pos, MTKTier mtkTier) {
-        super(switch (mtkTier.getMultiple()) {
-            case 2 -> MenusInit.MTK_FURNACE_WOOD.get();
-            case 4 -> MenusInit.MTK_FURNACE_STONE.get();
-            case 8 -> MenusInit.MTK_FURNACE_IRON.get();
-            case 16 -> MenusInit.MTK_FURNACE_GOLD.get();
-            case 32 -> MenusInit.MTK_FURNACE_DIAMOND.get();
-            case 64 -> MenusInit.MTK_FURNACE_MTK.get();
-            case 612 -> MenusInit.MTK_FURNACE_GODMTK.get();
-            case 33554431 -> MenusInit.MTK_FURNACE_BREAK.get();
-            default -> null;
-        }, id);
+    public AbstractMTKFurnaceMenu(MenuType<?> type, int id, Inventory playerInventory, BlockPos pos) {
+        super(type, id);
         this.recipeType = RecipeType.SMELTING;
         this.recipeBookType = RecipeBookType.FURNACE;
         this.level = playerInventory.player.level();
@@ -55,7 +46,7 @@ public class AbstractMTKFurnaceMenu extends RecipeBookMenu<Container> implements
         if (be instanceof AbstractMTKFurnaceBlockEntity furnaceBlockEntity){
             this.blockEntity = furnaceBlockEntity;
         } else {
-            throw new IllegalStateException(be.getClass().getCanonicalName() + "と MTKFurnaceBlockEntity クラスは違うよ！");
+            throw new IllegalStateException(Objects.requireNonNull(be).getClass().getCanonicalName() + "と MTKFurnaceBlockEntity クラスは違うよ！");
         }
 
         this.containerData = blockEntity.dataAccess;
@@ -77,9 +68,9 @@ public class AbstractMTKFurnaceMenu extends RecipeBookMenu<Container> implements
         this.addDataSlots(containerData);
     }
 
-    public void fillCraftSlotsStackedContents(StackedContents stackedContents) {
-        if (this.blockEntity instanceof StackedContentsCompatible) {
-            ((StackedContentsCompatible)this.blockEntity).fillStackedContents(stackedContents);
+    public void fillCraftSlotsStackedContents(@NotNull StackedContents stackedContents) {
+        if (this.blockEntity != null) {
+            this.blockEntity.fillStackedContents(stackedContents);
         }
 
     }
@@ -109,7 +100,7 @@ public class AbstractMTKFurnaceMenu extends RecipeBookMenu<Container> implements
         return 3;
     }
 
-    public RecipeBookType getRecipeBookType() {
+    public @NotNull RecipeBookType getRecipeBookType() {
         return this.recipeBookType;
     }
 
@@ -121,7 +112,7 @@ public class AbstractMTKFurnaceMenu extends RecipeBookMenu<Container> implements
         return this.blockEntity.stillValid(player);
     }
 
-    public ItemStack quickMoveStack(Player player, int i) {
+    public @NotNull ItemStack quickMoveStack(@NotNull Player player, int i) {
         ItemStack stack = ItemStack.EMPTY;
         Slot slot = this.slots.get(i);
         if (slot.hasItem()) {
@@ -170,7 +161,7 @@ public class AbstractMTKFurnaceMenu extends RecipeBookMenu<Container> implements
     }
 
     @Override
-    protected boolean moveItemStackTo(ItemStack stack, int i, int i1, boolean b) {
+    protected boolean moveItemStackTo(@NotNull ItemStack stack, int i, int i1, boolean b) {
         return MTKMenuHelper.moveItemStackTo(this.slots, stack, i, i1, b);
     }
 

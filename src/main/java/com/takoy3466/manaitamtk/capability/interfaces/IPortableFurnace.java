@@ -10,7 +10,7 @@ import net.minecraftforge.items.ItemStackHandler;
 @AutoRegisterCapability
 public interface IPortableFurnace<T extends ItemStackHandler> extends INBTSerializable<CompoundTag> {
 
-    T gethandler();
+    T getHandler();
 
     int getLitTime();
     void setLitTime(int litTime);

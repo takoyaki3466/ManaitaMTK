@@ -15,14 +15,14 @@ public class MenusInit {
 
     public static final RegistryObject<MenuType<MTKChestMenu>> MTK_CHEST = MENUS.register("mtk_chest", MTKChestMenu::new);
 
-    public static final RegistryObject<MenuType<AbstractMTKFurnaceMenu>> MTK_FURNACE_WOOD = furnaceRegister(MTKTiers.WOOD);
-    public static final RegistryObject<MenuType<AbstractMTKFurnaceMenu>> MTK_FURNACE_STONE = furnaceRegister(MTKTiers.STONE);
-    public static final RegistryObject<MenuType<AbstractMTKFurnaceMenu>> MTK_FURNACE_IRON = furnaceRegister(MTKTiers.IRON);
-    public static final RegistryObject<MenuType<AbstractMTKFurnaceMenu>> MTK_FURNACE_GOLD = furnaceRegister(MTKTiers.GOLD);
-    public static final RegistryObject<MenuType<AbstractMTKFurnaceMenu>> MTK_FURNACE_DIAMOND = furnaceRegister(MTKTiers.DIAMOND);
-    public static final RegistryObject<MenuType<AbstractMTKFurnaceMenu>> MTK_FURNACE_MTK = furnaceRegister(MTKTiers.MTK);
-    public static final RegistryObject<MenuType<AbstractMTKFurnaceMenu>> MTK_FURNACE_GODMTK = furnaceRegister(MTKTiers.GODMTK);
-    public static final RegistryObject<MenuType<AbstractMTKFurnaceMenu>> MTK_FURNACE_BREAK = furnaceRegister(MTKTiers.BREAK);
+    public static final RegistryObject<MenuType<AbstractMTKFurnaceMenu>> MTK_FURNACE_WOOD = furnaceRegister(MTKTiers.WOOD, MTKFurnaceMenu.Wood::new);
+    public static final RegistryObject<MenuType<AbstractMTKFurnaceMenu>> MTK_FURNACE_STONE = furnaceRegister(MTKTiers.STONE, MTKFurnaceMenu.Stone::new);
+    public static final RegistryObject<MenuType<AbstractMTKFurnaceMenu>> MTK_FURNACE_IRON = furnaceRegister(MTKTiers.IRON, MTKFurnaceMenu.Iron::new);
+    public static final RegistryObject<MenuType<AbstractMTKFurnaceMenu>> MTK_FURNACE_GOLD = furnaceRegister(MTKTiers.GOLD, MTKFurnaceMenu.Gold::new);
+    public static final RegistryObject<MenuType<AbstractMTKFurnaceMenu>> MTK_FURNACE_DIAMOND = furnaceRegister(MTKTiers.DIAMOND, MTKFurnaceMenu.Diamond::new);
+    public static final RegistryObject<MenuType<AbstractMTKFurnaceMenu>> MTK_FURNACE_MTK = furnaceRegister(MTKTiers.MTK, MTKFurnaceMenu.Mtk::new);
+    public static final RegistryObject<MenuType<AbstractMTKFurnaceMenu>> MTK_FURNACE_GODMTK = furnaceRegister(MTKTiers.GODMTK, MTKFurnaceMenu.GodMtk::new);
+    public static final RegistryObject<MenuType<AbstractMTKFurnaceMenu>> MTK_FURNACE_BREAK = furnaceRegister(MTKTiers.BREAK, MTKFurnaceMenu.Break::new);
 
     public static final RegistryObject<MenuType<MTKBackpackMenu>> MTK_BACKPACK = MENUS.register("mtk_back_pack", MTKBackpackMenu::new);
 
@@ -35,8 +35,8 @@ public class MenusInit {
     public static final RegistryObject<MenuType<AbstractMultiFurnaceMenu>> GODMTK_MULTI_FURNACE = multiFurnace(MultiFurnaceMenu.GodMTK::new, MTKTiers.GODMTK);
     public static final RegistryObject<MenuType<AbstractMultiFurnaceMenu>> BREAK_MULTI_FURNACE = multiFurnace(MultiFurnaceMenu.Break::new, MTKTiers.BREAK);
 
-    public static RegistryObject<MenuType<AbstractMTKFurnaceMenu>> furnaceRegister(MTKTier mtkTier) {
-        return MENUS.register("mtk_furnace_" + mtkTier.getName(), (id, inv, buf) -> new AbstractMTKFurnaceMenu(id, inv, buf, mtkTier));
+    public static <T extends AbstractMTKFurnaceMenu> RegistryObject<MenuType<T>> furnaceRegister(MTKTier mtkTier, IContainerFactory<T> factory) {
+        return MENUS.register("mtk_furnace_" + mtkTier.getName(), factory);
     }
 
     public static <T extends AbstractMultiFurnaceMenu> RegistryObject<MenuType<T>> multiFurnace(IContainerFactory<T> factory, MTKTier mtkTier) {

@@ -37,9 +37,9 @@ public class PortableFurnaceMenu extends AbstractContainerMenu implements IHasCa
         this.recipeType = RecipeType.SMELTING;
         this.stack = stack;
 
-        this.addSlot(new MTKSlotItemHandler(this.furnace.gethandler(), 0, 56, 17)); // importSlot
-        this.addSlot(new MTKFurnaceFuelHandler(this, this.furnace.gethandler(), 1, 56, 53)); // fuelSlot
-        this.addSlot(new MTKFurnaceResultSlot(this.player, this.furnace.gethandler(), 2, 116, 35)); // resultSlot
+        this.addSlot(new MTKSlotItemHandler(this.furnace.getHandler(), 0, 56, 17)); // importSlot
+        this.addSlot(new MTKFurnaceFuelHandler(this, this.furnace.getHandler(), 1, 56, 53)); // fuelSlot
+        this.addSlot(new MTKFurnaceResultSlot(this.player, this.furnace.getHandler(), 2, 116, 35)); // resultSlot
 
         this.addDataSlots(this.containerData);
 
